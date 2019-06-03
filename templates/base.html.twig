@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+           
+        {% endblock %}
+    </head>
+    <body style="background-color:maroon;">
+        {% block body %}{% endblock %}
+       {% block javascripts %}
+             <!-- Renders a link tag (if your module requires any CSS) -->
+            <link rel="stylesheet" href="/build/app.js">
+       {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,44 @@
+body{
+    font-size:2rem;
+}
+
+.bg-transparent {
+    background: transparent !important;
+}
+
+.tg-topbar {
+    background:rgba(17, 20, 30,50%);
+    border:none !important;
+}
+
+.input {
+    margin-bottom: 0.5em;
+}
+
+.facebook {
+    background: 32508e !important;
+}
+
+.twintter {
+    background: #55ACEF !important;
+}
+.google {
+    background: #DE4B3B !important;
+}
+
+/* .form-contenair {
+    position: relative;
+    width: 42%;
+    top: -50rem;
+    left: 2rem;
+    background: rgba(255, 255, 255, 45%) !important;
+    padding: 2rem;
+    border-radius: 8%;
+} */
+
+.input-serch-bar {
+    border-radius: 15px;
+}
+.tg-themedropdown {
+    /* background: #5dc560; */
+}

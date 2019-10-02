@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="User" table="user">
+    <indexes>
+      <index name="IDX_8D93D649887AF182" columns="user_category_activity_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="UNIQ_8D93D649E7927C74" columns="email"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="email" type="string" column="email" length="180" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="roles" type="json" column="roles" nullable="false"/>
+    <field name="password" type="string" column="password" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="name" type="string" column="name" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="mobile" type="string" column="mobile" length="15" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="businessCategory" type="string" column="business_category" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="geoLocation" type="string" column="geo_location" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="businessSubCategory" type="string" column="business_sub_category" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="companyTitle" type="string" column="company_title" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="isAcceptConditionTerm" type="boolean" column="is_accept_condition_term" nullable="true"/>
+    <field name="isBusiness" type="boolean" column="is_business" nullable="true"/>
+    <field name="isProfessional" type="boolean" column="is_professional" nullable="true"/>
+    <field name="logo" type="string" column="logo" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="profilImage" type="string" column="profil_image" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="memberType" type="string" column="member_type" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="isActivity" type="boolean" column="is_activity" nullable="true"/>
+    <field name="companyName" type="string" column="company_name" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="username" type="string" column="username" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="firstname" type="string" column="firstname" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="enabled" type="boolean" column="enabled" nullable="true"/>
+    <field name="isParticular" type="boolean" column="is_particular" nullable="true"/>
+    <field name="siretNumber" type="string" column="siret_number" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="zipCode" type="string" column="zip_code" length="15" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="lat" type="text" column="lat" length="0" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="log" type="text" column="log" length="0" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="freeDateExpire" type="datetime" column="free_date_expire" nullable="true"/>
+    <many-to-one field="userCategoryActivity" target-entity="Category" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_category_activity_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

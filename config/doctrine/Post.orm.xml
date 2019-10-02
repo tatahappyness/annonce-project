@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Post" table="post">
+    <indexes>
+      <index name="IDX_5A8A6C8D714819A0" columns="type_id_id"/>
+      <index name="IDX_5A8A6C8DBEFE6CCE" columns="post_user_id_id"/>
+      <index name="IDX_5A8A6C8D9777D11E" columns="category_id_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="postZipcode" type="string" column="post_zipcode" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postCity" type="string" column="post_city" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postRegion" type="string" column="post_region" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postDptCode" type="string" column="post_dpt_code" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postAdress" type="string" column="post_adress" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postLatitude" type="string" column="post_latitude" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postLongitude" type="string" column="post_longitude" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postGeoSource" type="string" column="post_geo_source" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postName" type="string" column="post_name" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postSiren" type="string" column="post_siren" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postEmail" type="string" column="post_email" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postPhone" type="string" column="post_phone" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postAdsDomaineSpecialisation" type="string" column="post_ads_domaine_specialisation" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postAdsTravauxDescription" type="string" column="post_ads_travaux_description" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postAdsTypeClient" type="string" column="post_ads_type_client" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postAdsTypeHabitation" type="string" column="post_ads_type_habitation" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postAdsStartDate" type="datetime" column="post_ads_start_date" nullable="true"/>
+    <field name="postAdsTravauxSurface" type="string" column="post_ads_travaux_surface" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postAdsEtatTerrain" type="string" column="post_ads_etat_terrain" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postLocation" type="string" column="post_location" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="postAdsDateCrea" type="datetime" column="post_ads_date_crea" nullable="true"/>
+    <field name="email" type="string" column="email" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="phone" type="string" column="phone" length="16" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="type" target-entity="Type" fetch="LAZY">
+      <join-columns>
+        <join-column name="type_id_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="category" target-entity="Category" fetch="LAZY">
+      <join-columns>
+        <join-column name="category_id_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="postUser" target-entity="User" fetch="LAZY">
+      <join-columns>
+        <join-column name="post_user_id_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -22,29 +22,60 @@ class PostRepository extends ServiceEntityRepository
     // /**
     //  * @return Post[] Returns an array of Post objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findAllPost($limit = 50, $offset = 0)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('p.id', 'DESC')
+            ->setFirstResult( $offset )
+            ->setMaxResults($limit)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Post
+    public function filterByCategoryOrCityOrZipcodeOrDepartement($data = null, $limit = 100, $offset = 0)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+            ->where('p.CategoryId IN (?1) OR p.CategoryId IN (?2) AND p.city = ?3 OR p.CategoryId IN (?4) AND p.postZipcode = ?5')
+            ->setParameters($data)
+            ->orderBy('p.id', 'ASC')
+            ->setFirstResult( $offset )
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
+    
+    public function findOneById($value): ?Post
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+    
+    public function findAllArray(): ?Array
+    {
+        return $this->findAll();
+    }
+
+    public function findOneByArray(array $criteria, array $orderBy = null): ?Post
+    {
+        return $this->findOneBy($criteria, $orderBy);
+    }
+    
+    public function findById($id, $lockMode = null, $lockVersion = null): ?Post
+    {
+        return $this->find($id);
+    }
+
+    public function findByArray(array $criteria, array $orderBy = null, $limit = null, $offset = null): ?Array
+    {
+        return $this->findBy($criteria, $orderBy = null, $limit = null, $offset = null);
+    }
+
 }

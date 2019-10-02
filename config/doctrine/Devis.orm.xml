@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Devis" table="devis">
+    <indexes>
+      <index name="IDX_8B27C52B944D5CF" columns="dev_user_id_dest_id"/>
+      <index name="IDX_8B27C52B1DECB9C6" columns="fonction_id_id"/>
+      <index name="IDX_8B27C52B92B1037" columns="dev_user_id_id"/>
+      <index name="IDX_8B27C52BFA13AC0B" columns="nature_project_id"/>
+      <index name="IDX_8B27C52BB6EC9B9" columns="type_project_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="detailProject" type="text" column="detail_project" length="0" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="firstName" type="string" column="first_name" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="userName" type="string" column="user_name" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="phoneNumber" type="string" column="phone_number" length="15" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="email" type="string" column="email" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="zipCode" type="string" column="zip_code" length="8" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="city" type="string" column="city" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="isAcceptedCondition" type="boolean" column="is_accepted_condition" nullable="false"/>
+    <field name="civility" type="string" column="civility" length="4" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="isAskDemande" type="boolean" column="is_ask_demande" nullable="true"/>
+    <field name="dateCrea" type="datetime" column="date_crea" nullable="true"/>
+    <field name="devisIsAccepted" type="boolean" column="devis_is_accepted" nullable="true"/>
+    <field name="devisIsValidated" type="boolean" column="devis_is_validated" nullable="true"/>
+    <field name="devisIsFinished" type="boolean" column="devis_is_finished" nullable="true"/>
+    <many-to-one field="fonction" target-entity="Fonction" fetch="LAZY">
+      <join-columns>
+        <join-column name="fonction_id_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="devUser" target-entity="User" fetch="LAZY">
+      <join-columns>
+        <join-column name="dev_user_id_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="devUserDest" target-entity="User" fetch="LAZY">
+      <join-columns>
+        <join-column name="dev_user_id_dest_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="typeProject" target-entity="Type" fetch="LAZY">
+      <join-columns>
+        <join-column name="type_project_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="natureProject" target-entity="Article" fetch="LAZY">
+      <join-columns>
+        <join-column name="nature_project_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

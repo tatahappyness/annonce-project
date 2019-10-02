@@ -1,0 +1,453 @@
+	{% extends  'base.html.twig' %}
+
+		{% block stylesheets %}
+
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />-->
+		<script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+		<!-- CSS Files -->
+		<link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+    
+	{% endblock %}
+
+	{% block body %}
+	
+	<div class="page-header" style="min-height: 35vh !important;">
+		<div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/head-1.jpg'); background-attachment: fixed;">
+		</div>
+		<div class="row">
+			<div class="col-12 p-0">
+				<div class="contenair-header-menu"> 
+					<nav class="navbar navbar-expand bg-gray py-0 navbar-head">
+					  <div class="container border-0">
+						<div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+							<div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
+								<a class="text-decoration-none" href="{{ path('home_page') }}">
+								  <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
+								</a>
+							
+								<ul class="navbar-nav mt-2 mt-lg-0">
+									<li class="nav-item active">
+									  <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
+									</li>
+									<li class="nav-item">
+									  <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
+									</li>
+								</ul>
+							</div>
+							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+								<span class="mr-1">
+									<button class="btn btn-round rounded bg-gray show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap" type="button">
+										<i class="">🔒</i> Se connecter
+									</button>
+								</span>
+								<span class="">
+									<a href="{{ path('space_pro_page') }}" class="btn btn-round bg-white border-warning font-weight-bold text-success text-nowrap text-decoration-none">
+										<i class="">👷🏾</i>  Vous êtes un pro ?
+									</a>
+								</span>
+							</div>
+						</div>
+					  </div>
+					</nav>
+					<!-- Navbar menu end here -->
+					  
+					  <!-- ############################# NAVBAR HERE LARGE -->
+						
+					<div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
+					  <div class="container">
+						<button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
+						<div class="navbar-collapse collapse">
+						  <ul class="nav navbar-nav">
+							</li>
+							<li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">INSTALLER</a>
+							  <ul class="dropdown-menu megamenu">
+							  <div class="row">
+							  <li class="col-12 col-sm-7 text-center">
+								<ul class="row" style=" list-style-type: none;">
+
+									<div class="col-12 col-md-4 col-lg-3 p-0">
+									  <li class="dropdown-header">Categorie-1</li>
+									  <li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+									  </li>
+									  <li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+									  </li>
+									  <li class="divider"></li>
+									</div>
+								
+									<div class="col-12 col-md-4 col-lg-3 p-0">
+									  <li class="dropdown-header">Categorie-2</li>
+									  <li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+									  </li>
+									  <li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+									  </li>
+									  <li class="divider"></li>
+									</div>
+
+								</ul>
+							  </li>
+
+							  <li class=" col-12 col-sm-5 dropdown-item">
+								<div class="row">
+									<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+									<div class="col-12 col-md-6">
+										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+											<a href="#" class="thumbnail">
+											  <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+											</a>
+											<a href="#" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+										</div>
+									</div>
+									<div class="col-12 col-md-6">
+										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+											<a href="#" class="thumbnail">
+											  <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+											</a>
+											<a href="#" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+										</div>
+									</div>
+
+								</div>
+							  </li>
+
+							  </div>
+							  </ul>
+						  </li>
+						  <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">RENOVER </a>
+							<ul class="dropdown-menu megamenu">
+							  <div class="row">
+							  <li class="col-12 col-sm-7 text-center">
+								<ul class="row" style=" list-style-type: none;">
+
+									<div class="col-12 col-md-4 col-lg-3 p-0">
+										<li class="dropdown-header">Categorie-1</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+										</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+										</li>
+										<li class="divider"></li>
+									</div>
+								
+									<div class="col-12 col-md-4 col-lg-3 p-0">
+										<li class="dropdown-header">Categorie-2</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+										</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+										</li>
+										<li class="divider"></li>
+									</div>
+
+								</ul>
+							  </li>
+							  <li class=" col-12 col-sm-5 dropdown-item">
+								<div class="row">
+									<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+									<div class="col-12 col-md-6">
+										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+											<a href="#" class="thumbnail">
+											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+											</a>
+											<a href="#" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+										</div>
+									</div>
+									<div class="col-12 col-md-6">
+										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+											<a href="#" class="thumbnail">
+											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+											</a>
+											<a href="#" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+										</div>
+									</div>
+
+								</div>
+							  </li>
+							  </div>
+							  </ul>
+						  </li>
+						 <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Aménager son intérieur</a>
+							<ul class="dropdown-menu megamenu">
+							  <div class="row">
+							  <li class="col-12 col-sm-7 text-center">
+								<ul class="row" style=" list-style-type: none;">
+
+									<div class="col-12 col-md-4 col-lg-3 p-0">
+										<li class="dropdown-header">Categorie-1</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+										</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+										</li>
+										<li class="divider"></li>
+									</div>
+								
+									<div class="col-12 col-md-4 col-lg-3 p-0">
+										<li class="dropdown-header">Categorie-2</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+										</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+										</li>
+										<li class="divider"></li>
+									</div>
+
+								</ul>
+							  </li>
+							  <li class=" col-12 col-sm-5 dropdown-item">
+								<div class="row">
+									<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+									<div class="col-12 col-md-6">
+										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+											<a href="#" class="thumbnail">
+											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+											</a>
+											<a href="#" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+										</div>
+									</div>
+									<div class="col-12 col-md-6">
+										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+											<a href="#" class="thumbnail">
+											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+											</a>
+											<a href="#" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+										</div>
+									</div>
+
+								</div>
+							  </li>
+							  </div>
+							  </ul>
+							</li>
+							<li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Aménager son extérieur</a>
+							<ul class="dropdown-menu megamenu">
+							  <div class="row">
+							  <li class="col-12 col-sm-7 text-center">
+								<ul class="row" style=" list-style-type: none;">
+
+									<div class="col-12 col-md-4 col-lg-3 p-0">
+										<li class="dropdown-header">Categorie-1</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+										</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+										</li>
+										<li class="divider"></li>
+									</div>
+								
+									<div class="col-12 col-md-4 col-lg-3 p-0">
+										<li class="dropdown-header">Categorie-2</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+										</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+										</li>
+										<li class="divider"></li>
+									</div>
+
+								</ul>
+							  </li>
+							  <li class=" col-12 col-sm-5 dropdown-item">
+								<div class="row">
+									<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+									<div class="col-12 col-md-6">
+										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+											<a href="#" class="thumbnail">
+											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+											</a>
+											<a href="#" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+										</div>
+									</div>
+									<div class="col-12 col-md-6">
+										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+											<a href="#" class="thumbnail">
+											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+											</a>
+											<a href="#" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+										</div>
+									</div>
+
+								</div>
+							  </li>
+							  </div>
+							 </ul>
+							</li>
+							<li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Construire </a>
+							<ul class="dropdown-menu megamenu">
+							  <div class="row">
+							  <li class="col-12 col-sm-7 text-center">
+								<ul class="row" style=" list-style-type: none;">
+
+									<div class="col-12 col-md-4 col-lg-3 p-0">
+										<li class="dropdown-header">Categorie-1</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+										</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+										</li>
+										<li class="divider"></li>
+									</div>
+								
+									<div class="col-12 col-md-4 col-lg-3 p-0">
+										<li class="dropdown-header">Categorie-2</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+										</li>
+										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+										</li>
+										<li class="divider"></li>
+									</div>
+
+								</ul>
+							  </li>
+							  <li class=" col-12 col-sm-5 dropdown-item">
+								<div class="row">
+									<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+									<div class="col-12 col-md-6">
+										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+											<a href="#" class="thumbnail">
+											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+											</a>
+											<a href="#" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+										</div>
+									</div>
+									<div class="col-12 col-md-6">
+										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+											<a href="#" class="thumbnail">
+											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+											</a>
+											<a href="#" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+										</div>
+									</div>
+									
+								</div>
+							  </li>
+							  </div>
+							  </ul>
+							</li>
+							<li class="nav-item"><a href="{{ path('space_find_pro_page') }}" class="nav-link">Trouver un pro</a></li>
+						  </ul>
+						</div>	
+					  </div> 
+					</div>
+					<!-- ############################# END NAVBAR HERE LARGE -->	
+					 <!-- Progress barr slid scroll -->
+					<div class="progress-container fixed-top">
+						<div class="progress-bar" id="myBar"></div>
+					</div> 
+					  
+				</div>
+			</div>
+		</div>
+		<!-- End Row for Menu header -->
+		
+		<!-- Begin for row content header parallax -->
+		<div class="container  border-0">
+			<div class="row row-slide-first-header header-login-parallax d-flex justify-content-center font-weight-light" style="position: relative; padding-top: 2em;">
+		
+				<!-- ############# Begin form search -->
+				<div class="col-10">
+					<h2 class="text-uppercase text-warning font-weight-bold">Comment ça marche ?</h2>
+				</div>
+				<!-- ############# End form search-->
+		
+			</div><!-- End container presentation header -->
+		
+		</div>
+	</div>
+		<!--END HEADER-->
+
+	<div class="jumbotron bg-transparent">
+		
+		<main class="section-1 section-main-home">
+				
+			<!--Begin section How to Step -->
+			<section class="bg-darkgray" style="margin-top: 0;">
+				<div class="container">
+					<div class="row d-flex py-5 justify-content-center">	
+						<div class="col-12 text-center">
+							<h6 class="text-white">Contactez les particuliers autour de vous !</h6>
+						</div>
+						<div class="col-12 col-lg-3 d-flex flex-column text-center align-items-center justify-content-center py-4">
+							<span class="bg-warning mb-3 rounded-circle" style="width: 64px; height: 64px"><span class="h2 text-dark font-weight-bold" style="line-height: 64px;">1</span></span>
+							<span class="pro-icon mb-3">
+							<span class="icon-how-to-step">
+								<img src="{{ absolute_url('/assets/img/student-businesswoman-816.jpg') }}" class="icon-how-to-step"></img>
+							</span>
+							</span>
+							<span class="h6 text-warning">Je decri mon projet <br> Vous recevrez jusqu'à 5 devis </span>
+							<span class="small">Sélectionnez vos métiers et<br> votre zone géographique</span>
+						</div>
+						<div class="col d-flex justify-content-center align-items-center">
+							<span class="lnr lnr-chevron-right text-white animated infinite fadeIn delay-2s d-lg-block d-none"></span>
+							<span class="lnr lnr-chevron-down text-white animated infinite fadeIn delay-2s d-lg-none d-block"></span>
+						</div>
+						<div class="col-12 col-lg-3 d-flex flex-column text-center align-items-center justify-content-center py-4">
+							<span class="bg-warning mb-3 rounded-circle" style="width: 64px; height: 64px"><span class="h2 text-dark font-weight-bold" style="line-height: 64px;">2</span></span>
+							<span class="pro-icon mb-3">
+							<span class="icon-how-to-step">
+								<img src="{{ absolute_url('/assets/img/site-engineer-construction-42834.jpg') }}" class="icon-how-to-step"></img>
+							</span>
+							</span>
+							<span class="h6 text-warning">Nos professionnels qualifiés <br> vous contacte</span>
+							<span class="small">Accédez à toutes<br>les demandes détaillées</span>
+						</div>
+						<div class="col d-flex justify-content-center align-items-center">
+							<span class="lnr lnr-chevron-right text-white animated infinite fadeIn delay-2s d-lg-block d-none"></span>
+							<span class="lnr lnr-chevron-down text-white animated infinite fadeIn delay-2s d-lg-none d-block"></span>
+						</div>
+						<div class="col-12 col-lg-3 d-flex flex-column text-center align-items-center justify-content-center py-4">
+							<span class="bg-warning mb-3 rounded-circle" style="width: 64px; height: 64px"><span class="h2 text-dark font-weight-bold" style="line-height: 64px;">3</span></span>
+							<span class="pro-icon mb-3">
+							<span class="icon-how-to-step">
+								<img src="{{ absolute_url('/assets/img/happy-customer-approving-16184.jpg') }}" class="icon-how-to-step"></img>
+							</span>
+							</span>
+							<span class="h6 text-warning">Choisissez votre artisans<br>Selon la qualité prix</span>
+							<span class="small">Nos professionnels signent<br>1 à 2 projets sur 5</span>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--End section of How to Step-->
+		</main>
+			
+		<!-- Begin footer page -->
+		{% include "./page/footer/footer.html.twig" %}
+		<!-- END footer page -->
+
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+<!-- MESSAGE NTIFICATION -->
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<!--Local-->
+<script src="{{ absolute_url('/assets/loadbar/js/loading-bar.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/jquery.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/now-ui-kit.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
+<script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+
+{% endblock %}

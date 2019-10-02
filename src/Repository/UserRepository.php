@@ -20,31 +20,67 @@ class UserRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return User[] Returns an array of User objects
+    //  * @return User of User object
     //  */
-    /*
-    public function findByExampleField($value)
-    {
+    
+    public function findOneByEmail($value)
+    {   
         return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
+            ->andWhere('u.email = :val')
             ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
+            //->orderBy('u.id', 'ASC')
+            //->setMaxResults(10)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?User
+    public function findOneById($value): ?User
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
+            ->andWhere('u.id = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+
+    public function findNewsProfessionals($limit = 10, $offset = 0)
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'DESC')
+            ->setFirstResult( $offset )
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllProfessionals($data = null, $limit = 50, $offset = 0)
+    {
+
+        if ($data == null) {
+            return $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'ASC')
+            ->setFirstResult( $offset )
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+        }
+
+        return $this->createQueryBuilder('u')
+            ->where('u.userCategoryActivity = ?1 OR u.CategoryId = ?2 AND u.geoLocation = ?3')
+            ->setParameters($data)
+            ->orderBy('u.id', 'ASC')
+            ->setFirstResult( $offset )
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function findByArray(array $criteria, array $orderBy = null, $limit = null, $offset = null): ?Array
+    {
+        return $this->findBy($criteria, $orderBy = null, $limit = null, $offset = null);
+    }
+    
 }

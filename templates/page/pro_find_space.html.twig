@@ -1,0 +1,399 @@
+	{% extends  'base.html.twig' %}
+
+		{% block stylesheets %}
+
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />-->
+		<script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+		<!-- CSS Files -->
+		<link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+    
+	{% endblock %}
+
+	{% block body %}
+	
+	<div class="page-header page-header-inscription">
+		<div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
+		</div>
+		<div class="row">
+			<div class="col-12 p-0">
+				<div class="contenair-header-menu">
+					
+					<nav class="navbar navbar-expand bg-gray py-0 navbar-head">
+					  <div class="container border-0">
+						<div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+							<div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
+								<a class="text-decoration-none" href="{{ path('home_page') }}">
+								  <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
+								</a>
+							
+								<ul class="navbar-nav mt-2 mt-lg-0">
+									<li class="nav-item active">
+									  <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
+									</li>
+									<li class="nav-item">
+									  <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
+									</li>
+								</ul>
+							</div>
+							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+								<span class="mr-1">
+									<button class="btn btn-round show-form-pro-mouseclick-11 bg-gray font-weight-bold text-warning border-warning text-nowrap" type="button">
+										<i class="">🔒</i> Se connecter
+									</button>
+								</span>
+								<span class="">
+									<a href="{{ path('inscription_particulier_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
+										<i class="">👷🏾</i>  Inscription gratuite
+									</a>
+								</span>
+							</div>
+						</div>
+					  </div>
+					</nav>
+					<!-- Navbar menu end here -->
+					  
+					  <!-- ############################# NAVBAR HERE LARGE -->
+						
+					<div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
+					  <div class="container">
+						<button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
+						<div class="navbar-collapse collapse">
+						  <ul class="nav navbar-nav">
+							<li class="nav-item"><a href="{{ path('post_ask_devis_page') }}" class="nav-link">Demander un devis</a>
+							</li>
+							<li class="nav-item"><a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Types des travaux</a>
+								<ul class="dropdown-menu megamenu">
+									<div class="row">
+										<li class="col-12 col-sm-4 text-center pb-4">
+											<ul><li class="h6 text-warning border-bottom border-warning">INSTALLER</li></ul>
+											<ul class="row text-centert" style=" list-style-type: none;">
+
+												<div class="col-4 p-0">
+													<li class="dropdown-header">Categorie-1</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
+													</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
+													</li>
+													<li class="divider"></li>
+												</div>
+										
+												<div class="col-12">
+													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
+												</div>
+
+											</ul>
+										</li>
+										<li class="col-12 col-sm-4 text-center pb-4">
+											<ul><li class="h6 text-warning border-bottom border-warning">RENOVER</li></ul>
+											<ul class="row text-centert" style=" list-style-type: none;">
+
+												<div class="col-4 p-0">
+													<li class="dropdown-header">Categorie-1</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
+													</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
+													</li>
+													<li class="divider"></li>
+												</div>
+										
+												<div class="col-12">
+													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
+												</div>
+
+											</ul>
+									  </li>
+									  <li class="col-12 col-sm-4 text-center pb-4">
+											<ul><li class="h6 text-warning border-bottom border-warning">AMENAGER SON INTERIEUR</li></ul>
+											<ul class="row text-centert" style=" list-style-type: none;">
+
+												<div class="col-4 p-0">
+													<li class="dropdown-header">Categorie-1</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
+													</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
+													</li>
+													<li class="divider"></li>
+												</div>
+										
+												<div class="col-12">
+													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
+												</div>
+
+											</ul>
+									  </li>
+									  <li class="col-12 col-sm-4 text-center pb-4">
+											<ul><li class="h6 text-warning border-bottom border-warning">AMENAGER SON EXTERIEUR</li></ul>
+											<ul class="row text-centert" style=" list-style-type: none;">
+												
+												<div class="col-4 p-0">
+													<li class="dropdown-header">Categorie-1</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
+													</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
+													</li>
+													<li class="divider"></li>
+												</div>
+										
+												<div class="col-12">
+													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
+												</div>
+
+											</ul>
+									  </li>
+									  <li class="col-12 col-sm-4 text-center pb-4">
+											<ul><li class="h6 text-warning border-bottom border-warning">CONSTRUIRE</li></ul>
+											<ul class="row text-centert" style=" list-style-type: none;">
+
+												<div class="col-4 p-0">
+													<li class="dropdown-header">Categorie-1</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
+													</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
+													</li>
+													<li class="divider"></li>
+												</div>
+										
+												<div class="col-12">
+													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
+												</div>
+
+											</ul>
+									  </li>
+									</div>
+								</ul>
+							</li>
+							<li class="nav-item"><a href="{{ path('nos_tarif_page') }}" class="nav-link">Guide prix</a>
+							</li>
+							<li class="nav-item"><a href="{{ path('how_to_step_page') }}" class="nav-link">Comment ça marche</a>
+							</li>
+							<li class="nav-item"><a href="{{ path('site_create_page') }}" class="nav-link">Créer mon site internet</a>
+							</li>
+							<li class="nav-item"><a href="{{ path('particulier_dashbord') }}" class="nav-link particular-dashbord-access">Gérer mon espace particulier</a>
+							</li>
+						  </ul>
+						</div>
+					  </div>
+					</div>
+					<!-- ############################# END NAVBAR HERE LARGE -->
+					 <!-- Progress barr slid scroll -->
+						<div class="progress-container fixed-top">
+							<div class="progress-bar" id="myBar"></div>
+						</div> 
+					  
+				</div>
+			</div>
+		</div>
+		<!-- End Row for Menu header -->
+		
+		<!-- Begin for row content header parallax -->
+		<div class="row d-flex justify-content-center font-weight-light" style="">
+			<!-- ############# Begin slide beside -->
+			<div class="col-8" style="padding-top: 4em;">
+				<div class="container border-0">
+					<div class="w-100 d-flex flex-column pb-4 justify-content-center">
+						<div class="h4 text-text-white text-uppercase">
+							Trouvez des professionnels
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ############# End slide beside -->
+			
+			<!-- ############# Begin form search -->
+			<div class="col-10" style="padding-top: 1em;">
+				<div class="container bg-dark pl-0 h-auto" style="box-shadow: 5px 5px 5px black;">
+					
+					<form action>
+						<div class="form-group">
+							
+							<div class="d-flex flex-column flex-sm-row w-100 align-items-center justify-content-center">
+								<select class="form-control show-input-list-metier-pro" name="metier">
+									 <option></option>
+									 <option value="AL">art-1</option>
+									 <option value="WY">art-2</option> 
+									 <option value="AL">art-3</option>
+									 <option value="WY">art-4</option>	
+								</select>
+								<input type="text" class="form-control m-2" placeholder="Votre ville ou département" style="line-height: 50px; height: 50px;">
+								<div class="input-group-append input-group-append-find-artisant bg-warning text-center">
+								  <a class="btn btn-warning border-0 text-center text-nowrap w-100">Trouver des professionnels</a>
+								</div>
+							</div>
+							
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- ############# End form search-->
+		</div>
+	</div>
+	<!--END HEADER-->
+	
+
+	<div class="jumbotron bg-transparent">
+		<main class="section-1 section-main" style="background-attachment: fixed;">
+			<!--Begin section  of the list ads by artisan-->
+			<section class="bg-gray">
+				<div Class="row bg-white">
+					<div class="col-12">
+							<a href="{{ path('find_chantier_page') }}" class="btn btn-success float-right text-decoration-none border-0 text-center text-nowrap mr-5">Je suis un professionnel</a>
+					</div>
+					<div class="col-12 d-flex flex-column text-center">
+						<span class="h6">Nos professionnels disponibles</span>
+						<span class="small">Ces professionnels cherchent leur artisant pour partager leur experience. Et si c'était vous ?</span>
+					</div>
+					<!--Triangle in find artisant section-->
+					<div class="triangle triangle-pro-space pt-4" style="width: 100%; height: 4px; background: white; box-shadow: 0px 0px 0px 0px !important"> </div>
+				</div>
+				<div class="container">
+					<div class="row py-5">
+
+						<div class="col-12 col-sm-6 col-lg-4 my-2">
+							<div class="img-new-pro-container d-flex flex-column align-items-center justify-content-center bg-white rounded">
+								<div class="img-new-pro-content rounded-top" style="background-image: url(/assets/img/photos/jardin/jardin-1.jpg); width: 100%; height: 250px;">
+									<div class="w-100">
+										<a class="btn btn-success float-left m-1 text-white">Nom category ici</a>
+										<a class="btn btn-danger btn-pro-emotion-heart rounded-circle float-right m-1">
+											<span class="lnr lnr-heart icon-pro-emotion-heart"></span>
+										</a>
+									</div>
+								</div>
+								<div class="img-pro-desc d-flex flex-row align-items-center justify-content-center  text-center py-2">
+									<div class="border border-secondary rounded-circle">
+										<img class="pro-logo rounded-circle" src="{{ absolute_url('/assets/img/photos/artisan.jpg') }}" style="width: 64px; height: auto;"></img>
+									</div>
+									<div class="d-flex flex-column align-items-center justify-content-center text-left">
+										<span class="d-inline text-center">
+											<a class="btn btn-outline-secondary m-2">En vedette</a>
+											<a class="btn btn-outline-secondary m-2">vérifié</a>
+										</span>
+										<span class="text-center ml-1">
+											<a href="{{ path('show_detail_pro_page') }}" class="text-decoration-none text-secondary">Bright Future Group & Company</a>
+										</span>
+										<span class="small text-center">
+											<span class="pro-point-star p-1"><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star-half icon-star-pro text-warning"></span></span>
+											<span class="pro-like-percent text-secondary p-1"><span class="lnr lnr-thumbs-up icon-like-pro text-secondary"></span> 99% (1009 votes) </span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-12 col-sm-6 col-lg-4 mobile-top-position my-2">
+							<div class="img-new-pro-container d-flex flex-column align-items-center justify-content-center bg-white rounded">
+								<div class="img-new-pro-content rounded-top" style="background-image: url(/assets/img/photos/jardin/jardin-1.jpg); width: 100%; height: 250px;">
+									<div class="w-100">
+										<a class="btn btn-success float-left m-1 text-white">Nom category ici</a>
+										<a class="btn btn-danger btn-pro-emotion-heart rounded-circle float-right m-1">
+											<span class="lnr lnr-heart icon-pro-emotion-heart"></span>
+										</a>
+									</div>
+								</div>
+								<div class="img-pro-desc d-flex flex-row align-items-center justify-content-center  text-center py-2">
+									<div class="border border-secondary rounded-circle">
+										<img class="pro-logo rounded-circle" src="{{ absolute_url('/assets/img/photos/artisan.jpg') }}" style="width: 64px; height: auto;"></img>
+									</div>
+									<div class="d-flex flex-column align-items-center justify-content-center text-left">
+										<span class="d-inline text-center">
+											<a class="btn btn-outline-secondary m-2">En vedette</a>
+											<a class="btn btn-outline-secondary m-2">vérifié</a>
+										</span>
+										<span class="text-center ml-1">
+											<a href="{{ path('show_detail_pro_page') }}" class="text-decoration-none text-secondary">Bright Future Group & Company</a>
+										</span>
+										<span class="small text-center">
+											<span class="pro-point-star p-1"><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star-half icon-star-pro text-warning"></span></span>
+											<span class="pro-like-percent text-secondary p-1"><span class="lnr lnr-thumbs-up icon-like-pro text-secondary"></span> 99% (1009 votes) </span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-12 d-flex justify-content-center pt-4">
+							<a class="btn btn-warning btn-more-all-chantier ld ld-ext-right running" href="{{ path('space_find_pro_page') }}"> <i class="ld ld-ring ld-spin"></i> Voir plus</a>
+						</div>	
+					</div>
+				</div>
+			</section>
+			<!--End section  of the list ads by artisan-->
+			
+			<!--Begin section the Presse Talk US -->
+			<section id="" class="bg-warning">
+			<div class="container">
+				<div class="row d-flex justify-content-center py-5">
+					<div class="col-12 text-center pb-4">
+						<h5 class="text-uppercase">PAS LE TEMPS DE CHERCHER ?</h5>
+						<div class="text-secondary small">
+							Vous souhaitez réaliser des travaux et ne savez quel professionnel choisir ? Demandez des devis travaux auprès de notre réseau de 20 000 professionnels partout.
+						</div>
+					</div>
+					<div class="col-12 col-md-10 text-center">
+						<div class="container py-1 bg-dark" style="box-shadow: 5px 5px 5px black;">
+							<form>
+							    <div class="form-group d-flex flex-column flex-sm-row align-items-center justify-content-center">
+									<select class="form-control show-input-list-metier" name="metier">
+										 <option></option>
+										 <option value="AL">art-1</option>
+										 <option value="WY">art-2</option>
+										 <option value="AL">art-3</option>
+										 <option value="WY">art-4</option>	
+									</select>
+							  	</div>
+								<div class="forn-group">
+									<input  type="hidden" name="route_page" value="home_page">
+								</div>
+								<div class="input-group-append bg-warning">
+								<a class="btn btn-warning border-0 text-nowrap">Demander un devis</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			</section>
+			<!--End section the Presse Talk US  -->
+				
+		</main>
+		<!-- Begin footer page -->
+		{% include "./page/footer/footer.html.twig" %}
+		<!-- END footer page -->
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+<!-- MESSAGE NTIFICATION -->
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<!--Local-->
+<script src="{{ absolute_url('/assets/loadbar/js/loading-bar.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/jquery.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/now-ui-kit.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
+<script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+
+{% endblock %}

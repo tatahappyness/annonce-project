@@ -5,3 +5,11 @@
 # app_logout:
 #     path: /logout
 #     methods: GET
+
+api_auth_login:
+  path: /api/auth/login
+  methods:  [POST]
+
+api:
+  prefix: /api
+  resource: '../src/Controller/Api'

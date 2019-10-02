@@ -1,0 +1,646 @@
+	{% extends  'base.html.twig' %}
+
+		{% block stylesheets %}
+
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />-->
+		<script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+		<!-- CSS Files -->
+		<link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+		<style>
+			.select2-container .select2-selection--single .select2-selection__rendered {
+				background: floralwhite !important;
+				border: 1px solid orange !important;
+				line-height: 35px !important;
+				padding-left: 20px;
+			}
+			.select2-search--dropdown .select2-search__field {
+				height: 35px !important;
+			}
+			.select2-results__group {
+				color: orange;
+				padding-bottom: 6px;
+				padding-top: 6px;
+				text-transform: uppercase;
+			}
+			
+		</style>
+    
+	{% endblock %}
+
+	{% block body %}
+	
+	<div class="page-header page-header-inscription">
+		<div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important; border-bottom: 5px solid orange;">
+		</div>
+		<div class="row">
+			<div class="col-12 p-0">
+				<div class="contenair-header-menu">
+					
+					<nav class="navbar navbar-expand bg-gray py-0 navbar-head">
+					  <div class="container border-0">
+						<div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+							<div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
+								<a class="text-decoration-none" href="{{ path('home_page') }}">
+								  <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
+								</a>
+							
+								<ul class="navbar-nav mt-2 mt-lg-0">
+									<li class="nav-item active">
+									  <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
+									</li>
+									<li class="nav-item">
+									  <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
+									</li>
+								</ul>
+							</div>
+							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+								<span class="mr-1">
+									<button class="btn btn-round show-form-pro-mouseclick-11 bg-gray font-weight-bold text-warning border-warning text-nowrap" type="button">
+										<i class="">🔒</i> Se connecter
+									</button>
+								</span>
+								<span class="">
+									<a href="{{ path('space_pro_page') }}" class="btn btn-round bg-white border-warning font-weight-bold text-success text-nowrap">
+										<i class="">👷🏾</i>  Vous êtes un pro ?
+									</a>
+								</span>
+							</div>
+						</div>
+					  </div>
+					</nav>
+					<!-- Navbar menu end here -->
+					  
+					  <!-- ############################# NAVBAR HERE LARGE -->
+						
+					<div class=" navbar bg-darkgray navbar-expand-md fix-top py-0 navbar-menu">
+					  <div class="container">
+						<button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
+						<div class="navbar-collapse collapse">
+							 <ul class="nav navbar-nav">
+								</li>
+								<li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">INSTALLER</a>
+								  <ul class="dropdown-menu megamenu">
+								  <div class="row">
+								  <li class="col-12 col-sm-7 text-center">
+									<ul class="row" style=" list-style-type: none;">
+
+										<div class="col-12 col-md-4 col-lg-3 p-0">
+											<li class="dropdown-header">Categorie-1</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+											</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+											</li>
+											<li class="divider"></li>
+										</div>
+								
+										<div class="col-12 col-md-4 col-lg-3 p-0">
+											<li class="dropdown-header">Categorie-2</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+											</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+											</li>
+											<li class="divider"></li>
+										</div>
+
+									</ul>
+								  </li>
+								  <li class=" col-12 col-sm-5 dropdown-item">
+									<div class="row">
+										<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+										<div class="col-12 col-md-6">
+											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+												<a href="#" class="thumbnail">
+												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+												</a>
+												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+												<a href="#" class="thumbnail">
+												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+												</a>
+												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+											</div>
+										</div>
+
+									</div>
+								  </li>
+								  </div>
+								  </ul>
+							  </li>
+							  <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">RENOVER </a>
+								<ul class="dropdown-menu megamenu">
+								  <div class="row">
+								  <li class="col-12 col-sm-7 text-center">
+									<ul class="row" style=" list-style-type: none;">
+
+										<div class="col-12 col-md-4 col-lg-3 p-0">
+											<li class="dropdown-header">Categorie-1</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+											</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+											</li>
+											<li class="divider"></li>
+										</div>
+								
+										<div class="col-12 col-md-4 col-lg-3 p-0">
+											<li class="dropdown-header">Categorie-2</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+											</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+											</li>
+											<li class="divider"></li>
+										</div>
+
+
+									</ul>
+								  </li>
+								  <li class=" col-12 col-sm-5 dropdown-item">
+									<div class="row">
+										<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+										<div class="col-12 col-md-6">
+											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+												<a href="#" class="thumbnail">
+												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+												</a>
+												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+												<a href="#" class="thumbnail">
+												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+												</a>
+												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+											</div>
+										</div>
+
+									</div>
+								  </li>
+								  </div>
+								  </ul>
+							  </li>
+							 <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Aménager son intérieur</a>
+								<ul class="dropdown-menu megamenu">
+								  <div class="row">
+								  <li class="col-12 col-sm-7 text-center">
+									<ul class="row" style=" list-style-type: none;">
+
+										<div class="col-12 col-md-4 col-lg-3 p-0">
+											<li class="dropdown-header">Categorie-1</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+											</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+											</li>
+											<li class="divider"></li>
+										</div>
+								
+										<div class="col-12 col-md-4 col-lg-3 p-0">
+											<li class="dropdown-header">Categorie-2</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+											</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+											</li>
+											<li class="divider"></li>
+										</div>
+
+
+									</ul>
+								  </li>
+								  <li class=" col-12 col-sm-5 dropdown-item">
+									<div class="row">
+										<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+										<div class="col-12 col-md-6">
+											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+												<a href="#" class="thumbnail">
+												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+												</a>
+												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+												<a href="#" class="thumbnail">
+												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+												</a>
+												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+											</div>
+										</div>
+
+									</div>
+								  </li>
+								  </div>
+								  </ul>
+								</li>
+								<li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Aménager son extérieur</a>
+								<ul class="dropdown-menu megamenu">
+								  <div class="row">
+								  <li class="col-12 col-sm-7 text-center">
+									<ul class="row" style=" list-style-type: none;">
+
+										<div class="col-12 col-md-4 col-lg-3 p-0">
+											<li class="dropdown-header">Categorie-1</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+											</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+											</li>
+											<li class="divider"></li>
+										</div>
+								
+										<div class="col-12 col-md-4 col-lg-3 p-0">
+											<li class="dropdown-header">Categorie-2</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+											</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+											</li>
+											<li class="divider"></li>
+										</div>
+
+
+									</ul>
+								  </li>
+								  <li class=" col-12 col-sm-5 dropdown-item">
+									<div class="row">
+										<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+										<div class="col-12 col-md-6">
+											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+												<a href="#" class="thumbnail">
+												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+												</a>
+												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+												<a href="#" class="thumbnail">
+												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+												</a>
+												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+											</div>
+										</div>
+
+									</div>
+								  </li>
+								  </div>
+								 </ul>
+								</li>
+								<li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Construire </a>
+								<ul class="dropdown-menu megamenu">
+								  <div class="row">
+								  <li class="col-12 col-sm-7 text-center">
+									<ul class="row" style=" list-style-type: none;">
+
+										<div class="col-12 col-md-4 col-lg-3 p-0">
+											<li class="dropdown-header">Categorie-1</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+											</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+											</li>
+											<li class="divider"></li>
+										</div>
+								
+										<div class="col-12 col-md-4 col-lg-3 p-0">
+											<li class="dropdown-header">Categorie-2</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+											</li>
+											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+											</li>
+											<li class="divider"></li>
+										</div>
+
+
+									</ul>
+								  </li>
+								  <li class=" col-12 col-sm-5 dropdown-item">
+									<div class="row">
+										<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+										<div class="col-12 col-md-6">
+											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+												<a href="#" class="thumbnail">
+												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+												</a>
+												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+												<a href="#" class="thumbnail">
+												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+												</a>
+												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+											</div>
+										</div>
+
+									</div>
+								  </li>
+								  </div>
+								  </ul>
+								</li>
+								<li class="nav-item"><a href="{{ path('find_chantier_page') }}" class="nav-link">Trouver un chantier</a></li>
+							  </ul>
+						</div>
+					  </div>
+					</div>
+					<!-- ############################# END NAVBAR HERE LARGE -->
+					 <!-- Progress barr slid scroll -->
+						<div class="progress-container fixed-top">
+							<div class="progress-bar" id="myBar"></div>
+						</div> 
+					  
+				</div>
+			</div>
+		</div>
+		<!-- End Row for Menu header -->
+		
+		<!-- Begin for row content header parallax -->
+		<div class="row d-flex justify-content-center font-weight-light" style="">
+			<!-- ############# Begin slide beside -->
+			<div class="col-8 pt-5">
+				<div class="container border-0">
+					<div class="w-100 d-flex flex-column">
+						<div class="h1 text-warning">
+							Inscriptions des pros
+						</div>
+						<div class="">
+							Devenez l’un de nos professionnels partenaires et recevez toutes les demandes de devis de notre réseau. 
+						</div>
+						<div class="progress w-50 border-0" style="height: 4px;">
+							<div class="progress-bar bg-warning" style="width:40%"></div>
+						</div>	
+					</div>
+				</div>
+			</div>
+			<!-- ############# End slide beside -->
+		</div>
+	</div>
+	<!--END HEADER-->
+
+	<div class="jumbotron bg-transparent">
+		<main class="section-1 section-main-inscription mt-3" style="background-attachment: fixed;">
+		
+				<!--Begin section  of the form register-->
+				<section class="" style="margin-top: 0; z-index: 2;">
+					<div class="container">
+						<div class="row">	
+							<!--Pub left side -->
+							<div class="col-md-7 d-none d-md-block p-0" style="background: linear-gradient(45deg, currentColor, transparent);">
+								<!-- Modal Header -->
+								<div class="modal-header modal-head-img-right d-flex flex-column align-items-center">
+									<div class="modal-title h6">Professionnels du bâtiment,</div>
+									<div class="text-warning">accélérez votre activité commerciale !</div>
+									<ul class="list-group">
+										<li class="list-group-item border-0">
+										Recevez des opportunités de chantiers ciblées selon votre activité et zone d'intervention
+										</li>
+										<li class="list-group-item border-0">
+										Gardez le contrôle de votre budget prospection et payez au réel de votre consommation
+										</li>
+										<li class="list-group-item border-0">
+										Remplissez simplement et rapidement votre carnet de commandes
+										</li>
+									</ul>
+								</div>
+								<!-- Modal body -->
+								<div class="modal-body">
+								   <div class="d-md-flex flex-md-column align-items-md-center">
+										<div class="w-100 text-center h6 font-weight-normal text-success">
+											Pourquoi choisir notre service ?
+										</div>
+										<div class="d-md-flex flex-md-column flex-lg-row w-100">
+											<div class="d-md-flex flex-column align-items-md-center m-4">
+												<span class="d-md-flex flex-md-row align-items-center justify-content-md-center">
+													<span class="lnr lnr-book text-left mr-4 text-success"  style="font-size: 50px;"></span>
+													<span class="font-weight-normal text-warning">Remplissez rapidement votre carnet de commandes</span>
+												</span>
+												<span class="small text-white">Choisissez les chantiers qui vous rapportent et recevez chaque jour en temps réel, vos alertes par SMS et email.</span>
+											</div>
+											<div class="d-md-flex flex-column align-items-md-center m-4">
+												<span class="d-md-flex flex-md-row align-items-center justify-content-md-center">
+													<span class="lnr lnr-earth text-left mr-4 text-success" style="font-size: 50px;"></span>
+													<span class="font-weight-normal text-warning">Augmentez votre visibilité sur Internet</span>
+												</span>
+												<span class="small text-white">Bénéficiez d’une présence préférentielle sur Google et montrez-vous localement dans nos annuaires.</span>
+											</div>
+											<div class="d-md-flex flex-column align-items-md-center m-4">
+												<span class="d-md-flex flex-md-row align-items-center justify-content-md-center">
+													<span class="lnr lnr-diamond text-left mr-4 text-success" style="font-size: 50px;"></span>
+													<span class="font-weight-normal text-warning">Optimisez votre budget prospection</span>
+												</span>
+												<span class="small text-white">Définissez vous-même votre budget mensuel et payez au réel de votre communication.</span>
+											</div>
+										</div>
+								   </div>
+								</div>
+								<!-- Modal footer -->
+								<div class="modal-footer d-md-flex flex-column">
+									<div class="d-md-flex flex-md-row justify-content-between">
+										<div class="d-md-flex flex-md-column text-center align-items-md-center">
+											<span class="text-success">
+												<img type="image/png" src="{{ absolute_url('/assets/icon/people-network-512.png') }}" class="icon-incrition-pro icon-bike">
+												</img>
+											</span>
+											<span class="h6 text-warning">1er réseau de France</span>
+											<span class="small text-white">+ de 25 000 professionnels qualifiés.</span>
+										</div>
+										<div class="d-md-flex flex-md-column text-center align-items-md-center">
+											<span class="text-success">
+												<object type="image/svg+xml" data="{{ absolute_url('/assets/img/svg/construction.svg') }}" class="icon-catego-circle-midle icon-bike">
+													Icon
+												</object>
+											</span>
+											<span class="h6 text-warning">70 Conseillers experts</span>
+											<span class="small text-white">en développement commercial à votre disposition.</span>
+										</div>
+										<div class="d-md-flex flex-md-column text-center align-items-md-center">
+											<span class="text-success">
+												<object type="image/svg+xml" data="{{ absolute_url('/assets/img/svg/construction.svg') }}" class="icon-catego-circle-midle icon-bike">
+													Icon
+												</object>
+											</span>
+											<span class="h6 text-warning">1er réseau de collecte de demandes de devis</span>
+											<span class="small text-white">+ de 800 000 demandes de devis collectées par an en France.</span>
+										</div>
+									</div>
+									<!--Boutton to go particular or artisant inscription -->
+									<div id="my_map" class="text-center w-100" style="margin-top: 5em;">
+										<a href="{{ path('space_find_pro_page') }}" class="btn btn-success btn-register w-50 text-uppercase" style="border-radius: 0 !important;">Je suis un artisant</a>
+									</div>
+								</div>
+							</div>
+							<!-- End Pub left side -->
+							
+							<!--Form right side-->
+							<div class="col-12 col-md-5 modal-content pl-4">
+								<!-- Modal Header 6Lcr-qsUAAAAAELM1gpeSFTN9Zj8-qnQP15g8dI9 -->
+								<div class="modal-header d-flex flex-column">
+									<h6 class="modal-title text-warning">Inscription Gratuite pour les Professionnels</h6>
+									<div class="progress w-100 border-0" style="height: 4px;">
+										<div class="progress-bar bg-warning" style="width:70%"></div>
+									</div>
+								</div>
+								<!-- Modal body -->
+								<div class="pt-5">
+								   <form id="" class="form-register-user">
+										<div class="form-group mb-3">
+											<label class="">Activité principal *</label>
+											
+											<div class="form-group p-0 m-0 w-100">
+
+												<input type="text" id="show-input-list-search" class="form-control text-center" placeholder="Quel est votre activité ?">
+
+											</div>
+
+											<div id="group-form-spcial-input-hidden">                                                                                                                                                           
+                                 
+											</div>											
+										</div>
+										<div class="form-group mb-3">
+											<label class="">Code Postale *</label>
+											<div class="input-group mb-3">
+												
+												<input type="number" id="zipcode" class="form-control zipcode text-muted" name="zipcode" placeholder="Votre code Postale *">
+											</div>
+										</div>
+										<div class="form-group mb-3">
+											<label class="">Ville *</label>
+											<div class="input-group mb-3">
+												
+												<input type="text" id="show-city-search" class="form-control city" name="city" placeholder="Votre ville ou département">
+											</div>
+
+											<div id="form-city-special-hidden" class="form-group">
+												
+											</div>
+
+										</div>
+										<div class="form-group mb-3">
+											<label class="">Raison Sociale</label>
+											<div class="input-group mb-3">
+											
+												<input type="text" id="company_name" class="form-control company_name" name="company_name" placeholder="Nom de votre société">
+											</div>
+										</div>
+										<div class="form-group mb-3">
+											<label class="">Nom et Prénom</label>
+											<div class="input-group mb-2">
+												
+												<input type="text" id="name" class="form-control name" name="_username" placeholder="votre nom">
+											</div>
+											<div class="input-group mb-2">
+												
+												<input type="text" id="firstname" class="form-control firstname" name="firstname"  placeholder="votre Prénom">
+											</div>
+										</div>
+										<div class="form-group mb-3">
+											<label class="">Telephone</label>
+											<div class="input-group mb-3">
+												
+												<input type="tel" id="phone" class="form-control phone" name="phone" size="40" onkeyup="" placeholder="Ex: +336 ou 00336">
+											</div>
+										</div>
+										<div class="form-group mb-3">
+											<label class="">Email</label>
+											<div class="infos-message"></div>
+											<div class="input-group mb-3">
+												
+												<input type="email" id="email" class="form-control email" name="_email"  placeholder="Votre e-mail">
+											</div>
+										</div>
+										<div class="form-group mb-3">
+											<label class="">Mot de passe</label>
+											<div class="input-group mb-3">
+												
+												<input type="password" id="password" class="form-control password" name="_password" placeholder="Votre mot de passe ">
+											</div>
+										</div>
+										<div class="form-group mb-3">
+											<label class="">Confirmation mot de passe</label>
+											<div class="input-group mb-3">
+												
+												<input type="password" id="password-comfirm" class="form-control password-comfirm" name="password-comfirm"  placeholder="Reconfirmer votre mot de passe">
+											</div>
+										</div>
+										<div class="form-group mb-3">
+											<input type="hidden" id="type-user" class="type-user" name="TYPE_USER" value="PRO_USER">
+										</div>
+										<div class="form-group mb-3">
+											<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+											<div class="g-recaptcha" data-sitekey="6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></div>
+										</div>
+										<a id="btn-register-pro" class="btn btn-warning btn-register-user w-100">ENREGISTRER</a>
+										<!--<button type="button" class="btn btn-annule btn-danger float-right" data-dismiss="modal">Annuler</button> -->
+									</form>
+								</div>
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<div class="text-muted small">
+										Vous avez déjà un compte ?, <a class="text-warning show-form-pro-mouseclick" href="javascript:void();">se connecter</a>
+									</div>
+								</div>
+							</div>
+							<!--End form right side -->
+						</div>
+					</div>
+				</section>
+				<!--End section  of the form register-->
+		</main>
+			
+		<!-- Begin footer page -->
+		{% include "./page/footer/footer.html.twig" %}
+		<!-- END footer page -->
+
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+<!-- Auto-complete -->
+<script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
+<!-- Auto-complete -->
+<!-- MESSAGE NTIFICATION -->
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<!--Local-->
+<script src="{{ absolute_url('/assets/loadbar/js/loading-bar.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/jquery.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/now-ui-kit.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
+<script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+{# <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD91TOiMsHsu3BMnIOVU-Uubr6dwAok8zg&libraries=places"></script> #}
+{# <script src="{{ absolute_url('/assets/geo-adresse/jquery.geocomplete.min.js') }}"></script> #}
+<script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/list-city-ajax.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/inscription.js') }}"></script>
+
+{% endblock %}

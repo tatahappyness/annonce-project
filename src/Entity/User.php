@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="cet email est exite déjà!")
  */
 class User implements UserInterface
 {
@@ -36,7 +38,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
 
@@ -53,11 +55,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $geoLocation;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $businessSubCategory;
 
     /**
@@ -66,7 +63,7 @@ class User implements UserInterface
     private $companyTitle;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $isAcceptConditionTerm;
 
@@ -89,6 +86,87 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $profilImage;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $memberType;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isActivity;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $companyName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $username;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */ 
+    private $firstname;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $enabled;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isParticular;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $siretNumber;
+
+    /**
+     * @ORM\Column(type="string", length=15, nullable=true)
+     */
+    private $zipCode;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $log;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     */
+    private $userCategoryActivity;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $freeDateExpire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cities")
+     */
+    private $userCity;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $firstName;
+
+
+    public function __construct()
+    {
+       
+    }
 
    
     public function getId(): ?int
@@ -205,18 +283,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getGeoLocation(): ?string
-    {
-        return $this->geoLocation;
-    }
-
-    public function setGeoLocation(?string $geoLocation): self
-    {
-        $this->geoLocation = $geoLocation;
-
-        return $this;
-    }
-
     public function getBusinessSubCategory(): ?string
     {
         return $this->businessSubCategory;
@@ -297,6 +363,169 @@ class User implements UserInterface
     public function setProfilImage(?string $profilImage): self
     {
         $this->profilImage = $profilImage;
+
+        return $this;
+    }
+
+    public function getMemberType(): ?string
+    {
+        return $this->memberType;
+    }
+
+    public function setMemberType(?string $memberType): self
+    {
+        $this->memberType = $memberType;
+
+        return $this;
+    }
+
+    public function getIsActivity(): ?bool
+    {
+        return $this->isActivity;
+    }
+
+    public function setIsActivity(?bool $isActivity): self
+    {
+        $this->isActivity = $isActivity;
+
+        return $this;
+    }
+
+    public function getCompanyName(): ?string
+    {
+        return $this->companyName;
+    }
+
+    public function setCompanyName(?string $companyName): self
+    {
+        $this->companyName = $companyName;
+
+        return $this;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(?string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(?bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getIsParticular(): ?bool
+    {
+        return $this->isParticular;
+    }
+
+    public function setIsParticular(?bool $isParticular): self
+    {
+        $this->isParticular = $isParticular;
+
+        return $this;
+    }
+
+    public function getSiretNumber(): ?string
+    {
+        return $this->siretNumber;
+    }
+
+    public function setSiretNumber(?string $siretNumber): self
+    {
+        $this->siretNumber = $siretNumber;
+
+        return $this;   
+    }
+
+    public function getZipCode(): ?string
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(?string $zipCode): self
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    public function getLat(): ?string
+    {
+        return $this->lat;
+    }
+
+    public function setLat(?string $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLog(): ?string
+    {
+        return $this->log;
+    }
+
+    public function setLog(?string $log): self
+    {
+        $this->log = $log;
+
+        return $this;
+    }
+
+    public function getUserCategoryActivity(): ?Category
+    {
+        return $this->userCategoryActivity;
+    }
+
+    public function setUserCategoryActivity(?Category $userCategoryActivity): self
+    {
+        $this->userCategoryActivity = $userCategoryActivity;
+
+        return $this;
+    }
+
+    public function getFreeDateExpire(): ?\DateTimeInterface
+    {
+        return $this->freeDateExpire;
+    }
+
+    public function setFreeDateExpire(?\DateTimeInterface $freeDateExpire): self
+    {
+        $this->freeDateExpire = $freeDateExpire;
+
+        return $this;
+    }
+
+    public function getUserCity(): ?Cities
+    {
+        return $this->userCity;
+    }
+
+    public function setUserCity(?Cities $userCity): self
+    {
+        $this->userCity = $userCity;
 
         return $this;
     }

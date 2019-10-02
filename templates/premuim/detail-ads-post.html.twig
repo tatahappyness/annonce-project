@@ -1,0 +1,72 @@
+<div class="col-12 col-sm-8 pt-4">
+    <div class="container-content-pro-space-right">
+        <div class="card text-center">
+            <div class="card-header p-2 font-weight-bold bg-darkgray">
+                <h5>DÉTAIL DU CHANTIER</h5>
+            </div>
+            <div class="card-body">
+									
+                <div class="row d-flex justify-content-center py-1">
+                    <div class="col-12 bg-white text-secondary pb-2">
+                        <p class=""><h6 class>Contact</h6></p>
+                        <hr class="bg-darkgray" style="height: 1px;" />
+							
+                        <div class="d-inline m-2 alert w-50 alert-info float-right">
+                            <span class="">
+                                <span class="d-block animate">
+                                <p class="text-success font-weight-bold">
+                                > Profitez! la meilleur pack d'offre à 350€/an d'abonement!<br>
+                                    > Bouster votre visibilité patout!
+                                </p>    
+                                </span>
+                                <a href="{{ path('pro_post_payements') }}" class="btn btn-danger text-decoration-none text-white">JE VEUX PROFITER</a>
+                            </span>
+                        </div>
+							
+                        <p class="">Prénom: {{ post.getPostUserId().getName() }}</p>
+                        <p class="">Nom:{{ post.getPostUserId().getFirstName() }}</p>
+                        <p class="">
+                            Téléphone: {% if isAbonned == true %} {{ post.getPhone() }} {% else %} XXXXXX {% endif %}
+                        </p>
+                        <p class="">
+                            E-mail: {% if isAbonned == true %} {{ post.getEmail() }} {% else %} XXXXXX {% endif %}
+                        </p>
+                        <p class="">Ville: {{ post.getCity().getVilleNomReel() }}</p>
+                        <p class="">Code postal: {{ post.getPostZipcode() }}</p>
+                    </div>
+                    <div class="col-12 col-md-10 bg-white text-secondary pb-2">
+                        <p class=""><h6 class>Détails du chantier</h6></p>
+                        <hr class="bg-darkgray" style="height: 1px;" />
+                        <p class="">Type du projet: {{ post.getTypeId().getTitle() }} </p>
+                        <p class="">Domaine de spécialisatio: {{ post.getCategoryId().getCategTitle() }}</p>
+                        <p class="">Description du projet: <br> {{ post.getPostAdsTravauxDescription() }} 
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-10 bg-white text-secondary pb-2">
+                        <p class=""><h6 class>Informations pratiques</h6></p>
+                        <hr class="bg-darkgray" style="height: 1px;" />
+                        <p class="">Date de la demande: {{ post.postAdsDateCrea | date('d/m/Y') }}</p>
+                        <p class="">Type d’habitation: Récent</p>
+                        <p class="">Début du projet: Immédiat</p>
+                    </div>
+                    <div class="col-12 col-md-10 text-center bg-white pb-2">
+                        Je vais écrire directement au chantier, afin qu' il soit aucourant
+                        et il puisse m'évaluer aussi.
+                    </div>
+                    <div class="col-12 col-md-10 text-center bg-white">
+                        <a class="btn btn-outline-warning btn-show-message-container text-warning w-50">Répondre au chantier</a>
+                    </div>
+                </div>
+					               	
+            </div>
+            <div class="card-footer massage-container text-muted d-none p-4">
+            <form id="form-response-message">
+                <input type="hidden" name="particular_id" value="{{ post.getPostUserId().getId() }}">
+                <input type="hidden" name="post_id" value="{{ post.id }}">
+                <textarea type="text" required="required" class="w-100 my-4 p-4 rounded border" name="response_message" placeholder="Ecrire votre message!" style="height: 450px; max-height: 150px !important;"></textarea>
+                <a class="btn-outline-danger btn-send-message text-warning">Envoyer</a>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

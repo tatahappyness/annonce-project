@@ -1,0 +1,87 @@
+{% extends  'base.html.twig' %}
+
+        {% block stylesheets %}
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+        <!-- CSS Files -->
+        <link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+    
+    {% endblock %}
+
+    {% block body %}
+	
+    
+    <div class="jumbotron bg-transparent">
+		
+        <main class="">
+				
+                <!--Begin section  of the form Login-->
+                <section class="">
+                    <div class="container border-0">
+                        <div class="row d-flex justify-content-center bg-white rounded" style="margin: 10%; padding: 5%; box-sizing: border-box; box-shadow: 0 1px 8px black;">
+                            <div class="col-12 animated fadeIn infinite rounded col-md-8 alert-info" style="-webkit-animation-duration: 3s !important; animation-duration: 3s !important;">
+                            <h4 class="text-info">Vous aurez gagner 1 ans d'abonnement!</h4>
+                            </div>
+                            <div class="col-12 col-md-8 bg-lighten rounded">
+						
+                                <form action="{{path('pro_post_payements')}}" method="post" id="payment-form">
+                                    <div class="form-group mt-3">
+                                        <label class="small font-weight-bold">Votre nom:</label>
+                                        <input class="form-control font-weight-bold" style="background-color: transparent !important; border: 1px solid silver!important;" type="text" name="name" placeholder="Votre nom">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="small font-weight-bold">Votre email:</label>
+                                        <input class="form-control font-weight-bold" style="background-color: transparent !important; border: 1px solid silver!important;" type="text" name="email" placeholder="Vote email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="small font-weight-bold" for="card-element">
+                                        Carte débit ou crédit
+                                        </label>
+                                        <div id="card-element">
+                                        <!-- A Stripe Element will be inserted here. -->
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <input type="hidden" class="form-control font-weight-bold" style="background-color: transparent !important; border: 0 !important; color: grey;" type="text" name="montant_paye" value="{{ offer.getOfferPrice() }}">
+                                            <input type="hidden" class="form-control font-weight-bold" style="background-color: transparent !important; border: 0 !important; color: grey;" type="text" name="service_id" value="{{ serviceId }}">
+                                        </div>
+                                        <!-- Used to display form errors. -->
+                                        <div id="card-errors" class="alert-danger text-danger px-2" role="alert"></div>
+                                    </div>
+                                    <button class="btn btn-warning text-uppercase font-weight-bold w-100">Payer &nbsp;&nbsp; {{ offer.getOfferPrice()    | number_format(1, '.', ',') ~ ' € ' | upper }} </button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!--End section  of the form Login-->
+				
+               
+        </main>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<!-- MESSAGE NTIFICATION -->
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<!--Local-->
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{{ absolute_url('/assets/js/payement.js') }}"></script>
+
+{% endblock %}

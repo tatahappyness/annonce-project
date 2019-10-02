@@ -1,0 +1,273 @@
+    {% extends  'base.html.twig' %}
+
+    {% block stylesheets %}
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />-->
+    <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <!-- CSS Files -->
+    <link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/form-multistep/form-step.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+    {% endblock %}
+
+    {% block body %}
+
+    <div class="page-header page-header-image-gallery">
+        <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
+        </div>
+
+        <!--Begin heder-menu pro space -->
+        {% include "./pro/menu/header-menu.html.twig" %}
+        <!-- End header-menu pro space -->
+
+        <!-- Begin for row content header parallax -->
+        <div class="row d-flex justify-content-center font-weight-light">
+            <!-- ############# Begin slide beside -->
+            <div class="col-12 col-md-8" style="padding-top: 1em;">
+                <div class="container border-0">
+                    <div class="w-100 d-flex flex-column pb-4 justify-content-center">
+                        <div class="h4 text-white text-uppercase">
+                            Bienvenu dans l'espace professionel
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ############# End slide beside -->
+        </div>
+    </div>
+    <!--END HEADER-->
+
+
+    <div class="jumbotron bg-transparent">
+        <main class="section-1 section-main bg-white">
+            <!--Begin section  of the list ads by artisan-->
+            <section class="bg-transparent">
+                <div class="container">
+                    <div Class="row">
+
+                        <!-- Begin menu top pro -->
+                        {% include "./pro/menu/top-menu.html.twig" %}
+                        <!-- End menu top pro -->
+
+                        <!-- Begin menu left pro -->
+                        {% include "./pro/menu/left-menu.html.twig" %}
+                        <!-- End menu left pro-->
+
+                        <div class="col-12 col-sm-8 pt-4">
+                            <div class="container-content-pro-space-right">
+							
+                                <!--BEGIN MY CORDONNE-->
+                                <div class="card text-center">
+                                    <div class="card-header p-2 font-weight-bold bg-darkgray">
+                                        <h5 class="text-uppercase">MES COORDONNEES</h5>
+                                    </div>
+                                    <div class="card-body">
+										
+                                        <!-- Modal body -->
+                                        <div class="pt-2">
+                                        <form method="POST">
+                                                <div class="form-group mb-3">
+                                                    <label class="">Activité principal *</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend  bg-warning text-center" style="padding: 5px;">
+                                                            <span class="input-group-addons bg-transparent"><i class="lnr lnr-layers"></i></span>
+                                                        </div>
+                                                        <select name="" class="form-control text-muted">
+                                                            <option selected>Sélectionnez une categorie</option>
+                                                            <option value="volvo">Volvo</option>
+                                                            <option value="audi">Audi</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label class="">Code Postale *</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
+                                                            <span class="input-group-addon"><i class="lnr lnr-license"></i></span>
+                                                        </div>
+                                                        <input type="number" class="form-control text-muted" placeholder="Votre code Postale *">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label class="">Ville *</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
+                                                            <span class="input-group-addon"><i class="lnr lnr-map"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" placeholder="Sélectionnez une ville">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label class="">Raison Sociale</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
+                                                            <span class="input-group-addon"><i class="lnr lnr-apartment"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" placeholder="Nom de votre société">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label class="">Nom et Prénom</label>
+                                                    <div class="input-group mb-2">
+                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
+                                                            <span class="input-group-addon"><i class="lnr lnr-text-format"></i></span>
+                                                        </div>
+                                                        <input type="text" name="nom" class="form-control" placeholder="votre nom">
+                                                    </div>
+                                                    <div class="input-group mb-2">
+                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
+                                                            <span class="input-group-addon"><i class="lnr lnr-text-format"></i></span>
+                                                        </div>
+                                                        <input type="text" name="prenom" class="form-control"  placeholder="votre Prénom">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label class="">Telephone</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
+                                                            <span class="input-group-addon"><i class="lnr lnr-phone-handset"></i></span>
+                                                        </div>
+                                                        <input type="tel" class="form-control" size="40" onkeyup="" placeholder="Ex: +336 ou 00336">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label class="">Email</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
+                                                            <span class="input-group-addon"><i class="lnr lnr-envelope"></i></span>
+                                                        </div>
+                                                        <input type="email" class="form-control"  placeholder="Votre e-mail">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label class="">Mot de passe</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
+                                                            <span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
+                                                        </div>
+                                                        <input type="password" class="form-control"  placeholder="Votre mot de passe ">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label class="">Confirmation mot de passe</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
+                                                            <span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
+                                                        </div>
+                                                        <input type="password" class="form-control"  placeholder="Reconfirmer votre mot de passe">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                                                    <div class="g-recaptcha" data-sitekey="6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></div>
+                                                </div>
+                                                <button type="submit" class="btn btn-warning btn-register w-100">ENREGISTRER</button>
+                                                <!--<button type="button" class="btn btn-annule btn-danger float-right" data-dismiss="modal">Annuler</button> -->
+                                            </form>
+                                        </div>
+                                        <!-- Modal footer -->
+										
+                                    </div>
+                                    <!-- <div class="card-footer text-muted pb-4"> -->
+									 
+                                    <!-- </div> -->
+                                </div>
+                                <!-- END MY CORDONNE -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--End section  of the list ads by artisan-->
+	
+            <!--Begin section the Presse Talk US -->
+            <section id="" class="bg-transparent">
+            <div class="container  bg-white">
+                <div class="row d-flex justify-content-center py-4">
+                    <div class="col-12 text-center">
+                        <h5 class="text-uppercase">Restez connecté</h5>
+                        <div class="text-secondary small"><p class=" subtitle ">
+                            Pour être certain de ne rater aucun chantier, téléchargez l’application mobile pour suivre les projets lorsque vous êtes en déplacement.
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 lg-8 text-center">
+                        <img class="" src="{{ absolute_url('/assets/img/photos/app-mobile.png') }}"></img>
+                    </div>
+                    <div class="col-12 col-sm-6 lg-4 d-flex flex-column justify-content-center text-secondary">
+                        <a class="btn btn-outline-secondary d-flex flex-row text-center align-items-center">
+                            <span class="pro-icon mb-3">
+                                <span class="icon-message-pro">
+                                    <object type="image/svg+xml" data="{{ absolute_url('/assets/icon/apple_icon-icons.com_62745.svg') }}" class="icon-message-pro icon-bike">
+                                        apple
+                                    </object>
+                                </span>
+                            </span>
+                            <span class="">
+                                <span class="text-center ">Disponible sur <span/><br>
+                                <span class="font-weight-capitalize">App Store<span/>
+                            <span/>
+                        </a>
+                        <a class="btn btn-outline-secondary d-flex flex-row align-items-center">
+                            <span class="pro-icon mb-3">
+                                <span class="icon-message-pro">
+                                    <object type="image/svg+xml" data="{{ absolute_url('/assets/icon/Google_Play_icon-icons.com_66988.svg') }}" class="icon-message-pro icon-bike">
+                                        play
+                                    </object>
+                                </span>
+                            </span>
+                            <span class="text-center ">
+                                <span class="">Disponible sur <span/><br>
+                                <span class="font-weight-capitalize">Google Play<span/>
+                            <span/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            </section>
+            <!--End section the Presse Talk US  -->
+
+        </main>
+
+        {% include "./pro/footer/footer.html.twig" %}
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+<!-- MESSAGE NTIFICATION -->
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<!--Local-->
+<script src="{{ absolute_url('/assets/loadbar/js/loading-bar.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/jquery.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/now-ui-kit.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
+<script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
+<script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
+
+{% endblock %}

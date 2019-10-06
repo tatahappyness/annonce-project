@@ -1,0 +1,815 @@
+{% extends  'base.html.twig' %}
+
+    {% block stylesheets %}
+    
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />-->
+    <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <!-- CSS Files -->
+    <link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+    {% endblock %}
+  
+    {% block body %}
+	
+    <div class="page-header">
+        <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/head-1.jpg'); background-attachment: fixed;">
+        </div>
+        <div class="row">
+            <div class="col-12 p-0">
+                <div class="contenair-header-menu"> 
+                    <nav class="navbar navbar-expand bg-gray py-0 navbar-head">
+                    <div class="container border-0">
+                        <div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+                            <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
+                                <a class="text-decoration-none" href="{{ path('home_page') }}">
+                                <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
+                                </a>
+							
+                                <ul class="navbar-nav mt-2 mt-lg-0">
+                                    <li class="nav-item active">
+                                    <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+                                <span class="mr-1">
+                                    <button class="btn btn-round bg-gray text-decoration-none show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap" type="button">
+                                        <i class="">🔒</i> Se connecter
+                                    </button>
+                                </span>
+                                <span class="">
+                                    <a href="{{ path('space_pro_page') }}" class="btn btn-round bg-white border-warning font-weight-bold text-success text-nowrap text-decoration-none">
+                                        <i class="">👷🏾</i>  Vous êtes un pro ?
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    </nav>
+                    <!-- Navbar menu end here -->
+					  
+                    <!-- ############################# NAVBAR HERE LARGE -->
+						
+                    <div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
+                    <div class="container">
+                        <button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
+                        <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            </li>
+                            <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">INSTALLER</a>
+                            <ul class="dropdown-menu megamenu">
+                            <div class="row">
+                            <li class="col-12 col-sm-7 text-center">
+                                <ul class="row" style=" list-style-type: none;">
+
+                                    <div class="col-12 col-md-4 col-lg-3 p-0">
+                                        <li class="dropdown-header">Categorie-1</li>
+                                        <li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+                                        </li>
+                                        <li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                    </div>
+
+                                    <div class="col-12 col-md-4 col-lg-3 p-0">
+                                        <li class="dropdown-header">Categorie-2</li>
+                                        <li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
+                                        </li>
+                                        <li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                    </div>
+
+                                </ul>
+                            </li>
+                            <li class=" col-12 col-sm-5 dropdown-item">
+                                <div class="row">
+                                    <div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+                                    <div class="col-12 col-md-6">
+                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+                                            <a href="#" class="thumbnail">
+                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+                                            </a>
+                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+                                            <a href="#" class="thumbnail">
+                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+                                            </a>
+                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </li>
+                            </div>
+                            </ul>
+                        </li>
+                        <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">RENOVER </a>
+                            <ul class="dropdown-menu megamenu">
+                            <div class="row">
+                            <li class="col-12 col-sm-7 text-center">
+                                <ul class="row" style=" list-style-type: none;">
+                                    <div class="col-12 col-md-4 col-lg-3 p-0">
+                                    <li class="dropdown-header">Categorie-1</li>
+                                    <li><a href="view_all_art_cat_family_byfilter ">Article-1</a>
+                                    </li>
+                                    <li><a href="#">Article-2</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    </div>
+								
+                                    <div class="col-12 col-md-4 col-lg-3 p-0">
+                                    <li class="dropdown-header">Categorie-2</li>
+                                    <li><a href="#">Article-1</a>
+                                    </li>
+                                    <li><a href="#">Article-2</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class=" col-12 col-sm-5 dropdown-item">
+                                <div class="row">
+                                    <div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+                                    <div class="col-12 col-md-6">
+                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+                                            <a href="#" class="thumbnail">
+                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+                                            </a>
+                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+                                            <a href="#" class="thumbnail">
+                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+                                            </a>
+                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </li>
+                            </div>
+                            </ul>
+                        </li>
+                        <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Aménager son intérieur</a>
+                            <ul class="dropdown-menu megamenu">
+                            <div class="row">
+                            <li class="col-12 col-sm-7 text-center">
+                                <ul class="row" style=" list-style-type: none;">
+                                    <div class="col-12 col-md-4 col-lg-3 p-0">
+                                    <li class="dropdown-header">Categorie-1</li>
+                                    <li><a href="view_all_art_cat_family_byfilter ">Article-1</a>
+                                    </li>
+                                    <li><a href="#">Article-2</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    </div>
+								
+                                    <div class="col-12 col-md-4 col-lg-3 p-0">
+                                    <li class="dropdown-header">Categorie-2</li>
+                                    <li><a href="#">Article-1</a>
+                                    </li>
+                                    <li><a href="#">Article-2</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class=" col-12 col-sm-5 dropdown-item">
+                                <div class="row">
+                                    <div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+                                    <div class="col-12 col-md-6">
+                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+                                            <a href="#" class="thumbnail">
+                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+                                            </a>
+                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+                                            <a href="#" class="thumbnail">
+                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+                                            </a>
+                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </li>
+                            </div>
+                            </ul>
+                            </li>
+                            <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Aménager son extérieur</a>
+                            <ul class="dropdown-menu megamenu">
+                            <div class="row">
+                            <li class="col-12 col-sm-7 text-center">
+                                <ul class="row" style=" list-style-type: none;">
+                                    <div class="col-12 col-md-4 col-lg-3 p-0">
+                                    <li class="dropdown-header">Categorie-1</li>
+                                    <li><a href="view_all_art_cat_family_byfilter ">Article-1</a>
+                                    </li>
+                                    <li><a href="#">Article-2</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    </div>
+								
+                                    <div class="col-12 col-md-4 col-lg-3 p-0">
+                                    <li class="dropdown-header">Categorie-2</li>
+                                    <li><a href="#">Article-1</a>
+                                    </li>
+                                    <li><a href="#">Article-2</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class=" col-12 col-sm-5 dropdown-item">
+                                <div class="row">
+                                    <div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+                                    <div class="col-12 col-md-6">
+                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+                                            <a href="#" class="thumbnail">
+                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+                                            </a>
+                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+                                            <a href="#" class="thumbnail">
+                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+                                            </a>
+                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </li>
+                            </div>
+                            </ul>
+                            </li>
+                            <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Construire </a>
+                            <ul class="dropdown-menu megamenu">
+                            <div class="row">
+                            <li class="col-12 col-sm-7 text-center">
+                                <ul class="row" style=" list-style-type: none;">
+                                    <div class="col-12 col-md-4 col-lg-3 p-0">
+                                    <li class="dropdown-header">Categorie-1</li>
+                                    <li><a href="#">Article-1</a>
+                                    </li>
+                                    <li><a href="#">Article-2</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    </div>
+								
+                                    <div class="col-12 col-md-4 col-lg-3 p-0">
+                                    <li class="dropdown-header">Categorie-2</li>
+                                    <li><a href="view_all_art_cat_family_byfilter ">Article-1</a>
+                                    </li>
+                                    <li><a href="#">Article-2</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class=" col-12 col-sm-5 dropdown-item">
+                                <div class="row">
+                                    <div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
+
+                                    <div class="col-12 col-md-6">
+                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+                                            <a href="#" class="thumbnail">
+                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+                                            </a>
+                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
+                                            <a href="#" class="thumbnail">
+                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+                                            </a>
+                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </li>
+                            </div>
+                            </ul>
+                            </li>
+                            <li class="nav-item"><a href="{{ path('space_find_pro_page') }}" class="nav-link">Trouver un pro</a></li>
+                        </ul>
+                        </div>	
+                    </div> 
+                    </div>
+                    <!-- ############################# END NAVBAR HERE LARGE -->	
+                    <!-- Progress barr slid scroll -->
+                    <div class="progress-container fixed-top">
+                        <div class="progress-bar" id="myBar"></div>
+                    </div> 
+					  
+                </div>
+            </div>
+        </div>
+        <!-- End Row for Menu header -->
+		
+        <!-- Begin for row content header parallax -->
+        <div class="container">
+            <div class="row row-slide-first-header d-flex content-parallax-forms justify-content-center font-weight-light">
+                <div class="col-12 d-flex flex-column flex-md-row text-center align-items-center justify-content-center pb-4">
+                    <div class="text-center w-100 px-2">
+                        <h4 class="text-warning title-front-h1 font-weight-bold">SELECTIONNEZ LE MEILLEUR ARTISAN LOCAL POUR VOS TRAVAUX</h4>
+                        <p class="text-white text-italic">Recevez jusqu’à 5 devis en 48h, gratuitement et sans engagement !</p>
+                    </div>
+                    <div class="text-center">
+                        <img class="" src="{{ absolute_url('/assets/img/garantie.png') }}" style="width: 50%;"></img>
+                    </div>
+                </div>
+                <!-- ############# Begin form search -->
+                <div class="col-10 d-flex flex-column justify-content-center align-items-end">
+				
+                    <div class="w-100 bg-dark" style="box-shadow: -14px 5px 5px black; z-index: 1;">
+                        <form action="{{ path('post_ask_devis_page') }}" method="POST">
+                            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center">
+                                <div class="form-group p-0 m-0 w-100">
+
+                                    <input type="text" id="show-input-list-search" class="form-control text-center" placeholder="Quel travaux souhaitez vous realiser ?">
+
+                                </div>
+
+                                <div id="group-form-spcial-input-hidden">                                                                                                                                                           
+                                 
+                                </div>
+
+                                <div class="form-group">                                                                                                                                                           
+                                   <input  type="hidden" name="route_page" value="home_page">
+                                </div>
+                                <div class="bg-warning  btn-ask-devis w-auto">
+                                <button type="submit" class="btn btn-warning border-0 text-nowrap">Demander un devis</button>
+                                </div>
+                            </div>  
+                        </form>
+                    </div>
+					
+                    <div id="service-pro-and-artisant" class="d-flex w-100 align-items-center justify-content-center row-slide-beside-and-form-search">
+				
+                        <!-- ############# Begin Boutton large screen Clik down -->
+                        <div class="d-sm-flex justify-content-center boutton-large-screen d-none d-sm-block" style="z-index: 1;">
+                            <span class="btn-down-contenair" style="z-index: 1;">
+                                <a class="text-decoration-none" href="#how-to-receve-devis" style="text-decoration: none;">
+                                    <img class="" style="height: 75px; z-index: 1;" src="{{ absolute_url('/assets/img/boutton/arrow-boutton.gif') }}"></img>
+                                </a>
+                            </span>
+                        </div>
+                        <!-- ############# End Boutton large creen Clik down -->
+						
+                        <!-- ############# Begin Boutton short screen Clik down -->
+                        <div class="boutton-short-screen d-none">
+                            <span class="btn-down-contenair" style="z-index: 1;">
+                                <a class="text-decoration-none" href="#how-to-receve-devis" style="text-decoration: none;">
+                                    <img class="" style="height: 75px; z-index: 1;" src="{{ absolute_url('/assets/img/boutton/arrow-boutton.gif') }}"></img>
+                                </a>
+                            </span>
+                        </div>
+                        <!-- ############# End Boutton short creen Clik down -->
+                    </div>
+					
+                </div>
+            <!-- ############# End form search-->
+            </div>
+        </div>
+        <!-- End container presentation header -->
+		
+    </div>
+    <!--END HEADER-->
+
+    <div class="jumbotron bg-transparent">
+        <div class="triangle" style="height: 6px;"> </div>
+		
+        <main class="section-1 section-main-home">
+		
+                <!--Begin section of man young-->
+                <section id="how-to-receve-devis" style="background-color: white;">
+                    <div class="container">
+                        <!-- ######## Begin sondage content -->
+                        <div class="row row-sondage-under bg-white py-5">
+                            <div class="col-12" >
+                                <div class="w-100">
+                                    <div class="sondage-content w-100">
+                                        <div class="row ">
+                                            <div class="col-md-3 col-6 p-2">
+                                                <div class="d-flex flex-column align-items-center justify-content-center animate"><span class="icon-sondage"><span class="" style="line-height: 100px; font-size: 64px; !important">👌</span></span><span class="title-sondage pt-2">Sans engagement</span></div>
+                                            </div>
+                                            <div class="col-md-3 col-6  p-2">
+                                                <div class="d-flex flex-column align-items-center justify-content-center animate"><span class="icon-sondage"><span class="" style="line-height: 100px; font-size: 64px; !important">💡</span></span><span class="title-sondage pt-2">50 000 Notes & Avis de particuliers</span></div>
+                                            </div>
+                                            <div class="col-md-3 col-6 p-2">
+                                                <div class="d-flex flex-column align-items-center justify-content-center animate"><span class="icon-sondage"><span class="" style="line-height: 100px; font-size: 64px; !important">🏆</span></span><span class="title-sondage pt-2">2 Millions d'utilisateurs</span></div>
+                                            </div>
+                                            <div class="col-md-3 col-6 p-2">
+                                                <div class="d-flex align-items-center d-flex flex-column align-items-center justify-content-center animate"><span class="icon-sondage text-center"> <span class="lnr lnr-graduation-hat text-warning" style="line-height: 100px; font-size: 64px; !important"></span> </span><span class="title-sondage pt-2">25 000 Artisans</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ######## End sondage content -->
+                    </div>
+                </section>
+                <!--End section of man young-->
+				
+                <!--Begin section of man young-->
+                <section id="how-to-receve-devis" class="animate bg-darkgray">
+                    <div class="container">
+                        <!-- ######## Begin  man young -->
+                        <div class="row man-young-container d-sm-flex justify-content-sm-center d-none d-sm-block">
+                            <div class="col-sm-12 d-sm-flex man-young justify-content-sm-center text-white py-4"> 
+                                <h4 class="font-weight-bold ">COMMENT RECEVOIR DES DEVIS POUR VOS TRAVAUX ? </h4>
+                            </div>
+                            <div class="col-sm-3 d-sm-flex flex-sm-column man-young justify-content-sm-center align-items-sm-center"> 
+                                <div class=""><img class="" src="{{ absolute_url('/assets/img/photos/formulaire.jpg') }}"></img></div>
+                                <div class="text-center pt-2 man-young-desc">Déposez votre demande de devis</div>
+                            </div>
+                            <div class="col-sm d-sm-flex man-young justify-content-sm-center align-items-center"> 
+                                <span class="lnr lnr-chevron-right text-success animated infinite fadeIn delay-2s"></span>
+                            </div>
+                            <div class="col-sm-3  d-sm-flex flex-sm-column man-young justify-content-sm-center align-items-sm-center"> 
+                                <div class=""><img class="" src="{{ absolute_url('/assets/img/photos/telephone.jpg') }}"></img></div>
+                                <div class="text-center d-flex flex-fill pt-2 man-young-desc">Des professionnels vous contacteront</div>
+                            </div>
+                            <div class="col-sm  d-sm-flex man-young justify-content-sm-center align-items-center"> 
+                                <span class="lnr lnr-chevron-right text-success animated infinite fadeIn"></span>
+                            </div>
+                            <div class="col-sm-3 d-sm-flex flex-sm-column man-young justify-content-sm-center align-items-sm-center"> 
+                                <div class=""><img class="" src="{{ absolute_url('/assets/img/photos/telephone.jpg') }}"></img></div>
+                                <div class="text-center pt-2 man-young-desc">Choisissez la meilleure offre</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!--End section of man young-->
+				
+                <hr class="my-1 d-none d-md-block">
+                <!--Begin section more popular devis asks -->
+                <section id="" class=" bg-white">
+                <div class="container">
+                    <div class="row py-5">
+                        <div class="col-12 " >
+                            <h5 class="text-center">DEVIS TRAVAUX LES PLUS DEMANDÉS</h5>
+                            <div class="text-center  text-muted">Choisissez les travaux que vous souhaitez réaliser : nous vous accompagnons dans le choix du prestataire et nous vous donnons de nombreux conseils pour les réussir.</div>
+                        </div>
+						
+                        <div class="col-12 col-sm-6 col-lg-4 py-4">
+                            <div class="img-container-popular popular-container-img-1 d-flex flex-column align-items-center" style="background-image: url(/assets/img/photos/head-1.jpg);">
+                                <div class="bg-transparent w-100" style="">
+                                    <a class="btn btn-success rounded-circle float-right m-1 p-0" alt="voir détail...">
+                                        <span class="lnr lnr-eye icon-popular-ask-eyes"></span>
+                                    </a>
+                                </div>
+                                <div class="img-title popular-title-img-1 h4 h-100 text-center">Carrelage/Dallage</div>
+                                <div class="img-desc popular-desc-img-1 w-100 text-center">
+                                    <a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page') }}">Demander un devis</a>
+                                </div>
+                                <div class="bg-transparent d-flex align-items-end justify-content-end h-100 w-100" style=""><a class="btn bg-darkgray m-2">vote(3215)</a></div>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <a class="btn btn-warning btn-show-cat-popular-all" href="{{ path('view_all_tavaux_page') }}">Voir tous les catégories >></a>
+                        </div>						
+                    </div>
+                </div>
+                </section>
+                <!--End section more popular devis asks -->
+
+                <!--Begin section Particular talk US -->
+                <section id="" class="bg-gray">
+                    <div class="container bg-white">
+                        <div class="row pb-5">
+                            <div class="col-12 d-flex flex-column justify-content-center text-dark py-2">
+                                <h5 class="text-center">LES PARTICULIERS PARLENT DE NOUS</h5>
+                                <div class="text-center">Chaque mois, plus de 15 000 personnes nous confient les travaux de leur maison en demandant des devis à notre réseau d'experts. En ferez-vous partie ?</div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4 pt-4">
+                                <div class="card">
+                                    <div class="card-header text-right">
+                                        <span class="pro-icon mb-3">
+                                            <span class="icon-message-pro">
+                                                <object type="image/svg+xml" data="{{absolute_url('/assets/icon/message_512.svg')}}" class="icon-message-pro icon-bike">
+                                                    Bike
+                                                </object>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="message-content h-auto py-2 px-4">
+                                        <div class=""></div>
+                                        <div>"J'ai découvert l'efficacité de votre site. Très rapidement 4 artisans ou entreprises se sont manifestés. Après avoir reçu 3 devis, j'ai traité avec l'artisan qui me paraissait le plus avantageux. Veuillez accepter mes remerciements 💨🌀🏡💥"</div>
+                                    </div>
+                                    <div class="card-footer d-flex flex-row align-items-center">
+                                        <span class="pro-icon mb-3">
+                                            <span class="icon-message-pro">
+                                                <object type="image/svg+xml" data="{{ absolute_url('/assets/icon/user_icon-64.svg') }}" class="icon-message-pro icon-bike">
+                                                    Bike
+                                                </object>
+                                            </span>
+                                        </span>
+                                        <span class="ml-2 text-secondary">Jean-Noël S.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center">
+                                <a class="btn btn-warning btn-particular-talk" href="{{ path('comments_particular_page') }}">Consulter tous les témoignages >></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+				
+                <!--Begin section  profesionnels news -->
+                <section id="" style="background: #f0f0f0;">
+                <div class="container">
+                    <div class="row py-5">
+                        <div class="col-12">
+                            <h5 class="text-center">NOS NOUVEAUX PREFESSIONNELS IDEAL</h5>
+                            <div class="text-center text-muted">Vous souhaitez réaliser des travaux et ne savez quel professionnel choisir ? Demandez des devis travaux auprès de notre réseau des nouveaux professionnels partout.
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-4 py-4">
+                            <div class="img-new-pro-container d-flex flex-column align-items-center justify-content-center bg-white rounded">
+                                <div class="img-new-pro-content rounded-top" style="background-image: url(/assets/img/photos/jardin/jardin-1.jpg); width: 100%; height: 250px;">
+                                    <div class="w-100">
+                                        <a class="btn btn-success float-left m-1 text-white">Nom category ici</a>
+                                        <a class="btn btn-danger btn-pro-emotion-heart rounded-circle float-right m-1">
+                                            <span class="lnr lnr-heart icon-pro-emotion-heart"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="img-pro-desc d-flex flex-row align-items-center justify-content-center  text-center py-2">
+                                    <div class="border border-secondary rounded-circle">
+                                        <img class="pro-logo rounded-circle" src="{{ absolute_url('/assets/img/photos/artisan.jpg') }} " style="width: 64px; height: auto;"></img>
+                                    </div>
+                                    <div class="d-flex flex-column align-items-center justify-content-center text-left">
+                                        <span class="d-inline text-center">
+                                            <a class="btn btn-outline-secondary m-2">En vedette</a>
+                                            <a class="btn btn-outline-secondary m-2">vérifié</a>
+                                        </span>
+                                        <span class="text-center ml-1">
+                                            <a href="{{ path('show_detail_pro_page') }}" class="text-decoration-none text-secondary">Bright Future Group & Company</a>
+                                        </span>
+                                        <span class="small text-center">
+                                            <span class="pro-point-star p-1"><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star-half icon-star-pro text-warning"></span></span>
+                                            <span class="pro-like-percent text-secondary p-1"><span class="lnr lnr-thumbs-up icon-like-pro text-secondary"></span> 99% (1009 votes) </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <a class="btn btn-warning btn-show-pro-all" href="{{ path('space_find_pro_page') }}">Voir tous les professionnels >></a>
+                        </div>						
+                    </div>
+                </div>
+                </section>
+                <!--End section profesionnels news -->
+				
+                <!--Begin section of the guide for conseils -->
+                <section id="" class="bg-transparent">
+                <div class="container">
+                    <div class="row py-5">
+                        <div class="col-12">
+                            <h5 class="text-center">DE NOMBREUX CONSEILS POUR VOS TRAVAUX</h5>
+                            <div class="text-center text-muted">Pour être sûr de réussir vos travaux, suivez nos conseils et guides pratiques, nous vous aiderons à faire les meilleurs choix !</div>
+                        </div>
+						
+                        <div class="col-12 col-sm-6 col-lg-4 pt-4">
+                            <div class="img-container-guide guide-container-img-1" style="background-image: url(./assets/img/photos/head-1.jpg);">
+								
+                            </div>
+                            <div class="guide-title-img pt-2 border-bottom border-secondary">
+                                <a href="{{ path('guides_conseils_page') }}" class="text-decoration-none text-secondary"><h6> Nom Categorie ici</h6></a>
+                            </div>
+                            <div class="guide-desc-img">
+                                <ul class="articles-list list-group">
+                                    <li class="article-item list-group-item border-0 font-weight-normal">
+                                        <p class="d-flex flex-column">
+                                            <a href="{{ path('guides_conseils_page') }}" class="text-secondary">Nom Article ici</a>
+                                            <a href="{{ path('guides_conseils_page') }}" class="text-secondary small">Question Article description ici?</a>
+                                        </p>
+                                    </li>
+                                    <li class="article-item article-item list-group-item border-0 font-weight-normal">
+                                        <p>
+                                            <a href="{{ path('guides_conseils_page') }}" class="text-warning text-warning small">Voir tous les articles >></a>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <a class="btn btn-warning btn-particular-talk" href="{{ path('guides_conseils_page') }}">Lire tous les categories >></a>
+                        </div>
+						
+                    </div>
+                </div>
+                </section>
+                <!--End section  of the guide for conseils -->
+				
+                <!--Begin section slide testmonial -->
+                <section id="" class="bg-transparent">
+                <div class="container">
+                    <div class="row py-5 fond-slide-background">
+					
+                        <!-- ############# Begin slide beside -->
+                        <div class="col-12 col-sm-6 slide-content-short-screen d-none d-sm-block h-100 d-sm-flex justify-sm-content-center">
+                            <!-- Swiper -->
+                            <div class="swiper-container swiper-container-front">
+                                <div class="swiper-wrapper rounded">
+                                <div class="swiper-slide" style="background-image:url(/assets/img/photos/decoration-5.jpg); height: 350px;"><h6 class="text-warning font-weight-bold">Installation</h6></div>
+                                <div class="swiper-slide" style="background-image:url(/assets/img/photos/equipe_travaux3.jpg); height: 350px;"><h6 class="text-warning font-weight-bold">Rénovation</h6></div>
+                                <div class="swiper-slide" style="background-image:url(/assets/img/photos/decoration/decoration-4.jpg); height: 350px;"><h6 class="text-warning font-weight-bold">Aménagement Intérieur</h6></div>
+                                <div class="swiper-slide" style="background-image:url(/assets/img/photos/equipe_travaux3.jpg); height: 350px;"><h6 class="text-warning font-weight-bold">Aménagement Extérieur</h6></div>
+                                <div class="swiper-slide" style="background-image:url(/assets/img/photos/decoration/decoration-4.jpg); height: 350px;"><h6 class="text-warning font-weight-bold">Construction</h6></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ############# End slide beside -->
+						
+                        <!--################ Begin slide content ############# -->
+                        <div class="col-12 col-sm-6 d-flex align-items-center h-100" >
+                            <div class="w-100 border-0">
+								
+                                <!-- Swiper -->
+                                <div class="swiper-container swiper-container-front text-white">
+                                    <div class="swiper-wrapper text-justify">
+                                    <div class="swiper-slide mobile-slide" style="background-color: rgb(19, 19, 19, 5%); height: 300px;">
+                                        <div class="w-100 text-center">
+                                            <h6 class="text-warning font-weight-bold">Installation</h6><p class="px-2">Les travaux d’installation consistent en la mise en place des équipements nécessaires au bon fonctionnement de votre maison ou de votre immeuble. Ils concernent essentiellement le chauffage, tout ce qui est lié à la ventilation, les installations sanitaires, les installations électriques et éventuellement les ascenseurs et autres catégories de monte-charges.</p>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide mobile-slide" style="background-color: rgba(19, 19, 19, 5%); height: 300px;">
+                                        <div class="w-100 text-center">
+                                            <h6 class="text-warning font-weight-bold">Rénovation</h6><p class="px-2">Pour vos demandes de devis de rénovation, n’hésitez pas à décrire en détails la nature des travaux à exécuter et les conditions de réalisation afin d’avoir un maximum de précision de la part des artisans qualifiés par rapport aux activités à réaliser et à leurs estimations respectives en termes de coûts et de matériaux.</p>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide mobile-slide" style="background-color: rgba(19, 19, 19, 5%); height: 300px;">
+                                        <div class="w-100 text-center">
+                                            <h6 class="text-warning font-weight-bold">Aménagement Intérieur</h6><p class="px-2">Où que vous soyez partout en France, Orange Travaux sélectionne pour vous des artisans qualifiés pour réaliser tous vos travaux d’aménagement intérieur : les revêtements de sols, murs, plafonds, la menuiserie ou encore les cloisons. Choisissez les meilleurs prestataires qui vous garantiront une finition irréprochable.</p>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide mobile-slide" style="background-color: rgba(19, 19, 19, 5%); height: 300px;">
+                                        <div class="w-100 text-center">
+                                            <h6 class="text-warning font-weight-bold">Aménagement Extérieur</h6><p class="px-2">L’extérieur d’une propriété est tout aussi important car il renvoie l’image de ce que devrait être l’intérieur de votre maison. Ainsi, le jardin, la terrasse, la véranda, le portail et tout autre équipement extérieur doivent faire l’objet d’un entretien régulier afin d’éviter certaines dégradations qui risquent de donner un effet négligé à l’ensemble de votre maison.</p>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide mobile-slide" style="background-color: rgba(19, 19, 19, 5%); height: 300px;">
+                                        <div class="w-100 text-center">
+                                            <h6 class="text-warning font-weight-bold">Construction</h6><p class="px-2">Pour vos travaux de construction en bâtiment, ne lésinez pas trop sur les moyens financiers. Favorisez plutôt les qualifications des artisans, de l’entreprise et de l’architecte, ainsi que leurs savoir-faire respectifs dans leur domaine. Le bon prix n’est peut-être pas le mieux disant ni le moins disant, renseignez-vous autant que possible sur les prix du marché mais surtout prenez votre temps pour bien choisir vos prestataires.</p>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+								
+                            </div>
+                        </div>
+                        <!--############ End slide content #################### -->
+						
+                        <!-- ######## Begin Pub content layout -->
+                        <div class="col-12 pt-4 d-none d-sm-block" style="background-color: rgb(19, 19, 19, 50%);">
+                            <div class="w-100">
+                                <!-- Swiper -->
+                                <div class="swiper-container swiper-container-front">
+                                    <div class="swiper-wrapper">
+									
+                                        <div class="swiper-slide d-flex flex-row pt-1">
+                                            <div class="d-flex flex-column justify-content-center text-warning w-50"><h6>ETES-VOUS UN PROFESSIONNEL DU BATIMENT ?</h6> 
+                                            <p class="card-text text-white px-2">Démarquez-vous de la concurrence et remplissez rapidement votre carnet de commandes quel que soit le chantier qui vous intéresse.</p>
+                                            <ul class="list-group list-group-flush text-left show-form-pro-mouseover" style="font-size: .8em;">
+                                                <li class="list-group-item list-group-item-light bg-transparent"><span class="lnr lnr-select text-warning mr-2"></span>Sélectionnez votre domaine de spécialisation</li>
+                                                <li class="list-group-item list-group-item-light bg-transparent"><span class="lnr lnr-earth text-warning mr-2"></span>Choisissez votre zone d’intervention</li>
+                                                <li class="list-group-item list-group-item-light bg-transparent"><span class="lnr lnr-envelope text-warning mr-2"></span>Recevez chaque jour des opportunités de chantier</li>
+                                                <li class="list-group-item list-group-item-light bg-transparent"><span class="lnr lnr-cog text-warning mr-2"></span>Profitez d’un service en ligne pratique et flexible</li>
+                                            </ul>
+                                            </div>
+                                            <div class="card" style="width: 50%; height: auto; background-color: rgb(19, 19, 19, 50%);">
+                                            <img class="card-img-top" style="height: 65%;" src="{{ absolute_url('/assets/img/photos/devenir-chef-equipe-btp.jpg') }}" alt="Card image cap">
+                                            <div class="bg-transparent small">
+                                                <a href="inscription.html" class="btn btn-warning w-auto">S'inscrire en tant que Pro?</a>
+                                            </div>
+                                            </div>
+                                        </div>
+									  
+                                        <div class="swiper-slide d-flex flex-row pt-1">
+                                            <div class="d-flex flex-column justify-content-center text-warning w-50"><h6>ETES-VOUS UN PROFESSIONNEL DU BATIMENT ?</h6> 
+                                            <p class="card-text text-white px-2">Démarquez-vous de la concurrence et remplissez rapidement votre carnet de commandes quel que soit le chantier qui vous intéresse.</p>
+                                            <ul class="list-group list-group-flush text-left" style="font-size: .8em;">
+                                                <li class="list-group-item list-group-item-light bg-transparent"><span class="lnr lnr-select text-warning mr-2"></span>Sélectionnez votre domaine de spécialisation</li>
+                                                <li class="list-group-item list-group-item-light bg-transparent"><span class="lnr lnr-earth text-warning mr-2"></span>Choisissez votre zone d’intervention</li>
+                                                <li class="list-group-item list-group-item-light bg-transparent"><span class="lnr lnr-envelope text-warning mr-2"></span>Recevez chaque jour des opportunités de chantier</li>
+                                                <li class="list-group-item list-group-item-light bg-transparent"><span class="lnr lnr-cog text-warning mr-2"></span>Profitez d’un service en ligne pratique et flexible</li>
+                                            </ul>
+                                            </div>
+                                                <div class="card" style="width: 50%; height: auto;  background-color: rgb(19, 19, 19, 50%);">
+                                                <img class="card-img-top" style="height: 65%;" src="{{ absolute_url('/assets/img/photos/devenir-chef-equipe-btp.jpg') }}" alt="Card image cap">
+                                                <div class="bg-transparent small">
+                                                    <a href="#" class="btn btn-warning w-auto show-particular-inscription text-nowrap">S'inscrire en tant que particulier</a>
+                                                </div>
+                                                </div>
+                                        </div>
+									  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ######## End Pub content layout -->
+                    </div>
+                    <!-- ######## End row -->
+						
+                    <!--############ Begin slide image for mobile Large screen #################### -->
+                    <div class="row slide-content-large-screen d-none">
+						
+                        <div class="col-12 slide-content-large-screen">
+                            <div class="w-100">
+                                <!-- Swiper -->
+                                <div class="swiper-container swiper-container-front">
+                                    <div class="swiper-wrapper">
+                                    <div class="swiper-slide text-warning" style="background-image:url(/assets/img/photos/decoration-5.jpg); height: 200px;">Installation</div>
+                                    <div class="swiper-slide text-warning" style="background-image:url(/assets/img/photos/equipe_travaux3.jpg); height: 200px;">Rénovation</div>
+                                    <div class="swiper-slide text-warning" style="background-image:url(/assets/img/photos/decoration/decoration-4.jpg); height: 200px;">Aménagement Intérieur</div>
+                                    <div class="swiper-slide text-warning" style="background-image:url(/assets/img/photos/equipe_travaux3.jpg); height: 200px;">Aménagement Extérieur</div>
+                                    <div class="swiper-slide text-warning" style="background-image:url(/assets/img/photos/decoration/decoration-4.jpg); height: 200px;">Construction</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--############ End slide image for mobile Large screen #################### -->
+                </div>
+			</section>	
+            <!--End section slide testmonial -->
+        </main>
+			
+        <!-- Begin footer page -->
+        {% include "./page/footer/footer.html.twig" %}
+        <!-- END footer page -->
+
+    </div>
+
+    {% endblock %}
+
+    {% block javascripts %}
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+    <!--Local-->	 
+    <!-- MESSAGE NTIFICATION -->
+<!-- Auto-complete -->
+<script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
+<!-- Auto-complete -->
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<!--Local-->
+<script src="{{ absolute_url('/assets/loadbar/js/loading-bar.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/jquery.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/now-ui-kit.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
+<script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+
+{% endblock %}

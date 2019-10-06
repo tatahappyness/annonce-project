@@ -1,0 +1,13 @@
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    position: absolute !important;
+    top: 11px !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #ff9000 !important;
+    color: white;
+}
+
+input {
+    height: 50px !important;
+}

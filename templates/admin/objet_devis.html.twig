@@ -1,0 +1,794 @@
+
+{% extends  'base.html.twig' %}
+
+{% block stylesheets %}
+
+  <title>Orange-Travaux ( Admin )</title>
+
+  <!-- Custom fonts for this template-->
+    <link href="{{ absolute_url('/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+	<!-- Custom styles for this template-->
+    <link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
+
+	
+	<link href="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+	
+  <style>
+      .card-header {
+          background-color: #fcd42f4a;
+      }
+      #wrapper{
+        background-color: #777;
+      }
+    </style>
+    
+{% endblock %}
+
+{% block body %}
+
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper" style="background-color: #777">
+
+	<!--Begin nav_bar api_admin space -->
+	{% include "./admin/api_admin/nav_bar.html.twig" %}
+	<!--End nav_bar api_admin space -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" style="background-color:#ececec"; class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+	  
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+			<!-- Divider -->
+				<h3 class="chg_title_objet">Préstation</h3>
+			<hr class="sidebar-divider">
+				<div class="row">				
+					<div class="row col-lg-8 text-center">        
+						<div class="col-lg-4 mb-4">
+							<div class="active_row_type link-1 btn btn-success text-white shadow">
+								<div class="card-body">
+									Préstation                    
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 mb-4">
+							<div class="active_row_categorie link-1 btn btn-secondary  text-white shadow">
+								<div class="card-body">
+									Catégorie
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-4 mb-4">
+							<div class="active_row_article link-1 btn btn-info text-white shadow">
+								<div class="card-body">
+									Article
+								</div>
+							</div>
+						</div>
+					</div>  
+				</div>
+				
+      
+
+          <!-- Content Row Type de prestation-->
+          <div class="row row_type">
+
+			<!-- Content Column -->    
+			
+            <!-- DataTales Example -->
+			
+
+			<!-- Modal suppression type -->
+			<div class="modal fade" id="myModal_sup_type" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer la suppression: [Préstation]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<span class="font-weight-bold " >Type:</span>
+							Aménager intérieur 
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+							data-dismiss="modal">
+								NON
+							</button>
+							<button type="button" class=" btn btn-success">
+								OUI
+							</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal suppression type-->
+
+
+			<!-- Modal edit type-->
+			<div class="modal fade" id="myModal_edit_type" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">
+							Modification: [Préstation]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">		
+							<div class="card-body">
+								<form class="form_edit_type">
+								
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">ID:</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<input type="email" class="form-control form-control-user" id="id_type" placeholder="Identification">
+									  </div>                                                  
+									</div>
+									
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">Type (PRESTATION):</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<input type="email" class="form-control form-control-user" id="nom_type" placeholder="Type du prestation">
+									  </div>                                                  
+									</div>
+
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">Date de création:</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<input type="email" class="form-control form-control-user" id="date_creat_type" placeholder="Date de création">
+									  </div>                                                  
+									</div>
+
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0" >
+											<!-- Button trigger modal -->
+											<button type="button" class="btn btn-default" data-dismiss="modal">
+												Annuler
+											</button>
+										</div>
+										<div class="col-sm-6 mb-3 mb-sm-0" >
+											<button class="btn btn-success btn-user btn-block">
+												Valider
+											</button>
+										</div>
+									</div>					
+								</form>								
+						   </div>
+						</div>
+						
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- End /.modal Edit type -->
+
+
+            <div class="col-10 mb-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+							<span class="col-sm-10">Type de prestation : </span>
+							<button class=" btn btn-primary" type="button" title="Ajouter nouveaux Type de Préstation"><i class="fa fa-plus"></i>
+							</button>
+						</h6>						
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+							<table class="table table-bordered" id="dataTable_type" width="100%" cellspacing="0">
+                            <thead class="bg-warning text-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Type</th>                                
+                                <th>Date de création</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Type</th>
+                                <th>Date de création</th>
+                                <th>Action</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Aménager intérieur</td>
+                                <td>2019-08-30 00:00:09</td>
+                                <td class="text-center" >
+									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_type" type="button" title="Supprimer">
+									<i class="fa fa-times"></i>
+                                    </button>
+									<button class="btn btn-info" data-toggle="modal" data-target="#myModal_edit_type"  type="button" title="Modifier"><i class="fa fa-edit"></i>
+                                    </button>	
+								</td>
+                            </tr>
+							
+							
+                            <tr>
+                                <td>2</td>
+                                <td>RÉNOVER</td>
+                                <td>2019-08-30 00:00:01</td>
+                                <td>47</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>INSTALLER</td>
+                                <td>2019-08-30 00:00:06</td>
+                                <td>21</td>
+                            </tr>
+							
+                            <tr>
+                                <td>4</td>
+                                <td>Aménager extérieur</td>
+                                <td>2019-08-30 00:00:03</td>
+                                <td>27</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+			<!-- End Content Column -->   
+
+          </div>
+			<!-- End Content Row Type de prestation-->
+			
+          <!-- Content Row Catégorie -->
+          <div class="row row_categorie" style="display:none">
+
+			<!-- Modal suppression Catégorie -->
+			<div class="modal fade" id="myModal_sup_cat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer la suppression: [Catégorie]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<span class="font-weight-bold " >ID:</span> 1		<br>
+							<span class="font-weight-bold " >Nom:</span> Architecte-Construction<br>
+							<span class="font-weight-bold " >Date de création:</span> 2011/04/25<br>
+							<span class="font-weight-bold " >Description:</span> Description Architecte-Construction
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+							data-dismiss="modal">
+								NON
+							</button>
+							<button type="button" class=" btn btn-success">
+								OUI
+							</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal suppression Catégorie-->
+
+
+			<!-- Modal edit Catégorie-->
+			<div class="modal fade" id="myModal_edit_cat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Modification: [Catégorie]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="card-body">
+								<form class="form_edit_type">
+								
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">ID:</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<input type="email" class="form-control form-control-user" id="id_cat" placeholder="Identification">
+									  </div>                                                  
+									</div>
+									
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">Nom (Categorie):</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<input type="text" class="form-control form-control-user" id="nom_cat" placeholder="Nom du categorie">
+									  </div>                                                  
+									</div>
+
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">Date de création:</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<input type="date" class="form-control form-control-user" id="date_creat_cat" placeholder="Date de création">
+									  </div>                                                  
+									</div>
+									
+													
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">Description:</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<input type="text" class="form-control form-control-user" id="desc_cat" placeholder="Nom du categorie">
+									  </div>                                                  
+									</div>
+
+													
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">Image:</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<input type="text" class="form-control form-control-user" id="img_cat" placeholder="Nom du categorie">
+									  </div>                                                  
+									</div>
+									
+									
+									
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">Icon:</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<input type="text" class="form-control form-control-user" id="icon_cat" placeholder="Nom du categorie">
+									  </div>                                                  
+									</div>
+									
+									
+									
+									<!-- Button trigger modal -->
+									<button type="button" class="btn btn-default" data-dismiss="modal">
+										Annuler
+									</button>
+									<span class="btn btn-success btn-user btn-block">
+										Valider
+									</span>
+																	
+								</form>								
+						   </div>
+							
+						</div>
+						
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- End /.modal Edit Catégorie -->
+
+
+
+			<!-- Modal afficher type-->
+			<div class="modal fade" id="myModal_aff_cat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+								Détail du Catégorie:
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<span class="font-weight-bold " >Type:</span>
+							Aménager intérieur 
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+							data-dismiss="modal">
+								NON
+							</button>
+							<button type="button" class=" btn btn-success">
+								OUI
+							</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- End /.modal afficher type -->
+
+
+
+
+			<!-- Content Column -->    
+			
+            <!-- DataTales Example -->
+            <div class="col-10 mb-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header btn-success-1 py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+							Listes des Catégorie :
+							<button class=" btn btn-primary" type="button" title="Ajouter nouveaux Categorie"><i class="fa fa-plus"></i>
+							</button>
+						</h6>
+						
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="bg-warning text-dark">
+                            <tr>
+								<th>#</th>
+                                <th>Nom</th>
+                                <th>Date de création</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+								<th>#</th>
+                                <th>Nom</th>
+                                <th>Date de création</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Architecte-Construction</td>
+                                <td>2011/04/25</td>
+                                <td>Description Architecte-Construction</td>
+                                <td>
+									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_cat" type="button" title="Supprimer"><i class="fa fa-times"></i>
+                                    </button>
+									<button class="btn btn-info" data-toggle="modal" data-target="#myModal_edit_cat" type="button" title="Modifier"><i class="fa fa-edit"></i>
+                                    </button>
+									<button class="btn btn-warning" data-toggle="modal" data-target="#myModal_aff_cat" type="button" title="Modifier"><i class="fa fa-eye"></i>
+                                    </button>
+								</td>
+								
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Fenêtre-porte</td>								
+                                <td>2011/03/21</td>
+                                <td>DESK</td>
+                                <td>
+									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_type" type="button" title="Supprimer"><i class="fa fa-times"></i>
+                                    </button>
+									<button class="btn btn-info" type="button" title="Modifier"><i class="fa fa-edit"></i>
+                                    </button>
+								</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Peinture-Sol</td>
+                                <td>2019-09-02</td>
+                                <td>DESK</td>
+                                <td>
+									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_type" type="button" title="Supprimer"><i class="fa fa-times"></i>
+                                    </button>
+									<button class="btn btn-info" type="button" title="Modifier"><i class="fa fa-edit"></i>
+                                    </button>
+								</td>
+                            </tr>
+							
+                            <tr>
+                                <td>4</td>
+                                <td>Cuisine-Salle de Bains</td>
+                                <td>2019-09-02</td>
+                                <td>DESK</td>
+                                <td>
+									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_type" type="button" title="Supprimer"><i class="fa fa-times"></i>
+                                    </button>
+									<button class="btn btn-info" type="button" title="Modifier"><i class="fa fa-edit"></i>
+                                    </button>
+								</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+			<!-- End Content Column -->   
+
+          </div>
+          <!-- End Content Row Catégorie -->
+		  
+		  
+		  <!-- Content Row -->
+          <div class="row row_article"  style="display:none">
+
+			<!-- Content Column -->    
+			
+
+			<!-- Modal suppression Article -->
+			<div class="modal fade" id="myModal_sup_article" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer la suppression:
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<span class="font-weight-bold " >Type:</span>
+							Aménager intérieur 
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+							data-dismiss="modal">
+								NON
+							</button>
+							<button type="button" class=" btn btn-success">
+								OUI
+							</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal suppression Article-->
+
+
+			<!-- Modal edit Article-->
+			<div class="modal fade" id="myModal_edit_article" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer la suppression:
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<span class="font-weight-bold " >Type:</span>
+							Aménager intérieur 
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+							data-dismiss="modal">
+								NON
+							</button>
+							<button type="button" class=" btn btn-success">
+								OUI
+							</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- End /.modal Edit Article -->
+
+
+            <!-- DataTales Example -->
+            <div class="col-10 mb-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+							Article : 
+							<button class=" btn btn-primary" type="button" title="Ajouter nouveaux Article"><i class="fa fa-plus"></i>
+							</button> 
+						</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+							<table class="table table-bordered" id="dataTable_acticle" width="100%" cellspacing="0">
+                            <thead class="bg-warning text-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Catégorie</th>
+                                <th>Nom Article</th>
+                                <th>Date de création</th>                                
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+								<th>#</th>
+                                <th>Catégorie</th>
+                                <th>Nom Article</th>
+                                <th>Date de création</th>                                
+                                <th>Action</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>14</td>
+                                <td>Alarme</td>
+                                <td>2019-09-02</td>
+                                <td>
+								
+									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_article" type="button" title="Supprimer"><i class="fa fa-times"></i>
+                                    </button>
+									<button class="btn btn-info" type="button" title="Modifier"><i class="fa fa-edit"></i>
+                                    </button>
+									
+									<button class="btn btn-warning" type="button" title="Modifier"><i class="fa fa-eye"></i>
+                                    </button>
+								</td>
+                            </tr>
+							
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+			<!-- End Content Column -->   
+
+          </div>
+        
+		</div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+		<!--Begin foot_bar api_admin space -->
+		{% include "./admin/api_admin/foot_bar.html.twig" %}
+		<!--End foot_bar api_admin space -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+	{% endblock %}
+
+	{% block javascripts %}
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
+
+
+
+  <!-- Page level plugins -->
+  <script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/datatables/datatables-demo.js') }}"></script>
+
+
+
+	<script>
+		$(function () { $('#myModal').modal('hide')});
+		/*$(function () { $('#myModal').on('hide.bs.modal', function () {
+			alert('Hey, I heard you like modals...');})
+		});*/
+	
+	
+	
+		// Call the dataTables jQuery plugin
+		$(document).ready(function() {
+		  $('#dataTable_acticle').DataTable();
+		  
+		  $('#dataTable_type').DataTable();
+		});
+
+	</script>
+	
+	<script>
+	
+		$('.nav-item').removeClass('active');
+		$('.nav_dem_devis').addClass('active');
+		
+	</script>
+	
+	
+		
+	<script>
+	
+		$('.active_row_categorie').click(function (){
+			$('.chg_title_objet').text('Catégorie');
+			
+			$('.row_categorie').removeAttr('style','display:none');
+			
+			$('.row_article').attr('style','display:none');		
+			$('.row_type').attr('style','display:none');
+			
+		});
+
+		$('.active_row_article').click(function (){		
+		
+			$('.chg_title_objet').text('Article');
+			
+
+		
+			$('.row_article').removeAttr('style','display:none');
+			
+			$('.row_categorie').attr('style','display:none');		
+			$('.row_type').attr('style','display:none');
+			
+		});
+		
+		
+		$('.active_row_type').click(function (){
+			
+			$('.chg_title_objet').text('Préstation');
+			
+			
+			$('.row_type').removeAttr('style','display:none');
+			
+			$('.row_article').attr('style','display:none');		
+			$('.row_categorie').attr('style','display:none');
+			
+		});
+		
+		
+		$('.link_prestation').click(function(){
+			$('.active_row_type').click();
+			
+			$('.active_row_type').click();
+		});
+		$('.link_categorie').click(function(){
+			$('.active_row_categorie').click();
+			$('.active_row_categorie').click();
+		});	
+		$('.link_article').click(function(){
+			$('.active_row_article').click();
+			$('.active_row_article').click();
+		});
+	
+		
+	</script>
+	
+
+	{% endblock %}

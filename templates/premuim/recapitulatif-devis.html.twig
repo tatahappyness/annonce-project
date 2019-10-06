@@ -1,0 +1,90 @@
+<div class="col-12 col-md-8">
+    <!-- My devis receved section Detail-->
+    <div class="w-100 recapitulatif-devis mt-4" style="box-shadow: 0px 0px 4px;">
+        <div class="p-4 w-100">
+            <small calss="secondary font-weight-bold">www.orange-travaux.com</small>
+            <div class="pull-right">
+                <img class="logo" style="height: 30px;" src="{{ absolute_url('/assets/img/logo.png') }}">
+            </div>                
+            <div class="row w-100 py-4">
+                <div class="col-12 py-2 text-center border border-secondary mx-2 w-100">
+                    <h4 class="font-weight-bold text-darkgray text-uppercase">
+                        DEMANDE DEVIS
+                    </h4>
+                </div>
+                <div class="col-12 text-center">
+                    <p class="text-center text-capitalize font-weight-bold">Bonjour madame/monsieur,</p>
+                    <p class="">
+                    Monsieur <span class="text-uppercase"> {{ devis.getUserName() }} </span> disponsant du statatut de Particulier Propriétaire est à la recherche d'un professionnel
+                    pour la réalisation de prestation ci-dessous:
+                    </p>
+                </div>
+                <div class="col-12 border border-warning">
+                    <p class="h4 text-warning text-center font-weight-bold text-captalize">
+                        {{ devis.getNatureProject().getArticleCategId().getCategTitle() }}
+                    </p>
+                </div>
+                <div class="col-12 d-flex flex-row justify-content-around border border-warning">
+                    <div class="text-right pt-2 font-weight-bold">
+                        <p>Date de dépôt:</p>
+                        <p>Ville ou département:</p>
+                        <p>Type:</p>
+                        <p>Categorie:</p>
+                        <p>Nature:</p>
+                        <p>Email:</p>
+                        <p>Téléphone:</p>
+                    </div> 
+                    <div class="text-left pt-2 text-secondary">
+                        <p>{{ devis.getDateCrea() | date('d/m/y') }}</p>
+                        <p>{{ devis.getCity().getVilleNomReel() }}</p>
+                        <p>{{ devis.getTypeProject().getTitle() }}</p>
+                        <p>{{ devis.getNatureProject().getArticleCategId().getCategTitle() }}</p>
+                        <p>{{ devis.getNatureProject().getArticleTitle() }}</p>
+                        <p>
+                        {% if isAbonned == true %}
+                            {{ devis.getEmail() }}
+                        {% else %}
+                            XXXX
+                        {% endif %}
+                        </p>
+                        <p>
+                        {% if isAbonned == true %}
+                            {{ devis.getPhoneNumber() }}
+                        {% else %}
+                            XXXX
+                        {% endif %}
+                        </p>
+                    </div>                              
+                </div>
+                                   
+                <div class="col-12 text-left border border-warning">
+                    <p class="font-weight-bold">Description de projet :</p>
+                    <p>Je veux refaire toute l'istallation d'électricité dans ma maison.</p>
+                </div>
+                <div class="col-12 text-center w-100">
+                   {% if isAbonned != true %}
+                <a href="{{ path('pro_post_payements', {id: service.id}) }}" class="btn btn-danger text-decoration-none text-uppercase">Je veux profiter</a>
+                   {% endif %}
+                </div>
+                <div class="col-12 font-weight-bold text-left w-100">
+                > Veuiller envoyer votre proposition de tarif à l'adresse électronique suivante: 
+                    <p class="text-intalic"> <li class="text-warning">Email: {{ isAbonned == true ?  devis.getEmail() : 'XXXXXX'}} </li>
+                        ou <br> 
+                    <li class="text-warning"> Contacter à son numéro: {{ isAbonned == true ? devis.getPhoneNumber() : 'XXXXXX'}}</li>
+                    </p>
+                </div>
+                <div class="col-12 border-left font-weight-bold border-dark" style="border-left: 6px solid #343a40 !important;">
+                    Dans l'attente de votre devis, recevez, Monsieur/Madame, nos salutations les meilleures.
+                </div>
+                <div class="col-12">
+                    - <small class="text-secondary">Vous pouvez nous contacter de préférente suivante cette heure de la journée: 09:00</small>
+                </div>
+                <div class="col-12 w-100">
+                    <a class=" btn btn-warning float-right">Imprimer</a>
+                </div>                                                                                                                                                                             
+            </div>
+
+        </div>
+    </div>
+    <!-- End My devis receved section Detail -->
+</div>

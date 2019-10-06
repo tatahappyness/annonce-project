@@ -1,0 +1,147 @@
+{% extends  'base.html.twig' %}
+
+    {% block stylesheets %}
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />-->
+    <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <!-- CSS Files -->
+    <link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/form-multistep/form-step.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+    
+{% endblock %}
+
+    {% block body %}
+    
+    <div class="page-header page-header-image-gallery">
+        <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
+        </div>
+
+        <!--Begin header-menu particulier space-->
+        {% include "./part/menu/header-menu.html.twig" %}
+        <!--END left header-menu particulier space-->
+
+        <!-- Begin for row content header parallax -->
+        <div class="row d-flex justify-content-center font-weight-light">
+            <!-- ############# Begin slide beside -->
+            <div class="col-12 col-md-8" style="padding-top: 1em;">
+                <div class="container border-0">
+                    <div class="w-100 d-flex flex-column pb-4 justify-content-center">
+                        <div class="h4 text-white text-uppercase">
+                            Bienvenue dans l'espace particulier
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ############# End slide beside -->
+        </div>
+    </div>
+    <!--END HEADER-->
+
+
+    <div class="jumbotron bg-transparent">
+        <main class="section-1 section-main bg-white">
+            <!--Begin section  of the list ads by artisan-->
+            <section class="bg-transparent mt-5">
+                <div class="container">
+                    <div Class="row d-flex justify-content-center">
+
+                        <!--Begin left menu particulier space-->
+                        {% include "./part/menu/left-menu.html.twig" %}
+                        <!--END left menu particulier space-->
+                        
+                        <div class="col-12 col-md-8">
+                            <div class="contenair-content">	
+                                <div class="content-container-right">
+									
+                                </div>
+                                <div class="content-container-right">
+									
+
+                                    <!--Begin top menu total particulier space-->
+                                    {% include "./part/menu/top-menu.html.twig" %}
+                                    <!--END top menu total particulier space-->
+											
+                                    <!-- My Postule Project section -->
+                                    <div class="card">
+                                    <div class="card-body">
+                                        <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes projets postulés</h6>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item list-item-particular-left list-project-particular-3 bg-transparent">
+                                                    <div class="d-flex flex-column flex-sm-row w-100 align-items-center jutify-content-between">
+                                                        <a href="javascript:void(0);" class="text-decoration-none">Revêtement au sol <span class="d-block small text-secondary"> Date de dépôt: 26/05/2019</span></a>
+														
+                                                        <span class="d-flex flex-row align-items-center border bordrer-dark rounded jutify-content-between text-decoration-none bg-darkgray p-2 ml-1">
+                                                            <span class="bg-warning rounded-circle p-1">
+                                                                <span class="lnr lnr-users"></span>
+                                                            </span>
+                                                            <span class="">
+                                                                <span class="d-block text-warning">Mes candidatures</span>
+                                                                <span class="d-block text-warning">5 <small class="text-white">Professionnels</small></span>
+                                                                <span class="d-block small"><a href="{{ path('particulier_details_candidates') }}" class="text-danger font-weight-bold">Voir tous>></a></span>
+                                                            </span>
+                                                        </span>
+														
+                                                        <span class="d-none btn-action-particular-3 text-center animated slideInRight">
+                                                            <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
+                                                            <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                    </div>
+                                    <!-- <img class="card-img-bottom" src="..." alt="Card image cap"> -->
+                                    </div>
+                                    <!-- End My Postule Project section -->
+									
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--End section  of the list ads by artisan-->
+        </main>
+
+        {% include "./part/footer/footer.html.twig" %}
+
+    </div>
+
+    {% endblock %}
+
+    {% block javascripts %}
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+    <!-- MESSAGE NTIFICATION -->
+    <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+    <!--Local-->
+    <script src="{{ absolute_url('/assets/loadbar/js/loading-bar.js') }}"></script>
+    <script src="{{ absolute_url('/assets/js/core/jquery.min.js') }}"></script>
+    <script src="{{ absolute_url('/assets/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ absolute_url('/assets/js/now-ui-kit.min.js') }}"></script>
+    <script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
+    <script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
+    <script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+    <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
+    <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
+    <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+    <script src="{{ absolute_url('/assets/js/particular.js') }}"></script>
+    <script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
+
+    {% endblock %}

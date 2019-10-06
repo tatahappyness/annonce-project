@@ -1,0 +1,229 @@
+ 
+	{% extends  'base.html.twig' %}
+
+	{% block stylesheets %}
+
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />-->
+	<script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+	<!-- CSS Files -->
+	<link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+	<link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
+	<link href="{{ absolute_url('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+	<link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+	<link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+	<link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
+	<link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
+	<link href="{{ absolute_url('/assets/form-multistep/form-step.css') }}" rel="stylesheet" />
+	<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+	<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+	<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+	{% endblock %}
+
+	{% block body %}
+
+	<div class="page-header page-header-image-gallery">
+		<div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
+		</div>
+
+		<!--Begin heder-menu pro space -->
+		{% include "./pro/menu/header-menu.html.twig" %}
+		<!-- End header-menu pro space -->
+
+		<!-- Begin for row content header parallax -->
+		<div class="row d-flex justify-content-center font-weight-light">
+			<!-- ############# Begin slide beside -->
+			<div class="col-12 col-md-8" style="padding-top: 1em;">
+				<div class="container border-0">
+					<div class="w-100 d-flex flex-column pb-4 justify-content-center">
+						<div class="h4 text-white text-uppercase">
+							Mon espace professionel
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ############# End slide beside -->
+		</div>
+	</div>
+	<!--END HEADER-->
+	<div class="jumbotron bg-transparent">
+		<main class="section-1 section-main bg-white">
+			<!--Begin section  of the list ads by artisan-->
+			<section class="bg-transparent">
+				<div class="container">
+					<div Class="row">
+					
+						<!-- Begin menu top pro -->
+						{% include "./pro/menu/top-menu.html.twig" %}
+						<!-- End menu top pro -->
+
+						<!-- Begin menu left pro -->
+						{% include "./pro/menu/left-menu.html.twig" %}
+						<!-- End menu left pro-->
+
+						<div class="col-12 col-sm-8 pt-4">
+							<div class="container-content-pro-space-right">
+								<!-- PROJECT ACCETED-->
+								<div class="card text-center">
+									<div class="card-header p-2 font-weight-bold bg-darkgray">
+										<h5>MES PROJETS ACCEPTÉS</h5>
+									</div>
+									<div class="card-body">
+										<ul class="list-group list-group-flush text-secondary">
+											
+											<li class="list-group-item">
+												<div class="d-block">
+													<div class="d-flex flex-row align-items-center justify-content-around">
+														<div class="">
+															<div class="rounded-circle d-block" style="width: 80px; height: 80px; background: orange;">
+																<span class="lnr lnr-clock" style="font-size: 64px; line-height: 80px;"></span>
+															</div>
+														</div>
+														<div class="px-2 info-ads-detail">
+															<a href="{{ path('pro_one_detail_ads_projects') }}" class="text-reset"><h3 class="d-block text-left">Electricité</h3></a>
+															<p class="text-center">
+																<a  class="btn btn-danger btn-valid-devis text-decoration-none">Je valide</a>
+															</p>
+															<p class="text-center">
+																<a  class="btn btn-success btn-termine-devis text-decoration-none">Je termine</a>
+															</p>
+															<p class="d-block text-dark text-left">
+																ARQUES LA BATAILLE - à environ 50 Km <br>
+																<span class="text-secondary">Je souhaite refaire toute l'éléctricité dans une maison.</span>
+															</p>
+														</div>
+													</div>
+												</div>
+												<div class="d-block text-center float-left">Date: 07/07/2019, Il y a 5 heure</div>
+											</li>
+											
+										</ul>
+									</div>
+								    <div class="card-footer text-muted pb-4">
+									 <a class="btn-outline-warning text-warning">Voir tous les projets</a>
+								    </div>
+								</div>
+								<!-- END PROJECT ACCEPTED -->
+								<!-- PROJECT TERMINÉS AVEC SUCCÈS-->
+								<div class="card text-center">
+									<div class="card-header p-2 font-weight-bold bg-darkgray">
+										<h5>MES PROJETS TERMINÉS AVEC SUCCÈS</h5>
+									</div>
+									<div class="card-body">
+										<ul class="list-group list-group-flush text-secondary">
+											<li class="list-group-item">
+												<div class="d-block">
+													<div class="d-flex flex-row align-items-center justify-content-around">
+														<div class="">
+															<div class="rounded-circle d-block" style="width: 80px; height: 80px; background: orange;">
+																<span class="lnr lnr-clock" style="font-size: 64px; line-height: 80px;"></span>
+															</div>
+														</div>
+														<div class="px-2 info-ads-detail">
+															<a href="{{ path('pro_one_detail_ads_projects') }}" class="text-reset"><h3 class="d-block text-left">Electricité</h3></a>
+															<p class="d-block text-dark text-left">
+																ARQUES LA BATAILLE - à environ 50 Km <br>
+																<span class="text-secondary">Je souhaite refaire toute l'éléctricité dans une maison.</span>
+															</p>
+														</div>
+													</div>
+												</div>
+												<div class="d-block text-center float-left">Date: 07/07/2019, Il y a 5 heure</div>
+											</li>
+											<li class="list-group-item">
+											</li>
+										</ul>
+									</div>
+								    <div class="card-footer text-muted pb-4">
+									 <a class="btn-outline-warning text-warning">Voir tous les projets</a>
+								    </div>
+								</div>
+								<!-- END PROJECT TERMINÉS AVEC SUCCÈS -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--End section  of the list ads by artisan-->
+			<!--Begin section the Presse Talk US -->
+			<section id="" class="bg-transparent">
+			<div class="container  bg-white">
+				<div class="row d-flex justify-content-center py-4">
+					<div class="col-12 text-center">
+						<h5 class="text-uppercase">Restez connecté</h5>
+						<div class="text-secondary small"><p class=" subtitle ">
+							Pour être certain de ne rater aucun chantier, téléchargez l’application mobile pour suivre les projets lorsque vous êtes en déplacement.
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 lg-8 text-center">
+						<img class="" src="{{ absolute_url('/assets/img/photos/app-mobile.png') }}"></img>
+					</div>
+					<div class="col-12 col-sm-6 lg-4 d-flex flex-column justify-content-center text-secondary">
+						<a class="btn btn-outline-secondary d-flex flex-row text-center align-items-center">
+							<span class="pro-icon mb-3">
+								<span class="icon-message-pro">
+									<object type="image/svg+xml" data="{{ absolute_url('/assets/icon/apple_icon-icons.com_62745.svg') }}" class="icon-message-pro icon-bike">
+										apple
+									</object>
+								</span>
+							</span>
+							<span class="">
+								<span class="text-center ">Disponible sur <span/><br>
+								<span class="font-weight-capitalize">App Store<span/>
+							<span/>
+						</a>
+						<a class="btn btn-outline-secondary d-flex flex-row align-items-center">
+							<span class="pro-icon mb-3">
+								<span class="icon-message-pro">
+									<object type="image/svg+xml" data="{{ absolute_url('/assets/icon/Google_Play_icon-icons.com_66988.svg') }}" class="icon-message-pro icon-bike">
+										play
+									</object>
+								</span>
+							</span>
+							<span class="text-center ">
+								<span class="">Disponible sur <span/><br>
+								<span class="font-weight-capitalize">Google Play<span/>
+							<span/>
+						</a>
+					</div>
+				</div>
+			</div>
+			</section>
+			<!--End section the Presse Talk US  -->
+		</main>
+		
+		{% include "./pro/footer/footer.html.twig" %}
+
+
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+<!-- MESSAGE NTIFICATION -->
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<!--Local-->
+<script src="{{ absolute_url('/assets/loadbar/js/loading-bar.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/jquery.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/now-ui-kit.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
+<script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
+<script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
+
+{% endblock %}

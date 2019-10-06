@@ -1,0 +1,119 @@
+security:
+    # access_denied_url: /
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+                #argon2i
+        Symfony\Component\Security\Core\User\User: plaintext
+        
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+
+        app_user_provider: 
+            entity:
+                class: 'App\Entity\User'
+                property: 'email'
+
+        chain_provider:
+            chain:
+                providers: [in_memory,  app_user_provider]
+        in_memory:
+            memory:
+                users:
+                    superadmin:
+                        password: 'mysuperadminpw'
+                        roles: ['ROLE_SUPER_ADMIN']
+        # userbundle:
+        #     id: username
+
+    access_control:
+
+        - { path: ^/api/auth/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/auth/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        # - { path: ^/admin, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/pro, role: ROLE_USER_PROFESSIONAL }
+        - { path: ^/particulier, role: ROLE_USER_PARTICULAR }
+        
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        # Config login for auth api in firewalls
+        api_login:
+            pattern:  ^/api/auth/login
+            stateless: true
+            anonymous: true
+            json_login:
+                provider: chain_provider
+                check_path:               /api/auth/login
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+            provider: chain_provider
+
+        register:
+            pattern:  ^/api/auth/register
+            stateless: true
+            anonymous: true
+        api:
+            pattern: ^/api
+            stateless: true
+            anonymous: false
+            provider: chain_provider
+            guard:  
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+        #End login for auth api firewalls
+
+        main:
+            pattern: ^/
+            anonymous: true
+            form_login:
+                provider: chain_provider
+                # csrf_token_generator: security.csrf.token_manager
+                login_path: login
+                check_path: login
+                use_forward: false
+                always_use_default_target_path: false
+                default_target_path: login
+            logout:
+                path: logout
+                # where to redirect after logout
+                target: login # /
+            #guard:
+                #authenticators:
+                   #- App\Security\TokenAuthenticator
+            # if you want, disable storing the user in the session
+            # stateless: true
+
+
+
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    # access_control:
+    #     # matches /admin/users/*
+    #     - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    #     - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    #     - { path: ^/admin, role: ROLE_ADMIN }
+    #     - { path: ^/member, role: IS_AUTHENTICATED_FULLY }
+    #     - { path: ^/member/premuim, role: ROLE_USER_PREMUIM }
+
+        # - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }

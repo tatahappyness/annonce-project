@@ -1,0 +1,622 @@
+	{% extends  'base.html.twig' %}
+
+		{% block stylesheets %}
+
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />-->
+		<script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+		<!-- css files -->
+		<link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/form-multistep/form-step.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+    
+	{% endblock %}
+
+	{% block body %}
+
+	<div class="page-header page-header-image-gallery">
+		<div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
+		</div>
+		<div class="row">
+			<div class="col-12 p-0">
+				<div class="contenair-header-menu">
+
+					<nav class="navbar navbar-expand bg-gray py-0 navbar-head">
+					  <div class="container border-0">
+						<div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+							<div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
+								<a class="text-decoration-none" href="{{ path('home_page') }}">
+								  <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
+								</a>
+
+								<ul class="navbar-nav mt-2 mt-lg-0">
+									<li class="nav-item active">
+									  <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
+									</li>
+									<li class="nav-item">
+									  <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
+									</li>
+								</ul>
+							</div>
+							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+								<span class="mr-1">
+									<button class="btn btn-round show-form-pro-mouseclick-11 bg-gray font-weight-bold text-warning border-warning text-nowrap" type="button">
+										<i class="">🔒</i> se connecter
+									</button>
+								</span>
+								<span class="">
+									<a href="" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
+										<i class="{{ path('inscription_particulier_page') }}">👷🏾</i>  inscription gratuite
+									</a>
+								</span>
+							</div>
+						</div>
+					  </div>
+					</nav>
+					<!-- navbar menu end here -->
+
+					  <!-- ############################# navbar here large -->
+
+					<div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
+					  <div class="container">
+						<button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
+						<div class="navbar-collapse collapse">
+						  <ul class="nav navbar-nav">
+							</li>
+							<li class="nav-item"><a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">types des travaux</a>
+								<ul class="dropdown-menu megamenu">
+									<div class="row">
+										<li class="col-12 col-sm-4 text-center pb-4">
+											<ul><li class="h6 text-warning border-bottom border-warning">installer</li></ul>
+											<ul class="row text-centert" style=" list-style-type: none;">
+
+												<div class="col-4 p-0">
+													<li class="dropdown-header">categorie-1</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">article-1</a>
+													</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">article-2</a>
+													</li>
+													<li class="divider"></li>
+												</div>
+										
+												<div class="col-12">
+													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">voir tous les articles >></a></li>
+												</div>
+
+											</ul>
+										</li>
+										<li class="col-12 col-sm-4 text-center pb-4">
+											<ul><li class="h6 text-warning border-bottom border-warning">renover</li></ul>
+											<ul class="row text-centert" style=" list-style-type: none;">
+
+												<div class="col-4 p-0">
+													<li class="dropdown-header">categorie-1</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">article-1</a>
+													</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">article-2</a>
+													</li>
+													<li class="divider"></li>
+												</div>
+										
+												<div class="col-12">
+													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">voir tous les articles >></a></li>
+												</div>
+
+											</ul>
+									  </li>
+									  <li class="col-12 col-sm-4 text-center pb-4">
+											<ul><li class="h6 text-warning border-bottom border-warning">amenager son interieur</li></ul>
+											<ul class="row text-centert" style=" list-style-type: none;">
+
+												<div class="col-4 p-0">
+													<li class="dropdown-header">categorie-1</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">article-1</a>
+													</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">article-2</a>
+													</li>
+													<li class="divider"></li>
+												</div>
+										
+												<div class="col-12">
+													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">voir tous les articles >></a></li>
+												</div>
+
+											</ul>
+									  </li>
+									  <li class="col-12 col-sm-4 text-center pb-4">
+											<ul><li class="h6 text-warning border-bottom border-warning">amenager son exterieur</li></ul>
+											<ul class="row text-centert" style=" list-style-type: none;">
+
+												<div class="col-4 p-0">
+													<li class="dropdown-header">categorie-1</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">article-1</a>
+													</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">article-2</a>
+													</li>
+													<li class="divider"></li>
+												</div>
+										
+												<div class="col-12">
+													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">voir tous les articles >></a></li>
+												</div>
+
+											</ul>
+									  </li>
+									  <li class="col-12 col-sm-4 text-center pb-4">
+											<ul><li class="h6 text-warning border-bottom border-warning">construire</li></ul>
+											<ul class="row text-centert" style=" list-style-type: none;">
+
+												<div class="col-4 p-0">
+													<li class="dropdown-header">categorie-1</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">article-1</a>
+													</li>
+													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">article-2</a>
+													</li>
+													<li class="divider"></li>
+												</div>
+										
+												<div class="col-12">
+													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">voir tous les articles >></a></li>
+												</div>
+
+											</ul>
+									  </li>
+									</div>
+								</ul>
+							</li>
+							<li class="nav-item"><a href="{{ path('nos_tarif_page') }}" class="nav-link">guide prix</a>
+							</li>
+							<li class="nav-item"><a href="{{ path('how_to_step_page') }}" class="nav-link">comment ça marche</a>
+							</li>
+							<li class="nav-item"><a href="{{ path('site_create_page') }}" class="nav-link">créer mon site internet</a>
+							</li>
+							<li class="nav-item"><a href="{{ path('particulier_dashbord') }}" class="nav-link particular-dashbord-access">gérer mon espace particulier</a>
+							</li>
+						  </ul>
+						</div>
+					  </div>
+					</div>
+					<!-- ############################# end navbar here large -->
+					 <!-- progress barr slid scroll -->
+						<div class="progress-container fixed-top">
+							<div class="progress-bar" id="myBar"></div>
+						</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- end row for menu header -->
+
+		<!-- begin for row content header parallax -->
+		<div class="row d-flex justify-content-center font-weight-light">
+			<!-- ############# begin slide beside -->
+			<div class="col-12 col-md-8" style="padding-top: 1em;">
+				<div class="container border-0">
+					<div class="w-100 d-flex flex-column pb-4 justify-content-center">
+						<div class="h2 text-white text-monospace font-weight-bold text-uppercase">
+							{{ category.getCategTitle() }}
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ############# end slide beside -->
+		</div>
+	</div>
+	<!--end header-->
+
+
+	<div class="jumbotron bg-transparent">
+		<main class="section-1 section-main bg-white">
+			<!--begin section  of the list ads by artisan-->
+			<section class="bg-transparent">
+				<div class="container">
+					<div class="row d-flex justify-content-center ">
+						<div class="col-12 col-md-10 h-100 pb-4">
+						
+							<div class="stepwizard" style="width: 100% !important;">
+								<div class="stepwizard-row setup-panel">
+								  <div class="stepwizard-step">
+									<a href="#step-1"  class="btn btn-success text-white rounded-circle">1</a>
+									<span class=""></span>
+								  </div>
+								  <div class="stepwizard-step">
+									<a href="#step-2" class="btn disabled text-white rounded-circle">2</a>
+									<span class=""></span>
+								  </div>
+								  <div class="stepwizard-step">
+									<a href="#step-3" class="btn disabled text-white rounded-circle">3</a>
+									<span class=""></span>
+								  </div>
+								</div>
+							 </div>
+
+							<div class="w-100 d-flex justify-content-center  py-4">
+								<form id="form-post-ask-devis" role="form">
+									<div class="setup-content" id="step-1">
+						                <!-- First Form slide content -->
+										<div class="row d-md-flex justify-md-content-center form-slid-ontainer">
+											<div class="d-none d-md-block col-md-5">
+												<div class="w-100 py-4 rounded" style="background-image: url(./assets/img/photos/register-cleaning-company.jpg); background-position: center center; background-size: cover; height: 200px;background-color: darkslategrey; background-blend-mode: overlay;">
+												</div>
+											</div>
+											<div class="d-none col-md-7 d-md-flex align-items-md-center border-top border-bottom border-secondary">
+												<p class="small text-warning">
+													{{ category.getDescription() }}
+												</p>
+											</div>
+	                                        <div class="col-12 text-center text-warning pt-5 h4">Selectionez le type de votre projet ? </div>
+	                               	        {% if types != null %}
+											   {% for type in types %}
+												<div class="col-12 col-sm-3 col-lg-4">
+													<a data-id="{{type.id}}" class="btn item-type item-type-{{ type.getId() }} d-flex justify-content-center align-items-center text-center text-uppercase border-warning" style="width: auto; height: 100px; box-shadow: 0px 0px 8px;">
+														{{ type.getTitle() }}
+													</a> 																		
+												</div>
+											   {% endfor %}
+											   
+											{% endif %}
+											<div class="col-12 col-lg-7 pt-5">	
+												<div class="form-group pb-2">
+												<input id="ask_devis_type" type="hidden" name="ask_devis_type">
+												</div>												
+												<div class="form-group pb-2">
+													<select class="form-control form-field show-list-metier-nature-in-ask-form" name="post_metier_ask_devis">
+														<option></option>
+
+														{% if articles != null %}
+															
+															{% for article in articles %}
+																<option value="{{ article.id }}"> -  {{ article.getarticletitle() }}</option>										
+															{% endfor %}
+
+																
+														{% else %}
+															<option selected="selected" value="{{ article is defined ? article.id : 'NaN' }}">{{ article is defined ? article.getarticletitle() : '' }}</option>
+														{% endif %}
+															
+													</select>
+												</div>
+
+												<div class="form-group">
+													<label class="control-label d-none">Description de votre projet</label>
+													<textarea type="text" required="required" class="w-100 p-4 rounded border" name="post_description_ask_devis" placeholder="Information complémentaire de votre projet ?" style="height: 450px; max-height: 150px !important;"></textarea>
+												</div>
+
+													<button class="btn btn-warning nextbtn btn-lg pull-right text-uppercase" type="button">En cour ...</button>
+											</div>
+										</div>
+										<!--End row first form slide content -->
+									</div>
+									 
+
+
+									<div class="setup-content d-none" id="step-2">
+
+	                               		<div class="row d-flex justify-content-center">
+											<div class="col-12">
+												<h6 class="text-warning py-4">vos coordonnées</h6>
+												<div class="form-group mb-4">
+													<input type="text" required="required" name="post_name_user_ask_devis" class="form-control form-input m-1 d-lg-inline d-block" style="height: 50px;" placeholder="votre nom*">
+													<input type="text" required="required" name="post_firstname_user_ask_devis" class="form-control  form-input m-1 d-lg-inline d-block" style="height: 50px;" placeholder="votre prénom">
+												</div>
+												<div class="form-group">
+													<label class="text-secondary d-block">votre civilité *</label>
+													<div class="d-flex flex-column flex-md-row align-items-center mb-2">
+														<span class="text-center d-flex flex-row align-items-center"><input type="radio" required="required" value="M" name="post_civility_ask_devis" style="width: 25px; height: 25px;" placeholder="votre civilité"><span class="mx-2">monsieur</span></span>
+														<span class="text-center d-flex flex-row align-items-center"><input type="radio" required="required" value="F" name="post_civility_ask_devis" style="width: 25px; height: 25px;" placeholder="votre civilité*"><span class="mx-2">madame</span></span>
+													</div>
+													<select class="form-control show-list-fonction-user-in-ask-form" name="fonction_ask_devis">
+														<option></option>
+														{% if fonctions != null %}
+
+															{% for fonction in fonctions %}
+															<option value="{{ fonction.id }}">{{ fonction.getfonctionname() }}</option>
+															{% endfor %}
+
+															{% else %}
+																accun résultat trouvé
+														{% endif %}
+
+													</select>
+												</div>
+												<div class="form-group mb-4">
+													<input type="tel" required="required" class="form-control  form-input m-1 d-lg-inline d-block" name="post_phone_ask_devis" style="height: 50px;" placeholder="votre numéro de téléphone*">
+													<input type="email" required="required" class="form-control  form-input m-1 d-lg-inline d-block" name="post_email_ask_devis" style="height: 50px;" placeholder="votre email*">
+												</div>
+												<div class="form-group mb-4">
+													<input type="number" required="required" id="zipcode" class="form-control zipcode form-input m-1 d-lg-inline d-block" name="post_zipcode_ask_devis" style="height: 50px;" placeholder="votre code postal*">
+													<input type="text" required="required" id="show-city-search" class="form-control city  form-input m-1 d-lg-inline d-block" name="post_city_ask_devis" style="height: 50px;" placeholder="votre ville ou Département*">
+												</div>
+												<div id="form-city-special-hidden" class="form-group">
+												
+												</div>
+												<div class="forn-group">
+												<input  type="hidden" name="route_page" value="post_ask_devis_page">
+												</div>
+												<div class="d-flex flex-column flex-sm-row align-items-center justify-content-between w-100">
+												<button class="btn bg-darkgray prevbtn btn-lg m-1 text-uppercase" type="button">précedant</button>
+												<button id="btn-post-ask-devis" class="btn btn-warning text-uppercase btn-post-ask-devis nextbtn btn-lg m-1" type="button">Valider</button>
+												</div>
+											</div>
+	                                	</div>
+                                    </div>
+								</form>
+									
+								<div class="setup-content w-100 d-none bg-darkgray show-after-post-devis text-center" id="step-3">
+										<p class="pt-4 h4 text-warning text-uppercase"> Quelles sont les prochaines étapes ?</p>
+									<div class="row">
+										<div class="col-12 col-md-4">
+											<div class="d-flex flex-column align-items-center justify-content-center">
+												<div class="d-flex flex-row align-items-center justify-content-around">
+													<div class="num-content bg-warning">
+														<div class="h2 text-white">
+															1
+														</div>
+													</div>
+													<div class="img-content">
+														<div class="">
+															<img class="" src="{{ absolute_url('/assets/icon/operateur.png') }}" style="height: 150.63px"></img>
+														</div>
+													</div>
+												</div>
+												<div class="text-white px-4">
+													<p class="small">
+														votre demande est en cours de validation par nos conseillers.
+														il pourront vous contacter pour completer votre demande.
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-12 col-md-4">
+											<div class="d-flex flex-column align-items-center justify-content-center">
+												<div class="d-flex flex-row align-items-center justify-content-around">
+													<div class="num-content bg-warning">
+														<div class="h2 text-white">
+															2
+														</div>
+													</div>
+													<div class="img-content">
+														<div class="">
+															<img class="" src="{{ absolute_url('/assets/icon/mail.png') }}" style="height: 150.63px"></img>
+														</div>
+													</div>
+												</div>
+												<div class="text-white">
+													<p class="small">
+														Dès validation, vous recevrez les coordonnées des professionnels sélectionnés
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-12 col-md-4">
+											<div class="d-flex flex-column align-items-center justify-content-center">
+												<div class="d-flex flex-row align-items-center justify-content-around">
+													<div class="num-content bg-warning">
+														<div class="h2 text-white">
+															3
+														</div>
+													</div>
+													<div class="img-content">
+														<div class="">
+															<img class="" src="{{ absolute_url('/assets/icon/pro.png') }}" style="width: 129.77px; height: 150.63px"></img>
+														</div>
+													</div>
+												</div>
+												<div class="text-white px-4">
+													<p class="small">
+														les professionnels disponibles vous contacteront dans le plus brefs délais.
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="text-white text-center px-4" style="font-size: 1em !important;">
+										<span class="h4 text-white text-uppercase">NB</span>: tous vos demandes de devis et vos projet seront enregistré dans votres espace particuler
+										si vous avez déjà un compte.<br> <br>  avez vous un compte ? <br>
+										<a href="javascript:void(0);" class="btn btn-outline-warning d-inline-block">se connecter</a> ou 
+										<a href="javascript:void(0);" class="btn btn-outline-warning d-inline-block">je m'inscrire gratuitement</a> 
+									</div>
+									
+									<div class="row bg-white py-4">
+										<div class="col-12">
+											<h6 class="text-warning"> demandes de devis associées </h6>
+										</div>
+										<div class="col-4">
+											
+										</div>
+										<div class="col-4">
+											
+										</div>
+										<div class="col-4">
+											
+										</div>
+									</div>
+								</div>	
+							</div>				
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--end section  of the list ads by artisan-->
+			
+			<!--begin section  of the list ads by artisan-->
+			<section class="">
+				<div class="container">
+					<div class="row bg-darkgray">
+						<div class="col-12 h-100 text-center small text-secondary">
+							
+							<div class="w-100">
+								<div class="row d-flex justify-content-center">	
+									<div class="col-12 col-md-4 d-flex flex-column text-center bg-warning align-items-center justify-content-center py-4">
+										<span class="pro-icon mb-3">
+										<span class="icon">
+											<object type="image/svg+xml" data="{{ absolute_url('/assets/icon/building_construction_control_protection_security_-20-43_icon-icons.com_60312.svg') }} " class="icon icon-bike">
+												bike
+											</object>
+										</span>
+										</span>
+										<span class="h6">comment ça fonctionne :</span>
+										<span class="text-center">
+											<p class="small">
+												1-) effectuez votre demande de devis.<br>
+												2-) recevez gratuitement jusqu'à 5 devis d'artisans de votre région.<br>
+												3-) comparez et sélectionnez l'artisan de votre choix.
+											</p>
+										</span>
+									</div>
+									<div class="col-12 col-md-4 d-flex flex-column text-center text-white align-items-center justify-content-center py-4">
+										<span class="pro-icon mb-3">
+										<span class="icon">
+											<object type="image/svg+xml" data="{{ absolute_url('/assets/icon/construction_project_plan_building_architect_design_develop-94_icon-icons.com_60228.svg') }}" class="icon icon-bike">
+												bike
+											</object>
+										</span>
+										</span>
+										<span class="h6">vos avantages :</span>
+										<p class="small">
+											a-) simplicité et rapidité.<br>
+											b-) gratuité et sans engagement.<br>
+											c-) plus de 25 000 professionnels qualifiés.
+										</p>
+									</div>
+										
+									<div class="col-12 col-md-4 d-flex flex-column bg-warning text-center align-items-center justify-content-center py-4">
+										<span class="pro-icon mb-3">
+										<span class="icon">
+											<object type="image/svg+xml" data="{{ absolute_url('/assets/icon/construction_project_plan_building_architect_design_develop-59_icon-icons.com_60236.svg') }}" class="icon icon-bike">
+												bike
+											</object>
+										</span>
+										</span>
+										<span class="h6">confidentialité : </span>
+										<p class="small">
+											a-) vos coordonnées sont protégées et ne seront jamais publiées sur internet.<b>
+										</p>
+										<span class="small"></span>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--end section  of the list ads by artisan-->
+			
+			<!--begin section  of the list ads by artisan-->
+			<section class="">
+				<div class="container bg-white">
+					<div class="row py-5 d-flex justify-content-center">
+						<!--triangle in find artisant section-->
+						<div class="triangle triangle-pro-space" style="width: 100%; height: 4px; background: white; box-shadow: 0px 0px 0px 0px !important"> </div>
+						<div class="col-12 pt-5 h-100 text-center text-secondary bg-darkgray">
+							<h5 class="text-uppercase">trouvez un professionnel près de chez vous !</h5>
+						</div>
+						<div class="col-12 col-sm-4 d-flex align-items-center justify-content-center bg-darkgray py-2">
+							<span class="small text-white">
+								vos coordonnées sont protégées et ne seront jamais publiées sur internet.
+							</span>
+						</div>
+						<div class="col-12 h-100 col-sm-8 d-flex align-items-center justify-content-center bg-darkgray py-2">
+							<img class="" src="http://orange-travaux.com/assets/images/carte.png"></img>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--end section  of the list ads by artisan-->
+
+			<!--begin section the presse talk us -->
+			<section id="" class="bg-transparent">
+			<div class="container  bg-white">
+				<div class="row d-flex justify-content-center py-4">
+					<div class="col-12 text-center">
+						<h5 class="text-uppercase">restez connecté</h5>
+						<div class="text-secondary small"><p class=" subtitle ">
+							pour être certain de ne rater aucun chantier, téléchargez l’application mobile pour suivre les projets lorsque vous êtes en déplacement.
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 lg-8 text-center">
+						<img class="" src="{{ absolute_url('/assets/img/photos/app-mobile.png') }}"></img>
+					</div>
+					<div class="col-12 col-sm-6 lg-4 d-flex flex-column justify-content-center text-secondary">
+						<a class="btn btn-outline-secondary d-flex flex-row text-center align-items-center">
+							<span class="pro-icon mb-3">
+								<span class="icon-message-pro">
+									<object type="image/svg+xml" data="{{ absolute_url('/assets/icon/apple_icon-icons.com_62745.svg') }}" class="icon-message-pro icon-bike">
+										apple
+									</object>
+								</span>
+							</span>
+							<span class="">
+								<span class="text-center ">disponible sur <span/><br>
+								<span class="font-weight-capitalize">app store<span/>
+							<span/>
+						</a>
+						<a class="btn btn-outline-secondary d-flex flex-row align-items-center">
+							<span class="pro-icon mb-3">
+								<span class="icon-message-pro">
+									<object type="image/svg+xml" data="{{ absolute_url('/assets/icon/google_play_icon-icons.com_66988.svg') }}" class="icon-message-pro icon-bike">
+										play
+									</object>
+								</span>
+							</span>
+							<span class="text-center ">
+								<span class="">disponible sur <span/><br>
+								<span class="font-weight-capitalize">google play<span/>
+							<span/>
+						</a>
+					</div>
+				</div>
+			</div>
+			</section>
+			<!--end section the presse talk us  -->
+
+		</main>
+
+		<!-- begin footer page -->
+		{% include "./page/footer/footer.html.twig" %}
+		<!-- end footer page -->
+
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+<!-- Auto-complete -->
+<script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
+<!-- message ntification -->
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<!--local-->
+<script src="{{ absolute_url('/assets/loadbar/js/loading-bar.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/jquery.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/now-ui-kit.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6lcr-qsuaaaaaprcqd5yk1idiw9xbtzp6ksackqm"></script>
+<script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/list-city-ajax.js') }}"></script>
+<script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/post-devis.js') }}"></script>
+
+{% endblock %}	

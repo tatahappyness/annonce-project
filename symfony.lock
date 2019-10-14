@@ -470,6 +470,7 @@
     "symfony/yaml": {
         "version": "v4.2.2"
     },
+<<<<<<< HEAD
     "twig/extensions": {
         "version": "1.0",
         "recipe": {
@@ -479,6 +480,8 @@
             "ref": "a86723ee8d8b2f9437c8ce60a5546a1c267da5ed"
         }
     },
+=======
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
     "twig/twig": {
         "version": "v2.6.0"
     },

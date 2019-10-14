@@ -54,6 +54,7 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+<<<<<<< HEAD
 	
 	
 	
@@ -81,6 +82,9 @@ class UserRepository extends ServiceEntityRepository
     }
 	
 	
+=======
+
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
     public function findAllProfessionals($data = null, $limit = 50, $offset = 0)
     {
 

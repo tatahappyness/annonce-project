@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+<<<<<<< HEAD
 
 use App\Entity\User;
 use App\Entity\Devis;
@@ -19,6 +20,9 @@ use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\TypeRepository;
 
+=======
+use App\Entity\User;
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -44,6 +48,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class AdminController extends AbstractController
 {
 
+<<<<<<< HEAD
     
     /**
     * @Route("/test", name="test")
@@ -130,12 +135,15 @@ class AdminController extends AbstractController
     
     
 
+=======
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
     /**
     * @Route("/dashbord", name="admin_dashbord")
     */
     public function dashbord( Security $security)
     {
         // usually you'll want to make sure the user is authenticated first
+<<<<<<< HEAD
         //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         // The second parameter is used to specify on what object the role is tested.
         
@@ -422,4 +430,15 @@ class AdminController extends AbstractController
 
 
 
+=======
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+        return $this->render('admin/dashbord.html.twig', [
+            'page_name' => 'Espace d\'administrateur'
+        ]);
+    }
+
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
 }

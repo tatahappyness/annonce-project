@@ -23,7 +23,10 @@ use App\Entity\Videos;
 use App\Entity\Offer;
 use App\Entity\Conseil;
 use App\Entity\SiteInternet;
+<<<<<<< HEAD
 
+=======
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
 use App\Repository\OfferRepository;
 use App\Repository\UserRepository;
 use App\Repository\AbonnementRepository;
@@ -33,6 +36,7 @@ use App\Repository\DevisRepository;
 use App\Repository\PostRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\EmojiRepository;
+<<<<<<< HEAD
 
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,10 +50,21 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+=======
+use FOS\UserBundle\Model\UserManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+<<<<<<< HEAD
 
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
@@ -57,6 +72,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 use Symfony\Component\Translation\TranslatorInterface;
 
+=======
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Translation\TranslatorInterface;
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
@@ -78,7 +99,11 @@ class ProController extends AbstractController
 
         $array = Array();
         foreach ($services as $key => $value) {
+<<<<<<< HEAD
             $array[] = $value->getCategoryId();
+=======
+        $array[] = $value->getCategoryId();
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
         }
 
         $categoryId =  $array;
@@ -264,7 +289,11 @@ class ProController extends AbstractController
                             4=>  ($categoryId)
                             );
        
+<<<<<<< HEAD
         if ((int) $interval->format('%R%a') <= 0)
+=======
+        if ((int) $interval->format('%R%a') <= 0) 
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
         {
             $devis = $devisRep->findByZipCodeAndCity($arrayData, 5);
 
@@ -423,7 +452,11 @@ class ProController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
         return $this->render('pro/pro-evaluations.html.twig', [
+<<<<<<< HEAD
             'controller_name' => 'ESPACE PROFESSIONEL'
+=======
+            'controller_name' => 'ESPACE PROFESSIONEL',
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
         ]);
     }
 
@@ -781,7 +814,11 @@ class ProController extends AbstractController
         $servicesArray = $serviceRep->findAll();
         $services = !is_null($servicesArray) ? $servicesArray : null;
         return $this->render('pro/services.html.twig', [
+<<<<<<< HEAD
             'services' => $services,'numberDevis' => 'numberDevis'
+=======
+            'services' => $services,
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
         ]);
     }
 
@@ -805,6 +842,10 @@ class ProController extends AbstractController
            }
         }
         return $this->redirectToRoute('pro_services');
+<<<<<<< HEAD
+=======
+       
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
     }
 
     public function countDevis(Security $security, ServicesRepository $serviceRep, DevisRepository $devisRep): ?int

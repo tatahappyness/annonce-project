@@ -69,7 +69,7 @@ class RegistrationController extends AbstractController
                 } 
                 catch (\Exception $e) {
                     return new JsonResponse(['code'=> 500, 'infos' => $e->getMessage()], 500);
-                }
+                } 
         }
 
        if ($request->request->get('TYPE_USER') !== null && $request->request->get('TYPE_USER') === 'PARTICULAR_USER') {

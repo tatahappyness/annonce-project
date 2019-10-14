@@ -54,7 +54,33 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+	
+	
+	
+	//SELECT * FROM `user` WHERE `user`.`roles` = '["ROLE_USER_PROFESSIONAL"]'
 
+    public function findRolesPro()
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'DESC')			
+            ->andWhere('u.roles = :val')			
+            ->setParameter('val', '["ROLE_USER_PROFESSIONAL"]')
+            ->getQuery()
+            ->getResult();
+    }
+	
+	
+    public function findRolesPart()
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'DESC')			
+            ->andWhere('u.roles = :val')			
+            ->setParameter('val', '["ROLE_USER_PARTICULAR"]')
+            ->getQuery()
+            ->getResult();
+    }
+	
+	
     public function findAllProfessionals($data = null, $limit = 50, $offset = 0)
     {
 

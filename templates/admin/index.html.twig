@@ -40,6 +40,7 @@
     <!-- Content Wrapper -->
     <div id="content-wrapper" style="background-color:#ececec"; class="d-flex flex-column">
 
+
       <!-- Main Content -->
       <div id="content">
 	  
@@ -51,6 +52,7 @@
         <div class="container-fluid">
 
 		  <!-- Divider -->
+		  Particulier :
 		  <hr class="sidebar-divider">
 
           <!-- Content Row -->
@@ -72,13 +74,13 @@
                     </br>
                     
                     <div class="row no-gutters align-items-center">             
-                      <div class="col mr-2 text-xs text-warning text-uppercase mb-1">Semaine</div>           
-                      <div class="col mr-2 h1 font-weight-bold text-warning text-uppercase mb-1">40 </div>
+                      <div class="col mr-2 text-xs text-warning text-uppercase mb-1"></div>           
+                      <div class="col mr-2 h1 font-weight-bold text-warning text-uppercase mb-1"></div>
                     </div>        
                     
                     <div class="row no-gutters align-items-center">                        
                       <div class="col mr-2 text-xs text-warning text-uppercase mb-1">TOTALE</div>
-                      <div class="col mr-2 h1 font-weight-bold text-warning text-uppercase mb-1">1255</div>
+                      <div class="col mr-2 h1 font-weight-bold text-warning text-uppercase mb-1">---</div>
                     </div>        
 
                   </div>
@@ -94,19 +96,20 @@
                     <div class="col mr-2">
                       <div class="h5 mb-0 font-weight-bold text-gray-800">Demandes de devis envoyer</div>      
                     </div>
-                    <div class="col-auto">
+                    
+					<a class="col nav-link btn" href="dem_devis">
                       <i class="fas fa-envelope fa-5x text-gray-300"></i>
-                    </div>
+                    </a>
                     </br>
 
-                    <div class="row no-gutters align-items-center">             
-                      <div class="col mr-2 text-xs text-success text-uppercase mb-1">Semaine</div>           
-                      <div class="col mr-2 h1 font-weight-bold  text-success text-uppercase mb-1">40 </div>
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2 text-xs text-success text-uppercase mb-1"></div>           
+                      <div class="col mr-2 h1 font-weight-bold  text-success text-uppercase mb-1"> </div>
                     </div>        
                     
                     <div class="row no-gutters align-items-center">                        
                       <div class="col mr-2 text-xs  text-success text-uppercase mb-1">TOTALE</div>
-                      <div class="col mr-2 h1 font-weight-bold  text-success text-uppercase mb-1">1255</div>
+                      <div class="col mr-2 h1 font-weight-bold  text-success text-uppercase mb-1">{{numberDevis}}</div>
                     </div>   
                     
                   </div>
@@ -123,13 +126,14 @@
                     <div class="col mr-2">
                       <div class="h5 mb-0 font-weight-bold text-gray-800">Nombre de Professionnels Inscript</div>                      
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa fa-5x  fa-users  fa-2x text-gray-300"></i>
-                    </div>
+					<a class="col nav-link btn" href="lst_in_pro">
+						  <i class="fas fa fa-5x  fa-users  fa-2x text-gray-300"></i>
+						</a>
+						
 
                     <div class="row no-gutters align-items-center">                        
                       <div class="col mr-2 text-xs text-info  text-uppercase mb-1">TOTALE</div>
-                      <div class="col mr-2 h1 font-weight-bold  text-info s text-uppercase mb-1">1255</div>
+                      <div class="col mr-2 h1 font-weight-bold  text-info s text-uppercase mb-1">{{numberPro}}</div>
                     </div>                                           
                   </div>
                 </div>
@@ -143,16 +147,16 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">Nombre de projets postulés par le client</div>      
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">Nombre de projets postulés par les client</div>      
                       </div>
-                      <div class="col-auto">
+					  <a class="col nav-link btn" href="dem_devis">
                         <i class="fas fa-envelope fa-5x text-gray-300"></i>
-                      </div>
+                      </a>
                       </br>  
                       
                       <div class="row no-gutters align-items-center">                        
-                        <div class="col mr-2 text-xs  text-secondary  text-uppercase mb-1">TOTALE</div>
-                        <div class="col mr-2 h1 font-weight-bold  text-secondary  text-uppercase mb-1">15</div>
+                        <div class="col mr-2 text-xs  text-secondary  text-uppercase mb-1">TOTALE // table poste</div>
+                        <div class="col mr-2 h1 font-weight-bold  text-secondary  text-uppercase mb-1">{{numberAbon}}</div>
                       </div>   
                       
                     </div>
@@ -160,7 +164,102 @@
                 </div>
               </div>
   
+          </div>
+		  
+		  
+		  <!-- Divider -->
+		  Activiter :
+		  <hr class="sidebar-divider">
+		  
+          <!-- Content Row -->
+          <div class="row">
+		  
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Type</div>      
+                    </div>
+                    
+					<a class="col nav-link btn" href="#">
+                    </a>
+                    </br>
+
+                    <div class="row no-gutters align-items-center">             
+                      <div class="col mr-2 text-xs text-danger text-uppercase mb-1"></div>           
+                      <div class="col mr-2 h1 font-weight-bold  text-danger text-uppercase mb-1"> </div>
+                    </div>        
+                    
+                    <div class="row no-gutters align-items-center">                        
+                      <div class="col mr-2 text-xs  text-warning text-uppercase mb-1">TOTALE</div>
+                      <div class="col mr-2 h1 font-weight-bold  text-danger text-uppercase mb-1">{{numberType}}</div>
+                    </div>   
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
             
+			
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Article</div>      
+                    </div>
+                    
+					          <a class="col nav-link btn" href="#"></a>
+                    </br>
+
+                    <div class="row no-gutters align-items-center">             
+                      <div class="col mr-2 text-xs text-primary text-uppercase mb-1"></div>           
+                      <div class="col mr-2 h1 font-weight-bold  text-primary text-uppercase mb-1"> </div>
+                    </div>        
+                    
+                    <div class="row no-gutters align-items-center">                        
+                      <div class="col mr-2 text-xs  text-primary text-uppercase mb-1">TOTALE</div>
+                      <div class="col mr-2 h1 font-weight-bold  text-primary text-uppercase mb-1">{{numberArt}}</div>
+                    </div>   
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+			
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Catégorie</div>      
+                    </div>
+                    
+					<a class="col nav-link btn" href="#">
+                    </a>
+                    </br>
+
+                    <div class="row no-gutters align-items-center">             
+                      <div class="col mr-2 text-xs text-success text-uppercase mb-1"></div>           
+                      <div class="col mr-2 h1 font-weight-bold  text-success text-uppercase mb-1"> </div>
+                    </div>        
+                    
+                    <div class="row no-gutters align-items-center">                        
+                      <div class="col mr-2 text-xs  text-success text-uppercase mb-1">TOTALE</div>
+                      <div class="col mr-2 h1 font-weight-bold  text-success text-uppercase mb-1">{{numberCat}}</div>
+                    </div>   
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+			
           </div>
 
           <!-- Content Row -->
@@ -232,90 +331,175 @@
                   </div>
                 </div>
   
-                <!-- Color System -->
-                <div class="row">
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-primary text-white shadow">
-                      <div class="card-body">
-                        Primary
-                        <div class="text-white-50 small">#4e73df</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-success text-white shadow">
-                      <div class="card-body">
-                        Success
-                        <div class="text-white-50 small">#1cc88a</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-info text-white shadow">
-                      <div class="card-body">
-                        Info
-                        <div class="text-white-50 small">#36b9cc</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-warning text-white shadow">
-                      <div class="card-body">
-                        Warning
-                        <div class="text-white-50 small">#f6c23e</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-danger text-white shadow">
-                      <div class="card-body">
-                        Danger
-                        <div class="text-white-50 small">#e74a3b</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-secondary text-white shadow">
-                      <div class="card-body">
-                        Secondary
-                        <div class="text-white-50 small">#858796</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-  
               </div>
-  
-              <div class="col-lg-6 mb-4">
-  
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                  <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                  </div>
-                  <div class="card-body">
-                    <div class="text-center">
-                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="">
-                    </div>
-                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
-                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
-                  </div>
-                </div>
-  
-                <!-- Approach -->
-                <div class="card shadow mb-4">
-                  <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                  </div>
-                  <div class="card-body">
-                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
-                    <p class="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classes.</p>
-                  </div>
-                </div>
-  
-              </div>
+				  
+				  <div class="col-lg-6 mb-4">
+	  
+					<!-- Illustrations -->
+					<div class="card shadow mb-4">
+					  <div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Menu</h6>
+					  </div>
+					  <div class="card-body">
+					  
+						<!-- Color System -->
+					<div class="row">
+					  <div class="col-lg-3 mb-3">
+						<div class="card bg-primary text-white shadow">
+						  <div class="card-body">                      
+							<a href="config_site" class="text-white">
+								<i class="fas  fa-fw   fa-cog fa-5x "></i>
+							</a><hr>
+							<div class="text-white-50 small">Configuration du site </div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-lg-3 mb-3">
+						<div class="card bg-success text-white shadow">
+						  <div class="card-body">                        
+							<a href="dem_devis" class="text-white">
+								<i class="fa  fa-5x fa-fw fa-envelope"></i>
+							</a><hr>
+							<div class="text-white-50 small"> Demande devis </div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-lg-3 mb-3">
+						<div class="card bg-info text-white shadow">
+						  <div class="card-body">
+										  
+							<a href="lst_in_pro" class="text-white">
+								<i class="fa  fa-5x fa-fw fa-list-ol"></i>
+							</a><hr>
+								<div class="text-white-50 small">Professionnels</div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-lg-3 mb-3">
+						<div class="card bg-warning text-white shadow">
+						  <div class="card-body">					  
+							<a href="m_e_email" class="text-white">
+								<i class="fa  fa-5x fa-fw fa-check-square"></i>
+							</a><hr>
+								<div class="text-white-50 small">Modes d’envoi d’email</div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-lg-3 mb-3">
+						<div class="card bg-danger text-white shadow">
+						  <div class="card-body">
+								<a href="trans" class="text-white">
+									<i class="fab  fa-5x fa-fw fa-think-peaks"></i>
+								</a><hr>
+								<div class="text-white-50 small">Transaction</div>
+						  </div>
+						</div>
+					  </div>                  
+					  <div class="col-lg-3 mb-3">
+						<div class="card bg-white  shadow">
+							<div class="card-body" > 
+							  <a href="client" class="text-dark">
+								<i class="fa  fa-5x fa-fw fa-user-friends"></i>
+							  </a><hr>
+								<div class="text-dark-50 small">Client</div>
+							</div>						
+						</div>
+					  </div>
+					  <div class="col-lg-3 mb-3">
+						<div class="card text-white shadow" style="background-color: deeppink;">
+							<div class="card-body" > 
+							  <a href="abonnement" class="text-white">
+								<i class="fas  fa-5x fa-fw fa-bread-slice"></i>
+							  </a><hr>
+								<div class="text-white-50 small">Abonnement</div>
+							</div>						
+						</div>
+					  </div>
+					  
+					  
+					  <div class="col-lg-3 mb-3">
+						<div class="card  text-dark shadow" style="background-color: yellow;">
+							<div class="card-body" > 
+							  <a href="service" class="text-dark">
+								<i class="fab  fa-5x fa-fw fa-servicestack"></i>
+							  </a><hr>
+								<div class="text-dark-50 small">Service</div>
+							</div>						
+						</div>
+					  </div>
+
+					  <div class="col-lg-3 mb-3">
+						<div class="card bg-secondary text-white shadow">
+							<div class="card-body" > 
+							  <a href="objet_devis" class="text-white">
+								<i class=" fa-5x fas fa-fw fa-th"></i>
+							  </a><hr>
+								<div class="text-white-50 small">Objet Devis</div>
+							</div>						
+						</div>
+					  </div>
+					</div>
+					  
+					  </div>
+					</div>
+					
+				  </div>
 
 
+            <!-- Pie Chart -->
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Dropdown Header:</div>
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-primary"></i> Direct
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-success"></i> Social
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-info"></i> Referral
+                    </span>
+					
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-info"></i> Referral
+                    </span>
+					
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-info"></i> Referral
+                    </span>
+					
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-info"></i> Referral
+                    </span>
+					
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-info"></i> Referral
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
               <div class="card shadow mb-4">
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
@@ -361,45 +545,10 @@
                 </div>
               </div>
             </div>
+			
+			
+			
 
-            <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> Direct
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Social
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-info"></i> Referral
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
         </div>
@@ -423,25 +572,6 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </body>
 	{% endblock %}
 
@@ -464,7 +594,5 @@
   <script src="{{ absolute_url('/assets/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ absolute_url('/assets/js/demo/chart-pie-demo.js') }}"></script>
   <script src="{{ absolute_url('/assets/js/demo/chart-bar-demo.js') }}"></script>
-  
-  
   
 	{% endblock %}

@@ -214,39 +214,35 @@
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Aménager intérieur</td>
-                                <td>2019-08-30 00:00:09</td>
-                                <td class="text-center" >
-									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_type" type="button" title="Supprimer">
-									<i class="fa fa-times"></i>
-                                    </button>
-									<button class="btn btn-info" data-toggle="modal" data-target="#myModal_edit_type"  type="button" title="Modifier"><i class="fa fa-edit"></i>
-                                    </button>	
-								</td>
-                            </tr>
 							
 							
-                            <tr>
-                                <td>2</td>
-                                <td>RÉNOVER</td>
-                                <td>2019-08-30 00:00:01</td>
-                                <td>47</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>INSTALLER</td>
-                                <td>2019-08-30 00:00:06</td>
-                                <td>21</td>
-                            </tr>
 							
-                            <tr>
-                                <td>4</td>
-                                <td>Aménager extérieur</td>
-                                <td>2019-08-30 00:00:03</td>
-                                <td>27</td>
-                            </tr>
+							
+							{% if list_type != null %}							
+                                {% for lst in list_type %}
+									<tr>
+										<td>{{ lst.getId() }}</td>
+										<td>{{ lst.getTitle() }}</td>
+										<td>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}</td>
+										<td>
+											
+											<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_article" type="button" title="Supprimer"><i class="fa fa-times"></i>
+											</button>
+											
+											<button class="btn btn-info" type="button" title="Modifier"><i class="fa fa-edit"></i>
+											</button>
+											
+											<button class="btn btn-warning" type="button" title="Modifier"><i class="fa fa-eye"></i>
+											</button>
+											
+										</td>
+									</tr>
+								{% endfor %}
+							{% else %}
+								<li class="text-center"> AUCUN RESULTAT!<li>                                     
+							{% endif %}	
+									
+							
                             </tbody>
                         </table>
                         </div>
@@ -453,58 +449,34 @@
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Architecte-Construction</td>
-                                <td>2011/04/25</td>
-                                <td>Description Architecte-Construction</td>
-                                <td>
-									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_cat" type="button" title="Supprimer"><i class="fa fa-times"></i>
-                                    </button>
-									<button class="btn btn-info" data-toggle="modal" data-target="#myModal_edit_cat" type="button" title="Modifier"><i class="fa fa-edit"></i>
-                                    </button>
-									<button class="btn btn-warning" data-toggle="modal" data-target="#myModal_aff_cat" type="button" title="Modifier"><i class="fa fa-eye"></i>
-                                    </button>
-								</td>
-								
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Fenêtre-porte</td>								
-                                <td>2011/03/21</td>
-                                <td>DESK</td>
-                                <td>
-									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_type" type="button" title="Supprimer"><i class="fa fa-times"></i>
-                                    </button>
-									<button class="btn btn-info" type="button" title="Modifier"><i class="fa fa-edit"></i>
-                                    </button>
-								</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Peinture-Sol</td>
-                                <td>2019-09-02</td>
-                                <td>DESK</td>
-                                <td>
-									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_type" type="button" title="Supprimer"><i class="fa fa-times"></i>
-                                    </button>
-									<button class="btn btn-info" type="button" title="Modifier"><i class="fa fa-edit"></i>
-                                    </button>
-								</td>
-                            </tr>
 							
-                            <tr>
-                                <td>4</td>
-                                <td>Cuisine-Salle de Bains</td>
-                                <td>2019-09-02</td>
-                                <td>DESK</td>
-                                <td>
-									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_type" type="button" title="Supprimer"><i class="fa fa-times"></i>
-                                    </button>
-									<button class="btn btn-info" type="button" title="Modifier"><i class="fa fa-edit"></i>
-                                    </button>
-								</td>
-                            </tr>
+							
+							{% if list_cat != null %}							
+                                {% for lst in list_cat %}
+									<tr>
+										<td>{{ lst.getId() }}</td>
+										<td>{{ lst.getCategTitle() }}</td>
+										<td>{{ lst.getCategDateCrea() | date('d/m/y H:m:s') }}</td>
+										<td>{{ lst.getDescription() }}</td>
+										<td>
+											
+											<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_article" type="button" title="Supprimer"><i class="fa fa-times"></i>
+											</button>
+											
+											<button class="btn btn-info" type="button" title="Modifier"><i class="fa fa-edit"></i>
+											</button>
+											
+											<button class="btn btn-warning" type="button" title="Modifier"><i class="fa fa-eye"></i>
+											</button>
+											
+										</td>
+									</tr>
+								{% endfor %}
+							{% else %}
+								<li class="text-center"> AUCUN RESULTAT!<li>                                     
+							{% endif %}	
+									
+							
                             </tbody>
                         </table>
                         </div>
@@ -599,7 +571,6 @@
                             <thead class="bg-warning text-dark">
                             <tr>
                                 <th>#</th>
-                                <th>Catégorie</th>
                                 <th>Nom Article</th>
                                 <th>Date de création</th>                                
                                 <th>Action</th>
@@ -608,29 +579,38 @@
                             <tfoot>
                             <tr>
 								<th>#</th>
-                                <th>Catégorie</th>
                                 <th>Nom Article</th>
                                 <th>Date de création</th>                                
                                 <th>Action</th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>14</td>
-                                <td>Alarme</td>
-                                <td>2019-09-02</td>
-                                <td>
-								
-									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_article" type="button" title="Supprimer"><i class="fa fa-times"></i>
-                                    </button>
-									<button class="btn btn-info" type="button" title="Modifier"><i class="fa fa-edit"></i>
-                                    </button>
+							
+							
+							{% if list_art != null %}							
+                                {% for lst in list_art %}
+									<tr>
+										<td>{{ lst.getId() }}</td>
+										<td>{{ lst.getArticleTitle() }}</td>
+										<td>{{ lst.getArticleDateCrea() | date('d/m/y H:m:s') }}</td>
+										<td>
+											
+											<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_article" type="button" title="Supprimer"><i class="fa fa-times"></i>
+											</button>
+											
+											<button class="btn btn-info" type="button" title="Modifier"><i class="fa fa-edit"></i>
+											</button>
+											
+											<button class="btn btn-warning" type="button" title="Modifier"><i class="fa fa-eye"></i>
+											</button>
+											
+										</td>
+									</tr>
+								{% endfor %}
+							{% else %}
+								<li class="text-center"> AUCUN RESULTAT!<li>                                     
+							{% endif %}	
 									
-									<button class="btn btn-warning" type="button" title="Modifier"><i class="fa fa-eye"></i>
-                                    </button>
-								</td>
-                            </tr>
 							
                             </tbody>
                         </table>
@@ -728,7 +708,7 @@
 	<script>
 	
 		$('.nav-item').removeClass('active');
-		$('.nav_dem_devis').addClass('active');
+		$('.nav_objet_devis').addClass('active');
 		
 	</script>
 	

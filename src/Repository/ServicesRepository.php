@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Services[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ServicesRepository extends ServiceEntityRepository
-{
+{ 
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Services::class);

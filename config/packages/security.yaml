@@ -39,7 +39,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         # - { path: ^/admin, role: IS_AUTHENTICATED_FULLY }
-        - { path: ^/admin, role:  ROLE_ADMIN } #ROLE_USER_PROFESSIONAL    }
+        - { path: ^/admin, role:  ROLE_ADMIN } #ROLE_USER_PROFESSIONAL  } #ROLE_ADMIN } #  }
         - { path: ^/pro, role: ROLE_USER_PROFESSIONAL }
         - { path: ^/particulier, role: ROLE_USER_PARTICULAR }
         

@@ -78,7 +78,7 @@ class ProController extends AbstractController
 
         $array = Array();
         foreach ($services as $key => $value) {
-        $array[] = $value->getCategoryId();
+            $array[] = $value->getCategoryId();
         }
 
         $categoryId =  $array;
@@ -264,7 +264,7 @@ class ProController extends AbstractController
                             4=>  ($categoryId)
                             );
        
-        if ((int) $interval->format('%R%a') <= 0) 
+        if ((int) $interval->format('%R%a') <= 0)
         {
             $devis = $devisRep->findByZipCodeAndCity($arrayData, 5);
 
@@ -423,7 +423,7 @@ class ProController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
         return $this->render('pro/pro-evaluations.html.twig', [
-            'controller_name' => 'ESPACE PROFESSIONEL',
+            'controller_name' => 'ESPACE PROFESSIONEL'
         ]);
     }
 
@@ -781,7 +781,7 @@ class ProController extends AbstractController
         $servicesArray = $serviceRep->findAll();
         $services = !is_null($servicesArray) ? $servicesArray : null;
         return $this->render('pro/services.html.twig', [
-            'services' => $services,
+            'services' => $services,'numberDevis' => 'numberDevis'
         ]);
     }
 
@@ -805,7 +805,6 @@ class ProController extends AbstractController
            }
         }
         return $this->redirectToRoute('pro_services');
-       
     }
 
     public function countDevis(Security $security, ServicesRepository $serviceRep, DevisRepository $devisRep): ?int

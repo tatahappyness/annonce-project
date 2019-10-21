@@ -21,8 +21,69 @@
           background-color: #fcd42f4a;
       }
       #wrapper{
-        background-color: #777;
+       background-color:#ececec;
       }
+	  
+	  
+	  
+	    
+		@media screen  and  (max-width: 680px){
+			
+			#sidebarToggleTop{
+				display: block;
+			}
+			
+			.row_menu {
+				display: block;
+				position: relative;    
+				visibility: visible;
+			}
+			
+			.icon_menu {
+				font-size: 3em;
+			}
+			.menu_nav {
+				display: none;	
+				color: #fff;					
+				background-color: RGBa(29, 197, 151, 0.97);	
+				
+				
+				text-align: center;
+				padding: 12px 0;
+			}
+			.card-body {
+				font-size: 95%;
+			}
+			
+			div {
+				font-size: 95%;
+			}
+			
+			.img_logo{
+				height: 15px;			
+			}
+			
+			.head_title{
+				font-size: 15px;			
+			}
+			
+		}
+		
+		@media screen  and  (min-width: 680px){
+			.row_menu {
+				display: none;
+			}
+			
+			#sidebarToggleTop{
+				display: none;
+			}
+			
+			.sticky-footer {
+				display: none;
+			}
+		}
+	  
+	  
     </style>
     
 {% endblock %}
@@ -32,23 +93,24 @@
 
 <body id="page-top">
 
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
   <!-- Page Wrapper -->
-  <div id="wrapper" style="background-color: #777">
+  <div id="wrapper" >
 
 	<!--Begin nav_bar api_admin space -->
 	{% include "./admin/api_admin/nav_bar.html.twig" %}
 	<!--End nav_bar api_admin space -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" style="background-color:#ececec"; class="d-flex flex-column">
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+	</br>
 
       <!-- Main Content -->
       <div id="content">
 	  
-		<!--Begin head_bar api_admin space -->
-		{% include "./admin/api_admin/head_bar.html.twig" %}
-		<!--End head_bar api_admin space -->
-
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -58,9 +120,61 @@
           <!-- Content Row -->
           <div class="row">
 
- <!-- Content Column -->                            
+ <!-- Content Column -->                    
+
+		{% if list_part != null %}							
+			{% for lst in list_part %}
+			<!-- Modal comfirmer mode  normalement -->
+			<div class="modal fade" id="myModal_sup_client_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer la suppression du client:
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>						
+
+						<div class="card-body">
+							<div class="text-center">
+								{{ lst.firstname() }}</br>
+												
+								{% if lst.getUserCategoryActivity().getCategTitle() != null %}	
+									{{ lst.getUserCategoryActivity().getCategTitle() }} </br>
+								
+								{% else %}
+									<td></td>                               
+								{% endif %}	
+								
+								{{ lst.getEmail() }}<br>
+								{{ lst.getMobile() }}															
+							</div>						
+						</div>												
+						  
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+							data-dismiss="modal">
+								NON
+							</button>
+							<a href="{{ path('delete_part', {id: lst.id}) }}" class="text-reset">
+								<button type="button" class=" btn btn-success">
+									OUI
+								</button>
+							</a>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal comfirmer mode normalement-->        
+			{% endfor %}
+		{% else %}
+			<li class="text-center"> AUCUN RESULTAT!<li>                                     
+		{% endif %}	
+							
+							
+							
             <!-- DataTales Example -->
-            <div class="col-10 mb-8">
+            <div class="col mb-8">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Listes des Client</h6>
@@ -100,14 +214,19 @@
                                 <td>{{ lst.getEmail() }}</td>
                                 <td>{{ lst.firstname() }}</td>
                                 <td>{{ lst.getMobile() }}</td>
-                                <td>{{ lst.getUserCategoryActivity().getCategTitle() }}</td>
+								
+									
+								{% if lst.getUserCategoryActivity().getCategTitle() != null %}	
+									<td> {{ lst.getUserCategoryActivity().getCategTitle() }}</td>
+								
+								{% else %}
+									<td></td>                               
+								{% endif %}	
+								
+								
                                 <td>{{ lst.getEnabled() }}</td>
-                                <td>
-									<button class="btn btn-success" data-toggle="modal" data-target="#myModal_aff_cat" type="button" title="Activer"><i class="fa  fa-check-circle"></i>
-									</button>
-									<button class="btn btn-secondary" data-toggle="modal" data-target="#myModal_aff_cat" type="button" title="Désactiver"><i class="fa fa-circle"></i>
-									</button>
-									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_service" type="button" title="Supprimer"><i class="fa fa-times"></i>
+                                <td>								
+									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_client_{{ lst.getId() }}" type="button" title="Supprimer"><i class="fa fa-times"></i>
 									</button>
 								</td>
                             </tr>
@@ -131,10 +250,6 @@
       </div>
       <!-- End of Main Content -->
 
-		<!--Begin foot_bar api_admin space -->
-		{% include "./admin/api_admin/foot_bar.html.twig" %}
-		<!--End foot_bar api_admin space -->
-
     </div>
     <!-- End of Content Wrapper -->
 
@@ -142,7 +257,7 @@
   <!-- End of Page Wrapper -->
 
   <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
+  <a class="scroll-to-top rounded" href="#page-top" style="z-index: 2;display: inline;">
     <i class="fas fa-angle-up"></i>
   </a>
 
@@ -164,6 +279,17 @@
       </div>
     </div>
   </div>
+</br></br></br>
+			<footer class="col sticky-footer bg-white" style="position: fixed;z-index: 1;bottom: 0;">
+				<div class="container my-auto">								
+				  <!-- Scroll to Top Button-->
+				  <a href="{{ path('admin_home') }}">
+					  <div class="btn btn-secondary" style="z-index: 2;display: inline;">
+						<i class="fas fa-angle-left"></i> MENU
+					  </div>				  
+				  </a>
+				</div>
+			</footer>
 
 </body>
 	{% endblock %}
@@ -179,8 +305,6 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
-
-
 
   <!-- Page level plugins -->
   <script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>

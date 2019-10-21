@@ -18,11 +18,20 @@ class UserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
+	
+	
 
     // /**
     //  * @return User of User object
     //  */
     
+	
+    
+    public function findById($id, $lockMode = null, $lockVersion = null): ?User
+    {
+        return $this->find($id);
+    }
+	
     public function findOneByEmail($value)
     {   
         return $this->createQueryBuilder('u')
@@ -54,9 +63,6 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-<<<<<<< HEAD
-	
-	
 	
 	//SELECT * FROM `user` WHERE `user`.`roles` = '["ROLE_USER_PROFESSIONAL"]'
 
@@ -82,9 +88,6 @@ class UserRepository extends ServiceEntityRepository
     }
 	
 	
-=======
-
->>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
     public function findAllProfessionals($data = null, $limit = 50, $offset = 0)
     {
 

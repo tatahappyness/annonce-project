@@ -21,7 +21,7 @@
           background-color: #fcd42f4a;
       }
       #wrapper{
-        background-color: #777;
+       background-color:#ececec;
       }
     </style>
     
@@ -32,23 +32,23 @@
 
 <body id="page-top">
 
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
   <!-- Page Wrapper -->
-  <div id="wrapper" style="background-color: #777">
+  <div id="wrapper" >
 
 	<!--Begin nav_bar api_admin space -->
 	{% include "./admin/api_admin/nav_bar.html.twig" %}
 	<!--End nav_bar api_admin space -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" style="background-color:#ececec"; class="d-flex flex-column">
-
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+	</br>
       <!-- Main Content -->
       <div id="content">
 	  
-		<!--Begin head_bar api_admin space -->
-		{% include "./admin/api_admin/head_bar.html.twig" %}
-		<!--End head_bar api_admin space -->
-
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -59,7 +59,49 @@
           <div class="row">
 
 
- <!-- Content Column -->                            
+ <!-- Content Column -->                    
+
+		{% if devis != null %}							
+			{% for dev in devis %}
+			<!-- Modal comfirmer mode  normalement -->
+			<div class="modal fade" id="myModal_info_dem_devis_{{ dev.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+								Détail :
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>						
+								
+						<div class="card-body">
+							<div class="">
+								Nom: {{ dev.getFirstName() }}	</br>
+								Catégorie: [ {{ dev.getCategoryId().getCategTitle() }} ]</br>
+								Détail: </br> {{ dev.getDetailProject() }}</br>
+								Email: {{ dev.getEmail() }} <br>
+								Phone: {{ dev.getPhoneNumber() }}
+								Date de création: {{ dev.getDateCrea() | date('d/m/y H:m:s') }} <br>
+								
+							</div>						
+						</div>												
+						  
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success"
+							data-dismiss="modal">
+								OK
+							</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal comfirmer mode normalement-->
+		{% endfor %}
+	{% else %}
+		<li class="text-center"><li>                                     
+	{% endif %}		
+
+
             <!-- DataTales Example -->
             <div class="col-12 mb-8">
                 <div class="card shadow mb-4">
@@ -99,11 +141,11 @@
                                 <td>{{ dev.getFirstName() }}</td>
                                 <td>{{ dev.getCategoryId().getCategTitle() }}</td>
                                 <td>{{ dev.getDetailProject() }}</td>
-                                <th>{{ dev.getPhoneNumber() }}</th>
-                                <th>{{ dev.getEmail() }}</th>
+                                <td>{{ dev.getPhoneNumber() }}</td>
+                                <td>{{ dev.getEmail() }}</td>
                                 <td>{{ dev.getDateCrea() | date('d/m/y H:m:s') }}</td>
                                 <td>
-									<button class="btn btn-warning" data-toggle="modal" data-target="#myModal_aff_cat" type="button" title="Plus de Détail"><i class="fa fa-eye"></i>
+									<button class="btn btn-warning" data-toggle="modal" data-target="#myModal_info_dem_devis_{{ dev.getId() }}" type="button" title="Plus de Détail"><i class="fa fa-eye"></i>
                                     </button>
 								</td>
                             </tr>
@@ -127,9 +169,7 @@
       </div>
       <!-- End of Main Content -->
 
-		<!--Begin foot_bar api_admin space -->
-		{% include "./admin/api_admin/foot_bar.html.twig" %}
-		<!--End foot_bar api_admin space -->
+
 
     </div>
     <!-- End of Content Wrapper -->

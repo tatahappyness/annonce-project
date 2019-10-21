@@ -1,101 +1,323 @@
 
     <!-- Sidebar -->
-    <ul class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar">
+	
+	<div class="col-2 menu_nav">
+		<ul class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar"  style="background-color: #777;overflow-x: hidden;overflow-y: scroll;height: -webkit-fill-available; position: fixed;">
 
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">    
-        <img class="" src="{{ absolute_url('/assets/img/logo.png') }}"  />
-      </a>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+		  <!-- Divider -->
+		  <hr class="sidebar-divider mt-5">
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/admin">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+		  <!-- Nav Item - Dashboard -->
+		  <li class="nav-item active ">
+			<a class="nav-link" href="/admin">
+			  <i class="fas fa-fw fa-tachometer-alt"></i>
+			  <span>Dashboard</span></a>
+		  </li>
+		  
+		  
+		  
+		  <div class="sidebar-heading ">
+			Particulier
+		  </div>
+		  <hr class="sidebar-divider my-0">
+		  
+		  <!-- Nav Item - Modes d’envoi d’email -->
+		  <li class="nav-item nav_client">
+			<a class="nav-link" href="client">
+			  <i class="fas fa-fw fa-user-friends"></i>
+			  <span>Client</span></a>
+		  </li>
+		  
+		  
+		  
+		  <!-- Nav Item - Demande devis -->
+		  <li class="nav-item nav_dem_devis">
+			<a class="nav-link" href="dem_devis">
+			  <i class="fas fa-fw fa-envelope"></i>
+			  <span> Demande devis  </span></a>
+		  </li>
+		  
+		  <!-- Divider -->
+		  
+		  <div class="sidebar-heading">
+			Professionnels
+		  </div>
+		  <hr class="sidebar-divider my-0">
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+		  <!-- Nav Item - Professionnels -->
+		  <li class="nav-item nav_lst_in_pro">
+			<a class="nav-link" href="lst_in_pro">
+			  <i class="fas fa-fw fa-list-ol"></i>
+			  <span>Compte Professionnels</span></a>
+		  </li>
+		  
+		  
+		  <!-- Nav Item - Modes d’envoi d’email -->
+		  <li class="nav-item nav_service">
+			<a class="nav-link" href="service">
+			<i class="fab fa-fw fa-servicestack"></i>
+			  <span>Service</span></a>
+		  </li>
+		  
+		  <!-- Nav Item - Modes d’envoi d’email -->
+		  <li class="nav-item nav_abonnement">
+			<a class="nav-link" href="abonnement">
+			  <i class="fas fa-fw fa-bread-slice"></i>
+			  <span>Abonnement</span></a>
+		  </li>
+			  
+		  <!-- Nav Item - Modes d’envoi d’email -->
+		  <li class="nav-item nav_trans ">
+			<a class="nav-link" href="trans">
+			  <i class="fab fa-fw fa-think-peaks"></i>
+			  <span>Transaction</span></a>
+		  </li>
 
-      <!-- Nav Item - Configuration du site -->
-      <li class="nav-item nav_config_site">
-        <a class="nav-link " href="config_site">
-          <i class="fa fa-cog"></i>
-          <span>Configuration du site </span></a>
-      </li>
-      
-      <!-- Nav Item - Demande devis -->
-      <li class="nav-item nav_dem_devis">
-        <a class="nav-link" href="dem_devis">
-          <i class="fas fa-fw fa-envelope"></i>
-          <span> Demande devis  </span></a>
-      </li>
-      
-      <!-- Nav Item - Professionnels -->
-      <li class="nav-item nav_lst_in_pro">
-        <a class="nav-link" href="lst_in_pro">
-          <i class="fas fa-fw fa-list-ol"></i>
-          <span>Professionnels</span></a>
-      </li>
-      
-      <!-- Nav Item - Modes d’envoi d’email -->
-      <li class="nav-item nav_m_e_email">
-        <a class="nav-link " href="m_e_email">
-          <i class="fas fa-fw fa-check-square"></i>
-          <span>Modes d’envoi d’email</span></a>
-      </li>
-      
+		  <div class="sidebar-heading">
+				Parametre
+		  </div>
+		  
+		  
+		  <hr class="sidebar-divider my-0">
+		  
+			<!-- Nav Item - Pages Collapse Objet Devis -->
+			<li class="nav-item nav_objet_devis">
+			  <a class="nav-link " href="objet_devis">
+				<i class="fas fa-fw fa-th"></i>
+				<span>Objet Devis</span>
+			  </a>		  
+			</li>
+
+		  
+		  <!-- Nav Item - Modes d’envoi d’email -->
+		  <li class="nav-item nav_m_e_email">
+			<a class="nav-link " href="m_e_email">
+			  <i class="fas fa-fw fa-check-square"></i>
+			  <span>Modes d’envoi d’email</span></a>
+		  </li>
 	  
-      <!-- Nav Item - Modes d’envoi d’email -->
-      <li class="nav-item nav_trans ">
-        <a class="nav-link" href="trans">
-          <i class="fab fa-fw fa-think-peaks"></i>
-          <span>Transaction</span></a>
-      </li>
+		  <!-- Nav Item - Configuration du site -->
+		  <li class="nav-item nav_config_site">
+			<a class="nav-link " href="config_site">
+			  <i class="fa fa-cog"></i>
+			  <span>Configuration du site </span></a>
+		  </li>
 	  
-	  
-      <!-- Nav Item - Modes d’envoi d’email -->
-      <li class="nav-item nav_client">
-        <a class="nav-link" href="client">
-          <i class="fas fa-fw fa-user-friends"></i>
-          <span>Client</span></a>
-      </li>
-	  
-	  
-	  
-      <!-- Nav Item - Modes d’envoi d’email -->
-      <li class="nav-item nav_abonnement">
-        <a class="nav-link" href="abonnement">
-          <i class="fas fa-fw fa-bread-slice"></i>
-          <span>Abonnement</span></a>
-      </li>
-	  	  
-      <!-- Nav Item - Modes d’envoi d’email -->
-      <li class="nav-item nav_service">
-        <a class="nav-link" href="service">
-		<i class="fab fa-fw fa-servicestack"></i>
-          <span>Service</span></a>
-      </li>
-	  
+		  <hr class="sidebar-divider my-0">
+		  
+		  <li class="nav-item">
+			<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+			  <i class="fas fa-user  fa-fw "></i>
+			  <span>Administrateur</span>
+			</a>
+			
+			<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar" style="">
+			  <div class="bg-white py-2 collapse-inner">
+				<a class="collapse-item" data-toggle="modal" data-target="#myModal_profile"  href="#">Profile</a>
+				<a class="collapse-item" data-toggle="modal" data-target="#myModal_change_mdp"  href="#">Changer mot de passe</a>
+				<a class="collapse-item" data-toggle="modal" data-target="#logoutModal"  href="#">Déconnecter</a>
+			  </div>
+			</div>
+		  </li>
+		  
+		  
+		  
+			<!-- Divider -->
+		  <hr class="sidebar-divider d-none d-md-block">
+		  
+		  
 
-		<!-- Nav Item - Pages Collapse Objet Devis -->
-		<li class="nav-item nav_objet_devis">
-          <a class="nav-link " href="objet_devis">
-            <i class="fas fa-fw fa-th"></i>
-            <span>Objet Devis</span>
-          </a>		  
-        </li>
+		  <!-- Sidebar Toggler (Sidebar) -->
+		  <div class="text-center d-none d-md-inline">
+			<button class="rounded-circle border-0" id="sidebarToggle"></button>
+		  </div>
 
-        <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
+		</ul>
+	</div>	
     <!-- End of Sidebar -->
+
+
+
+			<!-- Modal comfirmer mode  normalement -->
+			<div class="modal fade" id="myModal_profile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Profile:
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>						
+								
+						<div class="card-body">
+							<div class="text-center">
+								Jean Baptiste		</br>
+								[ Entretien-Traitement ]</br>
+								zaza@gmail.com	<br>
+								+33860023
+							</div>						
+						</div>												
+						  
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+							data-dismiss="modal">
+								NON
+							</button>
+							<button type="button" class=" btn btn-success">
+								OUI
+							</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal comfirmer mode normalement-->
+        
+
+			<!-- Modal comfirmer mode  normalement -->
+			<div class="modal fade" id="myModal_change_mdp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+								Changer le mot de passe:
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>						
+								
+						<div class="card-body">
+							
+							
+							
+                    <form class="user">
+                        
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <h4 class="small  font-weight-bold">Email officielle du site:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <input type="email" class="form-control form-control-user" id="email_config" placeholder="Adresse email du site">
+                          </div>                                                  
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Numéro téléphone:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <input type="email" class="form-control form-control-user" id="numtel_config" placeholder="Numéro téléphone">
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Inserer le Logo de l'entreprise:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <input type="file" class="btn btn-secondary btn-user btn-block" id="logo_config" placeholder="Logo">
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Mot de passe:</h4>
+                          </div>
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="password" class="form-control form-control-user" id="mpd_config" placeholder="Mot de passe">
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="password" class="form-control form-control-user" id="mpd_rep_config" placeholder="Comfirmer le mot de passe">
+                          </div>
+                        </div>
+                        <hr>
+                        
+                        <div class="form-group row">
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <a href="#" class="visualiser btn btn-info btn-user btn-block" alt="Visualiser le resultat">
+                              Visualiser
+                            </a>
+                          </div>
+                          <div class="col-sm-6">                      
+                            <a href="#" class="original btn btn-primary btn-user btn-block" alt="Visualiser le resultat">
+                              Original
+                            </a>    
+                          </div>
+                        </div>
+                      
+                        <hr>
+						
+
+						<!-- Modal -->
+						<div class="modal fade" id="myModal_confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">									
+										<h4 class="modal-title" id="myModalLabel">
+										Confirmation des modification:
+										</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+										</button>
+									</div>
+									<div class="modal-body">
+									
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+										data-dismiss="modal">
+										Annuler
+										</button>
+										<button type="button" class="x btn btn-success">
+										Enregistrer
+										</button>
+									</div>
+								</div><!-- /.modal-content -->
+							</div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->
+
+
+						<!-- Button trigger modal -->
+                        <span href="config_site" data-toggle="modal" data-target="#myModal_confirm" class="btn btn-success btn-user btn-block">
+                          Valider
+                        </span>
+                        <hr>
+						
+                    </form>
+					
+							
+						</div>												
+						  
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+							data-dismiss="modal">
+								NON
+							</button>
+							<button type="button" class=" btn btn-success">
+								OUI
+							</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal comfirmer mode normalement-->
+        
+
+		  <!-- Logout Modal-->
+		  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">Voulez-vous déconneter ???</h5>
+				  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				  </button>
+				</div>				
+				<div class="modal-footer">
+				  <button class="btn btn-secondary" type="button" data-dismiss="modal">Non</button>
+				  <a class="btn btn-danger" href="../logout">Oui</a>
+				</div>
+			  </div>
+			</div>
+		  </div>

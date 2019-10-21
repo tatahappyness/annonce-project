@@ -20,7 +20,7 @@
           background-color: #fcd42f4a;
       }
       #wrapper{
-        background-color: #777;
+       background-color:#ececec;
       }
     </style>
     
@@ -31,23 +31,24 @@
 
 <body id="page-top">
 
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
   <!-- Page Wrapper -->
-  <div id="wrapper" style="background-color: #777">
+  <div id="wrapper">
 
 	<!--Begin nav_bar api_admin space -->
 	{% include "./admin/api_admin/nav_bar.html.twig" %}
 	<!--End nav_bar api_admin space -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" style="background-color:#ececec"; class="d-flex flex-column">
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+	</br>
 
       <!-- Main Content -->
       <div id="content">
 	  
-		<!--Begin head_bar api_admin space -->
-		{% include "./admin/api_admin/head_bar.html.twig" %}
-		<!--End head_bar api_admin space -->
-
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -58,6 +59,52 @@
           <div class="row">
 
        
+	  {% if list_pros != null %}							
+		{% for lst in list_pros %}
+			<!-- Modal comfirmer mode  normalement -->
+			<div class="modal fade" id="myModal_sup_pro_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer la suppression du compte professionnel:
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>						
+								
+						<div class="card-body">
+							<div class="text-center">
+								[ {{ lst.getId() }} ] {{ lst.firstname() }}	</br>
+								[ {{ lst.getUserCategoryActivity().getCategTitle() }} ]</br>
+								{{ lst.getMobile() }}<br>
+								{{ lst.getUserCity().getVilleNom() }}  <br>
+								{{ lst.getEmail() }}	<br>
+								
+							</div>						
+						</div>												
+						  
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+							data-dismiss="modal">
+								NON
+							</button>
+							<a href="{{ path('delete_pro', {id: lst.id}) }}" class="text-reset">
+								<button type="button" class=" btn btn-success">
+									OUI
+								</button>
+							</a>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal comfirmer mode normalement-->
+		{% endfor %}
+	{% else %}
+		<li class="text-center"> AUCUN RESULTAT!<li>                                     
+	{% endif %}	
+
+			
+			
             <!-- DataTales Example -->
             <div class="col-12 mb-8">
               <div class="card shadow mb-4">
@@ -78,7 +125,6 @@
                             <th>Métier</th>
                             <th>Email</th>
                             <th>Contact</th>
-                            <th>Statut</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -90,7 +136,6 @@
                             <th>Métier</th>
                             <th>Email</th>
                             <th>Contact</th>
-                            <th>Statut</th>
                             <th>Action</th>
                       </tr>
                       </tfoot>
@@ -105,13 +150,8 @@
                                 <td>{{ lst.getUserCategoryActivity().getCategTitle() }}</td>
                                 <td>{{ lst.getEmail() }}</td>
                                 <td>{{ lst.getMobile() }}</td>
-                                <td>{{ lst.getEnabled() }}</td>
-                                <td>
-									<button class="btn btn-success" data-toggle="modal" data-target="#myModal_aff_cat" type="button" title="Activer"><i class="fa  fa-check-circle"></i>
-									</button>
-									<button class="btn btn-secondary" data-toggle="modal" data-target="#myModal_aff_cat" type="button" title="Désactiver"><i class="fa fa-circle"></i>
-									</button>
-									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_service" type="button" title="Supprimer"><i class="fa fa-times"></i>
+                                <td>								
+									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_pro_{{ lst.getId() }}" type="button" title="Supprimer"><i class="fa fa-times"></i>
 									</button>
 								</td>
                             </tr>
@@ -137,9 +177,6 @@
       </div>
       <!-- End of Main Content -->
 
-		<!--Begin foot_bar api_admin space -->
-		{% include "./admin/api_admin/foot_bar.html.twig" %}
-		<!--End foot_bar api_admin space -->
 
     </div>
     <!-- End of Content Wrapper -->

@@ -33,11 +33,7 @@ class RegistrationController extends AbstractController
      * @return Response
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, CategoryRepository $categoryRep, CitiesRepository $cityRep) : Response
-<<<<<<< HEAD
-    {
-=======
     { 
->>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
        
         $user = new User();
         
@@ -73,11 +69,7 @@ class RegistrationController extends AbstractController
                 } 
                 catch (\Exception $e) {
                     return new JsonResponse(['code'=> 500, 'infos' => $e->getMessage()], 500);
-<<<<<<< HEAD
-                } 
-=======
                 }
->>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
         }
 
        if ($request->request->get('TYPE_USER') !== null && $request->request->get('TYPE_USER') === 'PARTICULAR_USER') {

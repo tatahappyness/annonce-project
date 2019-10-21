@@ -21,7 +21,7 @@
           background-color: #fcd42f4a;
       }
       #wrapper{
-        background-color: #777;
+       background-color:#ececec;
       }
     </style>
     
@@ -32,23 +32,24 @@
 
 <body id="page-top">
 
+	<!--Begin head_bar api_admin space -->
+	{% include "./admin/api_admin/head_bar.html.twig" %}
+	<!--End head_bar api_admin space -->
+
   <!-- Page Wrapper -->
-  <div id="wrapper" style="background-color: #777">
+  <div id="wrapper" >
 
 	<!--Begin nav_bar api_admin space -->
 	{% include "./admin/api_admin/nav_bar.html.twig" %}
 	<!--End nav_bar api_admin space -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" style="background-color:#ececec"; class="d-flex flex-column">
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+	</br>
 
       <!-- Main Content -->
       <div id="content">
 	  
-		<!--Begin head_bar api_admin space -->
-		{% include "./admin/api_admin/head_bar.html.twig" %}
-		<!--End head_bar api_admin space -->
-
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -60,8 +61,11 @@
 
 		<!-- Content Column -->      	
 
+	  {% if list_abon != null %}							
+		{% for lst in list_abon %}
+	
 			<!-- Modal suppression Abonnement -->
-			<div class="modal fade" id="myModal_sup_abonnement" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="myModal_sup_abonnement_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">									
@@ -72,24 +76,35 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<span class="font-weight-bold " >ID:</span> 1<br>
-							<span class="font-weight-bold " >Client (Nom - Email):</span>TATA _ tata@gmail<br>
-							<span class="font-weight-bold " >Date de payement:</span> 2011/04/25<br>
-							<span class="font-weight-bold " >Date d'exipartion:</span> Description Architecte-Construction
+							<span class="font-weight-bold " >ID:</span>{{ lst.getId() }}</br>
+							<span class="font-weight-bold " >Client (Nom - Email):</span>
+								</br>{{ lst.getCustomerId().getName() }}
+								</br> {{ lst.getCustomerId().getEmail() }}</br>
+								
+							<span class="font-weight-bold " >Date de payement:</span>{{ lst.getServiceId().getCategoryId().getCategTitle() }}</br>
+							<span class="font-weight-bold " >Date d'exipartion:</span>{{ lst.getDateExpire() | date('d/m/y H:m:s')  }}
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">
 								NON
 							</button>
-							<button type="button" class=" btn btn-success">
-								OUI
-							</button>
+							
+							<a href="{{ path('delete_abonnement', {id: lst.id}) }}" class="text-reset">
+								<button type="button" class=" btn btn-success">
+									OUI
+								</button>
+							</a>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- end /.modal suppression Abonnement -->
 
+			{% endfor %}
+		{% else %}
+			<li class="text-center"><li>                                     
+		{% endif %}	
+								
 
             <!-- DataTales Example -->
             <div class="col-10 mb-8">
@@ -119,24 +134,11 @@
                                 <th>Date de payement</th>
 								<th>Date d'expiration</th>
                                 <th>Action</th>
-								
                             </tr>
                             </tfoot>
                             <tbody class="text-center">
-                            <tr>
-                                <td>1</td>
-                                <td>TATA<hr>tata@gmail.com </td>
-                                <td>Entretien-Traitement</td>
-                                <td>2011/04/25</td>
-                                <td>2011/04/25</td>
-								
-                                <td>
-									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_abonnement" type="button" title="Supprimer"><i class="fa fa-times"></i>
-                                    </button>
-								</td>
-								
-                            </tr>
-                           	  {% if list_abon != null %}							
+							
+                           	  {% if list_abon != null %}
                                 {% for lst in list_abon %}
 							
                             <tr>
@@ -146,7 +148,7 @@
                                 <td>{{ lst.getDatePayement() | date('d/m/y H:m:s') }}</td>
                                 <td>{{ lst.getDateExpire() | date('d/m/y H:m:s')  }}</td>
                                 <td>
-									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_abonnement" type="button" title="Supprimer"><i class="fa fa-times"></i>
+									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_abonnement_{{ lst.getId() }}" type="button" title="Supprimer"><i class="fa fa-times"></i>
                                     </button>
 								</td>
 								
@@ -163,41 +165,7 @@
                 </div>
             </div>
 
-            <!-- card visualisation numero email logo -->
-            <div class="col-2 mb-2">
-              <div class="card shadow mb-4">                
-                <div class="card-body">
-                  <div class="text-center">                                                            
-                    <hr>
-                    <div class="form-group row">
-                      <div class="col-sm-12 mb-3 mb-sm-0">                          
-                        <h4 class="small  font-weight-bold"><i class="fa fa-cog"></i> Email officielle du site:</h4>
-                        <h3 class=" text-success font-weight-bold">orange-trav@gmail.com</h3>
-                      </div>                                                                          
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-sm-12 mb-3 mb-sm-0">
-                        <h4 class="small  font-weight-bold"><i class="fa  fa-phone-alt"></i> Numero telephone:</h4>
-                        <h1 class="text-success  font-weight-bold">001-12346-129</h1>
-                      </div>                          
-                    </div>
-                    
-                    <div class="form-group row">
-                      <div class="col-sm-12 mb-3 mb-sm-0">
-                        <h4 class="small  font-weight-bold"><i class="fa  fa-business-time "></i> Logo de l'entreprise:</h4>              
-                        
-                        <hr>                           
-                        <img class="" src="../img/Logo_orange_travaux_v3.png">
-                      </div>                          
-                    </div>
-                    <hr>                           
-                  </div>
-                </div>
-              </div>
-            </div><!-- End card visualisation numero email logo -->
-            <!-- End Content Column -->   
-
+        
           </div>
 
 
@@ -207,9 +175,6 @@
       </div>
       <!-- End of Main Content -->
 
-		<!--Begin foot_bar api_admin space -->
-		{% include "./admin/api_admin/foot_bar.html.twig" %}
-		<!--End foot_bar api_admin space -->
 
     </div>
     <!-- End of Content Wrapper -->

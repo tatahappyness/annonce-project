@@ -21,7 +21,7 @@
           background-color: #fcd42f4a;
       }
       #wrapper{
-        background-color: #777;
+       background-color:#ececec;
       }
     </style>
     
@@ -32,23 +32,23 @@
 
 <body id="page-top">
 
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
   <!-- Page Wrapper -->
-  <div id="wrapper" style="background-color: #777">
+  <div id="wrapper">
 
 	<!--Begin nav_bar api_admin space -->
 	{% include "./admin/api_admin/nav_bar.html.twig" %}
 	<!--End nav_bar api_admin space -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" style="background-color:#ececec"; class="d-flex flex-column">
-
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+	</br>
       <!-- Main Content -->
       <div id="content">
 	  
-		<!--Begin head_bar api_admin space -->
-		{% include "./admin/api_admin/head_bar.html.twig" %}
-		<!--End head_bar api_admin space -->
-
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -60,8 +60,10 @@
 
 		<!-- Content Column -->                  
  
-		<!-- Modal suppression Catégorie -->
-			<div class="modal fade" id="myModal_info_service" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	{% if list_services != null %}							
+		{% for lst in list_services %}
+		<!-- Modal suppression Info Service -->
+			<div class="modal fade" id="myModal_info_service_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">									
@@ -72,41 +74,36 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<span class="font-weight-bold " >ID:</span> 1		<br>
-							<span class="font-weight-bold " >Client (Email):</span> TOOTOW@gmail.com <br>
-							<span class="font-weight-bold " >Date de création:</span> 2011/04/25<br>
-							<span class="font-weight-bold " >Parametre:</span> <span  class="btn btn-secondary"  >Bloqué</span> 
+							<span class="font-weight-bold " >ID:</span> {{ lst.getId() }} <br>
+							<span class="font-weight-bold " >Catégorie:</span> {{ lst.getCategoryId().getCategTitle() }} <br>
+							<span class="font-weight-bold " >Date de création:</span>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}<br>
+							<span class="font-weight-bold " >Email:</span>{{ lst.getUserId().getEmail() }} 
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-dismiss="modal"  data-toggle="modal" data-target="#myModal_sup_service" >
-								SUPPRIMER
-							</button>							
-							<button type="button" class=" btn btn-success">
+						<div class="modal-footer">						
+							<button type="button" class=" btn btn-success" data-dismiss="modal">
 								OK
 							</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
-			</div><!-- end /.modal suppression Catégorie-->
+			</div><!-- end /.modal Info Service -->
 
+		{% endfor %}
+	{% else %}
+		<li class="text-center"><li>                                     
+	{% endif %}	
 
 
  	<!-- Modal suppression Catégorie -->
-			<div class="modal fade" id="myModal_sup_service" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="myModal_bloquer_service" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">									
 							<h4 class="modal-title" id="myModalLabel">
-							Confirmer la suppression: [Catégorie]
+							Confirmer : [ Bloquer ]
 							</h4>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
 							</button>
-						</div>
-						<div class="modal-body">
-							<span class="font-weight-bold " >ID:</span> 1<br>
-							<span class="font-weight-bold " >Nom:</span> Architecte-Construction<br>
-							<span class="font-weight-bold " >Date de création:</span> 2011/04/25<br>
-							<span class="font-weight-bold " >Description:</span> Description Architecte-Construction
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
@@ -121,9 +118,70 @@
 				</div><!-- /.modal-dialog -->
 			</div><!-- end /.modal suppression Catégorie-->
 
+ 	<!-- Modal suppression Catégorie -->
+			<div class="modal fade" id="myModal_debloquer_service" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer : [ Debloquer ]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">
+								NON
+							</button>
+							<button type="button" class=" btn btn-success">
+								OUI
+							</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal suppression Catégorie-->
+			
+			
+	{% if list_services != null %}							
+		{% for lst in list_services %}
+		<!-- Modal suppression Catégorie -->
+			<div class="modal fade" id="myModal_sup_service_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer la suppression: [Service]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<span class="font-weight-bold " >ID:</span> {{ lst.getId() }} <br>
+							<span class="font-weight-bold " >Catégorie:</span> {{ lst.getCategoryId().getCategTitle() }} <br>
+							<span class="font-weight-bold " >Date de création:</span>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}<br>
+							<span class="font-weight-bold " >Email:</span>{{ lst.getUserId().getEmail() }} 
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">
+								NON
+							</button>
+							<a href="{{ path('delete_service', {id: lst.id}) }}" class="text-reset">
+								<button type="button" class=" btn btn-success">
+									OUI
+								</button>
+							</a>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal suppression Catégorie-->
 
-
-
+		{% endfor %}
+	{% else %}
+		<li class="text-center"><li>                                     
+	{% endif %}	
+	
+	
             <!-- DataTales Example -->
             <div class="col-10 mb-8">
                 <div class="card shadow mb-4">
@@ -154,21 +212,24 @@
                             <tbody>							
 							 {% if list_services != null %}							
                                 {% for lst in list_services %}
-							
                             <tr>
                                 <td>{{ lst.getId() }}</td>
                                 <td>{{ lst.getUserId().getEmail() }} 
-									<button class="btn btn-info" data-toggle="modal" data-target="#myModal_info_service" type="button" title="Plus de Détail"><i class="fa fa-eye"></i>
+									<button class="btn btn-info" data-toggle="modal" data-target="#myModal_info_service_{{ lst.getId() }}" type="button" title="Plus de Détail"><i class="fa fa-eye"></i>
                                     </button></br>
 								</td>
                                 <td>{{ lst.getCategoryId().getCategTitle() }}</td>
                                 <td>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}</td>								
                                 <td class="text-center">
 									{% if lst.getIsActived() == 1 %}
-										<div class="btn btn-success">ACTIVER</div>
+										<div  type="button" data-toggle="modal" data-target="#myModal_bloquer_service" class=" btn-success">BLOQUE</div>										
 									{% else %}
-										<div class="btn btn-dark">DESACTIVER</div>
-									{% endif %}
+										<div   type="button" data-toggle="modal" data-target="#myModal_debloquer_service" class=" btn-dark">DEBLOQUE</div>
+									{% endif %}</br>
+									
+									<div class="btn-danger" data-toggle="modal" data-target="#myModal_sup_service_{{ lst.getId() }}" type="button" title="Supprimer le service">
+										SUPPRIMER
+									</div>
 								</td>
 								
                             </tr>
@@ -194,9 +255,6 @@
       </div>
       <!-- End of Main Content -->
 
-		<!--Begin foot_bar api_admin space -->
-		{% include "./admin/api_admin/foot_bar.html.twig" %}
-		<!--End foot_bar api_admin space -->
 
     </div>
     <!-- End of Content Wrapper -->

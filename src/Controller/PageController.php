@@ -140,11 +140,7 @@ class PageController extends AbstractController
     public function articles()
     {
         return new JsonResponse(['code'=> 200], 200);
-<<<<<<< HEAD
-
-=======
         
->>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
     }
 
     /**

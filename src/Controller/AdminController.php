@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
-<<<<<<< HEAD
-
 use App\Entity\User;
 use App\Entity\Devis;
 use App\Entity\Customer;
 use App\Entity\Services;
+use App\Entity\Type;
+use App\Entity\Category;
+use App\Entity\Article;
 
 use App\Repository\CustomerRepository;
 use App\Repository\DevisRepository;
@@ -16,13 +17,13 @@ use App\Repository\UserRepository;
 use App\Repository\TransactionRepository;
 use App\Repository\AbonnementRepository;
 use App\Repository\ArticleRepository;
+use App\Repository\PostRepository;
 
 use App\Repository\CategoryRepository;
 use App\Repository\TypeRepository;
 
-=======
-use App\Entity\User;
->>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
+use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -48,13 +49,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class AdminController extends AbstractController
 {
 
-<<<<<<< HEAD
     
     /**
     * @Route("/test", name="test")
     */
     public function test()
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 		
 		$devis = $this->getDoctrine()
 					->getRepository('Controller:Devis')
@@ -101,15 +102,58 @@ class AdminController extends AbstractController
 		
 		**/
     }
-
-
-
-
+	
     /**
     * @Route("/", name="admin_home")
     */
-    public function index(Security $security, DevisRepository $devisRep, ServicesRepository $serviceRep, UserRepository $pro_user_rep, TypeRepository $type_rep, ArticleRepository $art_rep, CategoryRepository $cat_rep, AbonnementRepository $abon_rep)
+    public function index(Security $security, DevisRepository $devisRep, ServicesRepository $serviceRep, UserRepository $pro_user_rep, TypeRepository $type_rep, ArticleRepository $art_rep, CategoryRepository $cat_rep,  PostRepository $post_rep)
     {
+        //$this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+ 		$count_pro = $pro_user_rep->findRolesPro();		
+ 		$count_part = $pro_user_rep->findRolesPart();
+		
+        $count_devis = $devisRep->findAll();
+		$count_type = $type_rep->findAll();
+ 		$count_article = $art_rep->findAll();
+		$count_category = $cat_rep->findAll();
+		$count_post =  $post_rep->findAll();
+		
+        return $this->render('admin/index.html.twig', [
+			'page_head_title' => 'DASHBOARD',
+			'devis' => $count_devis,
+			'numberDevis' => count($count_devis),
+			'numberPro' =>  count($count_pro),
+			'numberPart' =>  count($count_part),
+			
+			 'numberType' => count($count_type),
+			 'numberArt' => count($count_article),
+			 'numberCat' => count($count_category),
+			 'numberPost' => count($count_post)
+        ]);
+    }
+
+
+    
+    
+
+    /**
+    * @Route("/dashbord", name="admin_dashbord")
+    */
+    public function dashbord( )
+    { //Security $security, DevisRepository $devisRep, ServicesRepository $serviceRep, UserRepository $pro_user_rep, TypeRepository $type_rep, ArticleRepository $art_rep, CategoryRepository $cat_rep, PostRepository $post_rep
+	
+        // usually you'll want to make sure the user is authenticated first
+        //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        // The second parameter is used to specify on what object the role is tested.
+        
+
+        //$this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+/*
+
  		$count_pro = $pro_user_rep->findRolesPro();
 		
         
@@ -117,7 +161,7 @@ class AdminController extends AbstractController
 		$count_type = $type_rep->findAll();
  		$count_article = $art_rep->findAll();
 		$count_category = $cat_rep->findAll();
-		$count_abon =  $abon_rep->findAll();
+		$count_post =  $post_rep->findAll();
 		
         return $this->render('admin/index.html.twig', [
 			'page_head_title' => 'DASHBOARD',
@@ -127,33 +171,17 @@ class AdminController extends AbstractController
 			 'numberType' => count($count_type),
 			 'numberArt' => count($count_article),
 			 'numberCat' => count($count_category),
-			 'numberAbon' => count($count_abon)
+			 'numberPost' => count($count_post)
+			 			 
         ]);
-    }
-
-
-    
-    
-
-=======
->>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
-    /**
-    * @Route("/dashbord", name="admin_dashbord")
-    */
-    public function dashbord( Security $security)
-    {
-        // usually you'll want to make sure the user is authenticated first
-<<<<<<< HEAD
-        //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        // The second parameter is used to specify on what object the role is tested.
-        
-
-        //$this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
-
-        return $this->render('admin/index.html.twig', [
-            'page_head_title' => 'Espace d\'administrateur'
-        ]);
+		
+		
+*/
+		
+		
+        return $this->redirectToRoute('admin_home');
+		
+		
     }
 
 
@@ -162,6 +190,8 @@ class AdminController extends AbstractController
     */
     public function login_admin()
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
         return $this->render('admin/login_admin.html.twig', [
             'controller_name' => 'HomeController',
             'prenom' => 'Lion'
@@ -210,6 +240,8 @@ class AdminController extends AbstractController
 
     public function countDevis(Security $security, ServicesRepository $serviceRep, DevisRepository $devisRep): ?int
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
         $services = $serviceRep->findByUser($security->getUser());
         $array = Array();
         foreach ($services as $key => $value) {
@@ -233,6 +265,8 @@ class AdminController extends AbstractController
 		
     public function countProUser(Security $security, ServicesRepository $serviceRep, UserRepository $pro_user_rep): ?int
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
         $services = $serviceRep->findByUser($security->getUser());
         $array = Array();
         foreach ($services as $key => $value) {
@@ -259,6 +293,8 @@ class AdminController extends AbstractController
     */
     public function lst_in_pro(UserRepository $pro_user_rep)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
 		//findRolesPro
  		$count_pro = $pro_user_rep->findRolesPro();
 		
@@ -273,18 +309,64 @@ class AdminController extends AbstractController
     }
 	
 	
-
+    /**
+    * @Route("/delete_pro/{id}", name="delete_pro")
+    */
+    public function delete_pro($id = null, UserRepository $user_rep)
+    {
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
+		
+        if ($id !== null) {
+            $em =  $this->getDoctrine()->getManager();
+           try {
+            $em->beginTransaction();
+            $prof = $user_rep->findById((int) $id);
+            $em->remove($prof);
+            $em->flush();
+            $em->commit();
+           } catch (\Throwable $th) {
+            return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+           }
+        }
+        return $this->redirectToRoute('lst_in_pro');
+    }
+	
+	
+    /**
+    * @Route("/delete_part/{id}", name="delete_part")
+    */
+    public function delete_part($id = null, UserRepository $user_rep)
+    {
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
+		
+        if ($id !== null) {
+            $em =  $this->getDoctrine()->getManager();
+           try {
+            $em->beginTransaction();
+            $prof = $user_rep->findById((int) $id);
+            $em->remove($prof);
+            $em->flush();
+            $em->commit();
+           } catch (\Throwable $th) {
+            return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+           }
+        }
+        return $this->redirectToRoute('client');
+    }
+	
+	
     /**
     * @Route("/m_e_email", name="m_e_email")
     */
     public function m_e_email(UserRepository $pro_user_rep)
     {
-        // services - isactived: 1 _ activer , normale tous 1, 
-
-		//findRolesPro
- 		$count_pro = $pro_user_rep->findRolesPro();
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');        
 		
-        //return count($count_pro);
+ 		$count_pro = $pro_user_rep->findRolesPro();
 		
 		return $this->render('admin/m_e_email.html.twig', [
 			'page_head_title' => 'MODES D’ENVOI D’EMAIL',
@@ -298,7 +380,8 @@ class AdminController extends AbstractController
     */
     public function trans(TransactionRepository $transRep)
     { 
-	
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
  		$res_req = $transRep->findAllArray();
 		
 		//
@@ -307,6 +390,117 @@ class AdminController extends AbstractController
 			'res_trans' => $res_req
         ]);
     }
+	
+	
+	
+    /**
+    * @Route("/delete_transaction/{id}", name="delete_transaction")
+    */
+    public function delete_transaction($id = null, TransactionRepository $trans_rep)
+    {
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
+        if ($id !== null) {
+            $em =  $this->getDoctrine()->getManager();
+           try {
+            $em->beginTransaction();
+            $trans = $trans_rep->findById((int) $id);
+            $em->remove($trans);
+            $em->flush();
+            $em->commit();
+           } catch (\Throwable $th) {
+            return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+           }
+        }
+		
+        return $this->redirectToRoute('trans');
+       
+    }
+	
+	
+	
+    /**
+    * @Route("/delete_type/{id}", name="delete_type")
+    */
+    public function delete_type($id = null, TypeRepository $type_rep)
+    {
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
+        if ($id !== null) {
+            $em =  $this->getDoctrine()->getManager();
+           try {
+            $em->beginTransaction();
+            $trans = $type_rep->findById((int) $id);
+            $em->remove($trans);
+            $em->flush();
+            $em->commit();
+           } catch (\Throwable $th) {
+            return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+           }
+        }
+		
+        return $this->redirectToRoute('objet_devis');
+       
+    }
+	
+	
+	
+    /**
+    * @Route("/delete_cat/{id}", name="delete_cat")
+    */
+    public function delete_cat($id = null, CategoryRepository $cat_rep)
+    {
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
+        if ($id !== null) {
+            $em =  $this->getDoctrine()->getManager();
+           try {
+            $em->beginTransaction();
+            $trans = $cat_rep->findById((int) $id);
+            $em->remove($trans);
+            $em->flush();
+            $em->commit();
+           } catch (\Throwable $th) {
+            return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+           }
+        }
+		
+        return $this->redirectToRoute('objet_devis');
+       
+    }
+	
+	
+
+	
+    /**
+    * @Route("/delete_art/{id}", name="delete_art")
+    */
+    public function delete_art($id = null, ArticleRepository $art_rep)
+    {
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
+        if ($id !== null) {
+            $em =  $this->getDoctrine()->getManager();
+           try {
+            $em->beginTransaction();
+            $trans = $art_rep->findById((int) $id);
+            $em->remove($trans);
+            $em->flush();
+            $em->commit();
+           } catch (\Throwable $th) {
+            return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+           }
+        }
+		
+        return $this->redirectToRoute('objet_devis');
+       
+    }
+	
+	
 
 
 	
@@ -316,11 +510,11 @@ class AdminController extends AbstractController
     */
     public function client(UserRepository $part_user_rep)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 		
-		//   findRolesPart
  		$count_part = $part_user_rep->findRolesPart();
 		
-        //return count($count_pro);
+        
 		
 		return $this->render('admin/client.html.twig', [
 			'page_head_title' => 'CLIENT',
@@ -342,6 +536,8 @@ class AdminController extends AbstractController
         ]);
 		*/
 		
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
 		//   findRolesAbon
  		$count_abon = $abon_rep->findAll();		
 		
@@ -353,11 +549,45 @@ class AdminController extends AbstractController
 		
     }
 
+	
+    /**
+    * @Route("/delete_abonnement/{id}", name="delete_abonnement")
+    */
+    public function delete_abonnement($id = null, AbonnementRepository $abon_rep)
+    {
+		
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
+		
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+        if ($id !== null) {
+            $em =  $this->getDoctrine()->getManager();
+           try {
+            $em->beginTransaction();
+            $abonnement = $abon_rep->findById((int) $id);
+            $em->remove($abonnement);
+            $em->flush();
+            $em->commit();
+           } catch (\Throwable $th) {
+            return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+           }
+        }
+		
+        return $this->redirectToRoute('abonnement');
+       
+    }
+	
+	
+	
+	
     /**
     * @Route("/service", name="service")
     */
     public function service(ServicesRepository $service_rep)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
 		/*
         return $this->render('admin/service.html.twig', [	
 			'page_head_title' => 'SERVICE'
@@ -383,8 +613,11 @@ class AdminController extends AbstractController
     */
     public function delete_service($id = null, Security $security, ServicesRepository $serviceRep)
     {
+		
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
         // The second parameter is used to specify on what object the role is tested.
-        $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
         if ($id !== null) {
             $em =  $this->getDoctrine()->getManager();
            try {
@@ -401,12 +634,16 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('service');
        
     }
+	
+	
 
     /**
     * @Route("/objet_devis", name="objet_devis")
     */
     public function objet_devis(TypeRepository $type_rep, ArticleRepository $art_rep, CategoryRepository $cat_rep)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
 		$count_type = $type_rep->findAll();
  		$count_article = $art_rep->findAll();
 		$count_category = $cat_rep->findAll();
@@ -425,20 +662,194 @@ class AdminController extends AbstractController
 			 'list_cat' => $count_category
         ]);
     }
+	
+	
+	
+    /**
+    * @Route("/register_type/{title}", name="register_type")		
+	* @param Request $request
+    * @return Response
+    */
+    public function register_type($title = null,Request $request, TypeRepository $type_rep, EntityManagerInterface $em)
+    {
+        		
+        if ($title !== null) {
+			
+            $em =  $this->getDoctrine()->getManager();
+			
+           try {
+			   
+		$em->beginTransaction();
+			$type = new Type;
+			
+			$type->setTitle($title);			
+			$type->setDateCrea(new \Datetime());
+			
+			$em->persist($type);
+			
+            $em->flush();
+            $em->commit();
+			
+			return $this->redirectToRoute('objet_devis');
+			return $this->redirectToRoute('objet_devis');
+		
+           } catch (\Throwable $th) {
+            return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+           }
+        }
+		
+    }
+	
+	
+	
+	
+    /**
+    * @Route("/register_cat/{title}/{desc}/", name="register_cat")
+	* @param Request $request
+    * @return Response
+    */
+    public function register_cat($title = null, $desc = null, Request $request, EntityManagerInterface $em)
+    {
+        		
+        if ($title !== null && $desc !== null ) {
+			
+            $em =  $this->getDoctrine()->getManager();
+			
+           try {
+				$em->beginTransaction();
+				$cat = new Category;
+				
+				$cat->setCategTitle($title);
+				$cat->setDescription($desc);
+				
+				$cat->setCategDateCrea(new \Datetime());
+				
+				$em->persist($cat);
+				
+				$em->flush();
+				$em->commit();
+				
+				return $this->redirectToRoute('objet_devis');
+				return $this->redirectToRoute('objet_devis');
+				
+			} catch (\Throwable $th) {
+				return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+			}
+        }
+		
+    }
+	
+	
+	
+    /**
+    * @Route("/register_article/{title}/{catId}", name="register_article")
+	* @param Request $request
+    * @return Response
+    */
+    public function register_article($title = null, $catId = null, EntityManagerInterface $em)
+    {
+        		
+        if ($title !== null && $catId !== null ) {
+            $em =  $this->getDoctrine()->getManager();
+			
+           try {
+			   
+			$em->beginTransaction();
+			$art = new Article;
+			
+			$art->setArticleTitle($title);
+			$art->setArticleCategId('1');
+			$art->setArticleDateCrea(new \Datetime());
+			
+			$em->persist($art);
+			
+            $em->flush();
+            $em->commit();
+			
+			return $this->redirectToRoute('objet_devis');
+			return $this->redirectToRoute('objet_devis');
+						
+           } catch (\Throwable $th) {
+            return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+           }
+		   
+        }
+		
+    }
+	
+	
+/**
+* @Route("/update_article/{id}")
+*/  
+public function update_article(Request $request, $id, ArticleRepository $art_rep) {
+
+  $em = $this->getDoctrine()->getManager();
+  
+  $article =  $art_rep->findById((int) $id);
+  
+
+  if (!$article) {
+    throw $this->createNotFoundException(
+    'There are no articles with the following id: ' . $id
+    );
+  }
+
+  $form = $this->createFormBuilder($article)
+    ->add('title_art', TextType::class)
+    ->add('author', TextType::class)
+    ->add('body', TextareaType::class)
+    ->add('url', TextType::class,
+    array('required' => false, 'attr' => array('placeholder' => 'www.example.com')))
+    ->add('save', SubmitType::class, array('label' => 'Update'))
+    ->getForm();
+
+  $form->handleRequest($request);
+
+  if ($form->isSubmitted()) {
+
+    $article = $form->getData();
+    $em->flush();
+
+    return $this->redirect('/view-article/' . $id);
+
+  }
+
+  return $this->render(
+    'article/edit.html.twig',
+    array('form' => $form->createView())
+    );
+
+}
 
 
-
-
-
-=======
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        // The second parameter is used to specify on what object the role is tested.
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
-
-        return $this->render('admin/dashbord.html.twig', [
-            'page_name' => 'Espace d\'administrateur'
-        ]);
+    /**
+    * @Route("/register-verify-email", name="register_verify_email", methods={"GET"})
+    * @param Request $request
+    * @return Response
+    */
+    public function verifyEmail( Request $request, UserRepository $userRepo) : Response {
+       
+        $validator = Validation::createValidator();
+        $data = array('_email' => $request->query->get('_email'));
+        $constraint = new Assert\Collection(array(
+            '_email' => new Assert\Email()
+        ));
+        $violations = $validator->validate($data, $constraint);
+        if ($violations->count() > 0) {
+            return new JsonResponse(['code'=> 401, 'infos' => 'Email invalide'], 200);
+        }
+        try {
+            if ($userRepo->findOneByEmail($request->query->get('_email')) != null) {
+                return new JsonResponse(['code'=> 401, 'infos'=> $request->query->get('_email') . ' est déjà utilisé'], 200);
+            }
+        } catch (\Throwable $th) {
+            return new JsonResponse(['code'=> 500, 'infos' => $th->getMessage()], 500);
+        }
+       
+        return new JsonResponse(['code'=> 200, 'infos'=> 'votre email est validé'], 200);
+    
     }
 
->>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
+
+
 }

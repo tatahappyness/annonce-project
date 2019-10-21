@@ -45,7 +45,17 @@ class TypeRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+	
+	public function addType(Type $type)
+{
+    return [
+            'id'    => (int) $type->getId(),
+            'title' => (string) $type->getTitle(),
+            'date_create' => (int) $type->getDateCrea()
+    ];
+}
 
+	
     public function findAllArray(): ?Array
     {
         return $this->findAll();

@@ -20,7 +20,7 @@
           background-color: #fcd42f4a;
       }
       #wrapper{
-        background-color: #777;
+       background-color:#ececec;
       }
     </style>
     
@@ -31,23 +31,24 @@
 
 <body id="page-top">
 
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
   <!-- Page Wrapper -->
-  <div id="wrapper" style="background-color: #777">
+  <div id="wrapper">
 
 	<!--Begin nav_bar api_admin space -->
 	{% include "./admin/api_admin/nav_bar.html.twig" %}
 	<!--End nav_bar api_admin space -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" style="background-color:#ececec"; class="d-flex flex-column">
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+	</br>
 
       <!-- Main Content -->
       <div id="content">
 	  
-		<!--Begin head_bar api_admin space -->
-		{% include "./admin/api_admin/head_bar.html.twig" %}
-		<!--End head_bar api_admin space -->
-
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -58,11 +59,57 @@
           <div class="row">
 
        
+	  {% if list_pros != null %}							
+		{% for lst in list_pros %}
+			<!-- Modal comfirmer mode  normalement -->
+			<div class="modal fade" id="myModal_sup_pro_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer la suppression du compte professionnel:
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>						
+								
+						<div class="card-body">
+							<div class="text-center">
+								[ {{ lst.getId() }} ] {{ lst.firstname() }}	</br>
+								[ {{ lst.getUserCategoryActivity().getCategTitle() }} ]</br>
+								{{ lst.getMobile() }}<br>
+								{{ lst.getUserCity().getVilleNom() }}  <br>
+								{{ lst.getEmail() }}	<br>
+								
+							</div>						
+						</div>												
+						  
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+							data-dismiss="modal">
+								NON
+							</button>
+							<a href="{{ path('delete_pro', {id: lst.id}) }}" class="text-reset">
+								<button type="button" class=" btn btn-success">
+									OUI
+								</button>
+							</a>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal comfirmer mode normalement-->
+		{% endfor %}
+	{% else %}
+		<li class="text-center"> AUCUN RESULTAT!<li>                                     
+	{% endif %}	
+
+			
+			
             <!-- DataTales Example -->
-            <div class="col-10 mb-8">
+            <div class="col-12 mb-8">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Listes des professionnels</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Listes des professionnels : {{ numberUserPro }} </h6>
                 </div>
 
                 <div class="card-body">
@@ -73,134 +120,46 @@
                       <thead class="bg-warning text-dark">
                         <tr>
                             <th>#</th>
-                            <th>Nom et prénom particulier</th>
+                            <th>Nom et prénom</th>
                             <th>Ville</th>
                             <th>Métier</th>
+                            <th>Email</th>
                             <th>Contact</th>
-                            <th>Date d'envoie</th>
-                            <th>XXXX</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
-                          <th>#</th>
-                          <th>Nom et prénom particulier</th>
-                          <th>Ville</th>
-                          <th>Contenue</th>
-                          <th>Contact</th>
-                          <th>Date d'envoie</th>
-                          <th>XXXX</th>
+                            <th>#</th>
+                            <th>Nom et prénom</th>
+                            <th>Ville</th>
+                            <th>Métier</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Action</th>
                       </tr>
                       </tfoot>
                       <tbody>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>61</td>
-                          <td>2011/04/25</td>
-                          <td>$320,800</td>
-                          <td>$320,800</td>
-                        </tr>
-                        <tr>
-                          <td>Garrett Winters</td>
-                          <td>Accountant</td>
-                          <td>Tokyo</td>
-                          <td>63</td>
-                          <td>63</td>
-                          <td>2011/07/25</td>
-                          <td>$170,750</td>
-                        </tr>
-                        <tr>
-                          <td>Ashton Cox</td>
-                          <td>Junior Technical Author</td>
-                          <td>San Francisco</td>
-                          <td>66</td>
-                          <td>2009/01/12</td>
-                          <td>2009/01/12</td>
-                          <td>$86,000</td>
-                        </tr>
-                        <tr>
-                          <td>Cedric Kelly</td>
-                          <td>Senior Javascript Developer</td>
-                          <td>Edinburgh</td>
-                          <td>2009/01/12</td>
-                          <td>22</td>
-                          <td>2012/03/29</td>
-                          <td>$433,060</td>
-                        </tr>
-                        <tr>
-                          <td>Airi Satou</td>
-                          <td>Accountant</td>
-                          <td>Tokyo</td>
-                          <td>33</td>
-                          <td>2009/01/12</td>
-                          <td>2008/11/28</td>
-                          <td>$162,700</td>
-                        </tr>
-                        <tr>
-                          <td>Brielle Williamson</td>
-                          <td>Integration Specialist</td>
-                          <td>New York</td>
-                          <td>2009/01/12</td>
-                          <td>61</td>
-                          <td>2012/12/02</td>
-                          <td>$372,000</td>
-                        </tr>
-                        <tr>
-                          <td>Herrod Chandler</td>
-                          <td>Sales Assistant</td>
-                          <td>2009/01/12</td>
-                          <td>San Francisco</td>
-                          <td>59</td>
-                          <td>2012/08/06</td>
-                          <td>$137,500</td>
-                        </tr>
-                        <tr>
-                          <td>Rhona Davidson</td>
-                          <td>Integration Specialist</td>
-                          <td>2009/01/12</td>
-                          <td>Tokyo</td>
-                          <td>55</td>
-                          <td>2010/10/14</td>
-                          <td>$327,900</td>
-                        </tr>
-                        <tr>
-                          <td>Colleen Hurst</td>
-                          <td>Javascript Developer</td>
-                          <td>2009/01/12</td>
-                          <td>San Francisco</td>
-                          <td>39</td>
-                          <td>2009/09/15</td>
-                          <td>$205,500</td>
-                        </tr>
-                        <tr>
-                          <td>Sonya Frost</td>
-                          <td>Software Engineer</td>
-                          <td>Edinburgh</td>
-                          <td>2009/01/12</td>
-                          <td>23</td>
-                          <td>2008/12/13</td>
-                          <td>$103,600</td>
-                        </tr>
-                        <tr>
-                          <td>2009/01/12</td>
-                          <td>Jena Gaines</td>
-                          <td>Office Manager</td>
-                          <td>London</td>
-                          <td>30</td>
-                          <td>2008/12/19</td>
-                          <td>$90,560</td>
-                        </tr>
-                        <tr>
-                          <td>Quinn Flynn</td>
-                          <td>Support Lead</td>
-                          <td>Edinburgh</td>
-                          <td>2009/01/12</td>
-                          <td>22</td>
-                          <td>2013/03/03</td>
-                          <td>$342,000</td>
-                        </tr>
+					  {% if list_pros != null %}							
+                                {% for lst in list_pros %}
+							
+                            <tr>
+                                <td>{{ lst.getId() }}</td>
+                                <td>{{ lst.firstname() }}</td>
+                                <td>{{ lst.getUserCity().getVilleNom() }}</td>
+                                <td>{{ lst.getUserCategoryActivity().getCategTitle() }}</td>
+                                <td>{{ lst.getEmail() }}</td>
+                                <td>{{ lst.getMobile() }}</td>
+                                <td>								
+									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_pro_{{ lst.getId() }}" type="button" title="Supprimer"><i class="fa fa-times"></i>
+									</button>
+								</td>
+                            </tr>
+								{% endfor %}
+							{% else %}
+								<li class="text-center"> AUCUN RESULTAT!<li>                                     
+							{% endif %}	
+														
                       </tbody>
                     </table>
                   </div>
@@ -208,43 +167,7 @@
 
               </div>
             </div>
-
-
-            <!-- card visualisation numero email logo -->
-            <div class="col-2 mb-2">
-              <div class="card shadow mb-4">                
-                <div class="card-body">
-                  <div class="text-center">                                                            
-                    <hr>
-                    <div class="form-group row">
-                      <div class="col-sm-12 mb-3 mb-sm-0">                          
-                        <h4 class="small  font-weight-bold"><i class="fa fa-cog"></i> Email officielle du site:</h4>
-                        <h3 class=" text-success font-weight-bold">orange-trav@gmail.com</h3>
-                      </div>                                                                          
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-sm-12 mb-3 mb-sm-0">
-                        <h4 class="small  font-weight-bold"><i class="fa  fa-phone-alt"></i> Numero telephone:</h4>
-                        <h1 class="text-success  font-weight-bold">001-12346-129</h1>
-                      </div>                          
-                    </div>
-                    
-                    <div class="form-group row">
-                      <div class="col-sm-12 mb-3 mb-sm-0">
-                        <h4 class="small  font-weight-bold"><i class="fa  fa-business-time "></i> Logo de l'entreprise:</h4>              
-                        
-                        <hr>                           
-                        <img class="" src="../img/Logo_orange_travaux_v3.png">
-                      </div>                          
-                    </div>
-                    <hr>                           
-                  </div>
-                </div>
-              </div>
-            </div><!-- End card visualisation numero email logo -->
-            <!-- End Content Column -->   
-
+			
           </div>
 
 
@@ -254,9 +177,6 @@
       </div>
       <!-- End of Main Content -->
 
-		<!--Begin foot_bar api_admin space -->
-		{% include "./admin/api_admin/foot_bar.html.twig" %}
-		<!--End foot_bar api_admin space -->
 
     </div>
     <!-- End of Content Wrapper -->

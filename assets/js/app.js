@@ -9,11 +9,19 @@
 // require('../css/app.css');
 require('../css/app.scss');
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
 //const $ = require('jquery');
 // this "modifies" the jquery module: adding behavior to it
 // the bootstrap module doesn't export/return anything
 //require('bootstrap');
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> e7df38c4d71ea2b1d454979bebf544300dc2f9c7
 // or you can include specific pieces
 // require('bootstrap/js/dist/tooltip');
 require('bootstrap/js/dist/popover');

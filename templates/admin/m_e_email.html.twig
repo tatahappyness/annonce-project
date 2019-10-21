@@ -18,7 +18,7 @@
         background-color: #fcd42f4a;
     }
     #wrapper{
-      background-color: #777;
+       background-color:#ececec;
     }
     
     .btn-success-1 {
@@ -50,27 +50,34 @@
 
 <body id="page-top">
 
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
   <!-- Page Wrapper -->
-  <div id="wrapper" style="background-color: #777">
+  <div id="wrapper">
 
 	<!--Begin nav_bar api_admin space -->
 	{% include "./admin/api_admin/nav_bar.html.twig" %}
 	<!--End nav_bar api_admin space -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" style="background-color:#ececec"; class="d-flex flex-column">
-
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+	</br>
       <!-- Main Content -->
       <div id="content">
 	  
-		<!--Begin head_bar api_admin space -->
-		{% include "./admin/api_admin/head_bar.html.twig" %}
-		<!--End head_bar api_admin space -->
-
         <!-- Begin Page Content -->
         <div class="container-fluid">
+			<div class="bg-success" >				
+				<div class="row col-lg-12">
+					<h4 class="" >MODE ACTIVER: </h4>
+					<h3 class="" >[ Normalement ]</h3>
+				</div>
 
-		  <!-- Divider -->
+			</div>
+							
+		  <!-- Divider -->		  
 		  <hr class="sidebar-divider">
 
           <!-- Content Row 1 -->
@@ -81,15 +88,15 @@
 				 
 				<div class="row">				
 					<div class="row col-lg-8 text-center">        
-						<div class="col-lg-4 mb-4">
-							<div  class="link-1 btn btn-success text-white shadow">
+						<div class="col-lg-4 mb-4" data-toggle="modal" data-target="#myModal_dev_norm">
+							<div  class="link-1 envoyer_normale btn btn-success text-white shadow">
 								<div class="card-body">
 								Envoyer les devis normalement                     
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-4 mb-4">
-							<div class="link-1 btn btn-secondary  text-white shadow">
+						<div class="col-lg-4 mb-4"  data-toggle="modal" data-target="#myModal_dev_personne">
+							<div class="link-1 envoyer_one btn btn-secondary  text-white shadow">
 								<div class="card-body">
 								Envoyer les demandes à une seule personne                     
 								</div>
@@ -97,7 +104,7 @@
 						</div>
 						
 						<div class="col-lg-4 mb-4">
-							<div class="link-1 btn btn-info text-white shadow">
+							<div class="link-1 envoyer_plus btn btn-info text-white shadow">
 								<div class="card-body">
 								Envoyer les devis à plusieurs personnes
 								</div>
@@ -115,88 +122,86 @@
 		  
           <!-- Content Row 2 -->
           <div class="row ">
-            <!-- Content Column -->                            
-            <div class="col-lg-5 mb-5">
-              <!-- form numero email logo -->
+
+            <!-- Content Column -->
+			
+
+			<!-- Modal comfirmer mode  normalement -->
+			<div class="modal fade" id="myModal_dev_norm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer la mode d'envoi: [Normalement]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+							data-dismiss="modal">
+								NON
+							</button>
+							<button type="button" class=" btn btn-success">
+								OUI
+							</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal comfirmer mode normalement-->
+
+
+            <!-- div class="envoyer_normale_row col-lg-5 mb-5">
+              <!-- form numero email logo -- >
               <div class="card shadow mb-4">
-                <div class="card-header btn-success-1 py-3">
+                <div class="card-header btn-success-1 py-3" >
                   <h6 class="m-0 font-weight-bold text-primary">Envoyer les devis normalement : </h6>
                 </div>
-                <div class="card-body">
-                  <div class="text-center">
-                    <form class="user">
-                        
-                        <div class="form-group row">
-                          <div class="col-sm-12 mb-3 mb-sm-0">                          
-                            <h4 class="small  font-weight-bold">Email officielle du site:</h4>
-                          </div>
-                          <div class="col-sm-12 mb-3 mb-sm-0">                          
-                            <input type="email" class="form-control form-control-user" id="exampleFirstName" placeholder="Adresse email du site">
-                          </div>                                                  
-                        </div>
-
-
-                        <div class="form-group row">
-                          <div class="col-sm-12 mb-3 mb-sm-0">
-                            <h4 class="small  font-weight-bold">Numero telephone:</h4>
-                          </div>
-                          <div class="col-sm-12 mb-3 mb-sm-0">                          
-                            <input type="email" class="form-control form-control-user" id="exampleFirstName" placeholder="Adresse email du site">
-                          </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                          <div class="col-sm-12 mb-3 mb-sm-0">
-                            <h4 class="small  font-weight-bold">Inserer le Logo de l'entreprise:</h4>
-                          </div>
-                          <div class="col-sm-12 mb-3 mb-sm-0">                          
-                            <input type="file" class="btn btn-secondary btn-user btn-block" id="exampleFirstName" placeholder="Logo">
-                          </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                          <div class="col-sm-12 mb-3 mb-sm-0">
-                            <h4 class="small  font-weight-bold">Mot de passe:</h4>
-                          </div>
-                          <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de passe">
-                          </div>
-                          <div class="col-sm-6">
-                            <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Comfirmer le mot de passe">
-                          </div>
-                        </div>
-                        <hr>
-                        
-                        <div class="form-group row">
-                          <div class="col-sm-6 mb-3 mb-sm-0">
-                            <a href="#" class="btn btn-info btn-user btn-block" alt="Visualiser le resultat">
-                              Visualiser
-                            </a>
-                          </div>
-                          <div class="col-sm-6">                      
-                            <a href="#" class="btn btn-primary btn-user btn-block" alt="Visualiser le resultat">
-                              Original
-                            </a>    
-                          </div>
-                        </div>
-                      
-                        <hr>
-                        <a href="login.html" class="btn btn-success btn-user btn-block">
-                          Valider
-                        </a>
-                        <hr>
-                      </form>
-                  </div>
-               </div>
               </div>              
-            </div>
+            </div -->
+			
+			
+			<!-- Modal comfirmer mode une seule personne -->
+			<div class="modal fade" id="myModal_dev_personne" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer la mode d'envoi:</br> [Une seule personne]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<form id="form_email_one_personne">	
+								<div class="form-group row">
+								  <div class="col-sm-12 mb-3 mb-sm-0">                          
+									<h4 class="small  font-weight-bold">Email:</h4>
+								  </div>
+								  <div class="col-sm-12 mb-3 mb-sm-0">                          
+									<input type="email" class="form-control form-control-user" id="email_one_personne" placeholder="Adresse email">
+								  </div>                                                  
+								</div>
+							</form>	
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+							data-dismiss="modal">
+								NON
+							</button>
+							<button type="button" class=" btn btn-success">
+								OUI
+							</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal comfirmer les devis normalement-->
 
-            <div class="col-lg-5 mb-5">
-              <!-- form numero email logo -->
+
+            <!-- div class="envoyer_one_row col-lg-5 mb-5" style="display:none">
+              <!-- form numero email logo -- >
               <div class="card shadow mb-4">
-                <div class="card-header btn-secondary-1 py-3">
+                <div class="card-header btn-secondary-1 py-3" >
                   <h6 class="m-0 font-weight-bold text-primary">Envoyer les demandes à une seule personne :</h6>
                 </div>
                 <div class="card-body">
@@ -267,11 +272,38 @@
                       </form>
                   </div>
                </div>
-              </div>              
-            </div>
+              </div>
+            </div -->
             
-            
-            <div class="col-lg-5 mb-5">
+			
+
+			<!-- Modal comfirmer mode  normalement -->
+			<div class="modal fade" id="myModal_sup_pro_envoi_email" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer la suppression d'email: [Envoyer plusieurs]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+							data-dismiss="modal">
+								NON
+							</button>
+							<button type="button" class=" btn btn-success">
+								OUI
+							</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal comfirmer mode normalement-->
+
+
+            </br>
+            <div class="envoyer_plus_row col-lg-12 mb-8" style="display:none">
               <!-- form numero email logo -->
               <div class="card shadow mb-4">
                 <div class="card-header btn-info-1 py-3">
@@ -279,87 +311,8 @@
                 </div>
                 <div class="card-body">
                   <div class="text-center">
-                    <form class="user">
-                        
-                        <div class="form-group row">
-                          <div class="col-sm-12 mb-3 mb-sm-0">                          
-                            <h4 class="small  font-weight-bold">Email officielle du site:</h4>
-                          </div>
-                          <div class="col-sm-12 mb-3 mb-sm-0">                          
-                            <input type="email" class="form-control form-control-user" id="exampleFirstName" placeholder="Adresse email du site">
-                          </div>                                                  
-                        </div>
-
-
-                        <div class="form-group row">
-                          <div class="col-sm-12 mb-3 mb-sm-0">
-                            <h4 class="small  font-weight-bold">Numero telephone:</h4>
-                          </div>
-                          <div class="col-sm-12 mb-3 mb-sm-0">                          
-                            <input type="email" class="form-control form-control-user" id="exampleFirstName" placeholder="Adresse email du site">
-                          </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                          <div class="col-sm-12 mb-3 mb-sm-0">
-                            <h4 class="small  font-weight-bold">Inserer le Logo de l'entreprise:</h4>
-                          </div>
-                          <div class="col-sm-12 mb-3 mb-sm-0">                          
-                            <input type="file" class="btn btn-secondary btn-user btn-block" id="exampleFirstName" placeholder="Logo">
-                          </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                          <div class="col-sm-12 mb-3 mb-sm-0">
-                            <h4 class="small  font-weight-bold">Mot de passe:</h4>
-                          </div>
-                          <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de passe">
-                          </div>
-                          <div class="col-sm-6">
-                            <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Comfirmer le mot de passe">
-                          </div>
-                        </div>
-                        <hr>
-                        
-                        <div class="form-group row">
-                          <div class="col-sm-6 mb-3 mb-sm-0">
-                            <a href="#" class="btn btn-info btn-user btn-block" alt="Visualiser le resultat">
-                              Visualiser
-                            </a>
-                          </div>
-                          <div class="col-sm-6">                      
-                            <a href="#" class="btn btn-primary btn-user btn-block" alt="Visualiser le resultat">
-                              Original
-                            </a>    
-                          </div>
-                        </div>
-                      
-                        <hr>
-                        <a href="login.html" class="btn btn-success btn-user btn-block">
-                          Valider
-                        </a>
-                        <hr>
-                      </form>
-                  </div>
-               </div>
-              </div>              
-            </div>
-            
-
-            <div class="col-lg-12 mb-5">
-              <!-- form numero email logo -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Listes d'envoyes des E-mails</h6>
-                </div>
-                
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable_plus" width="100%" cellspacing="0">
                             
                                 <thead class="bg-warning text-dark">
                                 <tr>
@@ -381,156 +334,35 @@
                                     <th>Action</th>                                    
                                 </tr>
                                 </tfoot>
-                                <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>                                    
-                                        <button class="btn btn-danger" type="button" title="Enlever de la liste" ><i class="fa fa-times"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Garrett Winters</td>
-                                    <td>Tokyo</td>
-                                    <td>63</td>
-                                    <td>63</td>
-                                    <td>2011/07/25</td>
-                                    <td>$170,750</td>
-                                </tr>
-                                <tr>
-                                    <td>Ashton Cox</td>
-                                    <td>Junior Technical Author</td>
-                                    <td>San Francisco</td>
-                                    <td>2009/01/12</td>
-                                    <td>2009/01/12</td>
-                                    <td>                            
-                                        <button class="btn btn-danger" type="button" title="Enlever de la liste" ><i class="fa fa-times"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Cedric Kelly</td>
-                                    <td>Senior Javascript Developer</td>
-                                    <td>Edinburgh</td>
-                                    <td>22</td>
-                                    <td>2012/03/29</td>
-                                    <td>$433,060</td>
-                                </tr>
-                                <tr>
-                                    <td>Airi Satou</td>
-                                    <td>Accountant</td>
-                                    <td>33</td>
-                                    <td>2009/01/12</td>
-                                    <td>2008/11/28</td>
-                                    <td>$162,700</td>
-                                </tr>
-                                <tr>
-                                    <td>Brielle Williamson</td>
-                                    <td>Integration Specialist</td>
-                                    <td>New York</td>
-                                    <td>61</td>
-                                    <td>2012/12/02</td>
-                                    <td>$372,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Herrod Chandler</td>
-                                    <td>Sales Assistant</td>
-                                    <td>San Francisco</td>
-                                    <td>59</td>
-                                    <td>2012/08/06</td>
-                                    <td>$137,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Rhona Davidson</td>
-                                    <td>2009/01/12</td>
-                                    <td>Tokyo</td>
-                                    <td>55</td>
-                                    <td>2010/10/14</td>
-                                    <td>$327,900</td>
-                                </tr>
-                                <tr>
-                                    <td>Colleen Hurst</td>
-                                    <td>Javascript Developer</td>
-                                    <td>San Francisco</td>
-                                    <td>39</td>
-                                    <td>2009/09/15</td>
-                                    <td>$205,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Sonya Frost</td>
-                                    <td>Software Engineer</td>
-                                    <td>Edinburgh</td>
-                                    <td>23</td>
-                                    <td>2008/12/13</td>
-                                    <td>$103,600</td>
-                                </tr>
-                                <tr>
-                                    <td>2009/01/12</td>
-                                    <td>Jena Gaines</td>
-                                    <td>Office Manager</td>
-                                    <td>London</td>
-                                    <td>2008/12/19</td>
-                                    <td>$90,560</td>
-                                </tr>
-                                <tr>
-                                    <td>Quinn Flynn</td>
-                                    <td>Support Lead</td>
-                                    <td>Edinburgh</td>
-                                    <td>2009/01/12</td>
-                                    <td>22</td>
-                                    <td>$342,000</td>
-                                </tr>
+											
+								<tbody>
+							    {% if list_pros != null %}							
+										{% for lst in list_pros %}
+									
+									<tr>
+										<td>{{ lst.getId() }}</td>
+										<td>{{ lst.firstname() }}</td>
+										<td>{{ lst.name() }}</td>
+										<td>{{ lst.getMobile() }}</td>
+										<td>{{ lst.getEmail() }}</td>
+										<td>
+											<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_pro_envoi_email" type="button" title="Enlever de la liste"><i class="fa fa-times"></i>
+											</button>
+										</td>
+									</tr>
+										{% endfor %}
+									{% else %}
+										<li class="text-center"> AUCUN RESULTAT!<li>                                     
+									{% endif %}	
+
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-
-                    
-
+                  </div>
+               </div>
               </div>              
             </div>
             
-
-
-            <!-- card visualisation numero email logo -->
-            <div class="col-5 mb-5">              
-              <div class="card shadow mb-4">                
-                <div class="card-body">
-                  <div class="text-center">                                                            
-                    <hr>
-                    <div class="form-group row">
-                      <div class="col-sm-12 mb-3 mb-sm-0">                          
-                        <h4 class="small  font-weight-bold"><i class="fa fa-cog"></i> Email officielle du site:</h4>
-                        <h3 class=" text-success font-weight-bold">orange-trav@gmail.com</h3>
-                      </div>                                                                          
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-sm-12 mb-3 mb-sm-0">
-                        <h4 class="small  font-weight-bold"><i class="fa  fa-phone-alt"></i> Numero telephone:</h4>
-                        <h1 class="text-success  font-weight-bold">001-12346-129</h1>
-                      </div>                          
-                    </div>
-                    
-                    <div class="form-group row">
-                      <div class="col-sm-12 mb-3 mb-sm-0">
-                        <h4 class="small  font-weight-bold"><i class="fa  fa-business-time "></i> Logo de l'entreprise:</h4>              
-                        
-                        <hr>                           
-                        <img class="" src="../img/Logo_orange_travaux_v3.png">
-                      </div>                          
-                    </div>
-                    <hr>                           
-                  </div>
-                </div>
-              </div>
-            </div><!-- End card visualisation numero email logo -->
-
-
             <!-- End Content Column -->   
           </div> 
           
@@ -544,10 +376,6 @@
 
       </div>
       <!-- End of Main Content -->
-
-		<!--Begin foot_bar api_admin space -->
-		{% include "./admin/api_admin/foot_bar.html.twig" %}
-		<!--End foot_bar api_admin space -->
 
     </div>
     <!-- End of Content Wrapper -->
@@ -594,24 +422,78 @@
   <!-- Custom scripts for all pages-->
   <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
 
-  <!-- Page level plugins -->
-  <script src="{{ absolute_url('/assets/vendor/chart.js/Chart.min.js') }}"></script>
 
-  <!-- Page level custom scripts -->
-  <script src="{{ absolute_url('/assets/js/demo/chart-area-demo.js') }}"></script>
-  <script src="{{ absolute_url('/assets/js/demo/chart-pie-demo.js') }}"></script>
-  <script src="{{ absolute_url('/assets/js/demo/chart-bar-demo.js') }}"></script>
   
+
+  <!-- Page level plugins -->
+  <script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
   
+
 	<script>
 	
 		$('.nav-item').removeClass('active');
 		$('.nav_m_e_email').addClass('active');
 		
+		
+		
+	
+	
+		// Call the dataTables jQuery plugin
+		$(document).ready(function() {
+		  $('#dataTables').DataTable();
+		  
+		  $('#dataTable_plus').DataTable();
+		  
+		  $('#dataTable').DataTable();
+		  
+		});
+
+
+
+		
+		$('.envoyer_normale').click(function (){
+			
+			//$('.envoyer_normale_row').removeAttr('style','display:none');
+
+			//$('.envoyer_one_row').attr('style','display:none');
+			$('.envoyer_plus_row').attr('style','display:none');
+			
+		});
+		
+		
+		
+		$('.envoyer_one').click(function (){
+			
+			//$('.envoyer_one_row').removeAttr('style','display:none');
+
+			//$('.envoyer_normale_row').attr('style','display:none');
+			$('.envoyer_plus_row').attr('style','display:none');
+			
+		});
+		
+		
+		
+		
+		
+		$('.envoyer_plus').click(function (){
+			
+			$('.envoyer_plus_row').removeAttr('style','display:none');
+
+			//$('.envoyer_one_row').attr('style','display:none');
+			//$('.envoyer_normale_row').attr('style','display:none');
+			
+		});
+		
+		
+		
+		
+		
 	</script>
 	
 	
 	{% endblock %}
+	
 	
 	
 	

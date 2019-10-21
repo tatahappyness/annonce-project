@@ -43,20 +43,27 @@ use App\Repository\DevisViewedRepository;
 use App\Repository\DocummentRepository;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 use Symfony\Component\Translation\TranslatorInterface;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
@@ -697,7 +704,7 @@ class ProController extends AbstractController
     /**
     * @Route("/password-edit", name="pro_password_edit")
     */
-    public function editpassword(Request $request, Security $security, CustomerRepository $customRep)
+    public function editpassword(Request $request, Security $security, CustomerRepository $customRep,  ServicesRepository $serviceRep,  DevisRepository $devisRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -1076,7 +1083,6 @@ class ProController extends AbstractController
            }
         }
         return $this->redirectToRoute('pro_services');
-       
     }
 
     /**

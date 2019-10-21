@@ -18,7 +18,7 @@
           background-color: #fcd42f4a;
       }
       #wrapper{
-        background-color: #777;
+       background-color:#ececec;
       }
     </style>
     
@@ -29,23 +29,24 @@
 
 <body id="page-top">
 
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
   <!-- Page Wrapper -->
-  <div id="wrapper" style="background-color: #777">
+  <div id="wrapper" >
 
 	<!--Begin nav_bar api_admin space -->
 	{% include "./admin/api_admin/nav_bar.html.twig" %}
 	<!--End nav_bar api_admin space -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" style="background-color:#ececec"; class="d-flex flex-column">
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+	</br>
 
       <!-- Main Content -->
       <div id="content">
 	  
-		<!--Begin head_bar api_admin space -->
-		{% include "./admin/api_admin/head_bar.html.twig" %}
-		<!--End head_bar api_admin space -->
-
         <!-- Begin Page Content -->
         <div class="container-fluid">
 

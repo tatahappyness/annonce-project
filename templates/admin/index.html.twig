@@ -5,6 +5,8 @@
 
   <title>Orange-Travaux ( Admin )</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	
   <!-- Custom fonts for this template-->
     <link href="{{ absolute_url('/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
 
@@ -14,12 +16,106 @@
     <link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
 
   <style>
+	/* width */
+	::-webkit-scrollbar {
+	  width: 10px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #f1f1f1; 
+	}
+	 
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #888; 
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #555; 
+	}
       .card-header {
           background-color: #fcd42f4a;
       }
+	  
       #wrapper{
-        background-color: #777;
+       background-color:#ececec;
       }
+	  
+	  
+	    
+		@media screen  and  (max-width: 680px){
+			
+			#sidebarToggleTop{
+				display: block;
+			}
+			
+			.row_menu {
+				display: block;
+				position: relative;    
+				visibility: visible;
+			}
+			
+			.icon_menu {
+				font-size: 3em;
+			}
+			.menu_nav {
+				display: none;	
+				color: #fff;					
+				background-color: RGBa(29, 197, 151, 0.97);	
+				
+				
+				text-align: center;
+				padding: 12px 0;
+			}
+			.card-body {
+				font-size: 95%;
+			}
+			.img_logo{
+				height: 15px;			
+			}
+			
+			.head_title{
+				font-size: 15px;			
+			}
+			
+			.row_collecton_show{
+				display: none;
+			}
+			.row_activiter_show{
+				display: none;
+			}
+			
+			.row_stat_show{
+				display: none;
+			}
+		}
+		
+		@media screen  and  (min-width: 680px){
+			.row_menu {
+				display: none;
+			}
+			
+			#sidebarToggleTop{
+				display: none;
+			}
+			
+			.row_collecton_show{
+				display: block;
+			}
+			.row_activiter_show{
+				display: block;
+			}
+			
+			.row_stat_show{
+				display: block;
+			}
+		}
+	  
+	  
+		
+		
     </style>
     
 		
@@ -30,293 +126,599 @@
 
 <body id="page-top">
 
+	<!--Begin head_bar api_admin space -->
+	{% include "./admin/api_admin/head_bar.html.twig" %}
+	<!--End head_bar api_admin space -->
+
   <!-- Page Wrapper -->
-  <div id="wrapper" style="background-color: #777">
+  <div id="wrapper" >
 
 	<!--Begin nav_bar api_admin space -->
-	{% include "./admin/api_admin/nav_bar.html.twig" %}
+		{% include "./admin/api_admin/nav_bar.html.twig" %}
 	<!--End nav_bar api_admin space -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" style="background-color:#ececec"; class="d-flex flex-column">
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+
 
       <!-- Main Content -->
       <div id="content">
 	  
-		<!--Begin head_bar api_admin space -->
-		{% include "./admin/api_admin/head_bar.html.twig" %}
-		<!--End head_bar api_admin space -->
-
         <!-- Begin Page Content -->
         <div class="container-fluid">
+		
+</br></br>
 
-		  <!-- Divider -->
-		  <hr class="sidebar-divider">
 
-          <!-- Content Row -->
-          <div class="row">
 
-            <!-- Earnings (Monthly) Card Example -->
-
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Nombres de Visiteurs</div>                                   
-                    </div>
-
-                    <div class="col-auto">
-                      <i class="fa fa-5x fa-eye text-gray-300"></i>
-                    </div>
-                    </br>
-                    
-                    <div class="row no-gutters align-items-center">             
-                      <div class="col mr-2 text-xs text-warning text-uppercase mb-1">Semaine</div>           
-                      <div class="col mr-2 h1 font-weight-bold text-warning text-uppercase mb-1">40 </div>
-                    </div>        
-                    
-                    <div class="row no-gutters align-items-center">                        
-                      <div class="col mr-2 text-xs text-warning text-uppercase mb-1">TOTALE</div>
-                      <div class="col mr-2 h1 font-weight-bold text-warning text-uppercase mb-1">1255</div>
-                    </div>        
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Demandes de devis envoyer</div>      
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-envelope fa-5x text-gray-300"></i>
-                    </div>
-                    </br>
-
-                    <div class="row no-gutters align-items-center">             
-                      <div class="col mr-2 text-xs text-success text-uppercase mb-1">Semaine</div>           
-                      <div class="col mr-2 h1 font-weight-bold  text-success text-uppercase mb-1">40 </div>
-                    </div>        
-                    
-                    <div class="row no-gutters align-items-center">                        
-                      <div class="col mr-2 text-xs  text-success text-uppercase mb-1">TOTALE</div>
-                      <div class="col mr-2 h1 font-weight-bold  text-success text-uppercase mb-1">1255</div>
-                    </div>   
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Nombre de Professionnels Inscript</div>                      
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa fa-5x  fa-users  fa-2x text-gray-300"></i>
-                    </div>
-
-                    <div class="row no-gutters align-items-center">                        
-                      <div class="col mr-2 text-xs text-info  text-uppercase mb-1">TOTALE</div>
-                      <div class="col mr-2 h1 font-weight-bold  text-info s text-uppercase mb-1">1255</div>
-                    </div>                                           
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-secondary  shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">Nombre de projets postulés par le client</div>      
-                      </div>
-                      <div class="col-auto">
-                        <i class="fas fa-envelope fa-5x text-gray-300"></i>
-                      </div>
-                      </br>  
-                      
-                      <div class="row no-gutters align-items-center">                        
-                        <div class="col mr-2 text-xs  text-secondary  text-uppercase mb-1">TOTALE</div>
-                        <div class="col mr-2 h1 font-weight-bold  text-secondary  text-uppercase mb-1">15</div>
-                      </div>   
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
+			<div class="row row_menu " >
+			  <div class="col-lg-12 mb-4 row_menu_show" >
   
-            
-          </div>
+				<!-- Illustrations -->
+				<div class="card shadow mb-4">
+					  <div class="card-header py-3">
+						<h6 class="my_menu m-0 font-weight-bold text-primary">Menu</h6>
+					  </div>
+					  <div class="card-body">
+							  
+								<!-- Color System -->
+							<div class="row text-center">            
+							  <div class="col-lg-3 col-sm-3 mb-3">
+								<div class="card bg-white  shadow">
+									<div class="card-body" > 
+									  <a href="client" class="text-dark">
+										<i class="fa  fa-5x icon_menu fa-fw fa-user-friends"></i>
+									  </a><hr>
+										<div class="text-dark ">Client</div>
+									</div>						
+								</div>
+							  </div>
+							  
+							  <div class="col-lg-3  col-sm-3 mb-3">
+								<div class="card bg-success text-white shadow">
+								  <div class="card-body">                        
+									<a href="dem_devis" class="text-white">
+										<i class="fa icon_menu fa-5x fa-fw fa-envelope"></i>
+									</a><hr>
+									<div class="text-white "> Demande devis </div>
+								  </div>
+								</div>
+							  </div>
+							  <div class="col-lg-3  col-sm-3 mb-3">
+								<div class="card bg-info text-white shadow">
+								  <div class="card-body">
+												  
+									<a href="lst_in_pro" class="text-white">
+										<i class="fa icon_menu fa-5x fa-fw fa-list-ol"></i>
+									</a><hr>
+										<div class="text-white small">Professionnels</div>
+								  </div>
+								</div>
+							  </div>
+							  <div class="col-lg-3  col-sm-3 mb-3">
+								<div class="card  text-dark shadow" style="background-color: yellow;">
+									<div class="card-body" > 
+									  <a href="service" class="text-dark">
+										<i class="fab icon_menu fa-5x fa-fw fa-servicestack"></i>
+									  </a><hr>
+										<div class="text-dark ">Service</div>
+									</div>						
+								</div>
+							  </div>
 
-          <!-- Content Row -->
-          <div class="row">
+							  <div class="col-lg-3  col-sm-3 mb-3">
+								<div class="card text-white shadow" style="background-color: deeppink;">
+									<div class="card-body" > 
+									  <a href="abonnement" class="text-white">
+										<i class="fas  icon_menu fa-5x fa-fw fa-bread-slice"></i>
+									  </a><hr>
+										<div class="text-white small">Abonnement</div>
+									</div>						
+								</div>
+							  </div>
+							  
+							  <div class="col-lg-3   col-sm-3 mb-3">
+								<div class="card bg-danger text-white shadow">
+								  <div class="card-body">
+										<a href="trans" class="text-white">
+											<i class="fab  icon_menu fa-5x fa-fw fa-think-peaks"></i>
+										</a><hr>
+										<div class="text-white ">Transaction</div>
+								  </div>
+								</div>
+							  </div>      
+							  
+							  <div class="col-lg-3  col-sm-3 mb-3">
+								<div class="card bg-secondary text-white shadow">
+									<div class="card-body" > 
+									  <a href="objet_devis" class="text-white">
+										<i class=" fa-5x icon_menu fas fa-fw fa-th"></i>
+									  </a><hr>
+										<div class="text-white ">Objet Devis</div>
+									</div>						
+								</div>
+							  </div>
+							  <div class="col-lg-3  col-sm-3 mb-3">
+								<div class="card bg-warning text-white shadow">
+								  <div class="card-body">					  
+									<a href="m_e_email" class="text-white">
+										<i class="fa  fa-5x icon_menu fa-fw fa-check-square"></i>
+									</a><hr>
+										<div class="text-white small">Modes d’envoi d’email</div>
+								  </div>
+								</div>
+							  </div>
+							  
+							  <div class="col-lg-3  col-sm-3 mb-3">
+								<div class="card bg-primary text-white shadow">
+								  <div class="card-body">                      
+									<a href="config_site" class="text-white">
+										<i class="fas  fa-fw icon_menu  fa-cog fa-5x "></i>
+									</a><hr>
+									<div class="text-white small ">Configuration du site </div>
+								  </div>
+								</div>
+							  </div>
+							  
+							  <div class="col-lg-3  col-sm-3 mb-3">
+								<div class="card text-white shadow" style="background-color: #0089ff;">
+								  <div class="card-body">                      
+									<a href="config_site" class="text-white">
+										<i class="fas fa-user   fa-fw icon_menu  fa-5x "></i>
+									</a><hr>
+									<div class="text-white small ">Administrateur</div>
+								  </div>
+								</div>
+							  </div>
+							  
+							  
+							  <div class="col-lg-3  col-sm-3 mb-3">
+								<div class="card text-white shadow" style="background-color: yellowgreen;">
+								  <div class="card-body">                      
+									<a href="#"  data-toggle="modal" data-target="#colect_donnees"  class="text-white">
+										<i class="fas    fa-fw icon_menu  fa-5x ">+</i>
+									</a><hr>
+									<div class="text-white small ">Collection des Données</div>
+								  </div>
+								</div>
+							  </div>
+							  
+											  
+											  
+								<!-- Modal comfirmer mode  normalement -->
+								<div class="modal fade" id="colect_donnees" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">									
+												<h4 class="modal-title" id="myModalLabel">
+													Collection des Données:
+												</h4>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+												</button>
+											</div>						
 
-              <!-- Content Column -->
-              <div class="col-lg-6 mb-4">
-  
-                <!-- Project Card Example -->
-                <div class="card shadow mb-4">
-                  <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Top 5 des activitées</h6>
-                    
-                  </div>
-                  <div class="card-body">                  
-                    <h4 class="small font-weight-bold">Plomberie-Sanitaire : 
-                      <span class="float-right">                        
-                        <a href="#" class="btn btn-primary btn-circle">
-                          <i class="fab">60%</i>
-                        </a>
-                      </span>
-                      
-                      <span>
-                        <a href="#" class="btn btn-primary btn-circle">
-                          <i class="fab">60</i>
-                        </a>
-                      </span>
-                    </h4>
-                   
-                    <div class="progress mb-4">
-                      <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    
-                    <h4 class="small font-weight-bold">Chauffe eau :
-                      <span class="float-right">                        
-                        <a href="#" class="btn btn-warning btn-circle">
-                          <i class="fab">40%</i>
-                        </a>
-                      </span>
-                      
-                      <span>
-                        <a href="#" class="btn btn-warning btn-circle">
-                          <i class="fab">40</i>
-                        </a>
-                      </span>                      
-                    </h4>
-                    <div class="progress mb-4">
-                      <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+											<div class="card-body">
+												<div class="text-center row">
+																		
+													  <div class="col-lg-3  col-sm-3 mb-3">
+														<div class="card text-white shadow" style="background-color: tomato;">
+														  <div class="collecton_show card-body" 	data-dismiss="modal">                 
+															<a href="#collecton_show"   class="text-white">
+																<i class="fas   fa-columns  fa-fw icon_menu  fa-5x "></i>
+															</a><hr>
+															<div class="text-white small ">Collection</div>
+														  </div>
+														</div>
+													  </div>
+																				
+													  <div class="col-lg-3  col-sm-3 mb-3">
+														<div class="card text-white shadow" style="background-color: turquoise;">
+														  <div class="activiter_show card-body"	data-dismiss="modal">               
+															<a href="#activiter_show"  data-toggle="modal" data-target="#colect_donnees"  class="text-white">
+																<i class="fab fa-galactic-republic   fa-fw icon_menu  fa-5x "></i>
+															</a><hr>
+															<div class="text-white small ">Activiter</div>
+														  </div>
+														</div>
+													  </div>	
+																
+													  <div class="col-lg-3  col-sm-3 mb-3">
+														<div class="card text-white shadow" style="background-color: violet;">
+														  <div class="stat_show card-body" 	data-dismiss="modal">                      
+															<a href="#stat"  data-toggle="modal" data-target="#colect_donnees"  class="text-white">
+																<i class="fab fa-artstation fa-fw icon_menu  fa-5x "></i>
+															</a><hr>
+															<div class="text-white small ">Statistique</div>
+														  </div>
+														</div>
+													  </div>
+													  
+												</div>						
+											</div>			
+											
+										</div><!-- /.modal-content -->
+									</div><!-- /.modal-dialog -->
+								</div><!-- end /.modal comfirmer mode normalement--> 
+								
+							</div>
+					  </div>
+				</div>
+				
+			  </div>
+			</div>
+			
+			  <!-- Content Row -->
+			<div class="row_collecton_show">
+				
+				  <!-- Divider -->
+				  Collection :
+				  
+				<hr class="sidebar-divider">
+				<div class="row mb-4 " >  
 
-                    <h4 class="small font-weight-bold">Chaudiere : <span class="float-right"></span>
-                     <span class="float-right">                        
-                        <a href="#" class="btn btn-danger btn-circle">
-                          <i class="fab">20%</i>
-                        </a>
-                      </span>
-                      
-                      <span>
-                        <a href="#" class="btn btn-danger btn-circle">
-                          <i class="fab">20</i>
-                        </a>
-                      </span>
-                    </h4>
-                    <div class="progress mb-4">
-                      <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+					<!-- Earnings (Monthly) Card Example -->
 
-                                    
-                  </div>
-                </div>
-  
-                <!-- Color System -->
-                <div class="row">
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-primary text-white shadow">
-                      <div class="card-body">
-                        Primary
-                        <div class="text-white-50 small">#4e73df</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-success text-white shadow">
-                      <div class="card-body">
-                        Success
-                        <div class="text-white-50 small">#1cc88a</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-info text-white shadow">
-                      <div class="card-body">
-                        Info
-                        <div class="text-white-50 small">#36b9cc</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-warning text-white shadow">
-                      <div class="card-body">
-                        Warning
-                        <div class="text-white-50 small">#f6c23e</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-danger text-white shadow">
-                      <div class="card-body">
-                        Danger
-                        <div class="text-white-50 small">#e74a3b</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-secondary text-white shadow">
-                      <div class="card-body">
-                        Secondary
-                        <div class="text-white-50 small">#858796</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-  
-              </div>
-  
-              <div class="col-lg-6 mb-4">
-  
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                  <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                  </div>
-                  <div class="card-body">
-                    <div class="text-center">
-                      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="">
-                    </div>
-                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
-                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
-                  </div>
-                </div>
-  
-                <!-- Approach -->
-                <div class="card shadow mb-4">
-                  <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                  </div>
-                  <div class="card-body">
-                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
-                    <p class="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classes.</p>
-                  </div>
-                </div>
-  
-              </div>
+					<div class="col-xl-3 col-sm-6 mb-4">
+					  <div class="card border-left-warning shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+								  <div class="h5 mb-0 font-weight-bold text-gray-800">Nombres de Visiteurs</div>
+								</div>
+
+								<div class="col-auto">
+								  <i class="fa icon_menu fa-5x fa-eye text-gray-300"></i>
+								</div>
+								
+								</br>
+								
+								<div class="row no-gutters align-items-center">
+								  <div class="col mr-2 text-xs text-warning text-uppercase mb-1"></div>           
+								  <div class="col mr-2 h1 font-weight-bold text-warning text-uppercase mb-1"></div>
+								</div>
+								
+								<div class="row col-sm-12 no-gutters align-items-center">                        
+								  <div class="col mr-2 text-xs text-warning text-uppercase mb-1">TOTALE</div>
+								  <div class="col mr-2 h1 font-weight-bold text-warning text-uppercase mb-1">---</div>
+								</div>        
+
+							</div>
+						</div>
+					  </div>
+					</div>
+
+					<!-- Earnings (Monthly) Card Example -->
+					<div class="col-xl-3 col-sm-6 mb-4">
+					  <div class="card border-left-success shadow h-100 py-2">
+						<div class="card-body">
+						  <div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+							  <div class="h5 mb-0 font-weight-bold text-gray-800">Demandes de devis envoyer</div>      
+							</div>
+							
+							<a class="col nav-link btn" href="dem_devis">
+							  <i class="fas icon_menu fa-envelope fa-5x text-gray-300"></i>
+							</a>
+							</br>
+
+							<div class="row no-gutters align-items-center">
+							  <div class="col mr-2 text-xs text-success text-uppercase mb-1"></div>           
+							  <div class="col mr-2 h1 font-weight-bold  text-success text-uppercase mb-1"> </div>
+							</div>        
+							
+							<div class="row col-sm-12 no-gutters align-items-center">                        
+							  <div class="col mr-2 text-xs  text-success text-uppercase mb-1">TOTALE</div>
+							  <div class="col mr-2 h1 font-weight-bold  text-success text-uppercase mb-1">{{numberDevis}}</div>
+							</div>   
+							
+						  </div>
+						</div>
+					  </div>
+					</div>
+
+					
+					<!-- Earnings (Monthly) Card Example -->
+					<div class="col-xl-3 col-sm-6 mb-4">
+					  <div class="card border-left-info shadow h-100 py-2">
+						<div class="card-body">
+						  <div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+							  <div class="h5 mb-0 font-weight-bold text-gray-800">Professionnels Inscript</div>                      
+							</div>
+							<a class="col nav-link btn" href="lst_in_pro">
+								  <i class="fas icon_menu fa fa-5x   fa-list-ol  fa-2x text-gray-300"></i>
+								</a>
+								
+
+							<div class="row  col-sm-12 no-gutters align-items-center">                        
+							  <div class="col-sm-9 mr-2 text-xs text-info  text-uppercase mb-1">TOTALE</div>
+							  <div class="col-sm-1 mr-2 h1 font-weight-bold  text-info s text-uppercase mb-1">{{numberPro}}</div>
+							</div>                                           
+						  </div>
+						</div>
+					  </div>
+					</div>
+								
+					<!-- Earnings (Monthly) Card Example -->
+					<div class="col-xl-3 col-sm-6 mb-4">
+				  <div class="card border-left-danger shadow h-100 py-2">
+					<div class="card-body">
+					  <div class="row no-gutters align-items-center">
+						<div class="col mr-2">
+						  <div class="h5 mb-0 font-weight-bold text-gray-800">Client Inscript</div>                      
+						</div>
+						<a class="col nav-link btn" href="client">
+							  <i class="fas icon_menu fa fa-5x  fa-user-friends  text-gray-300"></i>
+							</a>
+							
+
+						<div class="row  col-sm-12 no-gutters align-items-center">                        
+						  <div class="col-sm-9  mr-2 text-xs text-danger  text-uppercase mb-1">TOTALE</div>
+						  <div class="col-sm-1  mr-2 h1 font-weight-bold  text-danger text-uppercase mb-1">{{numberPart}}</div>
+						</div>                                           
+					  </div>
+					</div>
+				  </div>
+				</div>
+				
+				</div>
+			
+			</div>
+		  
+				  
+			  <!-- Content Row -->
+			<div class="row_activiter_show">
+					
+				  <!-- Divider -->
+				  Activiter :
+				  <hr class="sidebar-divider">
+				  
+				  <!-- Content Row -->
+				  <div class="row">
+					  
+					
+					<!-- Earnings (Monthly) Card Example -->
+					<div class="col-xl-3 col-md-5 mb-4">
+						<div class="card border-left-secondary  shadow h-100 py-2">
+						  <div class="card-body">
+							<div class="row no-gutters align-items-center">
+							  <div class="col-md col-sm-9 mr-2">
+								<div class="h5 mb-0 font-weight-bold text-gray-800">Projets postulés par les client</div>      
+							  </div>
+							  </br>  
+							  
+							  <div class="row no-gutters align-items-center">                        
+								<div class="col mr-2 text-xs  text-secondary  text-uppercase mb-1">TOTALE</div>
+								<div class="col mr-2 h1 font-weight-bold  text-secondary  text-uppercase mb-1">{{numberPost}}</div>
+							  </div>   
+							  
+							</div>
+						  </div>
+						</div>
+					</div>
+					
+					
+					<!-- Earnings (Monthly) Card Example -->
+					<div class="col-xl-3 col-md-6 mb-4">
+					  <div class="card border-left-danger shadow h-100 py-2">
+						<div class="card-body">
+						  <div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+							  <div class="h5 mb-0 font-weight-bold text-gray-800">Type</div>      
+							</div>
+							
+							<a class="col nav-link btn" href="#">
+							</a>
+							</br>
+
+							<div class="row no-gutters align-items-center">             
+							  <div class="col mr-2 text-xs text-danger text-uppercase mb-1"></div>           
+							  <div class="col mr-2 h1 font-weight-bold  text-danger text-uppercase mb-1"> </div>
+							</div>        
+							
+							<div class="row no-gutters align-items-center">                        
+							  <div class="col mr-2 text-xs  text-warning text-uppercase mb-1">TOTALE</div>
+							  <div class="col mr-2 h1 font-weight-bold  text-danger text-uppercase mb-1">{{numberType}}</div>
+							</div>   
+							
+						  </div>
+						</div>
+					  </div>
+					</div>
+					
+					
+					<!-- Earnings (Monthly) Card Example -->
+					<div class="col-xl-3 col-md-6 mb-4">
+					  <div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+						  <div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+							  <div class="h5 mb-0 font-weight-bold text-gray-800">Article</div>      
+							</div>
+							
+									  <a class="col nav-link btn" href="#"></a>
+							</br>
+
+							<div class="row no-gutters align-items-center">             
+							  <div class="col mr-2 text-xs text-primary text-uppercase mb-1"></div>           
+							  <div class="col mr-2 h1 font-weight-bold  text-primary text-uppercase mb-1"> </div>
+							</div>        
+							
+							<div class="row no-gutters align-items-center">                        
+							  <div class="col mr-2 text-xs  text-primary text-uppercase mb-1">TOTALE</div>
+							  <div class="col mr-2 h1 font-weight-bold  text-primary text-uppercase mb-1">{{numberArt}}</div>
+							</div>   
+							
+						  </div>
+						</div>
+					  </div>
+					</div>
+					
+					
+					<!-- Earnings (Monthly) Card Example -->
+					<div class="col-xl-3 col-md-6 mb-4">
+					  <div class="card border-left-success shadow h-100 py-2">
+						<div class="card-body">
+						  <div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+							  <div class="h5 mb-0 font-weight-bold text-gray-800">Catégorie</div>      
+							</div>
+							
+							<a class="col nav-link btn" href="#">
+							</a>
+							</br>
+
+							<div class="row no-gutters align-items-center">             
+							  <div class="col mr-2 text-xs text-success text-uppercase mb-1"></div>           
+							  <div class="col mr-2 h1 font-weight-bold  text-success text-uppercase mb-1"> </div>
+							</div>        
+							
+							<div class="row no-gutters align-items-center">                        
+							  <div class="col mr-2 text-xs  text-success text-uppercase mb-1">TOTALE</div>
+							  <div class="col mr-2 h1 font-weight-bold  text-success text-uppercase mb-1">{{numberCat}}</div>
+							</div>   
+							
+						  </div>
+						</div>
+					  </div>
+					</div>
+					
+					
+				</div>
+				
+			</div>
+
+			<!-- Content Row -->
+			<div class="row_stat_show">
+				<!-- Divider -->
+				Statistique :
+				  
+				<hr class="sidebar-divider">					
+				  <!-- Content Column -->
+				<div class="col-lg-6 mb-4">
+	  
+					<!-- Project Card Example -->
+					<div class="card shadow mb-4">
+					  <div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Top 5 des activitées</h6>
+						
+					  </div>
+					  <div class="card-body">                  
+						<h4 class="small font-weight-bold">Plomberie-Sanitaire : 
+						  <span class="float-right">                        
+							<a href="#" class="btn btn-primary btn-circle">
+							  <i class="fab">60%</i>
+							</a>
+						  </span>
+						  
+						  <span>
+							<a href="#" class="btn btn-primary btn-circle">
+							  <i class="fab">60</i>
+							</a>
+						  </span>
+						</h4>
+					   
+						<div class="progress mb-4">
+						  <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+						</div>
+						
+						<h4 class="small font-weight-bold">Chauffe eau :
+						  <span class="float-right">                        
+							<a href="#" class="btn btn-warning btn-circle">
+							  <i class="fab">40%</i>
+							</a>
+						  </span>
+						  
+						  <span>
+							<a href="#" class="btn btn-warning btn-circle">
+							  <i class="fab">40</i>
+							</a>
+						  </span>                      
+						</h4>
+						<div class="progress mb-4">
+						  <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+						</div>
+
+						<h4 class="small font-weight-bold">Chaudiere : <span class="float-right"></span>
+						 <span class="float-right">                        
+							<a href="#" class="btn btn-danger btn-circle">
+							  <i class="fab">20%</i>
+							</a>
+						  </span>
+						  
+						  <span>
+							<a href="#" class="btn btn-danger btn-circle">
+							  <i class="fab">20</i>
+							</a>
+						  </span>
+						</h4>
+						<div class="progress mb-4">
+						  <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+						</div>
+
+										
+					  </div>
+					</div>
+	  
+				  </div>
+					  
 
 
-              <div class="card shadow mb-4">
+				<!-- Pie Chart -->
+				<div class="col-xl-4 col-lg-5">
+				  <div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+					  <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+					  <div class="dropdown no-arrow">
+						<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						  <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+						  <div class="dropdown-header">Dropdown Header:</div>
+						  <a class="dropdown-item" href="#">Action</a>
+						  <a class="dropdown-item" href="#">Another action</a>
+						  <div class="dropdown-divider"></div>
+						  <a class="dropdown-item" href="#">Something else here</a>
+						</div>
+					  </div>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+					  <div class="chart-pie pt-4 pb-2">
+						<canvas id="myPieChart"></canvas>
+					  </div>
+					  <div class="mt-4 text-center small">
+						<span class="mr-2">
+						  <i class="fas fa-circle text-primary"></i> Direct
+						</span>
+						<span class="mr-2">
+						  <i class="fas fa-circle text-success"></i> Social
+						</span>
+						<span class="mr-2">
+						  <i class="fas fa-circle text-info"></i> Referral
+						</span>
+						
+						<span class="mr-2">
+						  <i class="fas fa-circle text-info"></i> Referral
+						</span>
+						
+						<span class="mr-2">
+						  <i class="fas fa-circle text-info"></i> Referral
+						</span>
+						
+						<span class="mr-2">
+						  <i class="fas fa-circle text-info"></i> Referral
+						</span>
+						
+						<span class="mr-2">
+						  <i class="fas fa-circle text-info"></i> Referral
+						</span>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<div class="card shadow mb-4">
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
                   </div>
@@ -328,6 +730,7 @@
                     Styling for the bar chart can be found in the <code>/js/demo/chart-bar-demo.js</code> file.
                   </div>
                 </div>
+<<<<<<< HEAD
             </div>
   
           <!-- Content Row -->
@@ -405,6 +808,65 @@
         </div>
         <!-- /.container-fluid -->
 
+=======
+				
+					
+					
+				<!-- Area Chart -->
+				<div class="col-xl-8 col-lg-7">
+				  <div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+					  <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+					  <div class="dropdown no-arrow">
+						<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						  <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+						  <div class="dropdown-header">Dropdown Header:</div>
+						  <a class="dropdown-item" href="#">Action</a>
+						  <a class="dropdown-item" href="#">Another action</a>
+						  <div class="dropdown-divider"></div>
+						  <a class="dropdown-item" href="#">Something else here</a>
+						</div>
+					  </div>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+					  <div class="chart-area">
+						<canvas id="myAreaChart"></canvas>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				
+				
+            </div>
+  
+			<!-- Content Row -->
+
+			<div class="row">
+
+			
+
+			</div>
+			
+
+<div id="piechart"></div>
+
+<div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+
+    <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+        </div>
+        <!-- /.container-fluid -->
+
+    <div id="series_chart_div" style="width: 900px; height: 500px;"></div>
+	
+	
+	
+	
+	
+>>>>>>> 882a82236f8f3d73c5a4e17cc6e87c4b51614ac3
       </div>
       <!-- End of Main Content -->
 
@@ -423,6 +885,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
+<<<<<<< HEAD
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -442,6 +905,8 @@
     </div>
   </div>
 
+=======
+>>>>>>> 882a82236f8f3d73c5a4e17cc6e87c4b51614ac3
 </body>
 	{% endblock %}
 
@@ -467,4 +932,187 @@
   
   
   
+<<<<<<< HEAD
 	{% endblock %}
+=======
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+  
+	   <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawSeriesChart);
+
+    function drawSeriesChart() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['ID', 'Life Expectancy', 'Fertility Rate', 'Region',     'Population'],
+        ['CAN',    80.66,              1.67,      'North America',  33739900],
+        ['DEU',    79.84,              1.36,      'Europe',         81902307],
+        ['DNK',    78.6,               1.84,      'Europe',         5523095],
+        ['EGY',    72.73,              2.78,      'Middle East',    79716203],
+        ['GBR',    80.05,              2,         'Europe',         61801570],
+        ['IRN',    72.49,              1.7,       'Middle East',    73137148],
+        ['IRQ',    68.09,              4.77,      'Middle East',    31090763],
+        ['ISR',    81.55,              2.96,      'Middle East',    7485600],
+        ['RUS',    68.6,               1.54,      'Europe',         141850000],
+        ['USA',    78.09,              2.05,      'North America',  307007000]
+      ]);
+
+      var options = {
+        title: 'Correlation between life expectancy, fertility rate ' +
+               'and population of some world countries (2010)',
+        hAxis: {title: 'Life Expectancy'},
+        vAxis: {title: 'Fertility Rate'},
+        bubble: {textStyle: {fontSize: 11}}      };
+
+      var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
+      chart.draw(data, options);
+    }
+    </script>
+	
+	
+<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+  ['Task', 'Hours per Day'],
+  					
+		{% if devis != null %}							
+			{% for dev in devis %}
+			
+  ['{{ dev.getFirstName() }}', {{ dev.getId()}}],
+			{% endfor %}
+		{% else %}
+	{% endif %}	
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'My Average Day', 'width':550, 'height':400};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+</script>
+
+
+	<script>
+	
+		$('#sidebarToggleTop').click(function (){
+			$('.row_menu').removeAttr('style','display:none').attr('style','display: block');
+			
+			$('.row_collecton_show').removeAttr('style','display:block').attr('style','display: none');
+			$('.row_activiter_show').removeAttr('style','display:block').attr('style','display: none');
+			$('.row_stat_show').removeAttr('style','display:block').attr('style','display: none');
+			
+			//$('.menu_nav').attr('style','display:none');		
+			//$('.menu_nav ').toggle();
+			//$('#menu_btn').toggle();
+			//$('.menu_nav').attr('style','display:none');			
+		})
+		
+			
+		$('.collecton_show').click(function (){
+			$('.row_collecton_show').removeAttr('style','display:none').attr('style','display: block');
+			$('.row_menu').attr('style','display:none');			
+			
+			$('.row_stat_show').removeAttr('style','display:block').attr('style','display: none');
+			$('.row_activiter_show').removeAttr('style','display:block').attr('style','display: none');
+		})
+		
+		$('.activiter_show').click(function (){
+			$('.row_menu').attr('style','display:none');
+			$('.row_collecton_show').removeAttr('style','display:block').attr('style','display: none');
+			
+			$('.row_activiter_show').removeAttr('style','display:none').attr('style','display: block');
+			$('.row_stat_show').removeAttr('style','display:block').attr('style','display: none');	
+			
+		})
+		
+		
+		$('.stat_show').click(function (){	
+			$('.row_menu').attr('style','display:none')
+			$('.row_collecton_show').removeAttr('style','display:block').attr('style','display: none');
+			
+			$('.row_activiter_show').removeAttr('style','display:block').attr('style','display: none');			
+			$('.row_stat_show').removeAttr('style','display:none').attr('style','display: block');
+				
+		})
+		
+		
+		
+		
+		
+		
+	</script>
+	
+	
+  <script type="text/javascript">
+  
+  
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Element", "Density", { role: "style" } ],
+        ["Copper", 8.94, "#b87333"],
+        ["Silver", 10.49, "silver"],
+        ["Gold", 19.30, "gold"],
+        ["Platinum", 21.45, "color: #e5e4e2"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Density of Precious Metals, in g/cm^3",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(view, options);
+  }
+  </script>
+	
+  
+  
+	 <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses', 'Profit'],
+          ['2014', 1000, 400, 200],
+          ['2015', 1170, 460, 250],
+          ['2016', 660, 1120, 300],
+          ['2017', 1030, 540, 350]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Company Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+  
+	{% endblock %}
+>>>>>>> 882a82236f8f3d73c5a4e17cc6e87c4b51614ac3

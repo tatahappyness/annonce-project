@@ -24,9 +24,9 @@
                             <a href="{{ path('particulier_post_ads') }}" class="btn btn-success float-right text-decoration-none border-0 btn-show-post-forms text-uppercase text-center text-nowrap mr-1">Je postule un projet</a>
                         </span>
                         <span class="mr-1">
-                            <button class="btn btn-round bg-gray btn-singUp-particular font-weight-bold text-warning border-warning text-nowrap" type="button">
+                            <a href="{{ path('logout') }}" class="btn text-decoration-none bg-white btn-singUp-particular font-weight-bold text-warning border-warning text-nowrap">
                                 <i class="">👷🏾</i>  Se deconnecter
-                            </button>
+                            </a>
                         </span>
                     </div>
                 </div>
@@ -212,13 +212,13 @@
                             </div>
                         </ul>
                     </li>
-                    <li class="nav-item"><a href="#" class="nav-link">Nos Tarif</a>
+                    <li class="nav-item"><a href="#" class="nav-link">Guide des prix</a>
                     </li>
                     <li class="nav-item"><a href="#" class="nav-link">Comment ça marche</a>
                     </li>
-                    <li class="nav-item"><a href="#" class="nav-link">Créer mon site internet</a>
+                    {# <li class="nav-item"><a href="#" class="nav-link">Créer mon site internet</a> #}
                     </li>
-                    <li class="nav-item"><a href="#" class="nav-link particular-dashbord-access">Parlez à nous</a>
+                    <li class="nav-item"><a href="{{ path('particulier_post_comments') }}" class="nav-link particular-dashbord-access">Parlez à nous</a>
                     </li>
                 </ul>
                 </div>

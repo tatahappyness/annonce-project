@@ -55,7 +55,8 @@ jQuery('.zipcode').focusout( function() {
         input.type = 'hidden';
         input.value = id	
         input.name = 'city';
-        parentDiv.append(input);
+        //parentDiv.append(input);
+        parentDiv.html(input);
     }
     //END FORM FRONT SEARCH CITY
 

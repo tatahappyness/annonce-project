@@ -1,0 +1,235 @@
+<div class="page-header">
+    <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/head-1.jpg'); background-attachment: fixed;">
+    </div>
+    <div class="row">
+        <div class="col-12 p-0">
+            <div class="contenair-header-menu"> 
+                <nav class="navbar navbar-expand bg-gray py-0 navbar-head">
+                    <div class="container border-0">
+                        <div class="d-flex w-100 flex-column flex-md-row align-items-center justify-content-center justify-content-sm-around">
+                            <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
+                                <a class="text-decoration-none logo-content" href="{{ path('home_page') }}">
+                                <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
+                                </a>
+                                
+                                <ul class="navbar-nav mt-2 mt-lg-0 d-flex flex-column flex-sm-row">
+                                    <li class="nav-item bg-gray">
+                                    <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
+                                    </li>
+                                    <li class="nav-item bg-gray">
+                                    <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+                                <span class="mr-1">
+                                    <button class="btn btn-round bg-gray text-decoration-none show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap" type="button">
+                                        <i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
+                                    </button>
+                                </span>
+                                <span class="">
+                                    <a href="{{ path('space_pro_page') }}" class="btn btn-round bg-white border-warning font-weight-bold text-success text-nowrap text-decoration-none">
+                                        <i class="">👷🏾</i> <label class="sr-only-focusable"> Vous êtes un pro ?</label>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Navbar menu end here -->
+
+                <!-- ############################# NAVBAR HERE LARGE -->
+                <!-- BEGIN MOBILE MENU -->
+                {% include "./page/menu/menu-mobile.html.twig" %}
+                <!-- END MOBILE MENU -->	
+                
+                <!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
+			
+                <div class="navbar-mega large-menu d-md-flex justify-content-center">
+                    <div class="dropdown-mega">
+                        <a class="dropbtn">Types des travaux
+                        <i class="fa fa-caret-down"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <div class="row-mega px-4">
+                                <div class="column text-white">
+                                <h3>Category 1</h3>
+                                <a href="#">Link 1</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                                </div>
+                                <div class="column text-white">
+                                <h3>Category 2</h3>
+                                <a href="#">Link 1</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                                </div>
+                                <div class="column">
+                                <h3>Category 3</h3>
+                                <a href="#">Link 1</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                                </div>
+                            </div>
+                            <div class="row-mega">
+                                <div class="column-12">
+                                    <div class="w-100 text-center">
+                                        <h3> Les  plus populaires </h3>
+							        </div>
+                                    <section class="sliderComplete">
+                                        <!-- Wrapper -->
+                                        <section class="wrapper">
+                                            <!-- ".slider" has a width greater than 100% to give way to all albums to align.  -->
+                                            <ul class="slider">
+                                                <li class="text-center">
+                                                    <a href="#" class="d-block mb-4 p-0">
+                                                        <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/aob0ukAYfuI/400x300" />
+                                                    </a>
+                                                    <p><a id="" href="#">Category name</a></p>
+                                                    <p><a id="" href="#" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
+                                                </li>
+                                            </ul>
+                                        </section>
+                                        <!-- End wrapper -->
+
+                                        <button title="before" class="close button-slid bg-warning" style="height: 50%;">
+                                            <svg version="1.1" id="left" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
+                                            <g id="chevron-right">
+                                                <polygon fill="#38373A" points="13,15 25,27 27.8,24.2 18.6,15 27.8,5.8 25,3 	"/>
+                                            </g>
+                                            </svg>
+                                        </button>
+
+                                        <!-- 
+                                        ".open" is on display:block; to be visible.
+                                        -->
+                                        <button title="after" class="open button-slid bg-warning" style="height: 50%;">
+                                            <svg version="1.1" id="right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
+                                            <g id="chevron-right">
+                                                <polygon fill="#38373A" points="15.8,3 13,5.8 22.2,15 13,24.2 15.8,27 27.8,15 	"/>
+                                            </g>
+                                            </svg>
+                                        </button>
+                                    </section>
+                                    <!-- End sliderComplete -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END TYPE TRAVAUX -->
+                    <div class="dropdown-mega">
+                        <a class="dropbtn">Guides des prix
+                        <i class="fa fa-caret-down"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <div class="row-mega px-4">
+                                <div class="column">
+                                <h3> <a href="#"> Category 1</a> </h3>
+                                <a href="{{ path('guide_price_page') }}">Link 1</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                                <a class="mm-view-more" href="#">Voir + </a>
+                                </div>
+                                <div class="column">
+                                <h3> <a href="#"> Category 2</a> </h3>
+                                <a href="#">Link 1</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                                <a class="mm-view-more" href="#">Voir + </a>
+                                </div>
+                                <div class="column">
+                                <a class="mm-view-more" href="#">voir autre +</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{{ path('how_to_step_page') }}">Comment ça marche ?</a>
+                    <a href="{{ path('space_find_pro_page') }}">Trouvez un pros</a>
+                </div>
+			
+                <!-- END MENU DISPALY WHEN  WHEN LARGE SCREEN -->
+					  
+                <!-- Progress barr slid scroll -->
+                <div class="progress-container fixed-top">
+                    <div class="progress-bar" id="myBar"></div>
+                </div> 
+					  
+            </div>
+        </div>
+    </div>
+    <!-- End Row for Menu header -->
+		
+    <!-- Begin for row content header parallax -->
+    <div class="container">
+        <div class="row row-slide-first-header d-flex content-parallax-forms justify-content-center font-weight-light">
+            <div class="col-12 d-flex justify-content-center pb-4">
+                <div class="row">
+                    <div class="col-12 col-lg-9 d-flex flex-column align-self-center align-items-center align-items-lg-end text-center w-100" style="font-size: 18px;">
+                        <h4 class="text-warning title-front-h1 font-weight-bold">SELECTIONNEZ LE MEILLEUR ARTISAN LOCAL POUR VOS TRAVAUX</h4>
+                        <p class="text-white text-italic">Recevez jusqu’à 5 devis en 48h, gratuitement et sans engagement !</p>
+                    </div>
+                    <div class=" col-12 col-lg-3 content-img-garantie text-left">
+                        <img class="free-img" src="{{ absolute_url('/assets/img/garantie.png') }}" style="width: 50%;"></img>
+                    </div>
+                </div>
+            </div>
+            <!-- ############# Begin form search -->
+            <div class="col-12 col-md-10 d-flex flex-column justify-content-center align-items-end">
+				
+                <div class="w-100 bg-dark" style="box-shadow: -14px 5px 5px black; z-index: 1;">
+                    <form action="{{ path('post_ask_devis_page') }}" method="POST">
+                        <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center">
+                            <div class="form-group p-0 m-0 w-100">
+
+                                <input type="text" id="show-input-list-search" class="form-control text-center" placeholder="Quel travaux souhaitez vous realiser ?">
+
+                            </div>
+
+                            <div id="group-form-spcial-input-hidden">                                                                                                                                                           
+                                 
+                            </div>
+
+                            <div class="form-group">                                                                                                                                                           
+                            <input  type="hidden" name="route_page" value="home_page">
+                            </div>
+                            <div class="bg-warning  btn-ask-devis w-auto">
+                            <button type="submit" class="btn btn-warning border-0 text-nowrap">Demander un devis</button>
+                            </div>
+                        </div>  
+                    </form>
+                </div>
+					
+                <div id="service-pro-and-artisant" class="d-flex w-100 align-items-center justify-content-center row-slide-beside-and-form-search">
+				
+                    <!-- ############# Begin Boutton large screen Clik down -->
+                    <div class="d-sm-flex justify-content-center boutton-large-screen d-none d-sm-block" style="z-index: 1;">
+                        <span class="btn-down-contenair" style="z-index: 1;">
+                            <a class="text-decoration-none" href="#how-to-receve-devis" style="text-decoration: none;">
+                                <img class="" style="height: 75px; z-index: 1;" src="{{ absolute_url('/assets/img/boutton/arrow-boutton.gif') }}"></img>
+                            </a>
+                        </span>
+                    </div>
+                    <!-- ############# End Boutton large creen Clik down -->
+						
+                    <!-- ############# Begin Boutton short screen Clik down -->
+                    <div class="boutton-short-screen d-none">
+                        <span class="btn-down-contenair" style="z-index: 1;">
+                            <a class="text-decoration-none" href="#how-to-receve-devis" style="text-decoration: none;">
+                                <img class="" style="height: 75px; z-index: 1;" src="{{ absolute_url('/assets/img/boutton/arrow-boutton.gif') }}"></img>
+                            </a>
+                        </span>
+                    </div>
+                    <!-- ############# End Boutton short creen Clik down -->
+                </div>
+					
+            </div>
+        <!-- ############# End form search-->
+        </div>
+    </div>
+    <!-- End container presentation header -->
+		
+</div>
+<!--END HEADER-->

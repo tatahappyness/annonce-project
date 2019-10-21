@@ -35,6 +35,19 @@ class DevisRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getResult();
     }
+
+    public function findByEmail($data = null, $limit = 100, $offset = 0)
+    {
+       
+        return $this->createQueryBuilder('d')
+                ->where('d.email = ?1')
+                ->setParameters($data)
+                ->orderBy('d.id', 'DESC')
+                ->setFirstResult( $offset )
+                ->setMaxResults( $limit )
+                ->getQuery()
+                ->getResult();
+    }
     
     public function findOneById($value): ?Devis
     {

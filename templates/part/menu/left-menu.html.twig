@@ -6,23 +6,43 @@
         </div>
         <div class="menu-container-left">
 								
-            <div class="card profil-particular bg-transparent">
-                <div class="position-absolute" style="left: 80px; top: 20px;"><span class="lnr-pencil-edit-profil-particular float-right mr-1 d-none bg-warning rounded-circle p-2"><span class="lnr lnr-pencil"></span></span></div>
-                <div class="w-100 bg-darkgray rounded-top d-flex justify-content-center"><img class="card-img-top rounded-circle" style="min-width: 115px;max-width: 115px; min-height: 115px; max-height: 115px;" src="{{ absolute_url('/assets/img/photos/devenir-chef-equipe-btp.jpg') }}" alt="Card image cap"></img></div>
+            <div class="card bg-transparent card-profil">
+                <div class="d-flex justify-content-center">
+                
+                    <div class="circle">
+                    <!-- User Profile Image -->
+                    <img class="profile-pic" 
+                        src="{% if user.getProfilImage() == null %}
+                        {{ absolute_url('/uploads/profil/avatar.png') }}
+                        {% else %}
+                        {{ absolute_url('/uploads/profil/' ~ user.getProfilImage()) }}
+                        {% endif %}">
+                    <!-- Default Image -->
+                    <!-- <i class="fa fa-user fa-5x"></i> -->
+                    </div>
+                    <div class="p-image">
+                        <span class="lnr lnr-camera upload-button d-none text-warning" style="font-size: 32px;"></span>
+                        <form id="form-upload-profil">
+                            <input class="file-upload" name="file-upload" type="file" accept="image/*"/>
+                        </form>
+                    </div>
+                                  
+                </div>
                 <div class="card-body text-secondary text-center">
-                    florent.tata@gmail.com <br>
+                   {{ user.getEmail() }} <br>
                     <a href="{{ path('particulier_password_edit') }}" class="text-warning"> > Modifier mon mot de passe</a>
                 </div>
+
             </div>
-									
+							
             <div class="card bg-darkgray">
                 <div class="card-title bg-warning w-100 h4 p-2"><span class="lnr lnr-list float-left"></span>&nbsp; Menu</div>
             <div class="card-body px-0 bg-transparent">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item list-item-particular-left bg-transparent"><a href="{{ path('particulier_ask_project_devis') }}" class="text-decoration-none"><span class="float-left lnr "></span>Mes demandes projets  <span class="d-inline rounded-circle badge badge-success text-white small">5</span></a></li>
-                        <li class="list-group-item list-item-particular-left bg-transparent"><a href="{{ path('particulier_ads_postule') }}" class="text-decoration-none">Mes projets postulés <span class="d-inline rounded-circle badge badge-primary border-0 text-white small">2</span></a></li>
-                        <li class="list-group-item list-item-particular-left bg-transparent"><a href="{{ path('particulier_projects_valid_finish') }}" class="text-decoration-none">Mes projets validés & terminé &nbsp; <span class="position-absolute"><span class="d-inline lnr lnr-envelope"  style="font-size: 25px; !important"></span><span class="d-inline rounded-circle position-absolute badge badge-danger text-white small" style="left: 18px;top: -1px;">10</span> </span></a></li>
-                        <li class="list-group-item list-item-particular-left bg-transparent"><a href="{{ path('particulier_dashbord') }}" class="text-decoration-none">Nos nouvaux professionnels <span class="d-inline rounded-circle badge badge-primary border-0 text-white small">20</span></a></li>
+                        <li class="list-group-item list-item-particular-left bg-transparent"><a href="{{ path('particulier_ask_project_devis') }}" class="text-decoration-none"><span class="float-left lnr "></span>Mes demandes devis  <span class="d-inline rounded-circle badge badge-success text-white small">{{ nbDevis }}</span></a></li>
+                        <li class="list-group-item list-item-particular-left bg-transparent"><a href="{{ path('particulier_ads_postule') }}" class="text-decoration-none">Mes projets postulés <span class="d-inline rounded-circle badge badge-primary border-0 text-white small">{{ nbPost }}</span></a></li>
+                        <li class="list-group-item list-item-particular-left bg-transparent"><a href="{{ path('particulier_projects_valid_finish') }}" class="text-decoration-none">Mes projets validés &nbsp; <span class="position-absolute"><span class="d-inline lnr lnr-envelope"  style="font-size: 25px; !important"></span><span class="d-inline rounded-circle position-absolute badge badge-danger text-white small" style="left: 18px;top: -1px;">{{ nbMyProject }}</span> </span></a></li>
+                        <li class="list-group-item list-item-particular-left bg-transparent"><a href="{{ path('particulier_dashbord') }}" class="text-decoration-none">Nos nouvaux professionnels <span class="d-inline rounded-circle badge badge-primary border-0 text-white small">{{ nbPros }}</span></a></li>
                     </ul>
             </div>
             </div>
@@ -44,10 +64,9 @@
             </div>
 									
             <div class="card">
-                <div class="card-header p-2 font-weight-bold"> <h4 class="card-title"><span class="lnr lnr-construction float-left"></span> &nbsp; Nos meilleurs d'offres</h4></div>
-                <div class="card-body text-italic text-center alert-info">
-                    <p class="text-danger">Inscription 100% gratuit,</p>
-                    <p class="text-warning">Profitez! plus de 5 demandes de devis, avec postulé des annonces,</p>
+                <div class="card-header bg-darkgray text-warning px-2 font-weight-bold"> <div class="card-title h4"><span class="lnr lnr-construction float-left"></span> &nbsp; Trouvez des professionnels dans votre région</div></div>
+                <div class="card-body text-italic text-center cart-map-container">
+                   <p class="text-warning">Profitez! plus de 5 demandes de devis, avec postulé des annonces,</p>
                     <p class="text-success"> pour meilleur d'offre à 250€/an d'abonement!</p>
                 </div>
             </div>

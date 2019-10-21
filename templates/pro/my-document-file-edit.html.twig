@@ -75,22 +75,16 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="pt-2">
-                                        <form id="form-upload-video" enctype="multipart/form-data">
+                                        <form id="form-upload-documents" enctype="multipart/form-data">
 
                                                 <div class="form-group mb-3">
                                                     <label class="">Titre de votre document</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-text-format"></i></span>
-                                                        </div>
-                                                        <input type="text" id="document_title" class="form-control document_title" name="document_title"  placeholder="Titre de votre document">
-                                                    </div>
+                                                   <input type="text" id="document_title" class="form-control document_title" name="document_title"  placeholder="Titre de votre document">
                                                 </div>
                                                 <div class="form-group mb-1 border borber-secondary" style="height: 50px;">
                                                     <label class="text-warning">Cliquez ici ! ou Glissez vos documents ici !</label></label>
                                                     <input id="fileDocumentCompany" class="fileDocumentCompany" type="file" name="fileDocumentCompany" multiple>
-													
-                                                </div>
+												</div>
                                                 <div class="w-100 border borber-secondary">
                                                     <div id="uploads" class="p-0"></div>
                                                 </div>
@@ -115,22 +109,16 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="pt-2">
-                                        <form id="form-upload-images" enctype="multipart/form-data">
+                                        <form id="form-upload-labels-quality" enctype="multipart/form-data">
 
                                                 <div class="form-group mb-3">
                                                     <label class="">Titre de votre label qualité</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-text-format"></i></span>
-                                                        </div>
                                                         <input type="text" id="label_quality_title" class="form-control label_quality_title" name="label_quality_title"  placeholder="Titre de votre label qualité">
-                                                    </div>
                                                 </div>
                                                 <div class="form-group mb-1 border borber-secondary" style="height: 50px;">
                                                     <label class="text-warning">Cliquez ici ! ou Glissez vos labels qualités ici !</label></label>
                                                     <input id="fileLabelQuality" class="fileImages" type="file" name="fileImages" multiple>
-													
-                                                </div>
+												</div>
                                                 <div class="w-100 border borber-secondary">
                                                     <div id="uploads" class="p-0"></div>
                                                 </div>
@@ -216,6 +204,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+
 <!-- MESSAGE NTIFICATION -->
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
@@ -233,6 +222,7 @@
 <script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
-<script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
+<script src="http://mozilla.github.io/pdf.js/build/pdf.js"></script>
+<script src="{{ absolute_url('/assets/file-upload/myfile.js') }}"></script>
 
 {% endblock %}

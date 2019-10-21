@@ -22,19 +22,19 @@ class ReponsePostAdsRepository extends ServiceEntityRepository
     // /**
     //  * @return ReponsePostAds[] Returns an array of ReponsePostAds objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findByUserIdAndPostId($value, $limit = 10)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
+            ->where('r.userPartId = ?1 AND r.postAdsId = ?2')
+            ->setParameters($value)
             ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?ReponsePostAds

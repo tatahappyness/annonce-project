@@ -72,18 +72,16 @@
 										<h5 class="text-uppercase">MES COORDONNÉES</h5>
 									</div>
 									<div class="card-body">
-										<div class="row">
-											<div class="col-12 col-sm-6 text-left">
-												<p class="small"><span class="font-weight-bold">Téléphone: </span></p>
-												<p class="small"><span class="font-weight-bold">Portable: </span></p>
-												<p class="small"><span class="font-weight-bold">Adresse: </span></p>
-												<p class="small"><span class="font-weight-bold">Ville: </span></p>
-											</div>
-											<div class="col-12 col-sm-6 text-left">
-												<p class="small"><span class="font-weight-bold">Date de création :</span></p>
-												<p class="small"><span class="font-weight-bold">N°SIRET: </span></p>
-												<p class="small"><span class="font-weight-bold">E-mail: </span></p>
-												<p class="small"><span class="font-weight-bold">Site web</span></p>
+										<div class="row d-flex justify-content-center">
+											<div class="col-12 col-md-10 text-secondary">
+												<p class="small"><span class="font-weight-bold ">Nom: {{ user.getUsername() }} </span></p>
+												<p class="small"><span class="font-weight-bold">Prénom: {{ user.getFirstname() }} </span></p>
+												<p class="small"><span class="font-weight-bold">Téléphone: {{ user.getMobile() }} </span></p>
+												<p class="small"><span class="font-weight-bold">E-mail: {{ user.getEmail() }} </span></p>
+												<p class="small"><span class="font-weight-bold">Code postal: {{ user.getZipCode() }} </span></p>
+												<p class="small"><span class="font-weight-bold">Adresse: {{ user.getUserCity().getVilleNomReel() }} </span></p>
+												<p class="small"><span class="font-weight-bold">Mon société: {{ user.getCompanyName() }} </span></p>
+												<p class="small"><span class="font-weight-bold">Date de création : {{ user.getDateCrea() | date('d/m/y H:m:s')}} </span></p>
 											</div>
 										</div>
 									</div>
@@ -107,6 +105,12 @@
 														Vous avez 2 fois plus de chance de signer un projet en important vos documents légaux !
 													</p>
 													<div class="d-flex flex-wrap pb-2 justify-content-center">
+														
+														{# <a href="/pdf/mydocument.pdf" title="view this pdf file">
+														<img src="/scripts/pdf2jpg.php?src=pdf/mydocument.pdf" width="150" alt="pdf document" />
+														</a> #}
+
+
 														<span class="lnr lnr-file-empty text-secondary" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
 														<span class="lnr lnr-file-empty text-secondary" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
 														<span class="lnr lnr-file-empty text-secondary" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
@@ -149,13 +153,31 @@
 										<p class="text-secondary small">
 											Gagnez en visibilité et en crédibilité en important vos images des chantiers réalisés !
 										</p>
-										<div class="d-flex flex-wrap justify-content-center">
-											<span class="lnr lnr-picture text-secondary m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
-											<span class="lnr lnr-picture text-secondary m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
-											<span class="lnr lnr-picture text-secondary m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
-											<span class="lnr lnr-picture text-secondary m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
-											<!-- <span class="lnr lnr-file-add text-warning m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span> -->
+										
+										<div class="row text-center text-lg-left">
+
+											<div class="col-lg-3 col-md-4 col-6">
+												<a href="#" class="d-block mb-4 h-100">
+													<img class="img-fluid img-thumbnail" src="https://source.unsplash.com/pWkk7iiCoDM/400x300" alt="">
+												</a>
+											</div>
+											<div class="col-lg-3 col-md-4 col-6">
+												<a href="#" class="d-block mb-4 h-100">
+													<img class="img-fluid img-thumbnail" src="https://source.unsplash.com/aob0ukAYfuI/400x300" alt="">
+												</a>
+											</div>
+											<div class="col-lg-3 col-md-4 col-6">
+												<a href="#" class="d-block mb-4 h-100">
+													<img class="img-fluid img-thumbnail" src="https://source.unsplash.com/EUfxH-pze7s/400x300" alt="">
+												</a>
+											</div>
+											<div class="col-lg-3 col-md-4 col-6">
+												<a href="#" class="d-block mb-4 h-100">
+													<img class="img-fluid img-thumbnail" src="https://source.unsplash.com/M185_qYH8vg/400x300" alt="">
+												</a>
+											</div>
 										</div>
+
 									</div>
 								    <div class="card-footer text-muted pb-4">
 									 <a href="{{ path('pro_image_realize_edit') }}" class="btn-outline-secondary text-secondary text-center" style="font-size: 28px !important; padding: 4px; font-weight: bold; border: 4px solid;border-radius: 4px;"><span class="lnr lnr-pencil text-warning" style="font-size: 28px; font-weight: bold;"></span></a>
@@ -270,6 +292,7 @@
 <script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
-<script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
+<script src="{{ absolute_url('/assets/pdf-thumbnail/pdfThumbnails.js') }}"></script>
+<script src="{{ absolute_url('/assets/file-upload/myfile.js') }}"></script>
 
 {% endblock %}

@@ -1,0 +1,618 @@
+
+{% extends  'base.html.twig' %}
+
+{% block stylesheets %}
+
+  <title>Orange-Travaux ( Admin )</title>
+
+  <!-- Custom fonts for this template-->
+    <link href="{{ absolute_url('/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+    <link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
+
+  <style>
+    .card-header {
+        background-color: #fcd42f4a;
+    }
+    #wrapper{
+      background-color: #777;
+    }
+    
+    .btn-success-1 {
+        color: #fff;
+        background-color: #1ae6592e;
+        border-color: #1ae6592e;
+        
+    }
+    .btn-info-1 {
+        color: #fff;
+        background-color: #36d0d069;
+        border-color: #36d0d069;
+    }
+    .btn-secondary-1 {
+        color: #fff;
+        background-color: #8587962e;
+        border-color: #8587962e;
+    }
+    .link-1{
+        cursor: pointer;
+    }
+
+  </style>
+  
+{% endblock %}
+
+{% block body %}
+
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper" style="background-color: #777">
+
+	<!--Begin nav_bar api_admin space -->
+	{% include "./admin/api_admin/nav_bar.html.twig" %}
+	<!--End nav_bar api_admin space -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" style="background-color:#ececec"; class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+	  
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+		  <!-- Divider -->
+		  <hr class="sidebar-divider">
+
+          <!-- Content Row 1 -->
+          <div class="row">
+
+			  <!-- Page Heading -->
+			  <div class="col">
+				 
+				<div class="row">				
+					<div class="row col-lg-8 text-center">        
+						<div class="col-lg-4 mb-4">
+							<div  class="link-1 btn btn-success text-white shadow">
+								<div class="card-body">
+								Envoyer les devis normalement                     
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 mb-4">
+							<div class="link-1 btn btn-secondary  text-white shadow">
+								<div class="card-body">
+								Envoyer les demandes à une seule personne                     
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-4 mb-4">
+							<div class="link-1 btn btn-info text-white shadow">
+								<div class="card-body">
+								Envoyer les devis à plusieurs personnes
+								</div>
+							</div>
+						</div>
+					</div>  
+				</div>  
+							
+			  </div>
+
+			  
+          </div>
+          <!-- End Content Row 1 -->
+          
+		  
+          <!-- Content Row 2 -->
+          <div class="row ">
+            <!-- Content Column -->                            
+            <div class="col-lg-5 mb-5">
+              <!-- form numero email logo -->
+              <div class="card shadow mb-4">
+                <div class="card-header btn-success-1 py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Envoyer les devis normalement : </h6>
+                </div>
+                <div class="card-body">
+                  <div class="text-center">
+                    <form class="user">
+                        
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <h4 class="small  font-weight-bold">Email officielle du site:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <input type="email" class="form-control form-control-user" id="exampleFirstName" placeholder="Adresse email du site">
+                          </div>                                                  
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Numero telephone:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <input type="email" class="form-control form-control-user" id="exampleFirstName" placeholder="Adresse email du site">
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Inserer le Logo de l'entreprise:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <input type="file" class="btn btn-secondary btn-user btn-block" id="exampleFirstName" placeholder="Logo">
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Mot de passe:</h4>
+                          </div>
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de passe">
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Comfirmer le mot de passe">
+                          </div>
+                        </div>
+                        <hr>
+                        
+                        <div class="form-group row">
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <a href="#" class="btn btn-info btn-user btn-block" alt="Visualiser le resultat">
+                              Visualiser
+                            </a>
+                          </div>
+                          <div class="col-sm-6">                      
+                            <a href="#" class="btn btn-primary btn-user btn-block" alt="Visualiser le resultat">
+                              Original
+                            </a>    
+                          </div>
+                        </div>
+                      
+                        <hr>
+                        <a href="login.html" class="btn btn-success btn-user btn-block">
+                          Valider
+                        </a>
+                        <hr>
+                      </form>
+                  </div>
+               </div>
+              </div>              
+            </div>
+
+            <div class="col-lg-5 mb-5">
+              <!-- form numero email logo -->
+              <div class="card shadow mb-4">
+                <div class="card-header btn-secondary-1 py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Envoyer les demandes à une seule personne :</h6>
+                </div>
+                <div class="card-body">
+                  <div class="text-center">
+                    <form class="user">
+                        
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <h4 class="small  font-weight-bold">Email officielle du site:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <input type="email" class="form-control form-control-user" id="exampleFirstName" placeholder="Adresse email du site">
+                          </div>                                                  
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Numero telephone:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <input type="email" class="form-control form-control-user" id="exampleFirstName" placeholder="Adresse email du site">
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Inserer le Logo de l'entreprise:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <input type="file" class="btn btn-secondary btn-user btn-block" id="exampleFirstName" placeholder="Logo">
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Mot de passe:</h4>
+                          </div>
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de passe">
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Comfirmer le mot de passe">
+                          </div>
+                        </div>
+                        <hr>
+                        
+                        <div class="form-group row">
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <a href="#" class="btn btn-info btn-user btn-block" alt="Visualiser le resultat">
+                              Visualiser
+                            </a>
+                          </div>
+                          <div class="col-sm-6">                      
+                            <a href="#" class="btn btn-primary btn-user btn-block" alt="Visualiser le resultat">
+                              Original
+                            </a>    
+                          </div>
+                        </div>
+                      
+                        <hr>
+                        <a href="login.html" class="btn btn-success btn-user btn-block">
+                          Valider
+                        </a>
+                        <hr>
+                      </form>
+                  </div>
+               </div>
+              </div>              
+            </div>
+            
+            
+            <div class="col-lg-5 mb-5">
+              <!-- form numero email logo -->
+              <div class="card shadow mb-4">
+                <div class="card-header btn-info-1 py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Envoyer les devis à plusieurs personnes :</h6>
+                </div>
+                <div class="card-body">
+                  <div class="text-center">
+                    <form class="user">
+                        
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <h4 class="small  font-weight-bold">Email officielle du site:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <input type="email" class="form-control form-control-user" id="exampleFirstName" placeholder="Adresse email du site">
+                          </div>                                                  
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Numero telephone:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <input type="email" class="form-control form-control-user" id="exampleFirstName" placeholder="Adresse email du site">
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Inserer le Logo de l'entreprise:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <input type="file" class="btn btn-secondary btn-user btn-block" id="exampleFirstName" placeholder="Logo">
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Mot de passe:</h4>
+                          </div>
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de passe">
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Comfirmer le mot de passe">
+                          </div>
+                        </div>
+                        <hr>
+                        
+                        <div class="form-group row">
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <a href="#" class="btn btn-info btn-user btn-block" alt="Visualiser le resultat">
+                              Visualiser
+                            </a>
+                          </div>
+                          <div class="col-sm-6">                      
+                            <a href="#" class="btn btn-primary btn-user btn-block" alt="Visualiser le resultat">
+                              Original
+                            </a>    
+                          </div>
+                        </div>
+                      
+                        <hr>
+                        <a href="login.html" class="btn btn-success btn-user btn-block">
+                          Valider
+                        </a>
+                        <hr>
+                      </form>
+                  </div>
+               </div>
+              </div>              
+            </div>
+            
+
+            <div class="col-lg-12 mb-5">
+              <!-- form numero email logo -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Listes d'envoyes des E-mails</h6>
+                </div>
+                
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            
+                                <thead class="bg-warning text-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Téléphone</th>
+                                    <th>Mail</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Téléphone</th>
+                                    <th>Mail</th>
+                                    <th>Action</th>                                    
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>                                    
+                                        <button class="btn btn-danger" type="button" title="Enlever de la liste" ><i class="fa fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Garrett Winters</td>
+                                    <td>Tokyo</td>
+                                    <td>63</td>
+                                    <td>63</td>
+                                    <td>2011/07/25</td>
+                                    <td>$170,750</td>
+                                </tr>
+                                <tr>
+                                    <td>Ashton Cox</td>
+                                    <td>Junior Technical Author</td>
+                                    <td>San Francisco</td>
+                                    <td>2009/01/12</td>
+                                    <td>2009/01/12</td>
+                                    <td>                            
+                                        <button class="btn btn-danger" type="button" title="Enlever de la liste" ><i class="fa fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cedric Kelly</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2012/03/29</td>
+                                    <td>$433,060</td>
+                                </tr>
+                                <tr>
+                                    <td>Airi Satou</td>
+                                    <td>Accountant</td>
+                                    <td>33</td>
+                                    <td>2009/01/12</td>
+                                    <td>2008/11/28</td>
+                                    <td>$162,700</td>
+                                </tr>
+                                <tr>
+                                    <td>Brielle Williamson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>New York</td>
+                                    <td>61</td>
+                                    <td>2012/12/02</td>
+                                    <td>$372,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Herrod Chandler</td>
+                                    <td>Sales Assistant</td>
+                                    <td>San Francisco</td>
+                                    <td>59</td>
+                                    <td>2012/08/06</td>
+                                    <td>$137,500</td>
+                                </tr>
+                                <tr>
+                                    <td>Rhona Davidson</td>
+                                    <td>2009/01/12</td>
+                                    <td>Tokyo</td>
+                                    <td>55</td>
+                                    <td>2010/10/14</td>
+                                    <td>$327,900</td>
+                                </tr>
+                                <tr>
+                                    <td>Colleen Hurst</td>
+                                    <td>Javascript Developer</td>
+                                    <td>San Francisco</td>
+                                    <td>39</td>
+                                    <td>2009/09/15</td>
+                                    <td>$205,500</td>
+                                </tr>
+                                <tr>
+                                    <td>Sonya Frost</td>
+                                    <td>Software Engineer</td>
+                                    <td>Edinburgh</td>
+                                    <td>23</td>
+                                    <td>2008/12/13</td>
+                                    <td>$103,600</td>
+                                </tr>
+                                <tr>
+                                    <td>2009/01/12</td>
+                                    <td>Jena Gaines</td>
+                                    <td>Office Manager</td>
+                                    <td>London</td>
+                                    <td>2008/12/19</td>
+                                    <td>$90,560</td>
+                                </tr>
+                                <tr>
+                                    <td>Quinn Flynn</td>
+                                    <td>Support Lead</td>
+                                    <td>Edinburgh</td>
+                                    <td>2009/01/12</td>
+                                    <td>22</td>
+                                    <td>$342,000</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    
+
+              </div>              
+            </div>
+            
+
+
+            <!-- card visualisation numero email logo -->
+            <div class="col-5 mb-5">              
+              <div class="card shadow mb-4">                
+                <div class="card-body">
+                  <div class="text-center">                                                            
+                    <hr>
+                    <div class="form-group row">
+                      <div class="col-sm-12 mb-3 mb-sm-0">                          
+                        <h4 class="small  font-weight-bold"><i class="fa fa-cog"></i> Email officielle du site:</h4>
+                        <h3 class=" text-success font-weight-bold">orange-trav@gmail.com</h3>
+                      </div>                                                                          
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-sm-12 mb-3 mb-sm-0">
+                        <h4 class="small  font-weight-bold"><i class="fa  fa-phone-alt"></i> Numero telephone:</h4>
+                        <h1 class="text-success  font-weight-bold">001-12346-129</h1>
+                      </div>                          
+                    </div>
+                    
+                    <div class="form-group row">
+                      <div class="col-sm-12 mb-3 mb-sm-0">
+                        <h4 class="small  font-weight-bold"><i class="fa  fa-business-time "></i> Logo de l'entreprise:</h4>              
+                        
+                        <hr>                           
+                        <img class="" src="../img/Logo_orange_travaux_v3.png">
+                      </div>                          
+                    </div>
+                    <hr>                           
+                  </div>
+                </div>
+              </div>
+            </div><!-- End card visualisation numero email logo -->
+
+
+            <!-- End Content Column -->   
+          </div> 
+          
+          <!-- End Content Row 2 -->
+		  
+		  
+		  
+		  
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+		<!--Begin foot_bar api_admin space -->
+		{% include "./admin/api_admin/foot_bar.html.twig" %}
+		<!--End foot_bar api_admin space -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+	{% endblock %}
+
+	{% block javascripts %}
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
+
+  <!-- Page level plugins -->
+  <script src="{{ absolute_url('/assets/vendor/chart.js/Chart.min.js') }}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{{ absolute_url('/assets/js/demo/chart-area-demo.js') }}"></script>
+  <script src="{{ absolute_url('/assets/js/demo/chart-pie-demo.js') }}"></script>
+  <script src="{{ absolute_url('/assets/js/demo/chart-bar-demo.js') }}"></script>
+  
+  
+	<script>
+	
+		$('.nav-item').removeClass('active');
+		$('.nav_m_e_email').addClass('active');
+		
+	</script>
+	
+	
+	{% endblock %}
+	
+	
+	
+	

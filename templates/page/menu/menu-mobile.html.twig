@@ -1,0 +1,29 @@
+<!-- bEGIN MENU DISPALY WHEN MOBILE & TABLETE -->
+<a class="openbtn d-block d-md-none pl-4" onclick="openNav()">&#9776;</a>
+
+<div id="mySidepanel" class="sidepanel d-block d-md-none">
+<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			  
+    <a class="collapsible">Types des travaux</a>
+    <div class="content">
+        <div class="list-group">
+        <a href="{{ path('post_ask_devis_page') }}" class="list-group-item list-item-mobile">First item</a>
+        <a href="#" class="list-group-item list-item-mobile">Second item</a>
+        <a href="#" class="list-group-item list-item-mobile">Third item</a>
+        <a href="{{ path('view_all_tavaux_page') }}" class="btn text-warning pt-2 list-item-mobile">Voir tous les artiles >></a>
+        </div>
+    </div>
+    <a class="collapsible">Guides des prix</a>
+    <div class="content">
+        <div class="list-group">
+        <a href="{{ path('guide_price_page') }}" class="list-group-item list-item-mobile">First item</a>
+        <a href="#" class="list-group-item list-item-mobile">Second item</a>
+        <a href="#" class="list-group-item list-item-mobile">Third item</a>
+        </div>
+    </div>
+    <a href="{{ path('how_to_step_page') }}" class="collapsible">Comment ça marche ?</a>
+    <a href="{{ path('space_find_pro_page') }}" class="collapsible">Trouvez un pros</a>
+
+			  
+</div>
+<!-- END MENU DISPALY WHEN MOBILE & TABLETE -->

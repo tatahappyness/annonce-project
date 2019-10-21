@@ -77,38 +77,30 @@
                                             <span class="lnr lnr-chevron-right float-left text-warning font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">DETAIL DE VOTRE PROJET</h6>
                                             
                                             <div class="row p-2 border-top border-secondary">
-                                                <div class="col-6 d-flex flex-row align-items-baseline justify-content-center">
-                                                    <div class="text-left small">
-                                                        <p class="font-weight-bold">Date de dépôt: </p>
-                                                        <p class="font-weight-bold">Type:</p>
-                                                        <p class="font-weight-bold">Categorie:</p>
-                                                        <p class="font-weight-bold">Nature:</p>
-                                                    </div> 
-                                                    <div class="text-left small">
-                                                        <p>date here</p>
-                                                        <p>type here</p>
-                                                        <p>categorie here</p>
-                                                        <p>nature here</p>
-                                                    </div>                              
-                                                </div>
-                                                <div class="col-6 d-flex flex-row align-items-baseline justify-content-center">
-                                                    <div class="text-left font-weight-bold small">
-                                                        <p class="font-weight-bold">Référence:</p>
-                                                        <p class="font-weight-bold">Début de projet:</p>
-                                                        <p class="font-weight-bold">Ville:</p>
-                                                        <p class="font-weight-bold">Statut:</p>
-                                                    </div>  
-                                                    <div class="text-left small">
-                                                        <p>ref here:</p>
-                                                        <p>debut here</p>
-                                                        <p>ville here</p>
-                                                        <p>validé ou terminé</p>
-                                                    </div>                                                                                                                                                                                     
-                                                </div>  
+                                                <div class="col-6 text-right text-secondary font-font-weight-bold">
+                                                    <p>Date de dépôt:&nbsp; </p>
+                                                    <p>Type: &nbsp;</p>
+                                                    <p>Categorie: &nbsp;</p>
+                                                    <p>Nature: &nbsp;</p>
+                                                    {# <p>Début de projet:&nbsp;</p> #}
+                                                    <p>Ville:&nbsp;</p>
+                                                    {# <p>Statut:&nbsp;</p> #}
+                                                </div> 
+                                                <div class="col-6 text-secondary text-left">
+                                                    <p>{{ detailDevis.getDateCrea() | date('d/m/y H:m:s') }}</p>
+                                                    <p>{{ detailDevis.getTypeProject().getTitle() }}</p>
+                                                    <p>{{ detailDevis.getCategoryId().getCategTitle() }}</p>
+                                                    <p>{{ detailDevis.getNatureProject().getArticleTitle() }}</p>
+                                                    {# <p>{{ 'Imédiate' }}</p> #}
+                                                    <p>{{ detailDevis.getCity().getVilleNomReel() }}</p>
+                                                    {# <p>validé</p> #}
+                                                </div>                              
+                                               
+                                               
                                                 <div class="col-12 text-left">
-                                                    <p class="font-font-weight-bold">DESCRIPTION DU PROJET:</p>
-                                                    <p>desciption here</p>
-                                                </div>    
+                                                    <p class="font-weight-bold text-secondary">>DESCRIPTION DE PROJET:</p>
+                                                    <p>{{ detailDevis.getDetailProject() }}</p>
+                                                </div>  
                                             </div>
 
                                         </div>
@@ -120,33 +112,84 @@
                                     <div class="card-body">
                                         <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Réalisateur de votre projet</h6>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item list-item-particular-left list-project-particular-2 bg-transparent text-center">
-                                                    <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center justify-sm-content-around">
+
+
+                                                {% if listProsAcceptDevis != null %}
+                                                    {% for listProsAcceptDev in listProsAcceptDevis %}
+                                                
+                                                        <li class="list-group-item list-item-particular-left list-project-particular-2 bg-transparent text-center">
+                                                            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center justify-sm-content-around">
+                                                                <div class="">
+                                                                    {% if listProsAcceptDev.getUserId().getLogo() != null %}
+                                                                    <img class="rounded-circle" src="{{ absolute_url('/assets/img/photos/' ~ listProsAcceptDev.getUserId().getLogo()) }} " style="width: 64px; height: auto;" style="height: 64px; width: 64px;"></img>
+                                                                    {% else %}
+                                                                    <span class="d-block"><span class="lnr lnr-mustache text-warning" style="font-size: 64px;"></span></span>
+                                                                    {% endif %}
+                                                                    <span class="d-block align-baseline py-2"><small class="text-warning"><a href="{{ path('show_detail_pro_page', {id: listProsAcceptDev.getUserId().getId()}) }}" class="btn-outline-warning text-decoration-none text-nowrap"> >visiter son blog</a></small></span>
+
+                                                                </div>
+                                                                <div class="">
+                                                                    <span class="d-block text-warning font-weight-bold"> {{ listProsAcceptDev.getUserId().getCompanyName() }} <small class="text-secondary text-capitalize font-weight-light">({{ listProsAcceptDev.getUserId().getFirstname() }})</small></span>
+                                                                    <span class="d-block">Mobile: <small class="text-secondary">{{ listProsAcceptDev.getUserId().getMobile() }}</small></span>
+                                                                    <span class="d-block">Mail: <small class="text-warning">{{ listProsAcceptDev.getUserId().getEmail() }}</small></span>
+                                                                </div>
+                                                                <div class="">
+                                                                    <span class="d-block"></span>
+                                                               
+                                                                        {% if nbDevisPros != null %}
+                                                                        {% for key, nbDevisPro in nbDevisPros %}
+                                                                            {% if key == listProsAcceptDev.getUserId().getId() %}
+                                                                            <span class="d-block text-secondary">
+                                                                            <small>
+                                                                            {{ nbDevisPro ~ ' demandes de devis traitées' }}
+                                                                            </small>
+                                                                            </span>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                        {% else %}
+                                                                            Ce pros n'a pas encore de demandes traitées!
+                                                                        {% endif %}
+                                                                        <!-- End list nobre devis pros -->
+
+                                                                        {% if nbEvaluationPros != null %}
+                                                                        {% for key, nbEvaluationPro in nbEvaluationPros %}
+                                                                            {% if key == listProsAcceptDev.getUserId().getId() %}
+                                                                            <span class="d-block text-secondary">
+                                                                            <small>
+                                                                            {{ nbEvaluationPro ~ ' avis reçus' }}
+                                                                            </small>
+                                                                            </span>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                        {% else %}
+                                                                        <span class="d-block text-secondary"><small>Ce pro n'a pas encore reçus d'avis</small></span>
+                                                                        {% endif %}
+
+                                                                        {% for key, partIsEvaluatePro in partIsEvaluatePros %}
+                                                                            {% if key == listProsAcceptDev.getUserId().getId() and partIsEvaluatePro == false %}
+                                                                            <span class="d-block text-secondary">
+                                                                            <small>
+                                                                                <span class="d-block alert-danger text-danger px-1"><small>Vous n'avez pas encore évalué ce pro!</small></span>
+                                                                                <span class="d-block small"><a data-id="{{ listProsAcceptDev.getUserId().getId() }}" class="btn btn-warning btn-show-form-add-avis">Donner mon avis</a></span>
+                                                                            </small>
+                                                                            </span>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                
+                                                                </div>
                                                         
-                                                        <div class="">
-                                                            <span class="d-block">Icon</span>
-                                                        </div>
-                                                        <div class="">
-                                                            <span class="d-block text-warning font-weight-bold">Company-name here <small class="text-secondary font-weight-light">(Pro-name here)</small></span>
-                                                            <span class="d-block">Mobile: <small class="text-secondary">+261348806399</small></span>
-                                                            <span class="d-block">Mail: <small class="text-warning">florent.tata15@gmail.com</small></span>
-                                                            <span class="d-block py-2"><small class="text-warning"><a class="btn-outline-warning btn-pro-bog-visite text-nowrap"> >visiter son blog</a></small></span>
-                                                        </div>
-                                                        <div class="">
-                                                            <span class="d-block"></span>
-                                                            <span class="d-block text-secondary"><small>144 demandes de devis traitées</small></span>
-                                                            <span class="d-block text-secondary"><small>4 avis reçus</small></span>
-                                                            <span class="d-block text-secondary"><small>Ce pro n'a pas encore reçus d'avis</small></span>
-                                                            <span class="d-block alert-danger text-danger px-1"><small>Vous n'avez pas encore évalué ce pro!</small></span>
-                                                        </div>
-													
-                                                        <span class="d-none btn-action-particular-2 animated slideInRight">
-                                                            <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
-                                                            <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
-                                                        </span>
-                                                        
-                                                    </div>
-                                                </li>
+                                                                <span class="d-none btn-action-particular-2 animated slideInRight">
+                                                                    <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
+                                                                    <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    Pas encore des professionnels qui acceptent votre demandes!
+                                                {% endif %}
+
+
                                             </ul>
                                         </div>
                                     </div>

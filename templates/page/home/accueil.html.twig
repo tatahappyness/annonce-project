@@ -1,11 +1,15 @@
 {% extends  'base.html.twig' %}
 
     {% block stylesheets %}
-    
+    <meta name="description" content="Phrases de decription here" />
+    <meta name="keywords" content="Mots keys here" />
+    <meta name="author" content="Tata Florent" />
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />-->
     <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
     <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    {# <link href='https://fonts.googleapis.com/css?family=Sintony:400,700&subset=latin-ext' rel='stylesheet' type='text/css'> #}
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- CSS Files -->
     <link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
@@ -16,403 +20,36 @@
     <link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/menu/menu-large.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/menu/menu-mobile.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+    <style>
+
+        .categories-list span {
+            font-size: 1em !important;
+            font-weight: bold !important;
+        }
+
+        .list-group-item {
+        
+            padding: 0.5rem 1rem ;
+           
+        }
+    
+    </style>
 
     {% endblock %}
   
     {% block body %}
 	
-    <div class="page-header">
-        <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/head-1.jpg'); background-attachment: fixed;">
-        </div>
-        <div class="row">
-            <div class="col-12 p-0">
-                <div class="contenair-header-menu"> 
-                    <nav class="navbar navbar-expand bg-gray py-0 navbar-head">
-                    <div class="container border-0">
-                        <div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
-                            <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
-                                <a class="text-decoration-none" href="{{ path('home_page') }}">
-                                <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
-                                </a>
-							
-                                <ul class="navbar-nav mt-2 mt-lg-0">
-                                    <li class="nav-item active">
-                                    <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
-                                <span class="mr-1">
-                                    <button class="btn btn-round bg-gray text-decoration-none show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap" type="button">
-                                        <i class="">🔒</i> Se connecter
-                                    </button>
-                                </span>
-                                <span class="">
-                                    <a href="{{ path('space_pro_page') }}" class="btn btn-round bg-white border-warning font-weight-bold text-success text-nowrap text-decoration-none">
-                                        <i class="">👷🏾</i>  Vous êtes un pro ?
-                                    </a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    </nav>
-                    <!-- Navbar menu end here -->
-					  
-                    <!-- ############################# NAVBAR HERE LARGE -->
-						
-                    <div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
-                    <div class="container">
-                        <button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
-                        <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            </li>
-                            <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">INSTALLER</a>
-                            <ul class="dropdown-menu megamenu">
-                            <div class="row">
-                            <li class="col-12 col-sm-7 text-center">
-                                <ul class="row" style=" list-style-type: none;">
+    <!-- BEGIN large MENU -->
 
-                                    <div class="col-12 col-md-4 col-lg-3 p-0">
-                                        <li class="dropdown-header">Categorie-1</li>
-                                        <li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-                                        </li>
-                                        <li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                    </div>
+    {% include "./page/menu/menu-large.html.twig" %}
 
-                                    <div class="col-12 col-md-4 col-lg-3 p-0">
-                                        <li class="dropdown-header">Categorie-2</li>
-                                        <li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-                                        </li>
-                                        <li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                    </div>
-
-                                </ul>
-                            </li>
-                            <li class=" col-12 col-sm-5 dropdown-item">
-                                <div class="row">
-                                    <div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-                                    <div class="col-12 col-md-6">
-                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-                                            <a href="#" class="thumbnail">
-                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-                                            </a>
-                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-                                            <a href="#" class="thumbnail">
-                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-                                            </a>
-                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </li>
-                            </div>
-                            </ul>
-                        </li>
-                        <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">RENOVER </a>
-                            <ul class="dropdown-menu megamenu">
-                            <div class="row">
-                            <li class="col-12 col-sm-7 text-center">
-                                <ul class="row" style=" list-style-type: none;">
-                                    <div class="col-12 col-md-4 col-lg-3 p-0">
-                                    <li class="dropdown-header">Categorie-1</li>
-                                    <li><a href="view_all_art_cat_family_byfilter ">Article-1</a>
-                                    </li>
-                                    <li><a href="#">Article-2</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    </div>
-								
-                                    <div class="col-12 col-md-4 col-lg-3 p-0">
-                                    <li class="dropdown-header">Categorie-2</li>
-                                    <li><a href="#">Article-1</a>
-                                    </li>
-                                    <li><a href="#">Article-2</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    </div>
-                                </ul>
-                            </li>
-                            <li class=" col-12 col-sm-5 dropdown-item">
-                                <div class="row">
-                                    <div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-                                    <div class="col-12 col-md-6">
-                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-                                            <a href="#" class="thumbnail">
-                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-                                            </a>
-                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-                                            <a href="#" class="thumbnail">
-                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-                                            </a>
-                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </li>
-                            </div>
-                            </ul>
-                        </li>
-                        <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Aménager son intérieur</a>
-                            <ul class="dropdown-menu megamenu">
-                            <div class="row">
-                            <li class="col-12 col-sm-7 text-center">
-                                <ul class="row" style=" list-style-type: none;">
-                                    <div class="col-12 col-md-4 col-lg-3 p-0">
-                                    <li class="dropdown-header">Categorie-1</li>
-                                    <li><a href="view_all_art_cat_family_byfilter ">Article-1</a>
-                                    </li>
-                                    <li><a href="#">Article-2</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    </div>
-								
-                                    <div class="col-12 col-md-4 col-lg-3 p-0">
-                                    <li class="dropdown-header">Categorie-2</li>
-                                    <li><a href="#">Article-1</a>
-                                    </li>
-                                    <li><a href="#">Article-2</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    </div>
-                                </ul>
-                            </li>
-                            <li class=" col-12 col-sm-5 dropdown-item">
-                                <div class="row">
-                                    <div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-                                    <div class="col-12 col-md-6">
-                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-                                            <a href="#" class="thumbnail">
-                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-                                            </a>
-                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-                                            <a href="#" class="thumbnail">
-                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-                                            </a>
-                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </li>
-                            </div>
-                            </ul>
-                            </li>
-                            <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Aménager son extérieur</a>
-                            <ul class="dropdown-menu megamenu">
-                            <div class="row">
-                            <li class="col-12 col-sm-7 text-center">
-                                <ul class="row" style=" list-style-type: none;">
-                                    <div class="col-12 col-md-4 col-lg-3 p-0">
-                                    <li class="dropdown-header">Categorie-1</li>
-                                    <li><a href="view_all_art_cat_family_byfilter ">Article-1</a>
-                                    </li>
-                                    <li><a href="#">Article-2</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    </div>
-								
-                                    <div class="col-12 col-md-4 col-lg-3 p-0">
-                                    <li class="dropdown-header">Categorie-2</li>
-                                    <li><a href="#">Article-1</a>
-                                    </li>
-                                    <li><a href="#">Article-2</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    </div>
-                                </ul>
-                            </li>
-                            <li class=" col-12 col-sm-5 dropdown-item">
-                                <div class="row">
-                                    <div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-                                    <div class="col-12 col-md-6">
-                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-                                            <a href="#" class="thumbnail">
-                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-                                            </a>
-                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-                                            <a href="#" class="thumbnail">
-                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-                                            </a>
-                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </li>
-                            </div>
-                            </ul>
-                            </li>
-                            <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Construire </a>
-                            <ul class="dropdown-menu megamenu">
-                            <div class="row">
-                            <li class="col-12 col-sm-7 text-center">
-                                <ul class="row" style=" list-style-type: none;">
-                                    <div class="col-12 col-md-4 col-lg-3 p-0">
-                                    <li class="dropdown-header">Categorie-1</li>
-                                    <li><a href="#">Article-1</a>
-                                    </li>
-                                    <li><a href="#">Article-2</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    </div>
-								
-                                    <div class="col-12 col-md-4 col-lg-3 p-0">
-                                    <li class="dropdown-header">Categorie-2</li>
-                                    <li><a href="view_all_art_cat_family_byfilter ">Article-1</a>
-                                    </li>
-                                    <li><a href="#">Article-2</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    </div>
-                                </ul>
-                            </li>
-                            <li class=" col-12 col-sm-5 dropdown-item">
-                                <div class="row">
-                                    <div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-                                    <div class="col-12 col-md-6">
-                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-                                            <a href="#" class="thumbnail">
-                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-                                            </a>
-                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-                                            <a href="#" class="thumbnail">
-                                            <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-                                            </a>
-                                            <a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </li>
-                            </div>
-                            </ul>
-                            </li>
-                            <li class="nav-item"><a href="{{ path('space_find_pro_page') }}" class="nav-link">Trouver un pro</a></li>
-                        </ul>
-                        </div>	
-                    </div> 
-                    </div>
-                    <!-- ############################# END NAVBAR HERE LARGE -->	
-                    <!-- Progress barr slid scroll -->
-                    <div class="progress-container fixed-top">
-                        <div class="progress-bar" id="myBar"></div>
-                    </div> 
-					  
-                </div>
-            </div>
-        </div>
-        <!-- End Row for Menu header -->
-		
-        <!-- Begin for row content header parallax -->
-        <div class="container">
-            <div class="row row-slide-first-header d-flex content-parallax-forms justify-content-center font-weight-light">
-                <div class="col-12 d-flex flex-column flex-md-row text-center align-items-center justify-content-center pb-4">
-                    <div class="text-center w-100 px-2">
-                        <h4 class="text-warning title-front-h1 font-weight-bold">SELECTIONNEZ LE MEILLEUR ARTISAN LOCAL POUR VOS TRAVAUX</h4>
-                        <p class="text-white text-italic">Recevez jusqu’à 5 devis en 48h, gratuitement et sans engagement !</p>
-                    </div>
-                    <div class="text-center">
-                        <img class="" src="{{ absolute_url('/assets/img/garantie.png') }}" style="width: 50%;"></img>
-                    </div>
-                </div>
-                <!-- ############# Begin form search -->
-                <div class="col-10 d-flex flex-column justify-content-center align-items-end">
-				
-                    <div class="w-100 bg-dark" style="box-shadow: -14px 5px 5px black; z-index: 1;">
-                        <form action="{{ path('post_ask_devis_page') }}" method="POST">
-                            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center">
-                                <div class="form-group p-0 m-0 w-100">
-
-                                    <input type="text" id="show-input-list-search" class="form-control text-center" placeholder="Quel travaux souhaitez vous realiser ?">
-
-                                </div>
-
-                                <div id="group-form-spcial-input-hidden">                                                                                                                                                           
-                                 
-                                </div>
-
-                                <div class="form-group">                                                                                                                                                           
-                                   <input  type="hidden" name="route_page" value="home_page">
-                                </div>
-                                <div class="bg-warning  btn-ask-devis w-auto">
-                                <button type="submit" class="btn btn-warning border-0 text-nowrap">Demander un devis</button>
-                                </div>
-                            </div>  
-                        </form>
-                    </div>
-					
-                    <div id="service-pro-and-artisant" class="d-flex w-100 align-items-center justify-content-center row-slide-beside-and-form-search">
-				
-                        <!-- ############# Begin Boutton large screen Clik down -->
-                        <div class="d-sm-flex justify-content-center boutton-large-screen d-none d-sm-block" style="z-index: 1;">
-                            <span class="btn-down-contenair" style="z-index: 1;">
-                                <a class="text-decoration-none" href="#how-to-receve-devis" style="text-decoration: none;">
-                                    <img class="" style="height: 75px; z-index: 1;" src="{{ absolute_url('/assets/img/boutton/arrow-boutton.gif') }}"></img>
-                                </a>
-                            </span>
-                        </div>
-                        <!-- ############# End Boutton large creen Clik down -->
-						
-                        <!-- ############# Begin Boutton short screen Clik down -->
-                        <div class="boutton-short-screen d-none">
-                            <span class="btn-down-contenair" style="z-index: 1;">
-                                <a class="text-decoration-none" href="#how-to-receve-devis" style="text-decoration: none;">
-                                    <img class="" style="height: 75px; z-index: 1;" src="{{ absolute_url('/assets/img/boutton/arrow-boutton.gif') }}"></img>
-                                </a>
-                            </span>
-                        </div>
-                        <!-- ############# End Boutton short creen Clik down -->
-                    </div>
-					
-                </div>
-            <!-- ############# End form search-->
-            </div>
-        </div>
-        <!-- End container presentation header -->
-		
-    </div>
-    <!--END HEADER-->
-
+    <!-- END large MENU -->	
     <div class="jumbotron bg-transparent">
         <div class="triangle" style="height: 6px;"> </div>
 		
@@ -450,11 +87,11 @@
                 <!--End section of man young-->
 				
                 <!--Begin section of man young-->
-                <section id="how-to-receve-devis" class="animate bg-darkgray">
+                <section id="how-to-receve-devis" class="animate text-white" style="background-color: rgb(119, 119, 119, 45%) !important;">
                     <div class="container">
                         <!-- ######## Begin  man young -->
                         <div class="row man-young-container d-sm-flex justify-content-sm-center d-none d-sm-block">
-                            <div class="col-sm-12 d-sm-flex man-young justify-content-sm-center text-white py-4"> 
+                            <div class="col-sm-12 d-sm-flex man-young justify-content-sm-center text-warning py-4"> 
                                 <h4 class="font-weight-bold ">COMMENT RECEVOIR DES DEVIS POUR VOS TRAVAUX ? </h4>
                             </div>
                             <div class="col-sm-3 d-sm-flex flex-sm-column man-young justify-content-sm-center align-items-sm-center"> 
@@ -486,7 +123,7 @@
                 <div class="container">
                     <div class="row py-5">
                         <div class="col-12 " >
-                            <h5 class="text-center">DEVIS TRAVAUX LES PLUS DEMANDÉS</h5>
+                            <h5 class="text-center text-dark">DEVIS TRAVAUX LES PLUS DEMANDÉS</h5>
                             <div class="text-center  text-muted">Choisissez les travaux que vous souhaitez réaliser : nous vous accompagnons dans le choix du prestataire et nous vous donnons de nombreux conseils pour les réussir.</div>
                         </div>
 						
@@ -794,7 +431,7 @@
     <!-- MESSAGE NTIFICATION -->
 <!-- Auto-complete -->
 <script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
-<!-- Auto-complete -->
+<!-- Auto-complete -->  
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 <!--Local-->
@@ -808,6 +445,7 @@
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
 <script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>

@@ -68,7 +68,7 @@ class Post
     private $postAdsTypeHabitation;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $postAdsStartDate;
 
@@ -106,6 +106,11 @@ class Post
      * @ORM\ManyToOne(targetEntity="App\Entity\Cities")
      */
     private $city;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article")
+     */
+    private $articleId;
 
     public function getId(): ?int
     {
@@ -209,12 +214,12 @@ class Post
         return $this;
     }
 
-    public function getPostAdsStartDate(): ?\DateTimeInterface
+    public function getPostAdsStartDate(): ?string
     {
         return $this->postAdsStartDate;
     }
 
-    public function setPostAdsStartDate(?\DateTimeInterface $postAdsStartDate): self
+    public function setPostAdsStartDate(?string $postAdsStartDate): self
     {
         $this->postAdsStartDate = $postAdsStartDate;
 
@@ -301,6 +306,18 @@ class Post
     public function setCity(?Cities $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getArticleId(): ?Article
+    {
+        return $this->articleId;
+    }
+
+    public function setArticleId(?Article $articleId): self
+    {
+        $this->articleId = $articleId;
 
         return $this;
     }

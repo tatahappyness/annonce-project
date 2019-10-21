@@ -23,7 +23,7 @@
 
 	{% block body %}
 	
-	<div class="page-header" style="min-height: 35vh !important;">
+	<div class="page-header">
 		<div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/head-1.jpg'); background-attachment: fixed;">
 		</div>
 		<div class="row">
@@ -38,7 +38,7 @@
 								</a>
 							
 								<ul class="navbar-nav mt-2 mt-lg-0">
-									<li class="nav-item active">
+									<li class="nav-item">
 									  <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
 									</li>
 									<li class="nav-item">
@@ -66,13 +66,14 @@
 					  <!-- ############################# NAVBAR HERE LARGE -->
 						
 					<div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
-					  <div class="container">
+					<div class="container">
+						
+						
 						<button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
 						<div class="navbar-collapse collapse">
 						  <ul class="nav navbar-nav">
-							</li>
 							<li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">INSTALLER</a>
-							  <ul class="dropdown-menu megamenu">
+							  <ul class="dropdown-menu  megamenu">
 							  <div class="row">
 							  <li class="col-12 col-sm-7 text-center">
 								<ul class="row" style=" list-style-type: none;">
@@ -335,6 +336,8 @@
 						  </ul>
 						</div>	
 					  </div> 
+
+
 					</div>
 					<!-- ############################# END NAVBAR HERE LARGE -->	
 					 <!-- Progress barr slid scroll -->
@@ -352,18 +355,22 @@
 			<div class="row row-slide-first-header header-login-parallax d-flex justify-content-center font-weight-light">
 				<!-- ############# Begin LE MEILLEUR ARTISAN LOCAL POUR VOS TRAVAUX -->
 				<div class="col-12 d-flex flex-column flex-md-row text-center align-items-center justify-content-center py-4">
-					<div class="text-center w-100 px-2">
-						<h4 class="text-warning title-front-h1 font-weight-bold">SELECTIONNEZ LE MEILLEUR ARTISAN LOCAL POUR VOS TRAVAUX</h4>
-						<p class="text-white text-italic h6">Recevez jusqu’à 5 devis en 48h, gratuitement et sans engagement !</p>
-					</div>
-					<div class="text-center">
-						<img class="" src="{{ absolute_url('/assets/img/garantie.png') }}" style="width: 50%;"></img>
+					<div class="col-12 d-flex justify-content-center pb-4">
+						<div class="row">
+							<div class="col-12 col-lg-9 d-flex flex-column align-self-center align-items-center align-items-lg-end text-center w-100" style="font-size: 18px;">
+								<h4 class="text-warning title-front-h1 font-weight-bold">SELECTIONNEZ LE MEILLEUR ARTISAN LOCAL POUR VOS TRAVAUX</h4>
+								<p class="text-white text-italic">Recevez jusqu’à 5 devis en 48h, gratuitement et sans engagement!</p>
+							</div>
+							<div class=" col-12 col-lg-3 content-img-garantie text-left">
+								<img class="free-img" src="{{ absolute_url('/assets/img/garantie.png') }}" style="width: 50%;"></img>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- ############# End LE MEILLEUR ARTISAN LOCAL POUR VOS TRAVAUX -->
 				
 				<!-- ############# Begin form search -->
-				<div class="col-10 pb-5">
+				<div class="col-12 col-md-10 d-flex flex-column justify-content-center align-items-end">
 					<div class="w-100 bg-dark" style="box-shadow: -14px 5px 5px black;">
 						<form action="{{ path('post_ask_devis_page') }}" method="POST">
 							<div class="d-flex flex-column flex-sm-row align-items-center justify-content-center">

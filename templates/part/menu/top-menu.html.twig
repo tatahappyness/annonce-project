@@ -4,11 +4,11 @@
         <div class="d-inline-block">
             <span class="btn btn-show-my-ask-project d-flex flex-row align-items-center border bordrer-dark rounded jutify-content-between text-decoration-none bg-darkgray p-2 ml-1">
                 <span class="num-stat-art-dash  bg-warning rounded-circle">
-                    <span class="d-block text-white font-weight-bold h1">5</span>
+                    <span class="d-block text-white font-weight-bold h1">{{ nbDevis }}</span>
                 </span>
                 <span class="">
                     <span class="d-block text-warning text-capitalze h6">Total</span>
-                    <span class="d-block text-warning"><small class="text-white"><a href="{{ path('particulier_projects_valid_finish') }}" class="text-decoration-none text-white">Mes demandes projets</a></small></span>
+                    <span class="d-block text-warning"><small class="text-white"><a href="{{ path('particulier_projects_valid_finish') }}" class="text-decoration-none text-white">Mes demandes devis</a></small></span>
                     <span class="progress d-block w-100 border-0" style="height: 2px;">
                     <span class="progress-bar bg-warning" style="width:25%"></span>
                     </span>
@@ -18,7 +18,7 @@
         <div class="d-inline-block">
             <span class="btn btn-show-my-postule-project d-flex flex-row align-items-center border bordrer-dark rounded jutify-content-between text-decoration-none bg-darkgray p-2 ml-1">
                 <span class="num-stat-art-dash bg-warning rounded-circle ">
-                    <span class="d-block text-white font-weight-bold h1">2</span>
+                    <span class="d-block text-white font-weight-bold h1">{{ nbPost }}</span>
                 </span>
                 <span class="">
                     <span class="d-block text-warning text-capitalze h6">Total</span>
@@ -32,11 +32,11 @@
         <div class="d-inline-block">
             <span class="btn btn-show-my-devis-receve-project d-flex flex-row align-items-center border bordrer-dark rounded jutify-content-between text-decoration-none bg-darkgray p-2 ml-1">
                 <span class="num-stat-art-dash bg-warning rounded-circle">
-                    <span class="d-block text-white font-weight-bold h1">10</span>
+                    <span class="d-block text-white font-weight-bold h1">{{ nbMyProject }}</span>
                 </span>
                 <span class="">
                     <span class="d-block text-warning text-capitalze h6">Total</span>
-                    <span class="d-block text-warning"><small class="text-white"><a href="{{ path('particulier_projects_valid_finish') }}" class="text-decoration-none text-white">Mes projets</a></small></span>
+                    <span class="d-block text-warning"><small class="text-white"><a href="{{ path('particulier_projects_valid_finish') }}" class="text-decoration-none text-white">Mes projets validés</a></small></span>
                     <span class="progress d-block w-100 border-0" style="height: 2px;">
                     <span class="progress-bar bg-warning" style="width:25%"></span>
                     </span>

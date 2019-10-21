@@ -1,0 +1,318 @@
+
+{% extends  'base.html.twig' %}
+
+{% block stylesheets %}
+
+  <title> Orange-Travaux ( Admin )</title>
+
+  <!-- Custom fonts for this template-->
+    <link href="{{ absolute_url('/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+    <link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
+
+  <style>
+      .card-header {
+          background-color: #fcd42f4a;
+      }
+      #wrapper{
+        background-color: #777;
+      }
+    </style>
+    
+{% endblock %}
+
+{% block body %}
+
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper" style="background-color: #777">
+
+	<!--Begin nav_bar api_admin space -->
+	{% include "./admin/api_admin/nav_bar.html.twig" %}
+	<!--End nav_bar api_admin space -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" style="background-color:#ececec"; class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+	  
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+		  <!-- Divider -->
+		  <hr class="sidebar-divider">
+
+          <!-- Content Row -->
+          <div class="row">
+		  
+			<!-- Content Column -->                            
+            <div class="col-lg-5 mb-5">
+              <!-- form numero email logo -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Modification :</h6>
+                </div>
+                <div class="card-body">
+				
+                    <form class="user">
+                        
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <h4 class="small  font-weight-bold">Email officielle du site:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <input type="email" class="form-control form-control-user" id="email_config" placeholder="Adresse email du site">
+                          </div>                                                  
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Numéro téléphone:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <input type="email" class="form-control form-control-user" id="numtel_config" placeholder="Numéro téléphone">
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Inserer le Logo de l'entreprise:</h4>
+                          </div>
+                          <div class="col-sm-12 mb-3 mb-sm-0">                          
+                            <input type="file" class="btn btn-secondary btn-user btn-block" id="logo_config" placeholder="Logo">
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-sm-12 mb-3 mb-sm-0">
+                            <h4 class="small  font-weight-bold">Mot de passe:</h4>
+                          </div>
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="password" class="form-control form-control-user" id="mpd_config" placeholder="Mot de passe">
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="password" class="form-control form-control-user" id="mpd_rep_config" placeholder="Comfirmer le mot de passe">
+                          </div>
+                        </div>
+                        <hr>
+                        
+                        <div class="form-group row">
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <a href="#" class="visualiser btn btn-info btn-user btn-block" alt="Visualiser le resultat">
+                              Visualiser
+                            </a>
+                          </div>
+                          <div class="col-sm-6">                      
+                            <a href="#" class="original btn btn-primary btn-user btn-block" alt="Visualiser le resultat">
+                              Original
+                            </a>    
+                          </div>
+                        </div>
+                      
+                        <hr>
+						
+
+						<!-- Modal -->
+						<div class="modal fade" id="myModal_confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">									
+										<h4 class="modal-title" id="myModalLabel">
+										Confirmation des modification:
+										</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+										</button>
+									</div>
+									<div class="modal-body">
+									
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+										data-dismiss="modal">
+										Annuler
+										</button>
+										<button type="button" class="x btn btn-success">
+										Enregistrer
+										</button>
+									</div>
+								</div><!-- /.modal-content -->
+							</div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->
+
+
+						<!-- Button trigger modal -->
+                        <span href="config_site" data-toggle="modal" data-target="#myModal_confirm" class="btn btn-success btn-user btn-block">
+                          Valider
+                        </span>
+                        <hr>
+						
+                    </form>
+					
+               </div>
+              </div>
+            </div>
+
+            <!-- card visualisation numero email logo -->
+            <div class="col-5 mb-5">              
+              <div class="card shadow mb-4">                
+                <div class="card-body">
+                  <div class="text-center">                                                            
+                    <hr>
+                    <div class="form-group row">
+                      <div class="col-sm-12 mb-3 mb-sm-0">                          
+                        <h4 class="small  font-weight-bold"><i class="fa fa-cog"></i> Email officielle du site:</h4>
+                        <h3 class="email_org text-primary font-weight-bold">orange-trav@gmail.com</h3>
+						<h3 style="display:none" class="email_new text-success font-weight-bold"></h3>
+                      </div>                                                                          
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-sm-12 mb-3 mb-sm-0">
+                        <h4 class="small  font-weight-bold"><i class="fa  fa-phone-alt"></i> Numero telephone:</h4>
+                        <h1 class="numtel_org text-primary  font-weight-bold">001-12346-129</h1>
+						<h1 style="display:none" class="numtel_new text-success  font-weight-bold"></h1>
+                      </div>                          
+                    </div>
+                    
+                    <div class="form-group row">
+                      <div class="col-sm-12 mb-3 mb-sm-0">
+                        <h4 class="small  font-weight-bold"><i class="fa  fa-business-time "></i> Logo de l'entreprise:</h4>              
+                        
+                        <hr>                           
+                        <img class="" src="{{ absolute_url('/assets/img/logo.png') }}">
+                      </div>                          
+                    </div>
+                    <hr>                           
+                  </div>
+                </div>
+              </div>
+            </div><!-- End card visualisation numero email logo -->
+
+            <!-- End Content Column -->   
+
+          </div>
+		  
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+		<!--Begin foot_bar api_admin space -->
+		{% include "./admin/api_admin/foot_bar.html.twig" %}
+		<!--End foot_bar api_admin space -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+	{% endblock %}
+
+	{% block javascripts %}
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
+
+
+	<script>
+		$(function () { $('#myModal').modal('hide')});
+		/*$(function () { $('#myModal').on('hide.bs.modal', function () {
+			alert('Hey, I heard you like modals...');})
+		});*/
+	</script>
+	
+	
+	
+	<script>
+	
+		$('.nav-item').removeClass('active');
+		$('.nav_config_site').addClass('active');
+		
+		$('.visualiser').click(function (){
+			//$('.email_org').text('modifier').addClass('text-success').removeClass('text-primary');			
+			//$('.numtel_org').text('modifier').addClass('text-success').removeClass('text-primary');
+			//$('.email_new').text('modifier').addClass('text-success').removeClass('text-primary');			
+			//$('.numtel_new').text('modifier').addClass('text-success').removeClass('text-primary');
+			
+			$('.email_org').attr('style','display:none');
+			$('.numtel_org').attr('style','display:none');
+			
+			var $email_config = $('#email_config').val();
+			var $num_config = $('#numtel_config').val();
+			
+			$('.email_new').removeAttr('style','display:none').text($email_config);		
+			$('.numtel_new').removeAttr('style','display:none').text($num_config);
+			
+		});
+		
+		
+		$('.original').click(function (){			
+			$('.email_org').removeAttr('style','display:none');
+			$('.numtel_org').removeAttr('style','display:none');
+			
+			$('.email_new').attr('style','display:none');		
+			$('.numtel_new').attr('style','display:none');
+			
+		});
+		
+		
+	</script>
+
+
+
+
+	{% endblock %}
+	
+	
+	
+	
+	

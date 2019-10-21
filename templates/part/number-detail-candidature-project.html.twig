@@ -80,33 +80,32 @@
                                                 <div class="col-12 col-md-10 bg-white text-secondary pb-2">
                                                     <p class=""><h6 class>Contact</h6></p>
                                                     <hr class="bg-darkgray" style="height: 1px;" />
-                                                    <p class="">Prénom: XXXXXX</p>
-                                                    <p class="">Nom: XXXXXX</p>
-                                                    <p class="">Téléphone: XXXXXX</p>
-                                                    <p class="">E-mail: XXXXXX</p>
-                                                    <p class="">Ville: XXXXXX</p>
-                                                    <p class="">Code postal: XXXXXX</p>
+                                                    {# <p class="">Prénom: </p> #}
+                                                    <p class="">Nom: {{ detailPost.getPostUserId().getFirstname() }}</p>
+                                                    <p class="">Téléphone:{{ detailPost.getPostUserId().getMobile() }}</p>
+                                                    <p class="">E-mail: {{detailPost.getPostUserId().getEmail() }}</p>
+                                                    <p class="">Ville: {{ detailPost.getPostUserId().getUserCity().getVilleNomReel() }}</p>
+                                                    <p class="">Code postal: {{ detailPost.getPostUserId().getZipCode() }}</p>
                                                 </div>
                                                 <div class="col-12 col-md-10 bg-white text-secondary pb-2">
                                                     <p class=""><h6 class>Détails du chantier</h6></p>
                                                     <hr class="bg-darkgray" style="height: 1px;" />
-                                                    <p class="">Nature du projet: XXXXXX</p>
-                                                    <p class="">Domaine de spécialisatio: XXXXXX</p>
-                                                    <p class="">Description du projet: <br> XXXXXX</p>
+                                                    <p class="">Type du projet:  {{ detailPost.getTypeId().getTitle() }}</p>
+                                                    <p class="">Nature du projet: {{ detailPost.getArticleId() }}</p>
+                                                    <p class="">Domaine de spécialisation: {{ detailPost.getCategoryId().getCategTitle() }}</p>
+
                                                 </div>
                                                 <div class="col-12 col-md-10 bg-white text-secondary pb-2">
                                                     <p class=""><h6 class>Informations pratiques</h6></p>
                                                     <hr class="bg-darkgray" style="height: 1px;" />
-                                                    <p class="">Date de la demande: XXXXXX</p>
-                                                    <p class="">Type de client: XXXXXX</p>
+                                                    <p class="">Date de la demande:{{ detailPost.getPostAdsDateCrea() | date('d/m/y H:m:s') }}</p>
                                                     <p class="">Type d’habitation: Récent</p>
-                                                    <p class="">Début du projet: Immédiat</p>
+                                                    <p class="">Début du projet: {{detailPost.getPostAdsStartDate() | date('d/m/y') }}</p>
                                                 </div>
                                                 <div class="col-12 col-md-10 bg-white text-secondary pb-2">
-                                                    <p class=""><h6 class>Informations supplémentaires</h6></p>
+                                                    <p class=""><h6 class>Description du projet: </h6></p>
                                                     <hr class="bg-darkgray" style="height: 1px;" />
-                                                    <p class="">La surface à aplanir(en m2):<br> XXXXXX</p>
-                                                    <p class="">L'état du terrain ?: <br> XXXXXX</p>
+                                                    <p class="">{{ detailPost.getPostAdsTravauxDescription() }}</p>
                                                 </div>
                                             </div>
 
@@ -117,37 +116,89 @@
                                     <!-- My list cadidature of ads posted section -->
                                     <div class="card">
                                     <div class="card-body">
-                                        <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Les +nombre+ candidatures de projet + titre d'un projet</h6>
+                                        <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Les {{ nbResponsePosts }} candidatures de ce projet</h6>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item list-item-particular-left list-project-particular-2 bg-transparent text-center">
-                                                    <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center justify-sm-content-around">
-                                                        
-                                                        <div class="">
-                                                            <span class="d-block">Icon</span>
-                                                            <span class="d-block text-success small"><a href="javascript:void(0);" class="d-inline btn-link-view-letter-pro text-nowrap"> > Voir sa lettre <span class="badge badge-danger rounded">1</span></a></span>
-                                                        </div>
-                                                        <div class="">
-                                                            <span class="d-block text-warning font-weight-bold">Company-name here <small class="text-secondary font-weight-light">(Pro-name here)</small></span>
-                                                            <span class="d-block">Mobile: <small class="text-secondary">+261348806399</small></span>
-                                                            <span class="d-block">Mail: <small class="text-warning">florent.tata15@gmail.com</small></span>
-                                                            <span class="d-block py-2"><small class="text-warning"><a class="btn-outline-warning btn-pro-bog-visite text-nowrap"> >visiter son blog</a></small></span>
-                                                        </div>
-                                                        <div class="">
-                                                            <span class="d-block"></span>
-                                                            <span class="d-block text-secondary"><small>144 demandes de devis traitées</small></span>
-                                                            <span class="d-block text-secondary"><small>4 avis reçus</small></span>
-                                                            <span class="d-block text-secondary"><small>Ce pro n'a pas encore reçus d'avis</small></span>
-                                                            <span class="d-block alert-danger text-danger px-1"><small>Vous n'avez pas encore évalué ce pro!</small></span>
-                                                            <span class="d-block small"><a data-ads="" class="btn btn-warning btn-ask-devis">Je demande un devis</a></span>
-                                                        </div>
-													
-                                                        <span class="d-none btn-action-particular-2 animated slideInRight">
-                                                            <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
-                                                            <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
-                                                        </span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                            {% if listResponsePosts != null %}
+                                            {% for listResponsePost in listResponsePosts %}                                                                                   
+                                            
+                                                    <li class="list-group-item list-item-particular-left list-project-particular-2 bg-transparent text-center">
+                                                        <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center justify-sm-content-around">
+                                                            
+                                                            <div class="">
+                                                            
+                                                                {% if listResponsePost.getUserProId().getLogo() != null %}
+                                                                <img class="rounded-circle" src="{{ absolute_url('/uploads/logo/' ~ listResponsePost.getUserProId().getLogo()) }} " style="width: 64px; height: auto;" style="height: 64px; width: 64px;"></img>
+                                                                {% else %}
+                                                                <img class="rounded-circle" src="{{ absolute_url('/uploads/logo/avatar-pro.png') }} " style="width: 64px; height: auto;" style="height: 64px; width: 64px;"></img>
+                                                                {% endif %}
+                                                            
+                                                                <span class="d-block text-success small"><a data-message="{{ listResponsePost.getMessage() }}" href="javascript:void(0);" class="d-inline btn-link-view-letter-pro text-nowrap"> > Voir sa lettre <span class="badge badge-danger rounded">1</span></a></span>
+                                                            </div>
+                                                            <div class="">
+                                                                <span class="d-block text-warning font-weight-bold"> {{ listResponsePost.getUserProId().getCompanyName() }} <small class="text-secondary text-capitalize font-weight-light">({{ listResponsePost.getUserProId().getFirstname() }})</small></span>
+                                                                <span class="d-block">Mobile: <small class="text-secondary">{{ listResponsePost.getUserProId().getMobile() }}</small></span>
+                                                                <span class="d-block">Mail: <small class="text-warning">{{ listResponsePost.getUserProId().getEmail() }}</small></span>
+                                                                <span class="d-block py-2"><small class="text-warning"><a href="{{ path('show_detail_pro_page', {id: listResponsePost.getUserProId().getId()}) }}" class="btn-outline-warning btn-pro-bog-visite text-nowrap"> >visiter son blog</a></small></span>
+                                                            </div>
+                                                            <div class="">
+                                                                <span class="d-block"></span>
 
-                                                    </div>
-                                                </li>
+                                                                {% if nbDevisPros != null %}
+                                                                {% for key, nbDevisPro in nbDevisPros %}
+                                                                    {% if key == listResponsePost.getUserProId().getId() %}
+                                                                    <span class="d-block text-secondary">
+                                                                    <small>
+                                                                    {{ nbDevisPro ~ ' demandes de devis traitées' }}
+                                                                    </small>
+                                                                    </span>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                                {% else %}
+                                                                    Ce pros n'a pas encore de demandes traitées!
+                                                                {% endif %}
+                                                                <!-- End list nobre devis pros -->
+
+                                                                {% if nbEvaluationPros != null %}
+                                                                {% for key, nbEvaluationPro in nbEvaluationPros %}
+                                                                    {% if key == listResponsePost.getUserProId().getId() %}
+                                                                    <span class="d-block text-secondary">
+                                                                    <small>
+                                                                    {{ nbEvaluationPro ~ ' avis reçus' }}
+                                                                    </small>
+                                                                    </span>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                                {% else %}
+                                                                <span class="d-block text-secondary"><small>Ce pro n'a pas encore reçus d'avis</small></span>
+                                                                {% endif %}
+
+                                                                {% for key, partIsEvaluatePro in partIsEvaluatePros %}
+                                                                    {% if key == listResponsePost.getUserProId().getId() and partIsEvaluatePro == false %}
+                                                                    <span class="d-block text-secondary">
+                                                                    <small>
+                                                                        <span class="d-block alert-danger text-danger px-1"><small>Vous n'avez pas encore évalué ce pro!</small></span>
+                                                                        {# <span class="d-block small"><a data-id="{{ listProsAcceptDev.getUserId().getId() }}" class="btn btn-warning btn-show-form-add-avis">Donner mon avis</a></span> #}
+                                                                    </small>
+                                                                    </span>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                                
+                                                                <span class="d-block small"><a href="{{ path('post_ask_devis_page', {id: detailPost.getCategoryId().getId(), prosId: listResponsePost.getUserProId().getId()}) }}" class="btn btn-warning btn-ask-devis">Je demande un devis</a></span>
+                                                            </div>
+                                                        
+                                                            <span class="d-none btn-action-particular-2 animated slideInRight">
+                                                                <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
+                                                                <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
+                                                            </span>
+
+                                                        </div>
+                                                    </li>
+
+                                            {% endfor %}
+                                            {% else %}
+                                                Pas encore des professionnels qui répondre votre demandes!
+                                            {% endif %}
                                             </ul>
                                     </div>
                                     </div>

@@ -75,39 +75,32 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <span class="lnr lnr-chevron-right float-left text-warning font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">DETAIL DE MA DEMANDE</h6>
-                                            <div class="row">
-                                                <div class="col-6 d-flex flex-row justify-content-center">
-                                                    <div class="text-left font-font-weight-bold">
-                                                        <p>Date de dépôt:</p>
-                                                        <p>Type:</p>
-                                                        <p>Categorie:</p>
-                                                        <p>Nature:</p>
-                                                    </div> 
-                                                    <div class="text-left">
-                                                        <p>date here</p>
-                                                        <p>type here</p>
-                                                        <p>categorie here</p>
-                                                        <p>nature here</p>
-                                                    </div>                              
-                                                </div>
-                                                <div class="col-6 d-flex flex-row justify-content-center">
-                                                    <div class="text-left font-font-weight-bold">
-                                                        <p>Référence:</p>
-                                                        <p>Début de projet:</p>
-                                                        <p>Ville:</p>
-                                                        <p>Statut:</p>
-                                                    </div>  
-                                                    <div class="text-left">
-                                                        <p>ref here:</p>
-                                                        <p>debut here</p>
-                                                        <p>ville here</p>
-                                                        <p>validé</p>
-                                                    </div>
-                                                    <div class="col-12 text-left">
-                                                        <p class="font-font-weight-bold">DESCRIPTION DU PROJET:</p>
-                                                        <p>desciption here</p>
-                                                    </div>                                                                                                                                                                                         
-                                                </div>                                                                                                         
+                                            <div class="row border-top border-secondary">
+                                                
+                                                <div class="col-6 text-right text-secondary font-font-weight-bold">
+                                                    <p>Date de dépôt:&nbsp; </p>
+                                                    <p>Type: &nbsp;</p>
+                                                    <p>Categorie: &nbsp;</p>
+                                                    <p>Nature: &nbsp;</p>
+                                                    {# <p>Début de projet:&nbsp;</p> #}
+                                                    <p>Ville:&nbsp;</p>
+                                                    {# <p>Statut:&nbsp;</p> #}
+                                                </div> 
+                                                <div class="col-6 text-secondary text-left">
+                                                    <p>{{ detailDevis.getDateCrea() | date('d/m/y H:m:s') }}</p>
+                                                    <p>{{ detailDevis.getTypeProject().getTitle() }}</p>
+                                                    <p>{{ detailDevis.getCategoryId().getCategTitle() }}</p>
+                                                    <p>{{ detailDevis.getNatureProject().getArticleTitle() }}</p>
+                                                    {# <p>{{ 'Imédiate' }}</p> #}
+                                                    <p>{{ detailDevis.getCity().getVilleNomReel() }}</p>
+                                                    {# <p>validé</p> #}
+                                                </div>                              
+                                               
+                                               
+                                                <div class="col-12 text-left">
+                                                    <p class="font-weight-bold text-secondary">>DESCRIPTION DE PROJET:</p>
+                                                    <p>{{ detailDevis.getDetailProject() }}</p>
+                                                </div>                                                                                                      
                                             </div>
                                         </div>
                                         <!-- <img class="card-img-bottom" src="..." alt="Card image cap"> -->
@@ -119,33 +112,81 @@
                                     <div class="card-body">
                                         <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Les professionnels qui ont accpté de repondre votre demande</h6>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item list-item-particular-left list-project-particular-2 bg-transparent text-center">
-                                                    <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center justify-sm-content-around">
-                                                        <div class="">
-                                                            <span class="d-block">Icon</span>
-                                                            <span class="d-block text-success small"><span class="d-inline"> > </span>Voir la fiche</span>
-                                                            <span class="d-block align-baseline py-2"><small class="text-warning"><a class="btn-outline-warning text-nowrap"> >visiter son blog</a></small></span>
+                                               
+                                            {% if listProsAcceptDevis != null %}
+                                                {% for listProsAcceptDev in listProsAcceptDevis %}
+                                                
+                                                    <li class="list-group-item list-item-particular-left list-project-particular-2 bg-transparent text-center">
+                                                        <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center justify-sm-content-around">
+                                                            <div class="">
+                                                                {% if listProsAcceptDev.getUserId().getLogo() != null %}
+                                                                <img class="rounded-circle" src="{{ absolute_url('/assets/img/photos/' ~ listProsAcceptDev.getUserId().getLogo()) }} " style="width: 64px; height: auto;" style="height: 64px; width: 64px;"></img>
+                                                                {% else %}
+                                                                <span class="d-block"><span class="lnr lnr-mustache text-warning" style="font-size: 64px;"></span></span>
+                                                                {% endif %}
+                                                                <span class="d-block align-baseline py-2"><small class="text-warning"><a href="{{ path('show_detail_pro_page', {id: listProsAcceptDev.getUserId().getId()}) }}" class="btn-outline-warning text-decoration-none text-nowrap"> >visiter son blog</a></small></span>
+
+                                                            </div>
+                                                            <div class="">
+                                                                <span class="d-block text-warning font-weight-bold"> {{ listProsAcceptDev.getUserId().getCompanyName() }} <small class="text-secondary text-capitalize font-weight-light">({{ listProsAcceptDev.getUserId().getFirstname() }})</small></span>
+                                                                <span class="d-block">Mobile: <small class="text-secondary">{{ listProsAcceptDev.getUserId().getMobile() }}</small></span>
+                                                                <span class="d-block">Mail: <small class="text-warning">{{ listProsAcceptDev.getUserId().getEmail() }}</small></span>
+                                                            </div>
+                                                            <div class="">
+                                                                <span class="d-block"></span>
+                                                               
+                                                                    {% if nbDevisPros != null %}
+                                                                    {% for key, nbDevisPro in nbDevisPros %}
+                                                                        {% if key == listProsAcceptDev.getUserId().getId() %}
+                                                                        <span class="d-block text-secondary">
+                                                                        <small>
+                                                                        {{ nbDevisPro ~ ' demandes de devis traitées' }}
+                                                                        </small>
+                                                                        </span>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                    {% else %}
+                                                                        Ce pros n'a pas encore de demandes traitées!
+                                                                    {% endif %}
+                                                                    <!-- End list nobre devis pros -->
+
+                                                                    {% if nbEvaluationPros != null %}
+                                                                    {% for key, nbEvaluationPro in nbEvaluationPros %}
+                                                                        {% if key == listProsAcceptDev.getUserId().getId() %}
+                                                                        <span class="d-block text-secondary">
+                                                                        <small>
+                                                                        {{ nbEvaluationPro ~ ' avis reçus' }}
+                                                                        </small>
+                                                                        </span>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                    {% else %}
+                                                                    <span class="d-block text-secondary"><small>Ce pro n'a pas encore reçus d'avis</small></span>
+                                                                    {% endif %}
+
+                                                                    {% for key, partIsEvaluatePro in partIsEvaluatePros %}
+                                                                        {% if key == listProsAcceptDev.getUserId().getId() and partIsEvaluatePro == false %}
+                                                                        <span class="d-block text-secondary">
+                                                                        <small>
+                                                                            <span class="d-block alert-danger text-danger px-1"><small>Vous n'avez pas encore évalué ce pro!</small></span>
+                                                                            <span class="d-block small"><a data-id="{{ listProsAcceptDev.getUserId().getId() }}" class="btn btn-warning btn-show-form-add-avis">Donner mon avis</a></span>
+                                                                        </small>
+                                                                        </span>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                
+                                                            </div>
+                                                        
+                                                            <span class="d-none btn-action-particular-2 animated slideInRight">
+                                                                <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
+                                                                <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
+                                                            </span>
                                                         </div>
-                                                        <div class="">
-                                                            <span class="d-block text-warning font-weight-bold">Company-name here <small class="text-secondary font-weight-light">(Pro-name here)</small></span>
-                                                            <span class="d-block">Mobile: <small class="text-secondary">+261348806399</small></span>
-                                                            <span class="d-block">Mail: <small class="text-warning">florent.tata15@gmail.com</small></span>
-                                                        </div>
-                                                        <div class="">
-                                                            <span class="d-block"></span>
-                                                            <span class="d-block text-secondary"><small>144 demandes de devis traitées</small></span>
-                                                            <span class="d-block text-secondary"><small>4 avis reçus</small></span>
-                                                            <span class="d-block text-secondary"><small>Ce pro n'a pas encore reçus d'avis</small></span>
-                                                            <span class="d-block alert-danger text-danger px-1"><small>Vous n'avez pas encore évalué ce pro!</small></span>
-                                                            <span class="d-block small"><a class="btn btn-warning">Donner mon avis</a></span>
-                                                        </div>
-													
-                                                        <span class="d-none btn-action-particular-2 animated slideInRight">
-                                                            <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
-                                                            <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
-                                                        </span>
-                                                    </div>
-                                                </li>
+                                                    </li>
+                                                {% endfor %}
+                                            {% else %}
+                                                Pas encore des professionnels qui acceptent votre demandes!
+                                            {% endif %}
                                             </ul>
                                     </div>
                                     <!-- <img class="card-img-bottom" src="..." alt="Card image cap"> -->
@@ -159,6 +200,45 @@
                 </div>
             </section>
             <!--End section  of the list ads by artisan-->
+        <!--Begin section  of the modal evaluation-->
+        <section class="modal-evaluation">
+
+            <!-- Modal -->
+            <div class="modal fade" id="modal-form-evaluation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Evaluer un professionel</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   <form id="form-add-evaluation">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <div class="d-flex flex-row w-100 mt-2">
+                                <input type="hidden" id="user_pros_id" class="user_pros_id" name="user_pros_id"/>
+                            </div>
+                            <div class="d-flex flex-row w-100">
+                                <textarea class="message w-100 p-2" name="message_emoji" placeholder="Tapez un message ici..." style="border: 1px solid orange !important;"></textarea>
+                            </div>
+                            <div class="d-flex flex-row w-100 mt-2">
+                                <input class="star w-100" name="star_emoji" placeholder="Je veux lui donner des étoils ici..." style="border: 0 !important;" />
+                            </div>
+                        </div>
+                   </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-warning btn-record-evaluation">Enregistrer</button>
+                </div>
+                </div>
+            </div>
+            </div>
+
+        </section>
+        <!--End section  of the modal evaluation-->
+
         </main>
 
         {% include "./part/footer/footer.html.twig" %}
@@ -191,5 +271,7 @@
     <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
     <script src="{{ absolute_url('/assets/js/particular.js') }}"></script>
     <script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
+    <script src='{{ absolute_url('/assets/js/emoji/inputEmoji.js') }}'></script>
+    <script src='{{ absolute_url('/assets/js/emoji/ajax-list-emoji.js') }}'></script>
 
     {% endblock %}

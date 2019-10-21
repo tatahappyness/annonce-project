@@ -48,6 +48,8 @@ class UserRepository extends ServiceEntityRepository
     public function findNewsProfessionals($limit = 10, $offset = 0)
     {
         return $this->createQueryBuilder('u')
+            ->where('u.isProfessional = ?1')
+            ->setParameters(array(1=> true))
             ->orderBy('u.id', 'DESC')
             ->setFirstResult( $offset )
             ->setMaxResults($limit)
@@ -60,6 +62,8 @@ class UserRepository extends ServiceEntityRepository
 
         if ($data == null) {
             return $this->createQueryBuilder('u')
+            ->where('u.isProfessional = ?1')
+            ->setParameters(array(1=> true))
             ->orderBy('u.id', 'ASC')
             ->setFirstResult( $offset )
             ->setMaxResults($limit)
@@ -68,7 +72,7 @@ class UserRepository extends ServiceEntityRepository
         }
 
         return $this->createQueryBuilder('u')
-            ->where('u.userCategoryActivity = ?1 OR u.CategoryId = ?2 AND u.geoLocation = ?3')
+            ->where('u.isProfessional = 1? AND u.userCategoryActivity = ?2 AND u.userCity = ?3 OR u.userCategoryActivity = ?4 AND u.isProfessional = 5?')
             ->setParameters($data)
             ->orderBy('u.id', 'ASC')
             ->setFirstResult( $offset )

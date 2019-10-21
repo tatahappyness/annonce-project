@@ -51,6 +51,7 @@ class RegistrationController extends AbstractController
                 ->setZipCode($request->request->get('zipcode'))
                 ->setUserCity($city)
                 ->setCompanyName($request->request->get('company_name'))
+                ->setDateCrea(new \DateTime('now'))
                 ->setFreeDateExpire(new \DateTime('tomorrow'))
                 ->setIsAcceptConditionTerm(true)
                 ->setIsProfessional(true)

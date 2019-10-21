@@ -77,27 +77,41 @@
                                     <div class="card-body">
                                         <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes projets postulés</h6>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item list-item-particular-left list-project-particular-3 bg-transparent">
-                                                    <div class="d-flex flex-column flex-sm-row w-100 align-items-center jutify-content-between">
-                                                        <a href="javascript:void(0);" class="text-decoration-none">Revêtement au sol <span class="d-block small text-secondary"> Date de dépôt: 26/05/2019</span></a>
-														
-                                                        <span class="d-flex flex-row align-items-center border bordrer-dark rounded jutify-content-between text-decoration-none bg-darkgray p-2 ml-1">
-                                                            <span class="bg-warning rounded-circle p-1">
-                                                                <span class="lnr lnr-users"></span>
+                                            {% if posts != null %}
+                                                {% for post in posts %}
+                                                    <li class="list-group-item list-item-particular-left list-project-particular-3 bg-transparent">
+                                                        <div class="d-flex flex-column flex-sm-row w-100 align-items-center jutify-content-between">
+                                                            <a href="javascript:void(0);" class="text-decoration-none">{{ post.getCategoryId().getCategTitle() }}<span class="d-block small text-secondary"> Date de dépôt: {{ post.getPostAdsDateCrea() | date('d/m/y H:m:s') }}</span></a>
+                                                            
+                                                            <span class="d-flex flex-row align-items-center border bordrer-dark rounded jutify-content-between text-decoration-none bg-darkgray p-2 ml-1">
+                                                                <span class="bg-warning rounded-circle p-1">
+                                                                    <span class="lnr lnr-users"></span>
+                                                                </span>
+                                                                <span class="">
+                                                                    <span class="d-block text-warning">
+                                                                    {% for key, nbReponse in nbResponsePosts %}
+                                                                        {% if key == post.id %} {{ nbReponse }} {% endif %}
+                                                                    {% endfor %}
+                                                                    </span>
+                                                                    <span class="d-block text-warning"> Mes candidatures <small class="text-white">Professionnels</small></span>
+                                                                    {% for key, nbReponse in nbResponsePosts %}
+                                                                        {% if key == post.id and  nbReponse > 0 %} 
+                                                                        <span class="d-block small"><a href="{{ path('particulier_details_candidates', {id: post.id}) }}" class="text-danger font-weight-bold">Voir tous>></a></span>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                    </span>
                                                             </span>
-                                                            <span class="">
-                                                                <span class="d-block text-warning">Mes candidatures</span>
-                                                                <span class="d-block text-warning">5 <small class="text-white">Professionnels</small></span>
-                                                                <span class="d-block small"><a href="{{ path('particulier_details_candidates') }}" class="text-danger font-weight-bold">Voir tous>></a></span>
+                                                            
+                                                            <span class="d-none btn-action-particular-3 text-center animated slideInRight">
+                                                                <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
+                                                                <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
                                                             </span>
-                                                        </span>
-														
-                                                        <span class="d-none btn-action-particular-3 text-center animated slideInRight">
-                                                            <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
-                                                            <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
-                                                        </span>
-                                                    </div>
-                                                </li>
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                                {% else %}
+                                                Vous n'avez pas encore postulés des annonces!
+                                            {% endif %}
                                             </ul>
                                     </div>
                                     <!-- <img class="card-img-bottom" src="..." alt="Card image cap"> -->

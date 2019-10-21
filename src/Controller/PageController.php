@@ -13,6 +13,10 @@ use App\Repository\ArticleRepository;
 use App\Repository\FonctionRepository;
 use App\Repository\PostRepository;
 use App\Repository\CitiesRepository;
+use App\Repository\ServicesRepository;
+use App\Repository\CustomerRepository;
+use App\Repository\AbonnementRepository;
+use App\Repository\DevisRepository;
 use App\Repository\CommentsRepository;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -104,7 +108,7 @@ class PageController extends AbstractController
             $arrayCity = Array();
             foreach ($arrayCitys as $key => $value) {
                 //dump($key . '  ' . $value->getCategTitle());die;
-                $arrayCity[] = [ 'value'=> $value->getId() , 'label'=> $value->getVilleNomReel() ];
+                $arrayCity[] = [ 'value'=> $value->getId() , 'label'=> $value->getVilleNomReel(), 'info'=> true ];
             }
 
             return  new JsonResponse($arrayCity, 200);
@@ -144,11 +148,12 @@ class PageController extends AbstractController
     }
 
     /**
-    * @Route("/post-ask-devis/{article}/{id}", name="post_ask_devis_page", requirements={"id"="\d+"})
+    * @Route("/post-ask-devis/{id}/{prosId}", name="post_ask_devis_page", requirements={"id"="\d+"})
     */
-    public function postAskDevis($article= null, $id = null, Request $request,CitiesRepository $cityRep, TypeRepository $typeRep, CategoryRepository $categRep, ArticleRepository $artRep, FonctionRepository $foncRep)
-    {
-
+    public function postAskDevis($id = null, $prosId = null, Request $request,CitiesRepository $cityRep, TypeRepository $typeRep, CategoryRepository $categRep, ArticleRepository $artRep, FonctionRepository $foncRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, \Swift_Mailer $mailer, UserRepository $userRep)
+    {       
+            // dump($_ENV['MAILER_URL']);die;
+            
         $arrayTypes = $typeRep->findAllArray();
         $arrayArticles = $artRep->findAllArray();
         $articles =  !is_null($arrayArticles) ? $arrayArticles : null;
@@ -161,6 +166,10 @@ class PageController extends AbstractController
             if(!is_null($request->request->get('post_metier_ask_devis')) && !is_null($request->request->get('post_description_ask_devis')) && !is_null($request->request->get('post_email_ask_devis')) && !is_null($request->request->get('post_zipcode_ask_devis')) && !is_null($request->request->get('post_phone_ask_devis'))){
                 $devis = new Devis();
                 //dump($request->request->get('ask_devis_type'));die;
+                if (!is_null($request->request->get('UserProsId'))) {
+                   $userPros = $userRep->findOneById((int) $request->request->get('UserProsId'));
+                   $devis->setDevUserIdDest($userPros);
+                }
                 $article = $artRep->findById((int) $request->request->get('post_metier_ask_devis'));
                 $devis
                    ->setTypeProject($typeRep->findById((int) $request->request->get('ask_devis_type')))
@@ -181,13 +190,17 @@ class PageController extends AbstractController
 
                     try {
 
-                       $em = $this->getDoctrine()->getManager();
-                        $em->persist($devis);
-                       $em->flush();
-                        return new JsonResponse(['code'=> 200, 
-                                        "infos" => 'Votre demmande a été engregistré!,
-                                            Nos professionels le traiterons!!'
-                                        ], 200);
+                        if($this->sendMail($devis, $article->getArticleCategId(), $serviceRep, $customRep, $abonnementRep, $mailer)) 
+                        {
+                            $em = $this->getDoctrine()->getManager();
+                                $em->persist($devis);
+                            $em->flush();
+                                return new JsonResponse(['code'=> 200, 
+                                                "infos" => 'Votre demmande a été engregistré!,
+                                                    Nos professionels le traiterons!!'
+                                                ], 200);
+                        }
+
                     } 
                     catch (\Exception $e) {
                         return new JsonResponse(['code'=> 500, 'infos' => $e->getMessage()], 500);
@@ -202,7 +215,8 @@ class PageController extends AbstractController
                 $arrayArticles = $artRep->findByCategory( $category);
                 return $this->render('page/post_ask_devis.html.twig', [
                     'types'=> $types, 'articles'=> $arrayArticles,
-                    'fonctions'=> $fonctions, 'category'=> $category
+                    'fonctions'=> $fonctions, 'category'=> $category,
+                    'UserProsId'=> $prosId,
                 ]);
 
             } else {
@@ -214,11 +228,12 @@ class PageController extends AbstractController
         // To show ask devis form page from link data using parameters
         if($id !== null) {
 
-            $article_found = $artRep->findOneById( (int) $id);
+            $category = $categRep->findOneById((int) $id);
+            $arrayArticles = $artRep->findByCategory( $category);
             return $this->render('page/post_ask_devis.html.twig', [
-                'types'=> $types, 'articles'=> $articles,
-                'articlefound'=>  $article_found,
-                'fonctions'=> $fonctions
+                'types'=> $types, 'articles'=> $arrayArticles,
+                'fonctions'=> $fonctions, 'category'=> $category,
+                'UserProsId'=> $prosId,
             ]);
         }
 
@@ -229,6 +244,7 @@ class PageController extends AbstractController
         ]);
 
     }
+    
 
     /**
     * @Route("/space-find-chantier", name="find_chantier_page")
@@ -323,9 +339,9 @@ class PageController extends AbstractController
     }
 
     /**
-    * @Route("/show-one-detail-pro", name="show_detail_pro_page")
+    * @Route("/show-one-detail-pro/{id}", name="show_detail_pro_page")
     */
-    public function detailPro()
+    public function detailPro($id = null)
     {
         return $this->render('page/show_one_detail_pro.html.twig');
         
@@ -368,11 +384,20 @@ class PageController extends AbstractController
     }
 
     /**
+    * @Route("/guide-price", name="guide_price_page")
+    */
+    public function guidePrice()
+    {
+        return $this->render('page/guide-price.html.twig');
+        
+    }
+
+    /**
     * @Route("/nos-tarif", name="nos_tarif_page")
     */
     public function tarif()
     {
-        return $this->render('page/tarif.html.twig');
+        return $this->render('pro/tarif.html.twig');
         
     }
 
@@ -419,6 +444,48 @@ class PageController extends AbstractController
     {
         return $this->render('page/prince-talks-us.html.twig');
         
+    }
+
+    //Function to send mail to each professional
+    public function sendMail($devis = null, $category  =null, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, \Swift_Mailer $mailer)
+    {
+
+        $myservices = $serviceRep->findByCategoryId($category);
+
+        // Create the Transport
+        // $transport = (new Swift_SmtpTransport('smtp.example.org', 25))
+        //     ->setUsername('your username')
+        //     ->setPassword('your password');
+
+        // // Create the Mailer using your created Transport
+        // $mailer = new Swift_Mailer($transport);
+        
+        foreach ($myservices as $key => $myservice) {
+            $customer = $customRep->findByUser($myservice->getUserId());
+            $arrayCriticals = array(1=>  $customer, 2=> $myservice); // prepare query to get abonnement here!
+            if ($customer !== null && $myservice->getIsActived() == true && $abonnementRep->isPremiumAndDateExpireValid($arrayCriticals)) 
+            {
+                //urlencode($foo) 
+                $message = (new \Swift_Message('DEMANDE DEVIS ORANGE TRAVEAUX'))
+                    ->setFrom('florent.tata23@gmail.com')
+                    ->setTo('florent.tata15@gmail.com')
+                    ->setBody("Test Email", 'text/html');
+                    // ->setBody(
+                    //     $this->renderView(
+                    //         // templates/emails/registration.html.twig
+                    //         'premuim/send-email-devis.html.twig',
+                    //         ['devis' => $devis]
+                    //     ),
+                    //     'text/html'
+                    // );
+
+              return   $mailer->send($message);     
+
+            }
+        }
+
+        return false;
+
     }
     
 

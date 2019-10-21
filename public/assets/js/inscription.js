@@ -115,15 +115,5 @@ jQuery(document).ready( function() {
 
     })
 
-
-    //Geo location
-    // jQuery("#city").geocomplete({
-    //     map: "#my_map"
-    //     });
-    // // Trigger geocoding request.
-    // jQuery("button.find").click(function(){
-    //     jQuery("#city").trigger("geocode");
-    //     });
-
-
+    
 })

@@ -1,0 +1,246 @@
+
+    
+    /* HTML5 display-role reset for older browsers */
+    
+    article,
+    aside,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    section {
+    display: block;
+    }
+    
+    ol,
+    ul {
+    list-style: none;
+    }
+    
+    blockquote,
+    q {
+    quotes: none;
+    }
+    
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+    content: '';
+    content: none;
+    }
+    
+    table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    }
+    
+    
+    /*GENERAL*/
+    
+    a {
+    text-decoration: none;
+    }
+    
+    .wrapperAll {
+    width: 100%;
+    overflow: hidden;
+    /* font-size: .850em; */
+    padding: 4em 0;
+    /* font-family: Verdana; */
+    }
+    
+    .wrapper {
+    width: 90%;
+    max-width: 960px;
+    margin: 2em auto;
+    }
+    
+    .wrapper:after {
+    content: ' ';
+    display: block;
+    clear: both;
+    }
+    
+    
+    /*TITLE*/
+    .buttonLine {
+    float: right;
+    color: #ff8f00;
+    padding: .5em 1.2em;
+    border: solid 1px #ff8f00;
+    border-radius: 20px;
+    }
+    
+    .buttonLine:hover {
+    background: #ff8f00;
+    color: #f7f7f7;
+    transition: all ease-in-out .3s;
+    }
+    
+    
+    /*SLIDER - COMPLETE*/
+    
+    .sliderComplete {
+    position: relative;
+    }
+    
+    
+    /*Slider*/
+    
+    .slider {
+    width: 300%;
+    transition: all .5s;
+    }
+    
+    .slider li {
+    display: inline-block;
+    width: 200px;
+    margin: 0 1%;
+    padding-bottom: 2em;
+    }
+    
+    .slider li:first-child {
+    margin-left: 0;
+    }
+    
+    
+    /*Content*/
+    
+    .slider li > * {
+    max-width: 100%;
+    }
+    
+    
+    /*Cover*/
+    
+    .slider li .cover {
+    position: relative;
+    display: inline-block;
+    border-radius: 6px;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-bottom: 1em;
+    }
+    
+    .slider li .cover img {
+    display: block;
+    width: 100%;
+    }
+    
+    .slider li .cover:before {
+    display: block;
+    content: ' ';
+    background: rgba(247, 247, 247, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    }
+    
+    .slider li .cover:hover:before {
+    background: rgba(247, 247, 247, .5);
+    transition: all .2s;
+    }
+    
+    
+    /*Informations*/
+    
+    .slider li p {
+    line-height: 1;
+    }
+    
+    .slider li p a {
+    color: #ff8f00;
+    }
+    
+    
+    /*Buttons*/
+    
+    
+    /*
+                    The transition, added in CSS, will do the 'fadeIn' and the 'fadeOut' we can do in jQuery.
+                    */
+    
+    .sliderComplete button {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    padding: 1em 2em;
+    border: none;
+    background: #f0f0f0;
+    transition: all ease-in-out .5s;
+    }
+    
+    .sliderComplete button[title="before"] {
+    left: 0;
+    }
+    
+    .sliderComplete button[title="after"] {
+    right: 0;
+    }
+    
+    .sliderComplete button.close {
+    opacity: 0;
+    }
+    
+    .sliderComplete button.open {
+    opacity: .8;
+    }
+    
+    
+    /*Onclick*/
+    
+    
+    /*The transition will allow the smooth animation of the slider.*/
+    
+    .turn {
+    margin-left: -75%;
+    transition: all .5s;
+    }
+    
+    @media screen and (max-width:800px) {
+    /*
+        This prevents a potential overflow on the height and overflow allows the width for responsive. The scroll bar is not visible in any way on mobile.
+        */
+    .sliderComplete .wrapper {
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+    .slider {
+        width: 200%;
+    }
+    .slider li {
+        width: 14%;
+    }
+    .slider li .cover {
+        width: 100%;
+    }
+    }
+    
+    @media screen and (orientation:portrait) {
+    .sliderComplete .wrapper {
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+    .slider {
+        width: 200%;
+    }
+    .slider li {
+        width: 14%;
+    }
+    .slider li .cover {
+        width: 100%;
+    }
+    .sliderComplete button,
+    .sliderComplete button.close,
+    .sliderComplete button.open {
+        display: none;
+        opacity: 0;
+    }
+    }

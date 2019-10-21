@@ -22,6 +22,11 @@ class Evaluations
     private $userProId;
 
     /**
+    * @ORM\ManyToOne(targetEntity="App\Entity\User")
+    */
+    private $userPartId;
+
+    /**
      * @ORM\Column(type="string", length=200, nullable=true)
      */
     private $haveStart;
@@ -85,6 +90,18 @@ class Evaluations
     public function setDateCrea(?\DateTimeInterface $dateCrea): self
     {
         $this->dateCrea = $dateCrea;
+
+        return $this;
+    }
+
+    public function getUserPartId(): ?User
+    {
+        return $this->userPartId;
+    }
+
+    public function setUserPartId(?User $userPartId): self
+    {
+        $this->userPartId = $userPartId;
 
         return $this;
     }

@@ -22,29 +22,29 @@ class EvaluationsRepository extends ServiceEntityRepository
     // /**
     //  * @return Evaluations[] Returns an array of Evaluations objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findByUser($value)
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
+            ->where('e.userProId = ?1')
+            ->setParameters($value)
             ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
+            //->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
-    /*
-    public function findOneBySomeField($value): ?Evaluations
+    
+    public function findOneByUserProAndPart($value): ?Evaluations
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
+            ->where('e.userProId = ?1 AND e.userPartId = ?2')
+            ->setParameters($value)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+    
 }

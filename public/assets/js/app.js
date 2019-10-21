@@ -1,7 +1,5 @@
 $(document).ready(function() {
-	  
-	  $('[data-toggle="tooltip"]').tooltip();
-
+	
 	  //how form connexion user login
 	   $('#my-form-particular-register').modal("hide");
 	   $('#my-form-register').modal("show");
@@ -21,11 +19,13 @@ $(document).ready(function() {
 		 $(".animate").addClass('animated fadeIn delay-2s');
         var scroll = $(window).scrollTop();
         if (scroll > 50) {
-            $(".navbar-menu").css("background" , "rgba(17, 20, 30, 50%) !important").addClass('fixed-top');
+			$(".navbar-menu").css("background" , "rgba(17, 20, 30, 50%)").addClass('fixed-top');
+			$(".menu").css("background" , "rgba(17, 20, 30, 50%)");
         }
     
         else{
-            $(".navbar-menu").css("background" , "#ccc6c6").removeClass('fixed-top');	
+			$(".navbar-menu").css("background" , "rgb(255, 144, 0)").removeClass('fixed-top');
+			$(".menu").css("background" , "rgb(255, 144, 0)");	
         }
     });
 	
@@ -136,8 +136,20 @@ $(document).ready(function() {
 		 $('.icon-pro-img-over').addClass('d-none');
 	 })
 	 
-	//AJAX  AND NOTIFICATION
-	 
+	//SLIDER TOP POPULAR DEVIS
+	$(document).ready(function() {
+		$('.button-slid').click(function() {
+			$(this).parents('.sliderComplete').children('button').removeClass('close').fadeIn(300);
+	
+			// The button, that was visible, goes on display none.
+			$(this).addClass('close').fadeOut(300);
+	
+			// We do a fluid slider with the class '.turn'.
+			$(this).parents('.sliderComplete').children('.wrapper').children('.slider').toggleClass('turn');
+		});
+	});
+
+		
 	 
 }); // END DoCUMENT READY
 
@@ -169,8 +181,8 @@ function zoom(e){
 }
 
 //reCapchat
-	grecaptcha.ready(function() {
-      grecaptcha.execute('6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm', {action: 'homepage'}).then(function(token) {
-          console.log(token);
-      });
-	});
+	// grecaptcha.ready(function() {
+    //   grecaptcha.execute('6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm', {action: 'homepage'}).then(function(token) {
+    //       console.log(token);
+    //   });
+	// });

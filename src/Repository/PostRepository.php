@@ -45,8 +45,29 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-
-
+    public function findByUser($data = null, $limit = 100, $offset = 0)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.postUserId = ?1')
+            ->setParameters($data)
+            ->orderBy('p.id', 'DESC')
+            // ->setFirstResult( $offset )
+            // ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+    
+    public function findByEmail($data = null, $limit = 100, $offset = 0)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.email = ?1')
+            ->setParameter($data)
+            ->orderBy('p.id', 'DESC')
+            // ->setFirstResult( $offset )
+            // ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
     
     public function findOneById($value): ?Post
     {

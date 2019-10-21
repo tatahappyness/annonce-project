@@ -3,11 +3,31 @@
     <div class=" h-100">
 								
         <div class="card profil-particular bg-transparent">
-            <div class="position-absolute" style="left: 80px; top: 20px;"><span class="lnr-pencil-edit-profil-particular float-right mr-1 d-none bg-warning rounded-circle p-2"><span class="lnr lnr-pencil"></span></span></div>
-            <div class="w-100 rounded-top  bg-darkgray d-flex justify-content-center"><img class="card-img-top rounded-circle" style="min-width: 115px;max-width: 115px; min-height: 115px; max-height: 115px;" src="{{ absolute_url('/assets/img/photos/devenir-chef-equipe-btp.jpg') }}" alt="Card image cap"></img></div>
+           
+            <div class="d-flex justify-content-center">
+                
+                <div class="circle">
+                <!-- User Profile Image -->
+                <img class="profile-pic" 
+                    src="{% if user.getProfilImage() == null %}
+                    {{ absolute_url('/uploads/profil/avatar.png') }}
+                    {% else %}
+                    {{ absolute_url('/uploads/profil/' ~ user.getProfilImage()) }}
+                    {% endif %}">
+                <!-- Default Image -->
+                <!-- <i class="fa fa-user fa-5x"></i> -->
+                </div>
+                <div class="p-image">
+                    <span class="lnr lnr-camera upload-button d-none text-warning" style="font-size: 32px;"></span>
+                    <form id="form-upload-profil">
+                        <input class="file-upload" name="file-upload" type="file" accept="image/*"/>
+                    </form>
+                </div>
+                                  
+            </div>
+           
             <div class="card-body text-warning text-center">
-                *****<br>
-                florent.tata@gmail.com
+                {{ user.getEmail() }}
                 <p><a href="{{ path('pro_password_edit') }}" class="text-warning small"> > Modifier mon mot de passe <a></p>
             </div>
         </div>
@@ -22,11 +42,6 @@
                 <li class="d-block">
                     <a class="bg-white btn w-100 text-dark text-nowrap border-0" href="{{ path('pro_dispos_projects') }}">
                         Projet disponibles
-                        <span class="d-inline-block bg-success rounded-circle" style="width: 35px;height: 35px; text-align: center;">
-                            <span class="rounded-circle" style="font-size: 20px; line-height: 35px;">
-                                10
-                            </span>
-                        </span>
                     </a>
                 </li>
                 <li class="d-block">

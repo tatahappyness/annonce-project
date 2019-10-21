@@ -76,17 +76,20 @@
                                         <div class="card-body">
                                             <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes demandes projets</h6>
                                                 <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item list-item-particular-left list-project-particular-1 bg-transparent text-center">
-                                                        <a href="{{ path('particulier_devis_receved') }}" class="text-decoration-none d-inline float-left"><span class="float-left lnr "></span>Revêtement au sol <span class="d-block small text-secondary"> Date de dépôt: 26/05/2019</span></a>
-                                                        <span class="d-inline-block small"><a href="#" class="text-danger btn-ask-particular-annule"> >Annuler ce devis</a></span>
-                                                        <span class="d-none btn-action-particular-1 animated slideInRight float-right">
-                                                            <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
-                                                            <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
-                                                        </span>
-                                                    </li>
-                                                    <li class="list-group-item list-item-particular-left bg-transparent">
-                                                        <a href="#" class="text-decoration-none"><span class="float-left lnr "></span>Revêtement au sol <span class="d-block  small text-secondary"> Date de dépôt: 26/05/2019</span></a>
-                                                    </li>
+                                                {% if devis != null %}
+                                                    {% for dev in devis %}
+                                                        <li class="list-group-item list-item-particular-left list-project-particular-1 bg-transparent text-center">
+                                                            <a href="{{ path('particulier_devis_receved', {id: dev.id}) }}" class="text-decoration-none d-inline float-left"><span class="float-left lnr "></span>{{ dev.getCategoryId().getCategTitle()}}<span class="d-block small text-secondary"> Date de dépôt: {{ dev.getCategoryId().getCategDatecrea | date('d/m/y H:m:s')}}</span></a>
+                                                            <span class="d-inline-block small"><a href="#" class="text-danger btn-ask-particular-annule"> >Annuler ce devis</a></span>
+                                                            <span class="d-none btn-action-particular-1 animated slideInRight float-right">
+                                                                <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
+                                                                <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
+                                                            </span>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    Vous n'avez pas encore demandé un devis!
+                                                {% endif %}   
                                                 </ul>
                                         </div>
                                         <!-- <img class="card-img-bottom" src="..." alt="Card image cap"> -->

@@ -6,6 +6,9 @@
 parameters:
     locale: 'en'
     images_directory: '%kernel.project_dir%/public/uploads/images'
+    logo_directory: '%kernel.project_dir%/public/uploads/logo'
+    themes_directory: '%kernel.project_dir%/public/uploads/themes'
+    profil_directory: '%kernel.project_dir%/public/uploads/profil'
     videos_directory: '%kernel.project_dir%/public/uploads/videos'
     documents_directory: '%kernel.project_dir%/public/uploads/documents'
 

@@ -22,20 +22,40 @@ class DevisValidRepository extends ServiceEntityRepository
     // /**
     //  * @return DevisValid[] Returns an array of DevisValid objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findByUserId($value)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
+            ->andWhere('d.userId = :val')
             ->setParameter('val', $value)
             ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
+            //->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
+    public function findByDevisAcceptIdList($value)
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.devisAcceptId IN (?1)')
+            ->setParameters($value)
+            ->orderBy('d.id', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByDevisAcceptId($value): ?DevisValid
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.devisAcceptId = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
     
     public function findOneBySomeField($value): ?DevisValid
     {

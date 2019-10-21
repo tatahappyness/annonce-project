@@ -1,0 +1,162 @@
+{% extends  'base.html.twig' %}
+
+{% block stylesheets %}
+
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />-->
+<script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+<!-- CSS Files -->
+<link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+<link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
+<link href="{{ absolute_url('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+<link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+<link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+<link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
+<link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
+<link href="{{ absolute_url('/assets/form-multistep/form-step.css') }}" rel="stylesheet" />
+<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+{% endblock %}
+
+{% block body %}
+
+<div class="jumbotron bg-transparent">
+    <main class="section-1 section-main bg-white">
+        <!--Begin section  of the list ads by artisan-->
+        <section class="bg-transparent">
+            <div class="container">
+                <div Class="row">
+					
+                    {% if devis != null %}
+                       
+                    <div class="col-12 col-md-8">
+                        <!-- My devis receved section Detail-->
+                        <div class="w-100 recapitulatif-devis mt-4" style="box-shadow: 0px 0px 4px;">
+                            <div class="p-4 w-100">
+                                <small calss="secondary font-weight-bold">www.orange-travaux.com</small>
+                                <div class="pull-right">
+                                    <img class="logo" style="height: 30px;" src="{{ absolute_url('/assets/img/logo.png') }}">
+                                </div>                
+                                <div class="row w-100 py-4">
+                                    <div class="col-12 py-2 text-center border border-secondary mx-2 w-100">
+                                        <h4 class="font-weight-bold text-darkgray text-uppercase">
+                                            DEMANDE DEVIS
+                                        </h4>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <p class="text-center text-capitalize font-weight-bold">Bonjour madame/monsieur,</p>
+                                        <p class="">
+                                        Monsieur <span class="text-uppercase"> {{ devis.getUserName() }} </span> disponsant du statatut de Particulier Propriétaire est à la recherche d'un professionnel
+                                        pour la réalisation de prestation ci-dessous:
+                                        </p>
+                                    </div>
+                                    <div class="col-12 border border-warning">
+                                        <p class="h4 text-warning text-center font-weight-bold text-captalize">
+                                            {{ devis.getNatureProject().getArticleCategId().getCategTitle() }}
+                                        </p>
+                                    </div>
+                                    <div class="col-12 d-flex flex-row justify-content-around border border-warning">
+                                        <div class="text-right pt-2 font-weight-bold">
+                                            <p>Date de dépôt:</p>
+                                            <p>Ville ou département:</p>
+                                            <p>Type:</p>
+                                            <p>Categorie:</p>
+                                            <p>Nature:</p>
+                                            <p>Email:</p>
+                                            <p>Téléphone:</p>
+                                        </div> 
+                                        <div class="text-left pt-2 text-secondary">
+                                            <p>{{ devis.getDateCrea() | date('d/m/y') }}</p>
+                                            <p>{{ devis.getCity().getVilleNomReel() }}</p>
+                                            <p>{{ devis.getTypeProject().getTitle() }}</p>
+                                            <p>{{ devis.getNatureProject().getArticleCategId().getCategTitle() }}</p>
+                                            <p>{{ devis.getNatureProject().getArticleTitle() }}</p>
+                                            <p>
+                                           
+                                                {{ devis.getEmail() }}
+                                          
+                                            </p>
+                                            <p>
+                                           
+                                                {{ devis.getPhoneNumber() }}
+                                          
+                                            </p>
+                                        </div>                              
+                                    </div>
+                                   
+                                    <div class="col-12 text-left border border-warning">
+                                        <p class="font-weight-bold">Description de projet :</p>
+                                        <p>Je veux refaire toute l'istallation d'électricité dans ma maison.</p>
+                                    </div>
+                                    <div class="col-12 text-center w-100">
+                                   
+                                    <div class="col-12 font-weight-bold text-left w-100">
+                                    > Veuiller envoyer votre proposition de tarif à l'adresse électronique suivante: 
+                                        <p class="text-intalic"> <li class="text-warning">Email: {{ devis.getEmail() }} </li>
+                                            ou <br> 
+                                        <li class="text-warning"> Contacter à son numéro: {{ devis.getPhoneNumber() }}</li>
+                                        </p>
+                                    </div>
+                                    <div class="col-12 border-left font-weight-bold border-dark" style="border-left: 6px solid #343a40 !important;">
+                                        Dans l'attente de votre devis, recevez, Monsieur/Madame, nos salutations les meilleures.
+                                    </div>
+                                    <div class="col-12">
+                                        - <small class="text-secondary">Vous pouvez nous contacter de préférente suivante cette heure de la journée: 09:00</small>
+                                    </div>
+                                    <div class="col-12 w-100">
+                                        {# <a class=" btn btn-warning float-right">Imprimer</a> #}
+                                    </div>                                                                                                                                                                             
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- End My devis receved section Detail -->
+                    </div>
+
+
+                    {% else %}
+                        PAS DE RESULTAT!!
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </section>
+        <!--End section  of the list ads by artisan-->
+
+    </main>
+
+    {# {% include "./pro/footer/footer.html.twig" %} #}
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+<!-- MESSAGE NTIFICATION -->
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<!--Local-->
+<script src="{{ absolute_url('/assets/loadbar/js/loading-bar.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/jquery.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/now-ui-kit.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
+<script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
+<script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
+
+{% endblock %}

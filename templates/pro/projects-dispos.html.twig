@@ -72,7 +72,28 @@
                                         <h5>PROJETS DISPONIBLES AUTOURS DE MOI</h5>
                                     </div>
                                     <div class="card-body">
-                                        <ul class="list-group list-group-flush text-secondary">
+                                        <div class="row mb-2">
+                                            <div class="col-12 d-flex flex-lg-row flex-column align-items-center justify-content-center">
+
+                                                <div class="">Affiche : </div>
+                                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                    <label class="btn radio btn-secondary active">
+                                                        <input type="radio" name="switch_periodity"  id="option1" value="7" autocomplete="off" checked> 1 semaine
+                                                    </label>
+                                                    <label class="btn radio btn-secondary">
+                                                        <input type="radio" name="switch_periodity" id="option2" value="15" autocomplete="off">  2 semaine
+                                                    </label>
+                                                    <label class="btn radio btn-secondary">
+                                                        <input type="radio" name="switch_periodity" id="option3" value="23" autocomplete="off">  3 semaine
+                                                    </label>
+                                                        <label class="btn radio btn-secondary">
+                                                            <input type="radio" name="switch_periodity" id="option4" value="30" autocomplete="off">  + 4 semaine
+                                                        </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <ul id="append-filter-posted-lists" class="list-group list-group-flush text-secondary">
                                             {% if postAds != null %}
                                                 {% for post in postAds %}
                                                     <li class="list-group-item">
@@ -84,7 +105,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="px-2 info-ads-detail">
-                                                                    <a href="{{ path('pro_one_detail_ads_projects', {id: post.id}) }}" class="text-reset"><h3 class="d-block text-left">Electricité</h3></a>
+                                                                    <a href="{{ path('pro_one_detail_ads_projects', {id: post.id}) }}" class="text-reset"><h3 class="d-block text-left">{{ post.getCategoryId().getCategTitle() }}</h3></a>
                                                                     <p class="d-block text-dark text-left">
                                                                         {{ post.getPostUserId().getFirstname() }} - à {{ post.getCity().getVilleNomReel() }} <br>
                                                                         <span class="text-secondary">{{ post.getPostAdsTravauxDescription() }}</span>

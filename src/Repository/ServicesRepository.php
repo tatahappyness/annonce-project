@@ -34,6 +34,18 @@ class ServicesRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByCategoryId($value)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.categoryId = :val')
+            ->setParameter('val', $value)
+            ->orderBy('s.id', 'ASC')
+            ->setMaxResults(200)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function findByUserAndCategoryId($value): ?Services
     {
         return $this->createQueryBuilder('s')

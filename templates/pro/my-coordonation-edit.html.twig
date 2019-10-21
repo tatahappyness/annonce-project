@@ -16,6 +16,7 @@
     <link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/assets/form-multistep/form-step.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
 
@@ -76,105 +77,45 @@
 										
                                         <!-- Modal body -->
                                         <div class="pt-2">
-                                        <form method="POST">
-                                                <div class="form-group mb-3">
-                                                    <label class="">Activité principal *</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend  bg-warning text-center" style="padding: 5px;">
-                                                            <span class="input-group-addons bg-transparent"><i class="lnr lnr-layers"></i></span>
-                                                        </div>
-                                                        <select name="" class="form-control text-muted">
-                                                            <option selected>Sélectionnez une categorie</option>
-                                                            <option value="volvo">Volvo</option>
-                                                            <option value="audi">Audi</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                            <form id="form-edit-pros">
                                                 <div class="form-group mb-3">
                                                     <label class="">Code Postale *</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-license"></i></span>
-                                                        </div>
-                                                        <input type="number" class="form-control text-muted" placeholder="Votre code Postale *">
-                                                    </div>
+                                                    <input type="number" class="zipcode form-control text-muted" name="zipcode" value="{{ user.getZipCode() }}" placeholder="Votre code Postale *">
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label class="">Ville *</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-map"></i></span>
-                                                        </div>
-                                                        <input type="text" class="form-control" placeholder="Sélectionnez une ville">
-                                                    </div>
+                                                    <input id="show-city-search" type="text" class="form-control" value="{{ user.getUserCity().getVilleNomReel() }}"  placeholder="Sélectionnez une ville">
+                                                </div>
+                                                <div id="form-city-special-hidden">
+                                                   <input type="hidden" name="city" value="{{ user.getUserCity().getId() }}">
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label class="">Raison Sociale</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-apartment"></i></span>
-                                                        </div>
-                                                        <input type="text" class="form-control" placeholder="Nom de votre société">
-                                                    </div>
+                                                    <input type="text" class="form-control" name="company_name" value="{{ user.getCompanyName() }}" placeholder="Nom de votre société">
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label class="">Nom et Prénom</label>
-                                                    <div class="input-group mb-2">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-text-format"></i></span>
-                                                        </div>
-                                                        <input type="text" name="nom" class="form-control" placeholder="votre nom">
-                                                    </div>
-                                                    <div class="input-group mb-2">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-text-format"></i></span>
-                                                        </div>
-                                                        <input type="text" name="prenom" class="form-control"  placeholder="votre Prénom">
-                                                    </div>
+                                                    <input type="text" class="form-control mb-1" name="_username" value="{{ user.getUsername() }}" placeholder="votre nom">
+                                                    <input type="text" class="form-control mt-1"  name="firstname" value="{{ user.getFirstname() }}"  placeholder="votre Prénom">
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label class="">Telephone</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-phone-handset"></i></span>
-                                                        </div>
-                                                        <input type="tel" class="form-control" size="40" onkeyup="" placeholder="Ex: +336 ou 00336">
-                                                    </div>
+                                                    <input type="tel" class="form-control" size="40" name="phone" value="{{ user.getMobile() }}" placeholder="Ex: +336 ou 00336">
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label class="">Email</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-envelope"></i></span>
-                                                        </div>
-                                                        <input type="email" class="form-control"  placeholder="Votre e-mail">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mb-3">
-                                                    <label class="">Mot de passe</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
-                                                        </div>
-                                                        <input type="password" class="form-control"  placeholder="Votre mot de passe ">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mb-3">
-                                                    <label class="">Confirmation mot de passe</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
-                                                        </div>
-                                                        <input type="password" class="form-control"  placeholder="Reconfirmer votre mot de passe">
-                                                    </div>
+                                                    <input type="email" class="form-control" name="_email" value="{{ user.getEmail() }}"  placeholder="Votre e-mail">
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                                                     <div class="g-recaptcha" data-sitekey="6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></div>
                                                 </div>
-                                                <button type="submit" class="btn btn-warning btn-register w-100">ENREGISTRER</button>
+                                                <a class="btn btn-warning btn-edit-pros w-100">Modifier</a>
                                                 <!--<button type="button" class="btn btn-annule btn-danger float-right" data-dismiss="modal">Annuler</button> -->
                                             </form>
+                                            <div class="w-100 text-center">
+                                                <a href="{{ path('pro_show_profil') }}" class="btn btn-darkgray w-100"> << Retour</a>
+                                            </div>
                                         </div>
                                         <!-- Modal footer -->
 										
@@ -214,9 +155,9 @@
                                 </span>
                             </span>
                             <span class="">
-                                <span class="text-center ">Disponible sur <span/><br>
-                                <span class="font-weight-capitalize">App Store<span/>
-                            <span/>
+                                <span class="text-center ">Disponible sur </span><br>
+                                <span class="font-weight-capitalize">App Store</span>
+                            </span>
                         </a>
                         <a class="btn btn-outline-secondary d-flex flex-row align-items-center">
                             <span class="pro-icon mb-3">
@@ -251,6 +192,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+<!-- Auto-complete -->  
+<script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
+<!-- Auto-complete -->  
 <!-- MESSAGE NTIFICATION -->
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
@@ -267,6 +211,7 @@
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/list-city-ajax.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
 <script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
 

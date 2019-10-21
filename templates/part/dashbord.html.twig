@@ -70,140 +70,63 @@
                                     <!--Begin top menu total particulier space-->
                                     {% include "./part/menu/top-menu.html.twig" %}
                                     <!--END top menu total particulier space-->
-
-                                    <!-- My Ask Project section -->
-                                    <div class="card">
-                                    <div class="card-body">
-                                        <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes demandes projets</h6>
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item list-item-particular-left list-project-particular-1 bg-transparent text-center">
-                                                    <a href="#" class="text-decoration-none d-inline float-left"><span class="float-left lnr "></span>Revêtement au sol <span class="d-block small text-secondary"> Date de dépôt: 26/05/2019</span></a>
-                                                    <span class="d-inline-block small"><a href="#" class="text-danger btn-ask-particular-annule"> >Annuler ce devis</a></span>
-                                                    <span class="d-none btn-action-particular-1 animated slideInRight float-right">
-                                                        <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
-                                                        <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
-                                                    </span>
-                                                </li>
-                                                <li class="list-group-item list-item-particular-left bg-transparent">
-                                                    <a href="#" class="text-decoration-none"><span class="float-left lnr "></span>Revêtement au sol <span class="d-block  small text-secondary"> Date de dépôt: 26/05/2019</span></a>
-                                                </li>
-                                            </ul>
-                                    </div>
-                                    <!-- <img class="card-img-bottom" src="..." alt="Card image cap"> -->
-                                    </div>
-                                    <!-- End My Ask Project section -->
 									
                                     <!-- My list devis receved ection -->
                                     <div class="card">
                                     <div class="card-body">
-                                        <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Les professionnels qui ont accpté de repondre votre demande</h6>
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item list-item-particular-left list-project-particular-2 bg-transparent text-center">
-                                                    <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center justify-sm-content-around">
-                                                        <div class="">
-                                                            <span class="d-block">Icon</span>
-                                                            <span class="d-block text-success small"><span class="d-inline"> > </span>Voir la fiche</span>
-                                                            <span class="d-block align-baseline py-2"><small class="text-warning"><a class="btn-outline-warning text-nowrap"> >visiter son blog</a></small></span>
+                                        
+                                        <div class="row py-5">
+                                            <div class="col-12">
+                                                <h5 class="text-center">NOS NOUVEAUX PREFESSIONNELS IDEAL</h5>
+                                                <div class="text-center text-muted">Vous souhaitez réaliser des travaux et ne savez quel professionnel choisir ? Demandez des devis travaux auprès de notre réseau des nouveaux professionnels partout.
+                                                </div>
+                                            </div>
+                                            {% if pros != null %}
+                                                {% for pro in pros %}                                           
+                                                    <div class="col-12 col-sm-6 col-lg-4 py-4">
+                                                        <div class="img-new-pro-container d-flex flex-column align-items-center justify-content-center bg-white rounded">
+                                                            <div class="img-new-pro-content rounded-top" style="background-image: url(/assets/img/photos/{{pro.getUserCategoryActivity().getImg()}}); width: 100%; height: 155px;">
+                                                                <div class="w-100">
+                                                                    <a class="btn-warning float-left m-1 p-2 small text-white">{{ pro.getUserCategoryActivity().getCategTitle() }}</a>
+                                                                    <a class="btn btn-danger btn-pro-emotion-heart rounded-circle float-right m-1">
+                                                                        <span class="lnr lnr-heart icon-pro-emotion-heart"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="img-pro-desc d-flex flex-row align-items-center justify-content-center  text-center py-2">
+                                                                <div class="border border-secondary rounded-circle">
+                                                                    <img class="pro-logo rounded-circle" src="{{ absolute_url('/assets/img/photos/' ~ pro.getLogo()) }} " style="width: 64px; height: auto;"></img>
+                                                                </div>
+                                                                <div class="d-flex flex-column align-items-center justify-content-center text-left">
+                                                                    <span class="d-inline text-center">
+                                                                        <a class="btn btn-outline-secondary m-2">En vedette</a>
+                                                                        <a class="btn btn-outline-secondary m-2">vérifié</a>
+                                                                    </span>
+                                                                    <span class="text-center ml-1">
+                                                                        <a href="{{ path('show_detail_pro_page', {id: pro.id}) }}" class="text-decoration-none text-secondary">{{ pro.getCompanyName() }}</a>
+                                                                    </span>
+                                                                    <span class="small text-center">
+                                                                        <span class="pro-point-star p-1"><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star-half icon-star-pro text-warning"></span></span>
+                                                                        <span class="pro-like-percent text-secondary p-1"><span class="lnr lnr-thumbs-up icon-like-pro text-secondary"></span> 99% (1009 votes) </span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="">
-                                                            <span class="d-block text-warning font-weight-bold">Company-name here <small class="text-secondary font-weight-light">(Pro-name here)</small></span>
-                                                            <span class="d-block">Mobile: <small class="text-secondary">+261348806399</small></span>
-                                                            <span class="d-block">Mail: <small class="text-warning">florent.tata15@gmail.com</small></span>
-                                                        </div>
-                                                        <div class="">
-                                                            <span class="d-block"></span>
-                                                            <span class="d-block text-secondary"><small>144 demandes de devis traitées</small></span>
-                                                            <span class="d-block text-secondary"><small>4 avis reçus</small></span>
-                                                            <span class="d-block text-secondary"><small>Ce pro n'a pas encore reçus d'avis</small></span>
-                                                            <span class="d-block alert-danger text-danger px-1"><small>Vous n'avez pas encore évalué ce pro!</small></span>
-                                                            <span class="d-block small"><a class="btn btn-warning">Donner mon avis</a></span>
-                                                        </div>
-													
-                                                        <span class="d-none btn-action-particular-2 animated slideInRight">
-                                                            <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
-                                                            <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
-                                                        </span>
                                                     </div>
-                                                </li>
-                                            </ul>
+                                                {% endfor %} 
+                                            {% else %}
+                                                Aucun Nouveaux Professionnels
+                                            {% endif %}
+                                            <div class="col-12 d-flex justify-content-center">
+                                                <a class="btn btn-warning btn-show-pro-all" href="{{ path('space_find_pro_page') }}">Voir tous les professionnels >></a>
+                                            </div>						
+                                        </div>
+
                                     </div>
                                     <!-- <img class="card-img-bottom" src="..." alt="Card image cap"> -->
                                     </div>
                                     <!-- End My list devis receverd section -->
-									
-                                    <!-- My Postule Project section -->
-                                    <div class="card">
-                                    <div class="card-body">
-                                        <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes projets postulés</h6>
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item list-item-particular-left list-project-particular-3 bg-transparent">
-                                                    <div class="d-flex flex-column flex-sm-row w-100 align-items-center jutify-content-between">
-                                                        <a href="#" class="text-decoration-none">Revêtement au sol <span class="d-block small text-secondary"> Date de dépôt: 26/05/2019</span></a>
-														
-                                                        <span class="d-flex flex-row align-items-center border bordrer-dark rounded jutify-content-between text-decoration-none bg-darkgray p-2 ml-1">
-                                                            <span class="bg-warning rounded-circle p-1">
-                                                                <span class="lnr lnr-users"></span>
-                                                            </span>
-                                                            <span class="">
-                                                                <span class="d-block text-warning">Mes candidatures</span>
-                                                                <span class="d-block text-warning">5 <small class="text-white">Professionnels</small></span>
-                                                                <span class="d-block small"><a href="#" class="text-success">Voir tous>></a></span>
-                                                            </span>
-                                                        </span>
-														
-                                                        <span class="d-none btn-action-particular-3 text-center animated slideInRight">
-                                                            <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
-                                                            <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
-                                                        </span>
-                                                        </li>
-                                                    </div>
-                                                    <li class="list-group-item list-item-particular-left bg-transparent">
-                                                        <a href="#" class="text-decoration-none"></span>Revêtement au sol <span class="d-block  small text-secondary"> Date de dépôt: 26/05/2019</span></a>
-                                                    </li>
-                                            </ul>
-                                    </div>
-                                    <!-- <img class="card-img-bottom" src="..." alt="Card image cap"> -->
-                                    </div>
-                                    <!-- End My Postule Project section -->
-									
-                                    <!-- My list devis receved section -->
-                                    <div class="card">
-                                    <div class="card-body">
-                                        <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Les +nombre+ candidatures de projet + titre d'un projet</h6>
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item list-item-particular-left list-project-particular-2 bg-transparent text-center">
-                                                    <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center justify-sm-content-around">
-                                                        <div class="">
-                                                            <span class="d-block">Icon</span>
-                                                            <span class="d-block text-success small"><a href="javascript:void(0);" class="d-inline btn-link-view-letter-pro text-nowrap"> > Voir sa lettre <span class="badge badge-danger rounded">1</span></a></span>
-                                                        </div>
-                                                        <div class="">
-                                                            <span class="d-block text-warning font-weight-bold">Company-name here <small class="text-secondary font-weight-light">(Pro-name here)</small></span>
-                                                            <span class="d-block">Mobile: <small class="text-secondary">+261348806399</small></span>
-                                                            <span class="d-block">Mail: <small class="text-warning">florent.tata15@gmail.com</small></span>
-                                                            <span class="d-block py-2"><small class="text-warning"><a class="btn-outline-warning btn-pro-bog-visite text-nowrap"> >visiter son blog</a></small></span>
-                                                        </div>
-                                                        <div class="">
-                                                            <span class="d-block"></span>
-                                                            <span class="d-block text-secondary"><small>144 demandes de devis traitées</small></span>
-                                                            <span class="d-block text-secondary"><small>4 avis reçus</small></span>
-                                                            <span class="d-block text-secondary"><small>Ce pro n'a pas encore reçus d'avis</small></span>
-                                                            <span class="d-block alert-danger text-danger px-1"><small>Vous n'avez pas encore évalué ce pro!</small></span>
-                                                            <span class="d-block small"><a class="btn btn-warning btn-ask-devis">Je demande un devis</a></span>
-                                                        </div>
-													
-                                                        <span class="d-none btn-action-particular-2 animated slideInRight">
-                                                            <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
-                                                            <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                    </div>
-                                    <!-- <img class="card-img-bottom" src="..." alt="Card image cap"> -->
-                                    </div>
-                                    <!-- End My list devis receved section -->
-					
+								
                                 </div>
                             </div>
                         </div>

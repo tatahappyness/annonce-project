@@ -17,33 +17,28 @@ class Emoji
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=200, nullable=true)
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(type="string", length=200, nullable=true)
-     */
-    private $code;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCrea;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $code = [];
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getDateCrea(): ?\DateTimeInterface
     {
-        return $this->name;
+        return $this->dateCrea;
     }
 
-    public function setName(?string $name): self
+    public function setDateCrea(?\DateTimeInterface $dateCrea): self
     {
-        $this->name = $name;
+        $this->dateCrea = $dateCrea; 
 
         return $this;
     }
@@ -56,18 +51,6 @@ class Emoji
     public function setCode(?string $code): self
     {
         $this->code = $code;
-
-        return $this;
-    }
-
-    public function getDateCrea(): ?\DateTimeInterface
-    {
-        return $this->dateCrea;
-    }
-
-    public function setDateCrea(?\DateTimeInterface $dateCrea): self
-    {
-        $this->dateCrea = $dateCrea;
 
         return $this;
     }

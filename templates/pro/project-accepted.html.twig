@@ -25,7 +25,7 @@
 	{% block body %}
 
 	<div class="page-header page-header-image-gallery">
-		<div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
+		<div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
 		</div>
 
 		<!--Begin heder-menu pro space -->
@@ -68,76 +68,126 @@
 								<!-- PROJECT ACCETED-->
 								<div class="card text-center">
 									<div class="card-header p-2 font-weight-bold bg-darkgray">
-										<h5>MES PROJETS ACCEPTÉS</h5>
+										<h5 class="text-uppercase">Mes demandes acceptés</h5>
 									</div>
 									<div class="card-body">
 										<ul class="list-group list-group-flush text-secondary">
-											
-											<li class="list-group-item">
-												<div class="d-block">
-													<div class="d-flex flex-row align-items-center justify-content-around">
-														<div class="">
-															<div class="rounded-circle d-block" style="width: 80px; height: 80px; background: orange;">
-																<span class="lnr lnr-clock" style="font-size: 64px; line-height: 80px;"></span>
+											{% if devisAccept != null %}
+												{% for dev in devisAccept %}
+													<li class="list-group-item">
+														<div class="d-block">
+															<div class="d-flex flex-row align-items-center justify-content-around">
+																<div class="">
+																	<div class="rounded-circle d-block" style="width: 80px; height: 80px; background: orange;">
+																		<span class="lnr lnr-clock" style="font-size: 64px; line-height: 80px;"></span>
+																	</div>
+																</div>
+																<div class="px-2 info-ads-detail">
+																	<a href="{{ path('pro_devis_receved_detail', {id: dev.getDevisId().getId() }) }}" class="text-reset"><h3 class="d-block text-left">{{ dev.getDevisId().getCategoryId().getCategTitle() }}</h3></a>
+																	<p class="d-block text-dark text-left">
+																		{{ dev.getDevisId().getFirstName() }} - habite à {{ dev.getDevisId().getCity().getVilleNomReel() }} <br>
+																		<span class="text-secondary">{{ dev.getDevisId().getDetailProject() }}</span>
+																		<a  data-id="{{ dev.id }}" class="btn btn-danger btn-valid-devis float-right text-white text-decoration-none {% for devVald in devisValid %} {% if devVald.getDevisAcceptId().getId() == dev.id %} d-none {% endif %}{% endfor %}">Je valide</a>
+																	</p>
+																</div>
 															</div>
 														</div>
-														<div class="px-2 info-ads-detail">
-															<a href="{{ path('pro_one_detail_ads_projects') }}" class="text-reset"><h3 class="d-block text-left">Electricité</h3></a>
-															<p class="text-center">
-																<a  class="btn btn-danger btn-valid-devis text-decoration-none">Je valide</a>
-															</p>
-															<p class="text-center">
-																<a  class="btn btn-success btn-termine-devis text-decoration-none">Je termine</a>
-															</p>
-															<p class="d-block text-dark text-left">
-																ARQUES LA BATAILLE - à environ 50 Km <br>
-																<span class="text-secondary">Je souhaite refaire toute l'éléctricité dans une maison.</span>
-															</p>
-														</div>
-													</div>
-												</div>
-												<div class="d-block text-center float-left">Date: 07/07/2019, Il y a 5 heure</div>
-											</li>
-											
+														<div class="d-block text-center float-left">Date de demande: {{  dev.getDevisId().getDatecrea() | date('d/m/y')}}</div>
+													</li>
+												{% endfor %}
+												{% else %}
+												VOUS N'AVEZ PAS ENCORE DES PROJET ACCEPTEE
+											{% endif %}
 										</ul>
 									</div>
 								    <div class="card-footer text-muted pb-4">
-									 <a class="btn-outline-warning text-warning">Voir tous les projets</a>
+									 {# <a class="btn-outline-warning text-warning">Voir tous les projets</a> #}
 								    </div>
 								</div>
 								<!-- END PROJECT ACCEPTED -->
-								<!-- PROJECT TERMINÉS AVEC SUCCÈS-->
+
+								<!-- PROJECT VALIDED-->
 								<div class="card text-center">
 									<div class="card-header p-2 font-weight-bold bg-darkgray">
-										<h5>MES PROJETS TERMINÉS AVEC SUCCÈS</h5>
+										<h5 clss="text-uppercase">Mes projets validés</h5>
 									</div>
 									<div class="card-body">
 										<ul class="list-group list-group-flush text-secondary">
-											<li class="list-group-item">
-												<div class="d-block">
-													<div class="d-flex flex-row align-items-center justify-content-around">
-														<div class="">
-															<div class="rounded-circle d-block" style="width: 80px; height: 80px; background: orange;">
-																<span class="lnr lnr-clock" style="font-size: 64px; line-height: 80px;"></span>
+											
+											{% if devisValid != null %}
+												{% for devValid in devisValid %}
+													<li class="list-group-item">
+														<div class="d-block">
+															<div class="d-flex flex-row align-items-center justify-content-around">
+																<div class="">
+																	<div class="rounded-circle d-block" style="width: 80px; height: 80px; background: orange;">
+																		<span class="lnr lnr-clock" style="font-size: 64px; line-height: 80px;"></span>
+																	</div>
+																</div>
+																<div class="px-2 info-ads-detail">
+																	<a href="{{ path('pro_devis_receved_detail', {id: devValid.getDevisAcceptId().getDevisId().getId() }) }}" class="text-reset"><h3 class="d-block text-left">{{ devValid.getDevisAcceptId().getDevisId().getCategoryId().getCategTitle() }}</h3></a>
+																	<p class="d-block text-dark text-left">
+																		{{ devValid.getDevisAcceptId().getDevisId().getFirstName() }} - habite à {{ devValid.getDevisAcceptId().getDevisId().getCity().getVilleNomReel() }} <br>
+																		<span class="text-secondary">{{ devValid.getDevisAcceptId().getDevisId().getDetailProject() }}</span>
+																		<a data-id="{{ devValid.id }}" class="btn btn-success float-right btn-termine-devis text-white text-decoration-none {% for devFin in devisFinish %} {% if devFin.getDevisValid().getId() == devValid.id %} d-none {% endif %}{% endfor %}">Je termine</a>
+																	</p>
+																</div>
 															</div>
 														</div>
-														<div class="px-2 info-ads-detail">
-															<a href="{{ path('pro_one_detail_ads_projects') }}" class="text-reset"><h3 class="d-block text-left">Electricité</h3></a>
-															<p class="d-block text-dark text-left">
-																ARQUES LA BATAILLE - à environ 50 Km <br>
-																<span class="text-secondary">Je souhaite refaire toute l'éléctricité dans une maison.</span>
-															</p>
+														<div class="d-block text-center float-left">Date de demande: {{  devValid.getDevisAcceptId().getDevisId().getDatecrea() | date('d/m/y')}}</div>
+													</li>
+												{% endfor %}
+												{% else %}
+													VOUS N'AVEZ PAS ENCORE DES PROJET VALIDEE
+											{% endif %}
+											
+										</ul>
+									</div>
+									<div class="card-footer text-muted pb-4">
+									{# <a class="btn-outline-warning text-warning">Voir tous les projets</a> #}
+									</div>
+								</div>
+								<!-- END PROJECT VALIDED -->
+
+								<!-- PROJECT TERMINÉS AVEC SUCCÈS-->
+								<div class="card text-center">
+									<div class="card-header p-2 font-weight-bold bg-darkgray">
+										<h5 class="text-uppercase">Mes projets terminés avec succès</h5>
+									</div>
+									<div class="card-body">
+										<ul class="list-group list-group-flush text-secondary">
+											
+											{% if devisFinish != null %}
+												{% for devFinish in devisFinish %}
+													<li class="list-group-item">
+														<div class="d-block">
+															<div class="d-flex flex-row align-items-center justify-content-around">
+																<div class="">
+																	<div class="rounded-circle d-block" style="width: 80px; height: 80px; background: orange;">
+																		<span class="lnr lnr-clock" style="font-size: 64px; line-height: 80px;"></span>
+																	</div>
+																</div>
+																<div class="px-2 info-ads-detail">
+																	<a href="{{ path('pro_devis_receved_detail', {id: devFinish.getDevisValid().getDevisAcceptId().getDevisId().getId() }) }}" class="text-reset"><h3 class="d-block text-left">{{ devFinish.getDevisValid().getDevisAcceptId().getDevisId().getCategoryId().getCategTitle() }}</h3></a>
+																	<p class="d-block text-dark text-left">
+																		{{ devFinish.getDevisValid().getDevisAcceptId().getDevisId().getFirstName() }} - habite à {{ devFinish.getDevisValid().getDevisAcceptId().getDevisId().getCity().getVilleNomReel() }} <br>
+																		<span class="text-secondary">{{ devFinish.getDevisValid().getDevisAcceptId().getDevisId().getDetailProject() }}</span>
+																		{# <a data-id="{{ devFinish.id }}" class="btn btn-danger float-right text-white text-decoration-none">Supprimer</a> #}
+																	</p>
+																</div>
+															</div>
 														</div>
-													</div>
-												</div>
-												<div class="d-block text-center float-left">Date: 07/07/2019, Il y a 5 heure</div>
-											</li>
-											<li class="list-group-item">
-											</li>
+														<div class="d-block text-center float-left">Date de demande: {{  devFinish.getDevisValid().getDevisAcceptId().getDevisId().getDatecrea() | date('d/m/y')}}</div>
+													</li>
+												{% endfor %}
+												{% else %}
+													VOUS N'AVEZ PAS ENCORE DES PROJET VALIDEE
+											{% endif %}
+											
 										</ul>
 									</div>
 								    <div class="card-footer text-muted pb-4">
-									 <a class="btn-outline-warning text-warning">Voir tous les projets</a>
+									 {# <a class="btn-outline-warning text-warning">Voir tous les projets</a> #}
 								    </div>
 								</div>
 								<!-- END PROJECT TERMINÉS AVEC SUCCÈS -->

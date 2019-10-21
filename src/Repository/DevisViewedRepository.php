@@ -22,19 +22,19 @@ class DevisViewedRepository extends ServiceEntityRepository
     // /**
     //  * @return DevisViewed[] Returns an array of DevisViewed objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findByUserId($value)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
+            ->andWhere('d.userId = :val')
             ->setParameter('val', $value)
             ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
+            //->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?DevisViewed

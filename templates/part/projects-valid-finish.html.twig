@@ -74,16 +74,46 @@
                                     <!-- My Valid Project section  making -->
                                     <div class="card">
                                         <div class="card-body">
-                                            <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes projets validés</h6>
+                                            <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes projets acceptés ({{nbDevisAccept}})</h6>
+                                                <ul class="list-group list-group-flush">
+                                                {% if devisAccepts != null %}
+                                                    {% for devAccept in devisAccepts %}
+                                                        <li data-id="{{ devAccept.getId() }}" class="list-group-item list-item-particular-left accept bg-transparent text-center">
+                                                            <a href="{{ path('particulier_projects_detail_accept', {id: devAccept.getDevisId().getId()}) }}" class="text-decoration-none d-inline float-left"><span class="float-left lnr "></span>{{ devAccept.getDevisId().getCategoryId().getCategtitle() }}<span class="d-block small text-secondary"> Date de dépôt: {{ devAccept.getDevisId().getDateCrea() | date('d/m/y H:m:s') }}</span></a>
+                                                            <span class="d-none btn-action-particular-{{devAccept.getId()}} animated slideInRight float-right">
+                                                                <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
+                                                                <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
+                                                            </span>
+                                                        </li>
+                                                    {% endfor %}
+                                                    {% else %}
+                                                        Votre demande devis n'est pas encore accepté par le professionnels
+                                                    {% endif %}
+                                                </ul>
+                                        </div>
+                                        <!-- <img class="card-img-bottom" src="..." alt="Card image cap"> -->
+                                    </div>
+                                    <!-- End My Valid Project section  making -->
+
+                                    <!-- My Valid Project section  making -->
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes projets validés ({{nbDevisValid}})</h6>
                                                 <ul class="list-group list-group-flush">
 
-                                                    <li class="list-group-item list-item-particular-left list-project-particular-1 bg-transparent text-center">
-                                                        <a href="{{ path('particulier_projects_detail_valid_finish') }}" class="text-decoration-none d-inline float-left"><span class="float-left lnr "></span>Revêtement au sol <span class="d-block small text-secondary"> Date de dépôt: 26/05/2019</span></a>
-                                                        <span class="d-none btn-action-particular-1 animated slideInRight float-right">
-                                                            <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
-                                                            <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
-                                                        </span>
-                                                    </li>
+                                                    {% if devisValids != null %}
+                                                    {% for devValid in devisValids %}
+                                                        <li data-id="{{devValid.getId()}}" class="list-group-item list-item-particular-left valid bg-transparent text-center">
+                                                            <a href="{{ path('particulier_projects_detail_valid', {id: devValid.getDevisAcceptId().getId()}) }}" class="text-decoration-none d-inline float-left"><span class="float-left lnr "></span>{{ devValid.getDevisAcceptId().getDevisId().getCategoryId().getCategtitle() }}<span class="d-block small text-secondary"> Date de dépôt: {{ devValid.getDevisAcceptId().getDevisId().getDateCrea() | date('d/m/y H:m:s') }}</span></a>
+                                                            <span class="d-none btn-action-particular-{{devValid.getId()}} animated slideInRight float-right">
+                                                                <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
+                                                                <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
+                                                            </span>
+                                                        </li>
+                                                    {% endfor %}
+                                                    {% else %}
+                                                        Votre demande devis n'est pas encore accepté par le professionnels
+                                                    {% endif %}
                                                    
                                                 </ul>
                                         </div>
@@ -94,16 +124,22 @@
                                     <!-- My Finished Project section -->
                                     <div class="card">
                                         <div class="card-body">
-                                            <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes projets terminés</h6>
+                                            <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes projets terminés ({{nbDevisFinish}})</h6>
                                                 <ul class="list-group list-group-flush">
 
-                                                    <li class="list-group-item list-item-particular-left list-project-particular-1 bg-transparent text-center">
-                                                        <a href="{{ path('particulier_projects_detail_valid_finish') }}" class="text-decoration-none d-inline float-left"><span class="float-left lnr "></span>Revêtement au sol <span class="d-block small text-secondary"> Date de dépôt: 26/05/2019</span></a>
-                                                        <span class="d-none btn-action-particular-1 animated slideInRight float-right">
-                                                            <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
-                                                            <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
-                                                        </span>
-                                                    </li>
+                                                    {% if devisFinish != null %}
+                                                    {% for devFinish in devisFinish %}
+                                                        <li data-id="{{ devFinish.getId() }}" class="list-group-item list-item-particular-left finish bg-transparent text-center">
+                                                            <a href="{{ path('particulier_projects_detail_finish', {id: devFinish.getDevisValid().getId()}) }}" class="text-decoration-none d-inline float-left"><span class="float-left lnr "></span>{{ devFinish.getDevisValid().getDevisAcceptId().getDevisId().getCategoryId().getCategtitle() }}<span class="d-block small text-secondary"> Date de dépôt: {{ devFinish.getDevisValid().getDevisAcceptId().getDevisId().getDateCrea() | date('d/m/y H:m:s') }}</span></a>
+                                                            <span class="d-none btn-action-particular-{{ devFinish.getId() }} animated slideInRight float-right">
+                                                                <span class="d-inline d-sm-block bg-dark p-2"><span class="lnr lnr-eye"></span></span>
+                                                                <span class="d-inline d-sm-block bg-danger p-2"><span class="lnr lnr-trash"></span></span>
+                                                            </span>
+                                                        </li>
+                                                    {% endfor %}
+                                                    {% else %}
+                                                        Votre demande devis n'est pas encore accepté par le professionnels
+                                                    {% endif %}
                                                    
                                                 </ul>
                                         </div>

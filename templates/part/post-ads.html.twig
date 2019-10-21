@@ -17,6 +17,7 @@
     <link href="{{ absolute_url('/assets/form-multistep/form-step.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
     
 {% endblock %}
@@ -73,90 +74,70 @@
 
                                     <!-- My Ask Project section -->
                                     <div class="card">
-                                        <div class="card-title bg-success h6 border-bottom border-secondary p-4 d-inline text-uppercase">Postuler un annonce de projet</div>
+                                        <div class="card-title text-center bg-warning h6 border-bottom border-secondary p-4 d-inline text-uppercase">Postule un projet</div>
                                     <div class="card-body">
                                        
                                         <!-- Modal body -->
                                         <div class="pt-2">
-                                            <form id="form-part-post-ads" action="{{ path('particulier_post_ads') }}" method="POST">
+                                            <form id="form-part-post-ads" class="row justify-content-center">
                                                
-                                                <div class="form-group mb-3">
-                                                    <label class="">Mot de passe actuel</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
-                                                        </div>
-                                                        <input type="password" id="passwd_old" class="form-control" name="passwd_old"  placeholder="Votre mot de passe actuel ">
-                                                    </div>
+                                                <div class="form-group mb-3 col-12 col-lg-6">
+                                                    <label class="">Categorie de projet</label>
+                                                    <select required type="text" id="post_category" class="form-control" name="post_category">
+                                                        <option></option>
+                                                    {% for category in categories %}
+                                                        <option value="{{category.id}}">{{ category.getCategTitle() }}</option>
+                                                    {% endfor %}
+                                                        </select>
                                                 </div>
-                                                <div class="form-group mb-3">
-                                                    <label class="">Mot de passe actuel</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
-                                                        </div>
-                                                        <input type="password" id="passwd_old" class="form-control" name="passwd_old"  placeholder="Votre mot de passe actuel ">
-                                                    </div>
+                                                <div class="form-group mb-3 col-12 col-lg-6">
+                                                    <label class="">Code postal</label>
+                                                    <input required type="text" style="border-radius: 4px; border: 1px solid silver !important;" id="post_zipcode" class="form-control" name="post_zipcode"  placeholder="Votre code postal ">
                                                 </div>
-                                                <div class="form-group mb-3">
-                                                    <label class="">Mot de passe actuel</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
-                                                        </div>
-                                                        <input type="password" id="passwd_old" class="form-control" name="passwd_old"  placeholder="Votre mot de passe actuel ">
-                                                    </div>
+                                                <div class="form-group mb-3 col-12 col-lg-6">
+                                                    <label class="">Nature de projet </label>
+                                                    <select required type="text" id="post_nature" class="form-control" name="post_nature">
+                                                        <option></option>
+                                                       </select>
                                                 </div>
-                                                <div class="form-group mb-3">
-                                                    <label class="">Mot de passe actuel</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
-                                                        </div>
-                                                        <input type="password" id="passwd_old" class="form-control" name="passwd_old"  placeholder="Votre mot de passe actuel ">
-                                                    </div>
+                                                <div class="form-group mb-3 col-12 col-lg-6">
+                                                    <label class="">Ville</label>
+                                                    <input type="text" style="border-radius: 4px; border: 1px solid silver !important;" id="post_city" class="form-control"  placeholder="Votre ville ou departement">
                                                 </div>
-                                                <div class="form-group mb-3">
-                                                    <label class="">Mot de passe actuel</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
-                                                        </div>
-                                                        <input type="password" id="passwd_old" class="form-control" name="passwd_old"  placeholder="Votre mot de passe actuel ">
-                                                    </div>
+                                                <div id="form-city-special-hidden" class="form-group mb-3 col-12">
+                                                    
                                                 </div>
-                                                <div class="form-group mb-3">
-                                                    <label class="">Mot de passe actuel</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
-                                                        </div>
-                                                        <input type="password" id="passwd_old" class="form-control" name="passwd_old"  placeholder="Votre mot de passe actuel ">
-                                                    </div>
+                                               <div class="form-group mb-3 col-12 col-lg-6">
+                                                    <label class="">Type de projet </label>
+                                                    <select type="text" id="post_type" class="form-control" name="post_type"  placeholder="Séléctionnez le type de projet ">
+                                                        <option></option>
+                                                        {% for type in types %}
+                                                            <option value="{{type.id}}">{{ type.getTitle() }}</option>
+                                                        {% endfor %}
+                                                            
+                                                    </select>
                                                 </div>
-                                                <div class="form-group mb-3">
-                                                    <label class="">Nouvau mot de passe</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
-                                                        </div>
-                                                        <input type="password" id="passwd_new" class="form-control" name="passwd_new"  placeholder="Votre nouvau mot de passe ">
-                                                    </div>
+                                                <div class="form-group mb-3 col-12 col-lg-6">
+                                                    <label class="">E-mail </label>
+                                                    <input type="text" style="border-radius: 4px; border: 1px solid silver !important;" id="post_email" class="form-control" name="post_email"  placeholder="Votre e-mail ">
                                                 </div>
-                                                <div class="form-group mb-3">
-                                                    <label class="">Confirmation mot de passe</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend bg-warning" style="padding: 5px;">
-                                                            <span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
-                                                        </div>
-                                                        <input type="password" id="passwd_comfirm" class="form-control" name="passwd_comfirm"  placeholder="Reconfirmer votre nouvau mot de passe">
-                                                    </div>
+                                               <div class="form-group mb-3 col-12 col-lg-6">
+                                                    <label class="">Début de projet</label>
+                                                    <input type="text" style="border-radius: 4px; border: 1px solid silver !important;" id="post_begin_project" class="form-control" name="post_begin_project"  placeholder="Début de projet">
                                                 </div>
-                                                <div class="form-group mb-3">
+                                                <div class="form-group mb-3 col-12 col-lg-6">
+                                                    <label class="">Numéro de téléphone </label>
+                                                    <input type="text" style="border-radius: 4px; border: 1px solid silver !important;" id="post_phone" class="form-control" name="post_phone"  placeholder="Votre numéro de téléphone ">
+                                                </div>
+                                               <div class="form-group mb-3 col-12">
+                                                    <label class="">Description de votre projet </label>
+                                                    <textarea type="text" id="post_description" class="form-control" name="post_description"  placeholder="Définir la description de votre projet... " style="max-height: 150px !important; height: 110px !important; border-radius: 32px; font-size: 0.8em; border-radius: 4px; border: 1px solid silver !important;"></textarea>
+                                                </div>
+                                                <div class="form-group mb-2 col-12 col-lg-6">
                                                     <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                                                     <div class="g-recaptcha" data-sitekey="6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></div>
                                                 </div>
-                                                <button type="submit" class="btn btn-warning btn-register w-100">POSTULER</button>
+                                                <button type="button" style="line-height: 2 !important;" class="btn btn-warning btn-post-ads w-50">POSTULER</button>
                                                 <!--<button type="button" class="btn btn-annule btn-danger float-right" data-dismiss="modal">Annuler</button> -->
                                             </form>
                                         </div>
@@ -188,7 +169,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+
     <!-- MESSAGE NTIFICATION -->
+    <!-- Auto-complete -->
+    <script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
+    <!-- Auto-complete -->
     <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
     <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
     <!--Local-->
@@ -206,5 +191,6 @@
     <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
     <script src="{{ absolute_url('/assets/js/particular.js') }}"></script>
     <script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
+    <script src="{{ absolute_url('/assets/js/post-ads.js') }}"></script>
 
     {% endblock %}

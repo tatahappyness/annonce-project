@@ -22,20 +22,40 @@ class DevisFinishRepository extends ServiceEntityRepository
     // /**
     //  * @return DevisFinish[] Returns an array of DevisFinish objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findByUserId($value)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
+            ->andWhere('d.userId = :val')
             ->setParameter('val', $value)
             ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
+            //->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
+    public function findByDevisValidIdList($value)
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.devisValid IN (?1)')
+            ->setParameters($value)
+            ->orderBy('d.id', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByDevisValidId($value): ?DevisFinish
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.devisValid = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
     
     public function findOneById($value): ?DevisFinish
     {

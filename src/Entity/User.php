@@ -162,10 +162,15 @@ class User implements UserInterface
      */
     private $firstName;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCrea;
+    
 
     public function __construct()
     {
-       
+        
     }
 
    
@@ -530,5 +535,16 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getDateCrea(): ?\DateTimeInterface
+    {
+        return $this->dateCrea;
+    }
+
+    public function setDateCrea(?\DateTimeInterface $dateCrea): self
+    {
+        $this->dateCrea = $dateCrea;
+
+        return $this;
+    }
 
 }

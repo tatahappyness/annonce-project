@@ -22,19 +22,19 @@ class DocummentRepository extends ServiceEntityRepository
     // /**
     //  * @return Documment[] Returns an array of Documment objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findByUserId($value)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('d.userId = ?1')
+            ->setParameters($value)
             ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
+           // ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Documment
@@ -47,4 +47,25 @@ class DocummentRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAllArray(): ?Array
+    {
+        return $this->findAll();
+    }
+
+    public function findOneByArray(array $criteria, array $orderBy = null): ?Documment
+    {
+        return $this->findOneBy($criteria, $orderBy);
+    }
+    
+    public function findById($id, $lockMode = null, $lockVersion = null): ?Documment
+    {
+        return $this->find($id);
+    }
+
+    public function findByArray(array $criteria, array $orderBy = null, $limit = null, $offset = null): ?Array
+    {
+        return $this->findBy($criteria, $orderBy = null, $limit = null, $offset = null);
+    }
+
 }

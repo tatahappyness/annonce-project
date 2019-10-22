@@ -536,7 +536,7 @@ class ProController extends AbstractController
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
 
         //get Document
-
+        $document = $docummentRep->findByUserId($security->getUser());
         //get label
         //get image realize
 

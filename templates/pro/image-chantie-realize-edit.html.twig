@@ -80,11 +80,14 @@
                                                 <div class="form-group p-0  w-100">
                                                     <select id="imagesNatureTitle" class="form-control imagesNatureTitle" name="imagesNatureTitle">
                                                         <option></option>
-                                                        <option value="AL">art-1</option>
-                                                        <option value="WY">art-2</option>
-                                                        <option value="AL">art-3</option>
-                                                        <option value="WY">art-4</option>	
-                                                    </select>
+                                                        {% if articles != null %}
+                                                            {% for art in articles %}
+                                                            <option value="{{ art.id }}">{{ art.getArticleTitle() }}</option>
+                                                            {% endfor %}
+                                                            {% else %}
+                                                                Aucun élément enrégistré
+                                                        {% endif %}
+                                                        </select>
                                                 </div>
                                                 <div class="form-group mb-1 border borber-secondary" style="height: 50px;">
                                                     <label class="text-warning">Cliquez ici ! ou Glissez vos videos ici !</label></label>

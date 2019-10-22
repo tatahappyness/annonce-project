@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	//IMAGE UPLOAD
-	$('input[class=fileImages]').change(function () {
+	$('input[id=fileImages]').change(function () {
 
 		var form_imgs = $('#form-upload-images')[0];
 		var file_data =  $(this).prop('files')[0];
@@ -104,7 +104,7 @@ $(document).ready(function(){
 				//var data = JSON.parse(response);
 				alert(response.infos);
 				var errorDiv = '<video class="format" width="120" height="80" controls style="margin-top: 0!important;">'+
-								'<source src="/uploads/videos/' +response.infos+ '" type="video/mp4">'+
+								'<source src="/uploads/videos/' + response.infos + '" type="video/mp4">'+
 								'</video>';
 				block.append(errorDiv);	
 				
@@ -164,8 +164,8 @@ $(document).ready(function(){
 				//upload successful
 				progressBar.remove();
 				cancelButton.remove();
-				var errorDiv = '<img class="format text-dark" src="/uploads/documents/"' +response.info+ '" style="margin-top: 0!important;"></img>';
-				this.block.append(errorDiv);
+				var errorDiv = '<img class="format text-dark" src="/uploads/documents/' + response.info + '" style="margin-top: 0!important;"></img>';
+				block.append(errorDiv);
 				
 				}).fail(function(){
 				// Here you should treat the http errors (e.g., 403, 40
@@ -184,7 +184,60 @@ $(document).ready(function(){
 	//FILE DOC UPLOAD
 
 	//LABEL QUALITY
+	$('input[id=fileLabelQuality]').change(function () {
+	
+		var form_data = $('#form-upload-labels-quality');
+		var file_data = $(this).prop('files')[0];
+			
+		var block = $('<div class="block-label"></div>');
+		var progressBar = $('<div class="progressBar"></div>');
+		var cancelButton = $('<div class="cancelButton">x</div>');
 
+		cancelButton.click(function(){
+			//upload cancelled
+			block.fadeOut(400, function(){
+				$(this).remove();
+			});
+		});
+
+		block.append(progressBar).append(cancelButton);
+		$('#uploads').append(block);
+		
+		if(file_data != undefined) {
+                 
+			progressBar.width(Math.floor(Math.random() * 100) + "%");
+			
+			jQuery.ajax({
+				type: 'POST',
+				url: '/pro/label-quality-edit',
+				contentType: false,
+				processData: false,
+				cache:false,
+				dataType:'json',
+				data: new FormData(form_data[0])
+				
+			}).done(function(response){
+				
+				//upload successful
+				progressBar.remove();
+				cancelButton.remove();
+				var errorDiv = '<img class="format text-dark" src="/uploads/profil/' + response.info + '" style="margin-top: 0!important;"></img>';
+				block.append(errorDiv);
+				
+				}).fail(function(){
+				// Here you should treat the http errors (e.g., 403, 40
+					progressBar.remove();
+					cancelButton.remove();
+					var errorDiv = $('<div class="error"></div>').text(response.info);
+					block.append(errorDiv);
+					
+					}).always(function(){
+						console.log("AJAX request finished!");
+					});
+			}
+			return false;
+
+	});
 	//LABEL QUALITY
 
 

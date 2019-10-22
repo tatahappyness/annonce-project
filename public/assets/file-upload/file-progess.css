@@ -1,4 +1,4 @@
-#uploads .block {
+#uploads .block, #uploads .block-label {
 	/* position: relative;
 	display: inline-block; */
 	vertical-align: top;
@@ -12,7 +12,11 @@
 	width: auto;
 }
 
-#uploads .block .progressBar {
+img.format {
+	width: 10% !important;
+}
+
+#uploads .block .progressBar, #uploads .block-label .progressBar {
 	background-color: #3E6FAD;
 	width: 0px;
 	height: 5px;
@@ -27,7 +31,7 @@
 	transition: .25s ease-out;
 }
 
-#uploads .block .cancelButton {
+#uploads .block .cancelButton, #uploads .block-label .cancelButton {
 	position: absolute;
 	top: -10px;
 	right: -10px;
@@ -49,7 +53,7 @@
 	cursor: pointer;
 }
 
-#uploads .block .error {
+#uploads .block .error, #uploads .block-label .error {
 	text-align: left;
 	font-size: 14px;
 	color: red;

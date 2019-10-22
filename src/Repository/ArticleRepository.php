@@ -35,6 +35,18 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByCategoryArray($value)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.articleCategId IN (?1)')
+            ->setParameters($value)
+            ->orderBy('a.id', 'ASC')
+           // ->setMaxResults(200)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function findOneById($value): ?Article
     {
         return $this->createQueryBuilder('a')

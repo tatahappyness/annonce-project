@@ -29,6 +29,7 @@ use App\Entity\SiteInternet;
 use App\Repository\OfferRepository;
 use App\Repository\UserRepository;
 use App\Repository\AbonnementRepository;
+use App\Repository\ArticleRepository;
 use App\Repository\ServicesRepository;
 use App\Repository\CustomerRepository;
 use App\Repository\DevisRepository;
@@ -41,29 +42,25 @@ use App\Repository\DevisValidRepository;
 use App\Repository\DevisFinishRepository;
 use App\Repository\DevisViewedRepository;
 use App\Repository\DocummentRepository;
+use App\Repository\ImagesRepository;
+use App\Repository\SiteInternetRepository;
+use App\Repository\LabelsRepository;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\Routing\Annotation\Route;
-
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
-
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-
 use Symfony\Component\Translation\TranslatorInterface;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
@@ -508,7 +505,7 @@ class ProController extends AbstractController
     /**
     * @Route("/show-my-profil", name="pro_show_profil")
     */
-    public function profil(Security $security, CustomerRepository $customRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep)
+    public function profil(Security $security, DocummentRepository $docummentRep, EvaluationsRepository $evaluationRep, ImagesRepository $imageRep, CustomerRepository $customRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -536,6 +533,11 @@ class ProController extends AbstractController
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
+
+        //get Document
+
+        //get label
+        //get image realize
 
 
         return $this->render('pro/profil.html.twig', [
@@ -717,20 +719,19 @@ class ProController extends AbstractController
     /**
     * @Route("/image-chantier-realize-edit", name="pro_image_realize_edit")
     */
-    public function editImagesRealize(Request $request, Security $security, CustomerRepository $customRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function editImagesRealize(Request $request, Security $security, ArticleRepository $articleRep,  CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
        
         //UPLOAD IMAGES
         $file = $request->files->get('fileImages');
-        $articleId = $request->query->get('imagesNatureTitle');
-        $labelquality = $request->query->get('label_quality_title');
-
-        if(!is_null($file))
+        $articleId = $request->request->get('imagesNatureTitle');
+        
+        if(!is_null($file) && !is_null($articleId))
         {
             $output_dir = $this->getParameter('images_directory');
-            $arr_extensions = ["pjpeg", "jpeg", "jpg", "png", "x-png", "gif", "x-gif"];
+            $arr_extensions = ["jpg", "jpeg", "jpg", "png", "gif"];
             //@Assert\File(maxSize="6000000")
 
             if (!(in_array($file->getClientOriginalExtension(), $arr_extensions))) 
@@ -738,30 +739,28 @@ class ProController extends AbstractController
                 return new JsonResponse(array('code'=> 401, 'infos'=> 'Type de fichier n\'est pas autorisé'), 401);
             }
 
-            if(!is_null($labelquality)) 
-            {
-               
-            }
-
             // $request->query->get("image_nature_title")
             // Convert to base64 
             // $video_base64 = base64_encode(file_get_contents($file) );
             // $image = 'data:image/'.$file->getClientOriginalExtension().';base64,'.$image_base64;
            
-            // $post
-            //     ->setPostUserId($security->getUser())
-            //     ->setPostRealiseTravauxImagePro([$ret])
-            //     ->setPostArticleId();
-
             try {
+
+                $em = $this->getDoctrine()->getManager();
+                $em->beginTransaction();
                 // generate a random name for the file but keep the extension
                 $filename = uniqid().".".$file->getClientOriginalExtension();
                 $file->move( $output_dir, $filename); // move the file to a path
-               
-                $post = new Post();
+                $article = $articleRep->findById((int) $articleId);
+                $image = new Images();
+                $image
+                    ->setUserId($security->getUser())
+                    ->setArticleTitle($article)
+                    ->setDateCrea(new \DateTime('now'));    
 
-                // $em = $this->getDoctrine()->getManager();
-                // $em->persist($post); $em->flush();
+                $em->persist($image); 
+                $em->flush();
+                $em->commit();
                 return new JsonResponse(array('code'=> 200, 'infos'=>  $filename), 200);
 
             } catch (\Exception $e) {
@@ -769,9 +768,42 @@ class ProController extends AbstractController
             }
         }
 
+  
+        $services = $serviceRep->findByUser($security->getUser());
+
+        $array = Array();
+        foreach ($services as $key => $value) {
+        $array[] = $value->getCategoryId();
+        }
+
+        $categoryId =  $array;
+        $arrayData1 = array( 1=>  ($categoryId), 
+                            2=> $security->getUser()->getZipCode(), 
+                            3=> $security->getUser()->getUserCity(),
+                            4=>  ($categoryId)
+                            );
+
+        //get list articles by lists category array
+        $articles = $articleRep->findByCategoryArray(array(1=> $array));
+        $articles = count($articles) ? $articles : null;
+
+        $devis = $devisRep->findByZipCodeAndCity($arrayData1);
+        $nbdevis = count($devis);
+
+        $arrayData2 = array(1=>  ($categoryId), 
+                            2=> ($categoryId), 3=> $security->getUser()->getUserCity(),
+                            4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
+                            );
+        $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
+        $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
+
 
         return $this->render('pro/image-chantie-realize-edit.html.twig', [
+            'numberDevis' => $nbdevis,
+            'postAds'=> $postsAds,
+            'nbProjectDispo'=> count($postsAds),
             'user'=> $security->getUser(),
+            'articles'=> $articles,
         ]);
     }
 
@@ -902,6 +934,56 @@ class ProController extends AbstractController
             'user'=> $security->getUser(),
         ]);
     }
+
+    /**
+     * @Route("/label-quality-edit", name="pro_label_quality_edit")
+    */
+    public function editLabelQuality(Request $request, Security $security, LabelsRepository $labelRep, CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    {
+
+        if (!is_null($request->files->get('file_image_label')) && !is_null($request->request->get('label_quality_title'))  ) {
+            // dump($request->files->get('fileDocumentCompany'));die;
+                $file = $request->files->get('file_image_label');
+                $output_dir = $this->getParameter('profil_directory');
+                $arr_extensions = ["jpg", "png", "jpeg", "JPEG"];
+                //@Assert\File(maxSize="6000000")
+    
+                if (!(in_array($file->getClientOriginalExtension(), $arr_extensions))) 
+                {
+                    return new JsonResponse(array('code'=> 401, 'info'=> 'Type de fichier n\'est pas autorisé'), 401);
+                }
+               
+                try { 
+    
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->beginTransaction();
+                    // generate a random name for the file but keep the extension
+                    $filename = uniqid().".".$file->getClientOriginalExtension();
+                    $file->move( $output_dir, $filename); // move the file to a path
+    
+                    $user = $security->getUser();
+                    $label = new Labels();
+                    $label
+                        ->setUserId($user)
+                        ->setTitle($request->request->get('label_quality_title'))
+                        ->setName($filename)
+                        ->setDateCrea(new \DateTime('now'));
+                 
+                    $entityManager->persist($label);
+                    $entityManager->flush();
+                    $entityManager->commit();
+    
+                    return new JsonResponse(array('code'=> 200, 'info'=>  $filename), 200);
+    
+                } 
+                catch (\Exception $e) {
+                    return new JsonResponse(['code'=> 500, 'info' => $e->getMessage()], 500);
+                }
+            }
+            return new JsonResponse(['code'=> 500, "info" => 'Vous avez fait une movaise requête!'], 500);
+            
+    }
+
 
     /**
     * @Route("/post-payements/{id}", name="pro_post_payements")

@@ -35,6 +35,7 @@ use App\Repository\CustomerRepository;
 use App\Repository\DevisRepository;
 use App\Repository\PostRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\EvaluationsRepository; 
 use App\Repository\CitiesRepository;
 use App\Repository\EmojiRepository;
 use App\Repository\DevisAcceptRepository;

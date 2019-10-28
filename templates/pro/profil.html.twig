@@ -106,18 +106,22 @@
 													</p>
 													<div class="d-flex flex-wrap pb-2 justify-content-center">
 														
-														{# <a href="/pdf/mydocument.pdf" title="view this pdf file">
-														<img src="/scripts/pdf2jpg.php?src=pdf/mydocument.pdf" width="150" alt="pdf document" />
-														</a> #}
+														{% if documents != null %}
+															{% for document in documents %}
+															<a class="m-2" href="{{ path('pro_download_file', {id: document.getName(), nameActually: document.getTitle()} )}}" title="{{ document.getTitle() }}">
+																<img class="" src="{{ absolute_url('/uploads/logo/icon-pdf.jpg') }}" style="width: 50px ; height: 50px;" alt="pdf document" />
+															</a>
+															{% endfor %}
+															{% else %}
+															<span class="lnr lnr-file-empty text-secondary" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
+															<span class="lnr lnr-file-empty text-secondary" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
+															<span class="lnr lnr-file-empty text-secondary" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
+															<span class="lnr lnr-file-empty text-secondary" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
+															<span class="">	
+																<a class="text-decoration-none" href="{{ path('pro_document_file_edit') }}"><span class="lnr lnr-file-add text-warning" style="font-size: 64px;" title="Kbis" alt="Kbis"></span></a>
+															</span>
+														{% endif %}
 
-
-														<span class="lnr lnr-file-empty text-secondary" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
-														<span class="lnr lnr-file-empty text-secondary" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
-														<span class="lnr lnr-file-empty text-secondary" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
-														<span class="lnr lnr-file-empty text-secondary" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
-														<span class="">
-															<a class="text-decoration-none" href="{{ path('pro_document_file_edit') }}"><span class="lnr lnr-file-add text-warning" style="font-size: 64px;" title="Kbis" alt="Kbis"></span></a>
-														</span>
 													</div>
 												</div>
 											</div>
@@ -128,13 +132,26 @@
 														Gagnez en visibilité et en crédibilité en important vos labels qualité !
 													</p>
 													<div class="d-flex flex-wrap justify-content-center">
-														<span class="lnr lnr-license text-secondary m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
-														<span class="lnr lnr-license text-secondary m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
-														<span class="lnr lnr-license text-secondary m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
-														<span class="lnr lnr-license text-secondary m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
-														<span class="lnr lnr-file-add text-warning m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
+														
+														{% if labels != null %}
+															{% for label in labels %}
+															<a class="m-2" href="{{ path('pro_download_file', {id: label.getName()} )}}" title="{{ label.getTitle() }}">
+																<img class="" src="{{ absolute_url('/uploads/profil/' ~ label.getName()) }}" style="width: 65px ; height: 65px;" alt="pdf document" />
+															</a>
+															{% endfor %}
+															{% else %}
+															<span class="lnr lnr-license text-secondary m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
+															<span class="lnr lnr-license text-secondary m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
+															<span class="lnr lnr-license text-secondary m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
+															<span class="lnr lnr-license text-secondary m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
+															
+															<a href="{{ path('pro_document_file_edit') }}">
+																<span class="lnr lnr-file-add text-warning m-1" style="font-size: 64px;" title="Kbis" alt="Kbis"></span>
+															</a>
+														{% endif %}
+														
 													</div>
-												</div>
+												</div> 
 											</div>
 										</div>
 									</div>
@@ -155,25 +172,26 @@
 										</p>
 										
 										<div class="row text-center text-lg-left">
+											
+											{% if images != null %}
+												{% for image in images %}
+													<div class="col-lg-3 col-md-4 col-6 p-1">
+														<a href="#" class="d-block mb-4 h-100">
+															<img class="img-fluid img-thumbnail" src="{{ absolute_url('/uploads/images/' ~ image.getName) }}" title="{{ image.getArticleTitle().getArticleTitle() }}" alt="">
+														</a>
+													</div>
+												{% endfor %}
+											{% endif %}
+											
 
-											<div class="col-lg-3 col-md-4 col-6">
-												<a href="#" class="d-block mb-4 h-100">
-													<img class="img-fluid img-thumbnail" src="https://source.unsplash.com/pWkk7iiCoDM/400x300" alt="">
-												</a>
-											</div>
-											<div class="col-lg-3 col-md-4 col-6">
+											<div class="col-lg-3 col-md-4 col-6 p-1">
 												<a href="#" class="d-block mb-4 h-100">
 													<img class="img-fluid img-thumbnail" src="https://source.unsplash.com/aob0ukAYfuI/400x300" alt="">
 												</a>
 											</div>
-											<div class="col-lg-3 col-md-4 col-6">
+											<div class="col-lg-3 col-md-4 col-6 p-1">
 												<a href="#" class="d-block mb-4 h-100">
-													<img class="img-fluid img-thumbnail" src="https://source.unsplash.com/EUfxH-pze7s/400x300" alt="">
-												</a>
-											</div>
-											<div class="col-lg-3 col-md-4 col-6">
-												<a href="#" class="d-block mb-4 h-100">
-													<img class="img-fluid img-thumbnail" src="https://source.unsplash.com/M185_qYH8vg/400x300" alt="">
+													<img class="img-fluid img-thumbnail" src="https://source.unsplash.com/aob0ukAYfuI/400x300" alt="">
 												</a>
 											</div>
 										</div>

@@ -22,19 +22,19 @@ class LabelsRepository extends ServiceEntityRepository
     // /**
     //  * @return Labels[] Returns an array of Labels objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findByUserId($value)
     {
         return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('l.UserId = ?1')
+            ->setParameters($value)
             ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
+            //->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Labels
@@ -47,4 +47,26 @@ class LabelsRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findAllArray(): ?Array
+    {
+        return $this->findAll();
+    }
+
+    public function findOneByArray(array $criteria, array $orderBy = null): ?Labels
+    {
+        return $this->findOneBy($criteria, $orderBy);
+    }
+    
+    public function findById($id, $lockMode = null, $lockVersion = null): ?Labels
+    {
+        return $this->find($id);
+    }
+
+    public function findByArray(array $criteria, array $orderBy = null, $limit = null, $offset = null): ?Array
+    {
+        return $this->findBy($criteria, $orderBy = null, $limit = null, $offset = null);
+    }
+
+
+
 }

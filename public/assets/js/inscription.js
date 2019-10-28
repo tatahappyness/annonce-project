@@ -39,7 +39,7 @@ jQuery(document).ready( function() {
                 title: 'Erreur',
                 html: '<span class="text-danger font-weight-bold">Comfirmation de votre mot passe n\'est pas identique</span>',
                 type: 'error',
-                background: 'rgb(119, 119, 119)',
+                // background: 'rgb(119, 119, 119)',
                 backdrop: `rgba(0,0,123,0.4)`,
                 confirmButtonColor: 'rgb(255, 144, 0)'
                 });
@@ -60,7 +60,7 @@ jQuery(document).ready( function() {
                 Swal.fire({
                 html: '<span class="h2 text-warning text-center">Attention!</span><br><span class="text-warning small text-center">Veillez definir ' + result+ ' exacte</span>',
                 type: 'warning',
-                background: 'rgb(119, 119, 119)',
+                // background: 'rgb(119, 119, 119)',
                 backdrop: `rgba(0,0,123,0.4)`,
                 confirmButtonColor: 'rgb(255, 144, 0)'
                 }); 
@@ -84,7 +84,7 @@ jQuery(document).ready( function() {
                 title: 'Reponse',
                 text: response.infos,
                 type: 'success',
-                background: 'rgb(119, 119, 119)',
+                // background: 'rgb(119, 119, 119)',
                 backdrop: `rgba(0,0,123,0.4)`,
                 confirmButtonColor: 'rgb(255, 144, 0)'
                 });
@@ -103,7 +103,7 @@ jQuery(document).ready( function() {
                     title: 'Reponse',
                     text: 'Erreur dans le serveur interne!!',
                     type: 'error',
-                    background: 'rgb(119, 119, 119)',
+                    // background: 'rgb(119, 119, 119)',
                     backdrop: `rgba(0,0,123,0.4)`,
                     confirmButtonColor: 'rgb(255, 144, 0)'
                     });

@@ -73,16 +73,31 @@
 									</div>
 									<div class="card-body">
 										<ul class="list-group list-group-flush text-secondary">
-											<li class="list-group-item">
-												
-											</li>
-											<li class="list-group-item">
-												
-											</li>
+											
+											{% if evaluations != null %}
+												{% for eval in evaluations %}
+												<li class="list-group-item">
+													<div class="row">
+														<div class="col-12 col-md-4 text-left">
+															<label class="badge badge-white">
+																{{ eval.getHaveStart() }}
+															</label>
+														</div>
+														<div class="col-12 col-md-8 text-right">
+															<p>{{ eval.getMotif() }}</p>
+															<p>{{ eval.getDateCrea() | date('d/m/y H:m:s') }}</p>
+														</div>
+													</div>
+												</li>
+												{% endfor %}
+											{% else %}
+													Vous n'avez pas encore des évaluations!
+											{% endif %}
+										
 										</ul>
 									</div>
 								    <div class="card-footer text-muted pb-4">
-									 <a class="btn-outline-warning text-warning">Voir tous les projets</a>
+									 {# <a class="btn-outline-warning text-warning">Voir tous les projets</a> #}
 								    </div>
 								</div>
 								<!-- END PROJECT ACCEPTED -->

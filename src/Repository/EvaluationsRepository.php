@@ -23,7 +23,7 @@ class EvaluationsRepository extends ServiceEntityRepository
     //  * @return Evaluations[] Returns an array of Evaluations objects
     //  */
     
-    public function findByUser($value)
+    public function findByUserId($value)
     {
         return $this->createQueryBuilder('e')
             ->where('e.userProId = ?1')
@@ -45,6 +45,26 @@ class EvaluationsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
+    }
+
+    public function findAllArray(): ?Array
+    {
+        return $this->findAll();
+    }
+
+    public function findOneByArray(array $criteria, array $orderBy = null): ?Evaluations
+    {
+        return $this->findOneBy($criteria, $orderBy);
+    }
+    
+    public function findById($id, $lockMode = null, $lockVersion = null): ?Evaluations
+    {
+        return $this->find($id);
+    }
+
+    public function findByArray(array $criteria, array $orderBy = null, $limit = null, $offset = null): ?Array
+    {
+        return $this->findBy($criteria, $orderBy = null, $limit = null, $offset = null);
     }
     
 }

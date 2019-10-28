@@ -82,7 +82,7 @@
 				title: 'Reponse',
 				html:'<span class="text-success font-weight-bol">' + response.info + '</span>',
 				type: 'success',
-				background: 'rgb(119, 119, 119)',
+				// background: 'rgb(119, 119, 119)',
 				backdrop: `rgba(0,0,123,0.4)`,
 				confirmButtonColor: 'rgb(255, 144, 0)'
 				})
@@ -93,7 +93,7 @@
 					title: 'Reponse',
 					text: 'Erreur dans le serveur interne!!',
 					type: 'error',
-					background: 'rgb(119, 119, 119)',
+					// background: 'rgb(119, 119, 119)',
 					backdrop: `rgba(0,0,123,0.4)`,
 					confirmButtonColor: 'rgb(255, 144, 0)'
 					})
@@ -104,7 +104,7 @@
 
 	})
 
-	//AJAX POST PRO EVALUATE
+	//AJAX POST PARTICULAR PASSWORD  UPDATE
 	jQuery('.btn-update-psswd').click(function() {
 		
 		var form_record = jQuery('#form-update-password');
@@ -125,7 +125,7 @@
 				title: 'Reponse',
 				html:'<span class="text-success font-weight-bol">' + response.info + '</span>',
 				type: 'success',
-				background: 'rgb(119, 119, 119)',
+				// background: 'rgb(119, 119, 119)',
 				backdrop: `rgba(0,0,123,0.4)`,
 				confirmButtonColor: 'rgb(255, 144, 0)'
 				})
@@ -136,7 +136,7 @@
 					title: 'Reponse',
 					text: 'Erreur dans le serveur interne!!',
 					type: 'error',
-					background: 'rgb(119, 119, 119)',
+					// background: 'rgb(119, 119, 119)',
 					backdrop: `rgba(0,0,123,0.4)`,
 					confirmButtonColor: 'rgb(255, 144, 0)'
 					})
@@ -168,7 +168,7 @@
 				title: 'Reponse',
 				html:'<span class="text-success font-weight-bol">' + response.info + '</span>',
 				type: 'success',
-				background: 'rgb(119, 119, 119)',
+				// background: 'rgb(119, 119, 119)',
 				backdrop: `rgba(0,0,123,0.4)`,
 				confirmButtonColor: 'rgb(255, 144, 0)'
 				})
@@ -179,7 +179,7 @@
 					title: 'Reponse',
 					text: 'Erreur dans le serveur interne!!',
 					type: 'error',
-					background: 'rgb(119, 119, 119)',
+					// background: 'rgb(119, 119, 119)',
 					backdrop: `rgba(0,0,123,0.4)`,
 					confirmButtonColor: 'rgb(255, 144, 0)'
 					})

@@ -2,7 +2,7 @@ $(function () {
     //EMOJI MESSAGE
     jQuery.ajax({
         type : 'GET',
-        url : '/particulier/get-list-emojis',
+        url : '/get-list-emojis',
         contentType : false,
         processData : false
                     

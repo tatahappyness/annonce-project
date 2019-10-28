@@ -16,6 +16,10 @@ img.format {
 	width: 10% !important;
 }
 
+.block-label img.format {
+	width: 25% !important;
+}
+
 #uploads .block .progressBar, #uploads .block-label .progressBar {
 	background-color: #3E6FAD;
 	width: 0px;

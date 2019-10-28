@@ -19,6 +19,22 @@ jQuery(document).ready(function () {
 			
     });
 
+    // Form select nature in pro space add images
+    jQuery('.category_id_pro').select2({
+        //theme: 'bootstrap',
+        width: '100%',
+        language: 'fr',
+        placeholder: 'Choisissez un categorie ?'
+        //allowClear: true
+			
+    });
+
+    //Show contenair of add service form
+    jQuery('.btn-show-form-service').click(function() {
+        jQuery('.cantainer-add-service').toggleClass('d-none');
+    })
+  
+
     //Ajax send message response to particular
     jQuery('.btn-send-message').click(function() {
         var form_message = jQuery('#form-response-message');
@@ -37,7 +53,7 @@ jQuery(document).ready(function () {
                 title: 'Reponse',
                 html:'<span class="text-success font-weight-bol">' + response.infos + '</span>',
                 type: 'success',
-                background: 'rgb(119, 119, 119)',
+                // background: 'rgb(119, 119, 119)',
                 backdrop: `rgba(0,0,123,0.4)`,
                 confirmButtonColor: 'rgb(255, 144, 0)'
                 })
@@ -48,7 +64,7 @@ jQuery(document).ready(function () {
                     title: 'Reponse',
                     text: 'Erreur dans le serveur interne!!',
                     type: 'error',
-                    background: 'rgb(119, 119, 119)',
+                    // background: 'rgb(119, 119, 119)',
                     backdrop: `rgba(0,0,123,0.4)`,
                     confirmButtonColor: 'rgb(255, 144, 0)'
                     })
@@ -74,7 +90,7 @@ jQuery(document).ready(function () {
                 title: 'Reponse',
                 html:'<span class="text-success font-weight-bol">' + response.infos + '</span>',
                 type: 'success',
-                background: 'rgb(119, 119, 119)',
+                // background: 'rgb(119, 119, 119)',
                 backdrop: `rgba(0,0,123,0.4)`,
                 confirmButtonColor: 'rgb(255, 144, 0)'
                 })
@@ -85,7 +101,7 @@ jQuery(document).ready(function () {
                     title: 'Reponse',
                     text: 'Erreur dans le serveur interne!!',
                     type: 'error',
-                    background: 'rgb(119, 119, 119)',
+                    // background: 'rgb(119, 119, 119)',
                     backdrop: `rgba(0,0,123,0.4)`,
                     confirmButtonColor: 'rgb(255, 144, 0)'
                     })
@@ -113,7 +129,7 @@ jQuery(document).ready(function () {
                 title: 'Reponse',
                 html:'<span class="text-success font-weight-bol">' + response.infos + '</span>',
                 type: 'success',
-                background: 'rgb(119, 119, 119)',
+                // background: 'rgb(119, 119, 119)',
                 backdrop: `rgba(0,0,123,0.4)`,
                 confirmButtonColor: 'rgb(255, 144, 0)'
                 })
@@ -124,7 +140,7 @@ jQuery(document).ready(function () {
                     title: 'Reponse',
                     text: 'Erreur dans le serveur interne!!',
                     type: 'error',
-                    background: 'rgb(119, 119, 119)',
+                    // background: 'rgb(119, 119, 119)',
                     backdrop: `rgba(0,0,123,0.4)`,
                     confirmButtonColor: 'rgb(255, 144, 0)'
                     })
@@ -151,7 +167,7 @@ jQuery(document).ready(function () {
                 title: 'Reponse',
                 html:'<span class="text-success font-weight-bol">' + response.infos + '</span>',
                 type: 'success',
-                background: 'rgb(119, 119, 119)',
+                // background: 'rgb(119, 119, 119)',
                 backdrop: `rgba(0,0,123,0.4)`,
                 confirmButtonColor: 'rgb(255, 144, 0)'
                 })
@@ -162,7 +178,7 @@ jQuery(document).ready(function () {
                     title: 'Reponse',
                     text: 'Erreur dans le serveur interne!!',
                     type: 'error',
-                    background: 'rgb(119, 119, 119)',
+                    // background: 'rgb(119, 119, 119)',
                     backdrop: `rgba(0,0,123,0.4)`,
                     confirmButtonColor: 'rgb(255, 144, 0)'
                     })
@@ -286,7 +302,7 @@ jQuery(document).ready(function () {
                     title: 'Reponse',
                     text: 'Erreur dans le serveur interne!!',
                     type: 'error',
-                    background: 'rgb(119, 119, 119)',
+                    // background: 'rgb(119, 119, 119)',
                     backdrop: `rgba(0,0,123,0.4)`,
                     confirmButtonColor: 'rgb(255, 144, 0)'
                     })
@@ -311,7 +327,7 @@ jQuery(document).ready(function () {
                 Swal.fire({
                 html: '<span class="h2 text-warning text-center">Attention!</span><br><span class="text-warning small text-center">Veillez definir ' + result+ ' exacte</span>',
                 type: 'warning',
-                background: 'rgb(119, 119, 119)',
+                // background: 'rgb(119, 119, 119)',
                 backdrop: `rgba(0,0,123,0.4)`,
                 confirmButtonColor: 'rgb(255, 144, 0)'
                 }); 
@@ -335,7 +351,7 @@ jQuery(document).ready(function () {
                 title: 'Reponse',
                 text: response.infos,
                 type: 'success',
-                background: 'rgb(119, 119, 119)',
+                // background: 'rgb(119, 119, 119)',
                 backdrop: `rgba(0,0,123,0.4)`,
                 confirmButtonColor: 'rgb(255, 144, 0)'
                 });
@@ -349,7 +365,7 @@ jQuery(document).ready(function () {
                     title: 'Reponse',
                     text: 'Erreur dans le serveur interne!!',
                     type: 'error',
-                    background: 'rgb(119, 119, 119)',
+                    // background: 'rgb(119, 119, 119)',
                     backdrop: `rgba(0,0,123,0.4)`,
                     confirmButtonColor: 'rgb(255, 144, 0)'
                     });
@@ -360,6 +376,150 @@ jQuery(document).ready(function () {
                 });
 
     })
+
+    //AJAX POST PARTICULAR PASSWORD  UPDATE
+    jQuery('.btn-update-password-pro').click(function() {
+		
+        var form_record = jQuery('#form-update-password-pro');
+        jQuery.ajax({
+            type: 'POST',
+            url: '/pro/password-edit',
+            contentType: false,
+            processData: false,
+            cache:false,
+            dataType:'json',
+            data: new FormData(form_record[0])
+				
+        }).done(function(response){
+			
+            form_record[0].reset();
+
+            Swal.fire({
+                title: 'Reponse',
+                html:'<span class="text-success font-weight-bol">' + response.info + '</span>',
+                type: 'success',
+                // background: 'rgb(119, 119, 119)',
+                backdrop: `rgba(0,0,123,0.4)`,
+                confirmButtonColor: 'rgb(255, 144, 0)'
+                })
+				
+            }).fail(function(){
+            // Here you should treat the http errors (e.g., 403, 40
+                Swal.fire({
+                    title: 'Reponse',
+                    text: 'Erreur dans le serveur interne!!',
+                    type: 'error',
+                    // background: 'rgb(119, 119, 119)',
+                    backdrop: `rgba(0,0,123,0.4)`,
+                    confirmButtonColor: 'rgb(255, 144, 0)'
+                    })
+					
+                }).always(function(){
+                    console.log("AJAX request finished!");
+                })
+
+    })
+
+        //AJAX POST Particular COMMENTS
+        jQuery('#btn-add-comment').click(function() {
+            
+            var form_record = jQuery('#form-add-comment');
+            jQuery.ajax({
+                type: 'POST',
+                url: '/pro/talk-us',
+                contentType: false,
+                processData: false,
+                cache:false,
+                dataType:'json',
+                data: new FormData(form_record[0])
+                    
+            }).done(function(response){
+                
+                form_record[0].reset();
+
+                Swal.fire({
+                    title: 'Reponse',
+                    html:'<span class="text-success font-weight-bol">' + response.info + '</span>',
+                    type: 'success',
+                    // background: 'rgb(119, 119, 119)',
+                    backdrop: `rgba(0,0,123,0.4)`,
+                    confirmButtonColor: 'rgb(255, 144, 0)'
+                    })
+                    
+                }).fail(function(){
+                // Here you should treat the http errors (e.g., 403, 40
+                    Swal.fire({
+                        title: 'Reponse',
+                        text: 'Erreur dans le serveur interne!!',
+                        type: 'error',
+                        // background: 'rgb(119, 119, 119)',
+                        backdrop: `rgba(0,0,123,0.4)`,
+                        confirmButtonColor: 'rgb(255, 144, 0)'
+                        })
+                        
+                    }).always(function(){
+                        console.log("AJAX request finished!");
+                    })
+
+        })
+
+        //ADD SERVICE PROS
+        jQuery('.btn-record-service-pro').click(function() {
+            
+            var form_record = jQuery('#form-add-service-pro');
+            jQuery.ajax({
+                type: 'POST',
+                url: '/pro/add-service',
+                contentType: false,
+                processData: false,
+                cache:false,
+                dataType:'json',
+                data: new FormData(form_record[0])
+                    
+            }).done(function(response){
+                
+                form_record[0].reset();
+
+                Swal.fire({
+                    title: 'Reponse',
+                    html:'<span class="text-success font-weight-bol">' + response.info + '</span>',
+                    type: 'success',
+                    // background: 'rgb(119, 119, 119)',
+                    backdrop: `rgba(0,0,123,0.4)`,
+                    confirmButtonColor: 'rgb(255, 144, 0)'
+                    })
+                    
+                    location.reload(true);
+                    
+                }).fail(function(){
+                // Here you should treat the http errors (e.g., 403, 40
+                    Swal.fire({
+                        title: 'Reponse',
+                        text: 'Erreur dans le serveur interne!!',
+                        type: 'error',
+                        // background: 'rgb(119, 119, 119)',
+                        backdrop: `rgba(0,0,123,0.4)`,
+                        confirmButtonColor: 'rgb(255, 144, 0)'
+                        })
+                        
+                    }).always(function(){
+                        console.log("AJAX request finished!");
+                    })
+
+        })
+
+
+        //how camera icon btn profil update
+        jQuery('.card-profil').mouseover( function (){
+            jQuery('span.upload-button').removeClass('d-none');
+        }).mouseleave( function() {
+            jQuery('span.upload-button').addClass('d-none');
+        })
+
+        $(".upload-button").on('click', function() {
+            $(".file-upload").click();
+        });
+
 
 
 })

@@ -33,6 +33,16 @@ class Article
      */
     private $articleDateCrea;
 
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $img;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $icon;
+
 
     public function __construct()
     {
@@ -76,6 +86,30 @@ class Article
     public function setArticleDateCrea(?\DateTimeInterface $articleDateCrea): self
     {
         $this->articleDateCrea = $articleDateCrea;
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(?string $img): self
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(?string $icon): self
+    {
+        $this->icon = $icon;
 
         return $this;
     }

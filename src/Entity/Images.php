@@ -31,6 +31,11 @@ class Images
      */
     private $dateCrea;
 
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $name;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class Images
     public function setDateCrea(?\DateTimeInterface $dateCrea): self
     {
         $this->dateCrea = $dateCrea;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

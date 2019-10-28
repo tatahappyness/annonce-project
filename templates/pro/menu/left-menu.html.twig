@@ -2,7 +2,7 @@
 <div class="col-sm-4 mt-4 p-0 d-none d-sm-block d-xl-none">
     <div class=" h-100">
 								
-        <div class="card profil-particular bg-transparent">
+        <div class="card card-profil profil-particular bg-transparent">
            
             <div class="d-flex justify-content-center">
                 
@@ -28,7 +28,7 @@
            
             <div class="card-body text-warning text-center">
                 {{ user.getEmail() }}
-                <p><a href="{{ path('pro_password_edit') }}" class="text-warning small"> > Modifier mon mot de passe <a></p>
+                <p><a href="{{ path('pro_password_edit') }}" class="text-warning small"> > Modifier mon mot de passe </a></p>
             </div>
         </div>
 								
@@ -64,90 +64,101 @@
         </div>
 								
         <div class="card">
-            <div class="card-header bg-darkgray p-1 text-white"> <h5 class="card-title"><span class="lnr lnr-construction float-left"></span> &nbsp; Ma zone géographique</h5></div>
+            <div class="card-header bg-darkgray p-1 text-white"> <h5 class="card-title"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span> &nbsp; Ma zone géographique</h5></div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 h-100">
                         <img class="" src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}"></img>
-                        <div class="d-block text-uppercase text-center pt-2">Avant</div>
+                        <div class="d-block text-uppercase text-center pt-2">
+                            <a href="" class="btn btn-warning text-decoration-none">Modifier ma zone géographique</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 								
         <div class="card">
-            <div class="card-header bg-darkgray p-1 text-white"> <h5 class="card-title"><span class="lnr lnr-construction float-left"></span> &nbsp; Mon conseiller</h5></div>
+            <div class="card-header bg-warning p-1 text-center text-white"> <h5 class="card-title"><span class="lnr lnr-bullhorn float-left" style="font-size: 32px;"> &nbsp; Nos meilleurs d'offres </h5></div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 h-100">
-                        <img class="" src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}"></img>
-                        <div class="d-block text-uppercase text-center pt-2">Avant</div>
+                    <div class="col-12 d-flex" style="background-image: url('/assets/img/photos/head-1.jpg'); height: 350px; background-size: cover; background-blend-mode: overlay; background-color: currentColor; background-position: center center; background-repeat: no-repeat;">
+                        <div class="w-100 align-self-center text-italic text-center" style="background-color: rgb(255, 144, 0, 50%);">
+                            <p class="text-white py-4 animated infinite bounce delay-2s">Insription 100% gratuit,<br>
+                            Profitez! le pack d'offre à 350€/an d'abonement!<br>
+                            Bouster votre visibilité par tout!
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-								
-        <div class="card">
-            <div class="card-header p-2 font-weight-bold"> <h5 class="card-title"><span class="lnr lnr-construction float-left"></span> &nbsp; Nos meilleurs d'offres</h5></div>
-            <div class="card-body text-italic text-center bg-warning">
-                <p class="text-white">Insription 100% gratuit,<br>
-                Profitez! la meilleur pack d'offre à 350€/an d'abonement!<br>
-                Bouster votre visibilité patout!
-                </p>
-            </div>
-        </div>
-								
-    </div>
+	</div>
 </div>
 <!-- End menu left litle mobile left -->
 
 <!-- Begin colonne left of sreen large -->
 <div class="col-12 col-md-4 pt-4 d-none d-xl-block">
     <div class="menu-container-pro-left">
-        <div class="card profil-particular bg-transparent">
-            <div class="position-absolute" style="left: 80px; top: 20px;"><span class="lnr-pencil-edit-profil-particular float-right mr-1 d-none bg-warning rounded-circle p-2"><span class="lnr lnr-pencil"></span></span></div>
-            <div class="w-100 bg-darkgray rounded-top d-flex justify-content-center"><img class="card-img-top rounded-circle" style="min-width: 115px;max-width: 115px; min-height: 115px; max-height: 115px;" src="{{ absolute_url('/assets/img/photos/devenir-chef-equipe-btp.jpg') }}" alt="Card image cap"></img></div>
+        <div class="card card-profil profil-particular bg-transparent">
+            <div class="d-flex justify-content-center">
+                
+                <div class="circle">
+                <!-- User Profile Image -->
+                <img class="profile-pic" 
+                    src="{% if user.getProfilImage() == null %}
+                    {{ absolute_url('/uploads/profil/avatar.png') }}
+                    {% else %}
+                    {{ absolute_url('/uploads/profil/' ~ user.getProfilImage()) }}
+                    {% endif %}">
+                <!-- Default Image -->
+                <!-- <i class="fa fa-user fa-5x"></i> -->
+                </div>
+                <div class="p-image">
+                    <span class="lnr lnr-camera upload-button d-none text-warning" style="font-size: 32px;"></span>
+                    <form id="form-upload-profil">
+                        <input class="file-upload" name="file-upload" type="file" accept="image/*"/>
+                    </form>
+                </div>
+                                  
+            </div>
+            
             <div class="card-body text-secondary text-center">
-                florent.tata@gmail.com
+                {{ user.getEmail() }}
+                <p><a href="{{ path('pro_password_edit') }}" class="text-warning small"> > Modifier mon mot de passe </a></p>
             </div>
         </div>
 								
         <div class="card">
-            <div class="card-header bg-darkgray p-1 text-white text-uppercase"> <h5 class="card-title"><span class="lnr lnr-construction float-left"></span> &nbsp; Ma zone géographique</h5></div>
+            <div class="card-header bg-darkgray p-1 text-white text-uppercase"> <h5 class="card-title"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span></span> &nbsp; Ma zone géographique</h5></div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 h-100">
                         <img class="" src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}"></img>
-                        <div class="d-block text-uppercase text-center pt-2">Avant</div>
+                        <div class="d-block text-uppercase text-center pt-2">
+                            <a href="" class="btn btn-warning text-decoration-none">Modifier ma zone géographique</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 								
         <div class="card">
-            <div class="card-header bg-darkgray p-1 text-white text-uppercase"> <h5 class="card-title"><span class="lnr lnr-construction float-left"></span> &nbsp; Mon conseiller</h5></div>
+            <div class="card-header bg-warning p-1 text-white text-center text-uppercase"> <h5 class="card-title"><span class="lnr lnr-bullhorn float-left" style="font-size: 32px;"></span></span> &nbsp; Nos meilleurs d'offres </h5></div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 h-100">
-                        <img class="" src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}"></img>
-                        <div class="d-block text-uppercase text-center pt-2">Avant</div>
+                    <div class="col-12 d-flex" style="background-image: url('/assets/img/photos/head-1.jpg'); height: 350px; background-size: cover; background-blend-mode: overlay; background-color: currentColor; background-position: center center; background-repeat: no-repeat;">
+                       
+                        <div class="w-100 align-self-center text-italic text-center" style="background-color: rgb(255, 144, 0, 50%);">
+                            <p class="text-white animated infinite bounce delay-2s">Insription 100% gratuit,<br>
+                            Profitez! le d'offre à 350€/an d'abonement!<br>
+                            Bouster votre visibilité par tout!
+                            </p>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
-								
-        <div class="card">
-            <div class="card-header p-2 font-weight-bold text-uppercase"> <h5 class="card-title"><span class="lnr lnr-construction float-left"></span> &nbsp; Nos meilleurs d'offres</h5></div>
-            <div class="card-body text-italic text-center bg-warning">
-                <p class="text-white">Insription 100% gratuit,<br>
-                Profitez! la meilleur pack d'offre à 350€/an d'abonement!<br>
-                Bouster votre visibilité patout!
-                </p>
-            </div>
-            <div class=" border-0 p-0 bg-white text-center pb-4">
-                <a class="btn btn-warning">Je veux profiter de l'offre</a>
-            </div>
-        </div>
-    </div>
+	</div>
 </div>
 <!-- End colnne left  of screen large-->

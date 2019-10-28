@@ -8,6 +8,18 @@ body {
     /* background: whitesmoke; */
 }
 
+.icon-tarif {
+	width: 128px;
+	height: 128px;
+	background-color: white;
+	border-radius: 50%;
+	border: 1px solid orange;
+}
+.lnr-tarif {
+	font-size: 64px !important;
+	line-height: 128px;
+}
+
 .select2-container {
 	width: 100% !important;
 }
@@ -268,7 +280,7 @@ p.small {
 	font-size: 64px !important;
 }
 .icon-incrition-pro {
-	width: 90px !important;
+	height: 90px !important;
 }
 
 .icon-popular-ask-eyes {
@@ -335,6 +347,13 @@ p.small {
 
 .page-header {
 	max-height: none !important;
+}
+.page-header-image-gallery {
+	min-height: 50vh !important;
+}
+
+.page-header-inscription {
+	min-height: 35vh !important;
 }
 
 .btn-outline-warning:hover {
@@ -452,15 +471,15 @@ hr {
 
 .section-main-home, .section-main-inscription {
 	background-image: url(../assets/img/photos/footer_bg.jpg);
-    background-repeat: no-repeat;
-    background-position: center center;
-    /*background-size: cover;*/
-    background-color: unset;
-    background-blend-mode: overlay;
-	/*background-attachment: fixed;*/
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	background-color: #333;
+	background-blend-mode: overlay;
+	background-attachment: fixed;
 }
 .modal-head-img-right {
-	background-image: url(../assets/img/photos/engineering-construction.jpg);
+	background-image: url(../uploads/logo/artisan.jpg);
 	 background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;

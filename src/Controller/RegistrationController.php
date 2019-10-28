@@ -36,9 +36,11 @@ class RegistrationController extends AbstractController
     { 
        
         $user = new User();
+        $service = new Services();
         
         if ($request->request->get('TYPE_USER') !== null && $request->request->get('TYPE_USER') === 'PRO_USER') {
             // register pro
+            $entityManager->beginTransaction();
             $category = $categoryRep->findById((int) $request->request->get('metier_ask_devis'));
             $city = $cityRep->findById((int) $request->request->get('city'));
             $user
@@ -61,11 +63,22 @@ class RegistrationController extends AbstractController
                         $user,
                         $request->request->get('_password')
                     ));
-                $entityManager = $this->getDoctrine()->getManager();
+               //Add service pros when is registered
+                $service
+                    ->setUserId($user)
+                    ->setCategoryId($category)
+                    ->setDateCrea(new \DateTime('now'));
+
                 try {
         
                     $entityManager->persist($user);
                     $entityManager->flush();
+
+                    $entityManager->persist($service);
+                    $entityManager->flush();
+
+                    $entityManager->commit();
+
                     return new JsonResponse(['code'=> 200, "infos" => 'Vous êtes inscrit!'], 200);
                 } 
                 catch (\Exception $e) {
@@ -79,8 +92,10 @@ class RegistrationController extends AbstractController
                 ->setRoles(['ROLE_USER_PARTICULAR'])
                 ->setUsername($request->request->get('_username'))
                 ->setEmail($request->request->get('_email'))
+                ->setMobile($request->request->get('phone'))
                 ->setIsAcceptConditionTerm(true)
                 ->setIsParticular(true)
+                ->setDateCrea(new \DateTime('now'))
                 ->setPassword($passwordEncoder->encodePassword(
                         $user,
                         $request->query->get('_password')

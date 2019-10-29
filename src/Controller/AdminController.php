@@ -139,7 +139,7 @@ class AdminController extends AbstractController
 		
         $count_devis = $devisRep->findAll();
 		$count_type = $type_rep->findAll();
- 		$count_article = $art_rep->findAll();
+ 		$count_article = $art_rep->findAllArray();
 		$count_category = $cat_rep->findAll();
 		$count_post =  $post_rep->findAll();
 		

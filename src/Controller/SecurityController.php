@@ -12,6 +12,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\DevisRepository;
+use App\Repository\ArticleRepository;
+use App\Repository\CategoryRepository;
 
 
 class SecurityController extends AbstractController
@@ -20,7 +23,7 @@ class SecurityController extends AbstractController
     /**
     * @Route("/login", name="login")
     */
-    public function login( AuthenticationUtils $authenticationUtils, Security $security)
+    public function login( AuthenticationUtils $authenticationUtils, Security $security, CategoryRepository $categoryRep, DevisRepository $devisRep, ArticleRepository $artRep)
     {   
         // On vérifie que l'utilisateur dispose bien du rôle ROLE_ADMIN
         if ($this->isGranted('ROLE_ADMIN')) {
@@ -45,8 +48,27 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+
+                }
+
             return $this->render('page/connexion.html.twig', [
-                'controller_name' => 'PremuimController', "success" =>  $lastUsername, "error" =>  $error
+                'controller_name' => 'PremuimController', 
+                "success" =>  $lastUsername, 
+                "error" =>  $error,
+                'popularDevis'=> $popularDevis,
+                'categories'=> $categories,
+
             ]);
        
     }

@@ -38,7 +38,7 @@ $(document).ready(function(){
 				progressBar.remove();
 				cancelButton.remove();
 				//var data = JSON.parse(response);
-				alert(response.infos);
+				//alert(response.infos);
 				
 				var errorDiv = '<img class="format text-dark" width="120" height="80" src="/uploads/images/' +  response.infos + '" style="margin-top: 0!important;"></img>';
 				block.append(errorDiv);

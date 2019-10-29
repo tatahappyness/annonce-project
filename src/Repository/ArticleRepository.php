@@ -22,6 +22,16 @@ class ArticleRepository extends ServiceEntityRepository
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
+
+    public function findAllArticles($limit = 20)
+    {
+        return $this->createQueryBuilder('a')
+           ->orderBy('a.id', 'ASC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
     public function findByCategory($value)
     {
@@ -29,7 +39,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->andWhere('a.articleCategId = :val')
             ->setParameter('val', $value)
             ->orderBy('a.id', 'ASC')
-            ->setMaxResults(200)
+            //->setMaxResults(200)
             ->getQuery()
             ->getResult()
         ;

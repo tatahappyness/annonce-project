@@ -9,7 +9,12 @@ use App\Entity\Services;
 use App\Entity\Type;
 use App\Entity\Category;
 use App\Entity\Article;
+use App\Entity\SousCategory;
+use App\Entity\ModePrix;
+use App\Entity\Configsite;
 
+
+use App\Repository\ConfigsiteRepository;
 use App\Repository\CustomerRepository;
 use App\Repository\DevisRepository;
 use App\Repository\ServicesRepository;
@@ -18,9 +23,12 @@ use App\Repository\TransactionRepository;
 use App\Repository\AbonnementRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\PostRepository;
-
 use App\Repository\CategoryRepository;
 use App\Repository\TypeRepository;
+use App\Repository\SousCategoryRepository;
+use App\Repository\ModePrixRepository;
+use App\Repository\OptionEmailRepository;
+
 
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -41,7 +49,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
-
 /** 
 * @Route("/admin")
 * 
@@ -50,6 +57,22 @@ class AdminController extends AbstractController
 {
 
     
+    /**
+     * @Route("../configsite/{id}/edit", name="configsite_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Configsite $configsite): Response
+    {
+        $form = $this->createForm(ConfigsiteType::class, $configsite);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+        }
+
+    }
+
+
     /**
     * @Route("/test", name="test")
     */
@@ -111,8 +134,8 @@ class AdminController extends AbstractController
         //$this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
- 		$count_pro = $pro_user_rep->findRolesPro();		
- 		$count_part = $pro_user_rep->findRolesPart();
+ 		$count_pro = $pro_user_rep->findAll();
+ 		$count_part = $pro_user_rep->findAll();
 		
         $count_devis = $devisRep->findAll();
 		$count_type = $type_rep->findAll();
@@ -130,7 +153,8 @@ class AdminController extends AbstractController
 			 'numberType' => count($count_type),
 			 'numberArt' => count($count_article),
 			 'numberCat' => count($count_category),
-			 'numberPost' => count($count_post)
+             'numberPost' => count($count_post)
+             
         ]);
     }
 
@@ -202,7 +226,7 @@ class AdminController extends AbstractController
     /**
     * @Route("/config_site", name="config_site")
     */
-    public function config_site()
+    public function config_site(ConfigsiteRepository $configsiteRepository): Response
     {
         
         // The second parameter is used to specify on what object the role is tested.
@@ -210,11 +234,12 @@ class AdminController extends AbstractController
 
 		
         return $this->render('admin/config_site.html.twig', [	
-			'page_head_title' => 'CONFIGURATION DU SITE',
+            'page_head_title' => 'CONFIGURATION DU SITE',
+            'configsites' => $configsiteRepository->findAll()
         ]);
     }
-	
-
+    
+    
     /**
     * @Route("/dem_devis", name="dem_devis")
     */
@@ -234,6 +259,43 @@ class AdminController extends AbstractController
 			'page_head_title' => 'DEMANDE DE DEVIS',
             'isAbonned'=> false
         ]);
+
+    }
+
+    /**
+    * @Route("/setUpdateServiceActived", name="setUpdateServiceActived")
+    */
+    public function setUpdateServiceActived(ServicesRepository $serviceRep, OptionEmailRepository $optionEmail_rep)
+    {
+        
+        
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+		       
+        $serv = $serviceRep->updateServiceActived();
+
+        $option_email_get = $optionEmail_rep->updateNormale();
+
+        return $this->redirectToRoute('m_e_email');
+
+    }
+
+    
+    /**
+    * @Route("/setUpdateServiceDisable", name="setUpdateServiceDisable")
+    */
+    public function setUpdateServiceDisable(ServicesRepository $serviceRep)
+    {
+        
+        
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+		       
+        $serv = $serviceRep->updateServiceDisable();
+        
+        return $this->redirectToRoute('m_e_email');
 
     }
 		
@@ -284,10 +346,8 @@ class AdminController extends AbstractController
        
         return count($count_pro);
     }
-		
-		
-		
-		
+        
+    
     /**
     * @Route("/lst_in_pro", name="lst_in_pro")
     */
@@ -321,11 +381,11 @@ class AdminController extends AbstractController
         if ($id !== null) {
             $em =  $this->getDoctrine()->getManager();
            try {
-            $em->beginTransaction();
-            $prof = $user_rep->findById((int) $id);
-            $em->remove($prof);
-            $em->flush();
-            $em->commit();
+                $em->beginTransaction();
+                $prof = $user_rep->findById((int) $id);
+                $em->remove($prof);
+                $em->flush();
+                $em->commit();
            } catch (\Throwable $th) {
             return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
            }
@@ -345,12 +405,12 @@ class AdminController extends AbstractController
 		
         if ($id !== null) {
             $em =  $this->getDoctrine()->getManager();
-           try {
-            $em->beginTransaction();
-            $prof = $user_rep->findById((int) $id);
-            $em->remove($prof);
-            $em->flush();
-            $em->commit();
+            try {
+                $em->beginTransaction();
+                $prof = $user_rep->findById((int) $id);
+                $em->remove($prof);
+                $em->flush();
+                $em->commit();
            } catch (\Throwable $th) {
             return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
            }
@@ -362,15 +422,17 @@ class AdminController extends AbstractController
     /**
     * @Route("/m_e_email", name="m_e_email")
     */
-    public function m_e_email(UserRepository $pro_user_rep)
+    public function m_e_email(UserRepository $pro_user_rep, OptionEmailRepository $option_email_rep)
     {
-		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');        
-		
- 		$count_pro = $pro_user_rep->findRolesPro();
-		
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');        
+        		
+        $count_pro = $pro_user_rep->findRolesPro();
+        $count_option_email = $option_email_rep->findAll();
+                  
 		return $this->render('admin/m_e_email.html.twig', [
 			'page_head_title' => 'MODES D’ENVOI D’EMAIL',
-			 'list_pros' => $count_pro
+             'list_pros' => $count_pro,
+             'option_email' => $count_option_email
         ]);
     }
 
@@ -417,7 +479,9 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('trans');
        
     }
-	
+    
+    
+    
 	
 	
     /**
@@ -544,7 +608,7 @@ class AdminController extends AbstractController
 		return $this->render('admin/abonnement.html.twig', [
 			'page_head_title' => 'ABONNEMENT',
 			 'numberAbon' => count($count_abon),
-			 'list_abon' => $count_abon
+			 'abonnements' => $count_abon
         ]);
 		
     }
@@ -662,8 +726,98 @@ class AdminController extends AbstractController
 			 'list_cat' => $count_category
         ]);
     }
+
+
+    
+    
+    /**
+    * @Route("/objet_devis/api_type_table", name="api_type_table")
+    */
+    public function api_type_table(TypeRepository $type_rep)
+    {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
+        $count_type = $type_rep->findAll();
+        
+        return $this->render('admin/api_admin/api_type_table.html.twig', [
+			'page_head_title' => 'OBJET DE DEVIS',
+			
+			 'numberType' => count($count_type),
+			 'list_type' => $count_type
+        ]);
+    }
+    
+    
+    /**
+    * @Route("/objet_devis/api_category_table", name="api_category_table")
+    */
+    public function api_category_table( CategoryRepository $cat_rep)
+    {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
+		$count_category = $cat_rep->findAll();
+        
+        return $this->render('admin/api_admin/api_category_table.html.twig', [
+			'page_head_title' => 'OBJET DE DEVIS',
+			
+            'numberType' => count($count_category),
+            'list_cat' => $count_category
+        ]);
+    }
+    
+    
+    
+    /**
+    * @Route("/objet_devis/api_article_table", name="api_article_table")
+    */
+    public function api_article_table( ArticleRepository $art_rep )
+    {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+				
+        $count_article = $art_rep->findAll();
+        
+        return $this->render('admin/api_admin/api_article_table.html.twig', [						
+         
+			 'numberType' => count($count_article),
+			 'list_art' => $count_article,
+			 
+        ]);
+    }
+    
+    
+    /**
+    * @Route("/objet_devis/api_souscategory_table", name="api_souscategory_table")
+    */
+    public function api_souscategory_table( SousCategoryRepository $souscat_rep)
+    {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
+		$count_souscategory = $souscat_rep->findAll();
+        
+        return $this->render('admin/api_admin/api_souscategory_table.html.twig', [
+			'page_head_title' => 'OBJET DE DEVIS',
+			
+            'numberType' => count($count_souscategory),
+            'list_souscat' => $count_souscategory
+        ]);
+    }
 	
-	
+    
+    /**
+    * @Route("/objet_devis/api_mode_prix_table", name="api_mode_prix_table")
+    */
+    public function api_mode_prix_table( ModePrixRepository $prix_rep)
+    {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+		
+		$count_prix = $prix_rep->findAll();
+        
+        return $this->render('admin/api_admin/api_mode_prix_table.html.twig', [
+			'page_head_title' => 'OBJET DE DEVIS',
+            'numberType' => count($count_prix),
+            'list_prix' => $count_prix
+        ]);
+    }
 	
     /**
     * @Route("/register_type/{title}", name="register_type")		
@@ -729,9 +883,8 @@ class AdminController extends AbstractController
 				$em->flush();
 				$em->commit();
 				
-				return $this->redirectToRoute('objet_devis');
-				return $this->redirectToRoute('objet_devis');
-				
+                return $this->redirectToRoute('objet_devis');
+                
 			} catch (\Throwable $th) {
 				return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
 			}
@@ -849,5 +1002,12 @@ public function update_article(Request $request, $id, ArticleRepository $art_rep
         return new JsonResponse(['code'=> 200, 'infos'=> 'votre email est validé'], 200);
     
     }
+
+
+
+
     
+    /** ############## ABONNEMENT ################ **/
+
+
 }

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Services{% endblock %}
+
+{% block body %}
+    <h1>Services</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ service.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ service.userid.username }}</td>
+            </tr>
+
+            <tr>
+                <th>Categorie</th>
+                <td>{{ service.CategoryId.CategTitle }}</td>
+            </tr>
+
+            <tr>
+                <th>Actived</th>
+                <td>{{ service.isActived ? 'Yes' : 'No' }}</td>
+            </tr>
+            
+            <tr>
+                <th>DateCrea</th>
+                <td>{{ service.dateCrea ? service.dateCrea|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+        
+{% endblock %}

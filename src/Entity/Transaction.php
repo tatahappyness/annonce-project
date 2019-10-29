@@ -23,6 +23,7 @@ class Transaction
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer")
+     * @ORM\JoinColumn(name="customer_id_id",referencedColumnName="id",onDelete="CASCADE")
      */
     private $customerId;
 

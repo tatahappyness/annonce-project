@@ -7,10 +7,10 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Abennement|null find($id, $lockMode = null, $lockVersion = null)
- * @method Abennement|null findOneBy(array $criteria, array $orderBy = null)
- * @method Abennement[]    findAll()
- * @method Abennement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Abonnement|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Abonnement|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Abonnement[]    findAll()
+ * @method Abonnement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class AbonnementRepository extends ServiceEntityRepository
 {

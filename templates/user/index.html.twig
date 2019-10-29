@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <h1>User index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>BusinessCategory</th>
+                <th>BusinessSubCategory</th>
+                <th>CompanyTitle</th>
+                <th>IsAcceptConditionTerm</th>
+                <th>IsBusiness</th>
+                <th>IsProfessional</th>
+                <th>Logo</th>
+                <th>ProfilImage</th>
+                <th>MemberType</th>
+                <th>IsActivity</th>
+                <th>CompanyName</th>
+                <th>Username</th>
+                <th>Firstname</th>
+                <th>Enabled</th>
+                <th>IsParticular</th>
+                <th>SiretNumber</th>
+                <th>ZipCode</th>
+                <th>Lat</th>
+                <th>Log</th>
+                <th>FreeDateExpire</th>
+                <th>FirstName</th>
+                <th>DateCrea</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.mobile }}</td>
+                <td>{{ user.businessCategory }}</td>
+                <td>{{ user.businessSubCategory }}</td>
+                <td>{{ user.companyTitle }}</td>
+                <td>{{ user.isAcceptConditionTerm ? 'Yes' : 'No' }}</td>
+                <td>{{ user.isBusiness ? 'Yes' : 'No' }}</td>
+                <td>{{ user.isProfessional ? 'Yes' : 'No' }}</td>
+                <td>{{ user.logo }}</td>
+                <td>{{ user.profilImage }}</td>
+                <td>{{ user.memberType }}</td>
+                <td>{{ user.isActivity ? 'Yes' : 'No' }}</td>
+                <td>{{ user.companyName }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
+                <td>{{ user.isParticular ? 'Yes' : 'No' }}</td>
+                <td>{{ user.siretNumber }}</td>
+                <td>{{ user.zipCode }}</td>
+                <td>{{ user.lat }}</td>
+                <td>{{ user.log }}</td>
+                <td>{{ user.freeDateExpire ? user.freeDateExpire|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.dateCrea ? user.dateCrea|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="29">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_new') }}">Create new</a>
+{% endblock %}

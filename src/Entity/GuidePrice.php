@@ -18,11 +18,13 @@ class GuidePrice
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\JoinColumn(name="category_id_id",referencedColumnName="id",onDelete="CASCADE")
      */
     private $categoryId;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article")
+     * @ORM\JoinColumn(name="article_id_id",referencedColumnName="id",onDelete="CASCADE")
      */
     private $articleId;
 

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- h1>Category</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ category.id }}</td>
+            </tr>
+            <tr>
+                <th>CategTitle</th>
+                <td>{{ category.categTitle }}</td>
+            </tr>
+            <tr>
+                <th>CategDateCrea</th>
+                <td>{{ category.categDateCrea ? category.categDateCrea|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ category.description }}</td>
+            </tr>
+            <tr>
+                <th>Img</th>
+                <td>{{ category.img }}</td>
+            </tr>
+            <tr>
+                <th>Icon</th>
+                <td>{{ category.icon }}</td>
+            </tr>
+        </tbody>
+    </table -->
+
+    <span class="font-weight-bold " >ID:</span> {{  category.id }}	<br>
+    <span class="font-weight-bold " >Nom:</span> {{category.categTitle }}<br>		
+    <span class="font-weight-bold " >Description:</span> {{ category.description  }}<br>
+    <span class="font-weight-bold " >Date de création:</span>{{ category.categDateCrea | date('d/m/y H:m:s') }}<br>				
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">
+                                NON
+                            </button>
+                                           
+                            {{ include('category/_delete_form.html.twig') }}
+                            
+                        </div>
+    
+
+
+
+{% endblock %}

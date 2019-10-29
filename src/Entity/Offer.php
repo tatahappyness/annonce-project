@@ -28,6 +28,7 @@ class Offer
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\JoinColumn(name="category_id_id",referencedColumnName="id",onDelete="CASCADE")
      */
     private $categoryId;
 

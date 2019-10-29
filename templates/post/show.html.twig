@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post{% endblock %}
+
+{% block body %}
+    <h1>Post</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ post.id }}</td>
+            </tr>
+            <tr>
+                <th>PostLocation</th>
+                <td>{{ post.postLocation }}</td>
+            </tr>
+            <tr>
+                <th>PostZipcode</th>
+                <td>{{ post.postZipcode }}</td>
+            </tr>
+            <tr>
+                <th>PostRegion</th>
+                <td>{{ post.postRegion }}</td>
+            </tr>
+            <tr>
+                <th>PostLatitude</th>
+                <td>{{ post.postLatitude }}</td>
+            </tr>
+            <tr>
+                <th>PostLongitude</th>
+                <td>{{ post.postLongitude }}</td>
+            </tr>
+            <tr>
+                <th>PostAdsTravauxDescription</th>
+                <td>{{ post.postAdsTravauxDescription }}</td>
+            </tr>
+            <tr>
+                <th>PostAdsDateCrea</th>
+                <td>{{ post.postAdsDateCrea ? post.postAdsDateCrea|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>PostAdsTypeClient</th>
+                <td>{{ post.postAdsTypeClient }}</td>
+            </tr>
+            <tr>
+                <th>PostAdsTypeHabitation</th>
+                <td>{{ post.postAdsTypeHabitation }}</td>
+            </tr>
+            <tr>
+                <th>PostAdsStartDate</th>
+                <td>{{ post.postAdsStartDate }}</td>
+            </tr>
+            <tr>
+                <th>PostAdsTravauxSurface</th>
+                <td>{{ post.postAdsTravauxSurface }}</td>
+            </tr>
+            <tr>
+                <th>PostAdsEtatTerrain</th>
+                <td>{{ post.postAdsEtatTerrain }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ post.email }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ post.phone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('post_index') }}">back to list</a>
+
+    <a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+
+    {{ include('post/_delete_form.html.twig') }}
+{% endblock %}

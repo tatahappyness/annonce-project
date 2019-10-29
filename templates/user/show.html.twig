@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <h1>User</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ user.password }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ user.name }}</td>
+            </tr>
+            <tr>
+                <th>Mobile</th>
+                <td>{{ user.mobile }}</td>
+            </tr>
+            <tr>
+                <th>BusinessCategory</th>
+                <td>{{ user.businessCategory }}</td>
+            </tr>
+            <tr>
+                <th>BusinessSubCategory</th>
+                <td>{{ user.businessSubCategory }}</td>
+            </tr>
+            <tr>
+                <th>CompanyTitle</th>
+                <td>{{ user.companyTitle }}</td>
+            </tr>
+            <tr>
+                <th>IsAcceptConditionTerm</th>
+                <td>{{ user.isAcceptConditionTerm ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>IsBusiness</th>
+                <td>{{ user.isBusiness ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>IsProfessional</th>
+                <td>{{ user.isProfessional ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Logo</th>
+                <td>{{ user.logo }}</td>
+            </tr>
+            <tr>
+                <th>ProfilImage</th>
+                <td>{{ user.profilImage }}</td>
+            </tr>
+            <tr>
+                <th>MemberType</th>
+                <td>{{ user.memberType }}</td>
+            </tr>
+            <tr>
+                <th>IsActivity</th>
+                <td>{{ user.isActivity ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>CompanyName</th>
+                <td>{{ user.companyName }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ user.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>IsParticular</th>
+                <td>{{ user.isParticular ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>SiretNumber</th>
+                <td>{{ user.siretNumber }}</td>
+            </tr>
+            <tr>
+                <th>ZipCode</th>
+                <td>{{ user.zipCode }}</td>
+            </tr>
+            <tr>
+                <th>Lat</th>
+                <td>{{ user.lat }}</td>
+            </tr>
+            <tr>
+                <th>Log</th>
+                <td>{{ user.log }}</td>
+            </tr>
+            <tr>
+                <th>FreeDateExpire</th>
+                <td>{{ user.freeDateExpire ? user.freeDateExpire|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ user.firstName }}</td>
+            </tr>
+            <tr>
+                <th>DateCrea</th>
+                <td>{{ user.dateCrea ? user.dateCrea|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_index') }}">back to list</a>
+
+    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+
+    {{ include('user/_delete_form.html.twig') }}
+{% endblock %}

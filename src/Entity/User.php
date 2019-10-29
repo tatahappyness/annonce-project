@@ -144,6 +144,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\JoinColumn(name="user_category_activity_id",referencedColumnName="id",onDelete="SET NULL")
      */
     private $userCategoryActivity;
 
@@ -154,6 +155,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Cities")
+     * @ORM\JoinColumn(name="user_city_id",referencedColumnName="id",onDelete="SET NULL")
      */
     private $userCity;
 

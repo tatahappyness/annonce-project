@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\AbennementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\AbonnementRepository")
  */
 class Abonnement
 {
@@ -18,11 +18,13 @@ class Abonnement
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer")
+     * @ORM\JoinColumn(name="customer_id_id", referencedColumnName="id",onDelete="CASCADE")
      */
     private $customerId;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Services")
+     * @ORM\JoinColumn(name="service_id_id", referencedColumnName="id",onDelete="CASCADE")
      */
     private $serviceId;
 

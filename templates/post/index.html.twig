@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <h1>Post index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>PostLocation</th>
+                <th>PostZipcode</th>
+                <th>PostRegion</th>
+                <th>PostLatitude</th>
+                <th>PostLongitude</th>
+                <th>PostAdsTravauxDescription</th>
+                <th>PostAdsDateCrea</th>
+                <th>PostAdsTypeClient</th>
+                <th>PostAdsTypeHabitation</th>
+                <th>PostAdsStartDate</th>
+                <th>PostAdsTravauxSurface</th>
+                <th>PostAdsEtatTerrain</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.postLocation }}</td>
+                <td>{{ post.postZipcode }}</td>
+                <td>{{ post.postRegion }}</td>
+                <td>{{ post.postLatitude }}</td>
+                <td>{{ post.postLongitude }}</td>
+                <td>{{ post.postAdsTravauxDescription }}</td>
+                <td>{{ post.postAdsDateCrea ? post.postAdsDateCrea|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ post.postAdsTypeClient }}</td>
+                <td>{{ post.postAdsTypeHabitation }}</td>
+                <td>{{ post.postAdsStartDate }}</td>
+                <td>{{ post.postAdsTravauxSurface }}</td>
+                <td>{{ post.postAdsEtatTerrain }}</td>
+                <td>{{ post.email }}</td>
+                <td>{{ post.phone }}</td>
+                <td>
+                    <a href="{{ path('post_show', {'id': post.id}) }}">show</a>
+                    <a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="16">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('post_new') }}">Create new</a>
+{% endblock %}

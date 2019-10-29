@@ -19,6 +19,7 @@ class Devis
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(name="dev_user_id_id",referencedColumnName="id",onDelete="SET NULL")
      */
     private $devUserId;
 
@@ -69,6 +70,7 @@ class Devis
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="dev_user_id_dest_id",referencedColumnName="id",onDelete="SET NULL")
      */
     private $devUserIdDest;
 
@@ -94,26 +96,31 @@ class Devis
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article")
+     * @ORM\JoinColumn(name="nature_project_id", referencedColumnName="id",onDelete="SET NULL")
      */
     private $natureProject;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Fonction")
+     * @ORM\JoinColumn(name="fonction_id_id", referencedColumnName="id",onDelete="SET NULL")
      */
     private $fonctionId;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Type")
+     * @ORM\JoinColumn(name="type_project_id", referencedColumnName="id",onDelete="SET NULL")
      */
     private $typeProject;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Cities")
+     * @ORM\JoinColumn(name="city_id", referencedColumnName="id",onDelete="SET NULL")
      */
     private $city;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\JoinColumn(name="category_id_id", referencedColumnName="id",onDelete="SET NULL")
      */
     private $CategoryId;
 

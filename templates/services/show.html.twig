@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Services{% endblock %}
+
+{% block body %}
+    <h1>Services</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ service.id }}</td>
+            </tr>
+            <tr>
+                <th>IsActived</th>
+                <td>{{ service.isActived ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>DateCrea</th>
+                <td>{{ service.dateCrea ? service.dateCrea|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            NON
+        </button>
+
+        <form method="post" action="{{ path('services_delete', {'id': service.id}) }}" >
+            <input class="btn btn-success" type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">            
+            <button class="btn btn-success">Delete</button>
+        </form>
+
+    </div>
+        
+{% endblock %}

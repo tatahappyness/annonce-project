@@ -34,6 +34,8 @@ class ServicesRepository extends ServiceEntityRepository
         ;
     }
 
+    
+
     public function findByCategoryId($value)
     {
         return $this->createQueryBuilder('s')
@@ -46,6 +48,8 @@ class ServicesRepository extends ServiceEntityRepository
         ;
     }
 
+    
+
     public function findByUserAndCategoryId($value): ?Services
     {
         return $this->createQueryBuilder('s')
@@ -55,6 +59,47 @@ class ServicesRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    public function updateServiceActived()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'UPDATE `services` SET `services`.`is_actived`= 1';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();    
+    }
+
+    
+    public function updateServiceDisable()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'UPDATE `services` SET `services`.`is_actived`= 0';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();    
+    }
+
+
+    
+    public function updateSetIdServiceDisable($value):  ?Services
+    {
+        //$conn = $this->getEntityManager()->getConnection();
+
+        $query = $this->_em->createQuery(' UPDATE `services` SET `is_actived` = NULL WHERE `services`.`id` = :val ');
+        $query->setParameter('val', $value);
+
+        return $query->execute();
+
+        //$sql = ' UPDATE `services` SET `is_actived` = NULL WHERE `services`.`id` = :val ';
+        
+        //$stmt = $conn->prepare($sql);
+        //$stmt->execute();
+        
+    }
+
+
 
     public function findOneById($value): ?Services
     {

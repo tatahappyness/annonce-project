@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ category.id }}</td>
+            </tr>
+            <tr>
+                <th>CategTitle</th>
+                <td>{{ category.categTitle }}</td>
+            </tr>
+            <tr>
+                <th>CategDateCrea</th>
+                <td>{{ category.categDateCrea | date('d/m/y H:m:s') }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ category.description }}</td>
+            </tr>
+            <tr>
+                <th>Img</th>
+                <td>{{ category.img }}</td>
+            </tr>
+            <tr>
+                <th>Icon</th>
+                <td>{{ category.icon }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+                            
+                        </div>
+    
+
+
+
+{% endblock %}

@@ -20,6 +20,7 @@ class Article
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\JoinColumn(name="article_categ_id_id", referencedColumnName="id",onDelete="SET NULL")
      */
     private $articleCategId;
 

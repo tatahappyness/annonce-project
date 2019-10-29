@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Configsite{% endblock %}
+
+{% block body %}
+    <h1>Configsite</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ configsite.id }}</td>
+            </tr>
+            <tr>
+                <th>Nomsite</th>
+                <td>{{ configsite.nomsite }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ configsite.email }}</td>
+            </tr>
+            <tr>
+                <th>Numphone</th>
+                <td>{{ configsite.numphone }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ configsite.image }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('configsite_index') }}">back to list</a>
+
+    <a href="{{ path('configsite_edit', {'id': configsite.id}) }}">edit</a>
+
+    {{ include('configsite/_delete_form.html.twig') }}
+{% endblock %}

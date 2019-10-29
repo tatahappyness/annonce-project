@@ -40,6 +40,22 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         # - { path: ^/admin, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/article, role: ROLE_ADMIN }
+        - { path: ^/category, role: ROLE_ADMIN }
+        - { path: ^/configsite, role: ROLE_ADMIN }
+        - { path: ^/devis, role: ROLE_ADMIN }
+        - { path: ^/mode_prix, role: ROLE_ADMIN }
+        - { path: ^/post, role: ROLE_ADMIN }
+        - { path: ^/service, role: ROLE_ADMIN }
+        - { path: ^/sous_category, role: ROLE_ADMIN }
+        - { path: ^/transaction, role: ROLE_ADMIN }
+        - { path: ^/type, role: ROLE_ADMIN }
+        - { path: ^/user, role: ROLE_ADMIN }
+
+        #- { path: ^/configsite, role: ROLE_ADMIN }
+        
+
+
         - { path: ^/pro, role: ROLE_USER_PROFESSIONAL }
         - { path: ^/particulier, role: ROLE_USER_PARTICULAR }
         

@@ -17,12 +17,15 @@ class Services
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")     
+     * @ORM\JoinColumn(name="user_id_id",referencedColumnName="id",onDelete="CASCADE",nullable=false)
+     * 
      */
     private $userId;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\JoinColumn(name="category_id_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $categoryId;
 

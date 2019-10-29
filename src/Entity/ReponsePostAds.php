@@ -18,16 +18,19 @@ class ReponsePostAds
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_part_id_id",referencedColumnName="id",onDelete="CASCADE",nullable=false)
      */
     private $userPartId;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_pro_id_id",referencedColumnName="id",onDelete="CASCADE")
      */
     private $userProId;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Post")
+     * @ORM\JoinColumn(name="post_ads_id_id",referencedColumnName="id",onDelete="CASCADE")
      */
     private $postAdsId;
 

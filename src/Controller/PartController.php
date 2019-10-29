@@ -88,7 +88,7 @@ class PartController extends AbstractController
     /**
     * @Route("/list-articles-ajax", name="particulier_list_articles_ajax")
     */
-    public function listArticlesAjax(Request $request, Security $security, CategoryRepository $categoryRep, ArticleRepository $articleRep) 
+    public function listArticlesAjax(Request $request, Security $security, CategoryRepository $categoryRep, ArticleRepository $articleRep)
     {
 
         try {

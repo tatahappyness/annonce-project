@@ -66,13 +66,34 @@
 	</br>
       <!-- Main Content -->
       <div id="content">
-	  
+	  </br>	
         <!-- Begin Page Content -->
         <div class="container-fluid">
-			<div class="bg-success" >				
+			<div class="" >				
 				<div class="row col-lg-12">
-					<h4 class="" >MODE ACTIVER: </h4>
-					<h3 class="" >[ Normalement ]</h3>
+        
+      
+							    {% if option_email != null %}							
+										{% for lst in option_email %}
+                          {% if lst.typekey() == 1 %}							
+                            <h4 class="" >MODE ACTIVER: </h4>
+                            <h3 class="btn-success" > [1] Normalement </h3>
+                          {% endif %}	
+                          {% if lst.typekey()  == 2 %}							
+                            <h4 class="" >MODE ACTIVER: </h4> 
+                            <h3 class=" btn-secondary" >[2] Envoyer à une seule personne</h3>
+                         	{% endif %}
+                          {% if lst.typekey()  == 3 %}	
+                            <h4 class="" >MODE ACTIVER: </h4>
+                            <h3 class="btn-info " >[3] Envoyer les devis à plusieurs personnes</h3>                                
+                          {% endif %}	
+
+                    {% endfor %}
+									{% else %}
+										<li class="text-center"> AUCUN RESULTAT!<li>                                     
+									{% endif %}	
+
+            
 				</div>
 
 			</div>
@@ -91,14 +112,14 @@
 						<div class="col-lg-4 mb-4" data-toggle="modal" data-target="#myModal_dev_norm">
 							<div  class="link-1 envoyer_normale btn btn-success text-white shadow">
 								<div class="card-body">
-								Envoyer les devis normalement                     
+								    [1] Envoyer les devis normalement                     
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-4 mb-4"  data-toggle="modal" data-target="#myModal_dev_personne">
 							<div class="link-1 envoyer_one btn btn-secondary  text-white shadow">
 								<div class="card-body">
-								Envoyer les demandes à une seule personne                     
+								    [2] Envoyer les demandes à une seule personne                     
 								</div>
 							</div>
 						</div>
@@ -106,7 +127,7 @@
 						<div class="col-lg-4 mb-4">
 							<div class="link-1 envoyer_plus btn btn-info text-white shadow">
 								<div class="card-body">
-								Envoyer les devis à plusieurs personnes
+								    [3] Envoyer les devis à plusieurs personnes
 								</div>
 							</div>
 						</div>
@@ -142,9 +163,13 @@
 							data-dismiss="modal">
 								NON
 							</button>
-							<button type="button" class=" btn btn-success">
-								OUI
-							</button>
+
+							<a href="{{ path('setUpdateServiceActived') }}" class="text-reset">
+                <button type="button" class=" btn btn-success">
+                  OUI
+  							</button>	
+							</a>
+
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -196,86 +221,6 @@
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- end /.modal comfirmer les devis normalement-->
-
-
-            <!-- div class="envoyer_one_row col-lg-5 mb-5" style="display:none">
-              <!-- form numero email logo -- >
-              <div class="card shadow mb-4">
-                <div class="card-header btn-secondary-1 py-3" >
-                  <h6 class="m-0 font-weight-bold text-primary">Envoyer les demandes à une seule personne :</h6>
-                </div>
-                <div class="card-body">
-                  <div class="text-center">
-                    <form class="user">
-                        
-                        <div class="form-group row">
-                          <div class="col-sm-12 mb-3 mb-sm-0">                          
-                            <h4 class="small  font-weight-bold">Email officielle du site:</h4>
-                          </div>
-                          <div class="col-sm-12 mb-3 mb-sm-0">                          
-                            <input type="email" class="form-control form-control-user" id="exampleFirstName" placeholder="Adresse email du site">
-                          </div>                                                  
-                        </div>
-
-
-                        <div class="form-group row">
-                          <div class="col-sm-12 mb-3 mb-sm-0">
-                            <h4 class="small  font-weight-bold">Numero telephone:</h4>
-                          </div>
-                          <div class="col-sm-12 mb-3 mb-sm-0">                          
-                            <input type="email" class="form-control form-control-user" id="exampleFirstName" placeholder="Adresse email du site">
-                          </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                          <div class="col-sm-12 mb-3 mb-sm-0">
-                            <h4 class="small  font-weight-bold">Inserer le Logo de l'entreprise:</h4>
-                          </div>
-                          <div class="col-sm-12 mb-3 mb-sm-0">                          
-                            <input type="file" class="btn btn-secondary btn-user btn-block" id="exampleFirstName" placeholder="Logo">
-                          </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                          <div class="col-sm-12 mb-3 mb-sm-0">
-                            <h4 class="small  font-weight-bold">Mot de passe:</h4>
-                          </div>
-                          <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de passe">
-                          </div>
-                          <div class="col-sm-6">
-                            <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Comfirmer le mot de passe">
-                          </div>
-                        </div>
-                        <hr>
-                        
-                        <div class="form-group row">
-                          <div class="col-sm-6 mb-3 mb-sm-0">
-                            <a href="#" class="btn btn-info btn-user btn-block" alt="Visualiser le resultat">
-                              Visualiser
-                            </a>
-                          </div>
-                          <div class="col-sm-6">                      
-                            <a href="#" class="btn btn-primary btn-user btn-block" alt="Visualiser le resultat">
-                              Original
-                            </a>    
-                          </div>
-                        </div>
-                      
-                        <hr>
-                        <a href="login.html" class="btn btn-success btn-user btn-block">
-                          Valider
-                        </a>
-                        <hr>
-                      </form>
-                  </div>
-               </div>
-              </div>
-            </div -->
-            
-			
 
 			<!-- Modal comfirmer mode  normalement -->
 			<div class="modal fade" id="myModal_sup_pro_envoi_email" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -387,25 +332,6 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </body>
 	{% endblock %}

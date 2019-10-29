@@ -60,10 +60,9 @@
 
 		<!-- Content Column -->                  
  
-	{% if list_services != null %}							
-		{% for lst in list_services %}
+ 
 		<!-- Modal suppression Info Service -->
-			<div class="modal fade" id="myModal_info_service_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="myModal_info_service" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">									
@@ -74,24 +73,14 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<span class="font-weight-bold " >ID:</span> {{ lst.getId() }} <br>
-							<span class="font-weight-bold " >Catégorie:</span> {{ lst.getCategoryId().getCategTitle() }} <br>
-							<span class="font-weight-bold " >Date de création:</span>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}<br>
-							<span class="font-weight-bold " >Email:</span>{{ lst.getUserId().getEmail() }} 
+							<div id="load_modal_show_service">
+							</div>							
 						</div>
-						<div class="modal-footer">						
-							<button type="button" class=" btn btn-success" data-dismiss="modal">
-								OK
-							</button>
-						</div>
+						
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- end /.modal Info Service -->
 
-		{% endfor %}
-	{% else %}
-		<li class="text-center"><li>                                     
-	{% endif %}	
 
 
  	<!-- Modal suppression Catégorie -->
@@ -143,43 +132,25 @@
 			</div><!-- end /.modal suppression Catégorie-->
 			
 			
-	{% if list_services != null %}							
-		{% for lst in list_services %}
 		<!-- Modal suppression Catégorie -->
-			<div class="modal fade" id="myModal_sup_service_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="myModal_sup_service" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">									
 							<h4 class="modal-title" id="myModalLabel">
-							Confirmer la suppression: [Service]
+								Confirmer la suppression: [Service]
 							</h4>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
 							</button>
 						</div>
 						<div class="modal-body">
-							<span class="font-weight-bold " >ID:</span> {{ lst.getId() }} <br>
-							<span class="font-weight-bold " >Catégorie:</span> {{ lst.getCategoryId().getCategTitle() }} <br>
-							<span class="font-weight-bold " >Date de création:</span>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}<br>
-							<span class="font-weight-bold " >Email:</span>{{ lst.getUserId().getEmail() }} 
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">
-								NON
-							</button>
-							<a href="{{ path('delete_service', {id: lst.id}) }}" class="text-reset">
-								<button type="button" class=" btn btn-success">
-									OUI
-								</button>
-							</a>
+							<div id="load_modal_delete_service"></div>							
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- end /.modal suppression Catégorie-->
 
-		{% endfor %}
-	{% else %}
-		<li class="text-center"><li>                                     
-	{% endif %}	
+
 	
 	
             <!-- DataTales Example -->
@@ -214,20 +185,21 @@
                                 {% for lst in list_services %}
                             <tr>
                                 <td>{{ lst.getId() }}</td>
-                                <td>{{ lst.getUserId().getEmail() }} 
-									<button class="btn btn-info" data-toggle="modal" data-target="#myModal_info_service_{{ lst.getId() }}" type="button" title="Plus de Détail"><i class="fa fa-eye"></i>
-                                    </button></br>
+                                <td>{{ lst.getUserId().getEmail() }}
+									<button class="btn btn-info" data-toggle="modal" data-target="#myModal_info_service" onclick="show_modal_show_service({{ lst.getId() }})"  type="button" title="Plus de Détail"><i class="fa fa-eye"></i>
+                  </button></br>
 								</td>
-                                <td>{{ lst.getCategoryId().getCategTitle() }}</td>
-                                <td>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}</td>								
-                                <td class="text-center">
+                
+                <td>{{ lst.getCategoryId().getCategTitle() }}</td>                          
+                  <td>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}</td>
+                  <td class="text-center">
 									{% if lst.getIsActived() == 1 %}
 										<div  type="button" data-toggle="modal" data-target="#myModal_bloquer_service" class=" btn-success">BLOQUE</div>										
 									{% else %}
 										<div   type="button" data-toggle="modal" data-target="#myModal_debloquer_service" class=" btn-dark">DEBLOQUE</div>
 									{% endif %}</br>
 									
-									<div class="btn-danger" data-toggle="modal" data-target="#myModal_sup_service_{{ lst.getId() }}" type="button" title="Supprimer le service">
+									<div class="btn-danger" data-toggle="modal" data-target="#myModal_sup_service" onclick="show_modal_delete_service({{ lst.getId() }})" type="button" title="Supprimer le service">
 										SUPPRIMER
 									</div>
 								</td>
@@ -311,6 +283,33 @@
 	
 	
 	<script>
+
+		function show_modal_delete_service($id){
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_delete_service").innerHTML = xhttp.responseText;
+                    }
+                 };
+
+                 xhttp.open("GET", "../services/"+$id , true);
+                 xhttp.send();
+				 
+		}
+	
+		function show_modal_show_service($id){
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_show_service").innerHTML = xhttp.responseText;
+                    }
+                 };
+
+                 xhttp.open("GET", "../services/simple/"+$id , true);
+                 xhttp.send();
+				 
+		}
+	
 	
 		$('.nav-item').removeClass('active');
 		$('.nav_service').addClass('active');

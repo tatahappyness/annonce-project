@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ article.id }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ article.articleTitle }}</td>
+            </tr>
+            <tr>
+                <th>Date de création:</th>
+                <td>{{ article.articleDateCrea() | date('d/m/y H:m:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+{% endblock %}

@@ -23,6 +23,7 @@ class Comments
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_id_id", referencedColumnName="id",onDelete="SET NULL")
      */
     private $userId;
 

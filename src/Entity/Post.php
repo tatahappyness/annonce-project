@@ -19,6 +19,7 @@ class Post
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="post_user_id_id",referencedColumnName="id",onDelete="CASCADE")
      */
     private $postUserId;
     
@@ -84,11 +85,13 @@ class Post
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Type")
+     * @ORM\JoinColumn(name="type_id_id",referencedColumnName="id",onDelete="SET NULL")
      */
     private $typeId;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\JoinColumn(name="category_id_id",referencedColumnName="id",onDelete="SET NULL")
      */
     private $CategoryId;
 
@@ -104,6 +107,7 @@ class Post
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Cities")
+     * @ORM\JoinColumn(name="city_id",referencedColumnName="id",onDelete="SET NULL")
      */
     private $city;
 

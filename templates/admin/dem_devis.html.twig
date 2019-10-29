@@ -61,10 +61,9 @@
 
  <!-- Content Column -->                    
 
-		{% if devis != null %}							
-			{% for dev in devis %}
+
 			<!-- Modal comfirmer mode  normalement -->
-			<div class="modal fade" id="myModal_info_dem_devis_{{ dev.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="myModal_info_dem_devis" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">									
@@ -76,14 +75,7 @@
 						</div>						
 								
 						<div class="card-body">
-							<div class="">
-								Nom: {{ dev.getFirstName() }}	</br>
-								Catégorie: [ {{ dev.getCategoryId().getCategTitle() }} ]</br>
-								Détail: </br> {{ dev.getDetailProject() }}</br>
-								Email: {{ dev.getEmail() }} <br>
-								Phone: {{ dev.getPhoneNumber() }}
-								Date de création: {{ dev.getDateCrea() | date('d/m/y H:m:s') }} <br>
-								
+							<div id="load_modal_show_devis">
 							</div>						
 						</div>												
 						  
@@ -96,12 +88,8 @@
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- end /.modal comfirmer mode normalement-->
-		{% endfor %}
-	{% else %}
-		<li class="text-center"><li>                                     
-	{% endif %}		
-
-
+	
+  
             <!-- DataTales Example -->
             <div class="col-12 mb-8">
                 <div class="card shadow mb-4">
@@ -145,9 +133,9 @@
                                 <td>{{ dev.getEmail() }}</td>
                                 <td>{{ dev.getDateCrea() | date('d/m/y H:m:s') }}</td>
                                 <td>
-									<button class="btn btn-warning" data-toggle="modal" data-target="#myModal_info_dem_devis_{{ dev.getId() }}" type="button" title="Plus de Détail"><i class="fa fa-eye"></i>
-                                    </button>
-								</td>
+                                  <button class="btn btn-warning" data-toggle="modal" data-target="#myModal_info_dem_devis" onclick="show_modal_show_devis({{ dev.getId() }})" type="button" title="Plus de Détail"><i class="fa fa-eye"></i>
+                                  </button>
+								                </td>
                             </tr>
 								{% endfor %}
 							{% else %}
@@ -225,6 +213,20 @@
 
 	
 	<script>
+
+
+		function show_modal_show_devis($id){
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_show_devis").innerHTML = xhttp.responseText;
+                    }
+                 };
+
+                 xhttp.open("GET", "../devis/"+$id , true);
+                 xhttp.send();
+				 
+		}
 	
 		$('.nav-item').removeClass('active');
 		$('.nav_dem_devis').addClass('active');

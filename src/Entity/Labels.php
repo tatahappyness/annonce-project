@@ -18,6 +18,7 @@ class Labels
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_id_id",referencedColumnName="id",onDelete="CASCADE")
      */
     private $UserId;
 

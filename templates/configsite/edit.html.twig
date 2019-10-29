@@ -1,0 +1,177 @@
+{% extends  'base.html.twig' %}
+
+{% block stylesheets %}
+
+  <title> Orange-Travaux ( Admin )</title>
+
+  <!-- Custom fonts for this template-->
+    <link href="{{ absolute_url('/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+    <link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
+
+  <style>
+      .card-header {
+          background-color: #fcd42f4a;
+      }
+      #wrapper{
+       background-color:#ececec;
+      }
+    </style>
+    
+{% endblock %}
+
+{% block body %}
+
+
+<body id="page-top">
+
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
+  <!-- Page Wrapper -->
+  <div id="wrapper" >
+
+	<!--Begin nav_bar api_admin space -->
+	{% include "./admin/api_admin/nav_bar.html.twig" %}
+	<!--End nav_bar api_admin space -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+	</br>
+
+      <!-- Main Content -->
+      <div id="content">
+	  
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+		  <!-- Divider -->
+		  <hr class="sidebar-divider">
+
+          <!-- Content Row -->
+          <div class="row">
+		  
+			<!-- Content Column -->                            
+            <div class="col-lg-5 mb-5">
+              <!-- form numero email logo -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Modification :</h6>
+                </div>
+                <div class="card-body">
+                    {{ include('configsite/_form.html.twig', {'button_label': 'Update'}) }}
+               </div>
+              </div>
+            </div>
+
+
+          </div>
+		  
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  
+
+</body>
+
+	{% endblock %}
+
+	{% block javascripts %}
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
+
+
+	<script>
+  
+
+		function show_modal_edit_site($id){
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_edit_site").innerHTML = xhttp.responseText;
+                    }
+                 };
+
+                 xhttp.open("GET", "../configsite/"+$id+"/edit" , true);
+                 xhttp.send();
+		}
+
+
+		$(function () { $('#myModal').modal('hide')});
+		/*$(function () { $('#myModal').on('hide.bs.modal', function () {
+			alert('Hey, I heard you like modals...');})
+		});*/
+	</script>
+	
+	
+	
+	<script>
+	
+		$('.nav-item').removeClass('active');
+		$('.nav_config_site').addClass('active');
+		
+		$('.visualiser').click(function (){
+			//$('.email_org').text('modifier').addClass('text-success').removeClass('text-primary');			
+			//$('.numtel_org').text('modifier').addClass('text-success').removeClass('text-primary');
+			//$('.email_new').text('modifier').addClass('text-success').removeClass('text-primary');			
+			//$('.numtel_new').text('modifier').addClass('text-success').removeClass('text-primary');
+			
+			$('.email_org').attr('style','display:none');
+			$('.numtel_org').attr('style','display:none');
+			
+			var $email_config = $('#email_config').val();
+			var $num_config = $('#numtel_config').val();
+			
+			$('.email_new').removeAttr('style','display:none').text($email_config);		
+			$('.numtel_new').removeAttr('style','display:none').text($num_config);
+			
+		});
+		
+		
+		$('.original').click(function (){			
+			$('.email_org').removeAttr('style','display:none');
+			$('.numtel_org').removeAttr('style','display:none');
+			
+			$('.email_new').attr('style','display:none');		
+			$('.numtel_new').attr('style','display:none');
+			
+		});
+		
+		
+	</script>
+
+
+
+
+	{% endblock %}
+	
+	
+	
+	
+	

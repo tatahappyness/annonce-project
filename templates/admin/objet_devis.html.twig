@@ -43,8 +43,6 @@
 	{% include "./admin/api_admin/nav_bar.html.twig" %}
 	<!--End nav_bar api_admin space -->
 
-    <!-- Content Wrapper -->
-	<input type="button" class="reload_page" OnClick="javascript:window.location.reload()" value="Actualiser">
     <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
 	</br>
       <!-- Main Content -->
@@ -56,35 +54,44 @@
 			<!-- Divider -->
 				<h3 class="chg_title_objet">Préstation</h3>
 			<hr class="sidebar-divider">
-				<div class="row">				
-					<div class="row col-lg-8 text-center">        
-						<div class="col-lg-4 mb-4">
+				
+				<div class="row" style="justify-content: space-evenly">				
+
 							<div class="active_row_type link-1 btn btn-success text-white shadow">
 								<div class="card-body">
 									Préstation                    
 								</div>
 							</div>
-						</div>
-						<div class="col-lg-4 mb-4">
-							<div class="active_row_categorie link-1 btn btn-secondary  text-white shadow">
+
+							<div class="active_row_categorie link-1 btn  text-dark shadow" style="background-color: yellow;">
 								<div class="card-body">
 									Catégorie
 								</div>
 							</div>
-						</div>
-						
-						<div class="col-lg-4 mb-4">
-							<div class="active_row_article link-1 btn btn-info text-white shadow">
+
+
+							<div class="active_row_souscategorie link-1 btn btn-info text-white shadow">
+								<div class="card-body">
+									Sous-categorie
+								</div>
+							</div>
+
+
+							<div class="active_row_article link-1 btn text-white btn-secondary  shadow" >
 								<div class="card-body">
 									Article
 								</div>
 							</div>
-						</div>
-					</div>  
+
+							<div class="active_row_mode_prix link-1 btn btn-warning text-dark shadow" >
+								<div class="card-body">
+									Mode Prix
+								</div>
+							</div>
 				</div>
 				
+					</br> 
       
-
           <!-- Content Row Type de prestation-->
           <div class="row row_type">
 
@@ -93,12 +100,11 @@
             <!-- DataTales Example -->
 			
 
-		{% if list_type != null %}							
-			{% for lst in list_type %}
+
 			<!-- Modal suppression type -->
-			<div class="modal fade" id="myModal_sup_type_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
+			<div class="modal fade" id="myModal_sup_type" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">				
+    				<div class="modal-content">
 						<div class="modal-header">									
 							<h4 class="modal-title" id="myModalLabel">
 							Confirmer la suppression: [Préstation]
@@ -107,27 +113,12 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<span class="font-weight-bold " >Type:</span>
-							{{ lst.getTitle() }}</br>
-							<span class="font-weight-bold " >Date de création:</span>
-							{{ lst.getDateCrea() | date('d/m/y H:m:s') }}
+							<div id="load_modal_sup_type">
+							</div>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-							data-dismiss="modal">
-								NON
-							</button>
-							<button type="button" class=" btn btn-success">
-								OUI
-							</button>
-						</div>
-					</div><!-- /.modal-content -->
+					</div>
 				</div><!-- /.modal-dialog -->
-			</div><!-- end /.modal suppression type-->
-			{% endfor %}
-		{% else %}
-			<li class="text-center"> AUCUN RESULTAT!<li>                                     
-		{% endif %}	
+			</div><!-- end /.modal suppression type-->				
 
 
 			<!-- Modal edit type-->
@@ -187,51 +178,11 @@
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
 							</button>
 						</div>
-						<div class="modal-body">		
+						<div class="modal-body">									
 							<div class="card-body">
-								<form class="form_edit_type">
-								
-									<div class="form-group row">
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<h4 class="small  font-weight-bold">ID:</h4>
-									  </div>
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<input type="email" class="form-control form-control-user" id="id_type" placeholder="Identification">
-									  </div>                                                  
-									</div>
-									
-									<div class="form-group row">
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<h4 class="small  font-weight-bold">Type (PRESTATION):</h4>
-									  </div>
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<input type="email" class="form-control form-control-user" id="nom_type" placeholder="Type du prestation">
-									  </div>                                                  
-									</div>
+								<div id="load_modal_edit_type">
 
-									<div class="form-group row">
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<h4 class="small  font-weight-bold">Date de création:</h4>
-									  </div>
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<input type="email" class="form-control form-control-user" id="date_creat_type" placeholder="Date de création">
-									  </div>                                                  
-									</div>
-
-									<div class="form-group row">
-										<div class="col-sm-6 mb-3 mb-sm-0" >
-											<!-- Button trigger modal -->
-											<button type="button" class="btn btn-default" data-dismiss="modal">
-												Annuler
-											</button>
-										</div>
-										<div class="col-sm-6 mb-3 mb-sm-0" >
-											<button class="btn btn-success btn-user btn-block">
-												Valider
-											</button>
-										</div>
-									</div>					
-								</form>								
+								</div>	
 						   </div>
 						</div>
 						
@@ -240,78 +191,85 @@
 			</div><!-- End /.modal Edit type -->
 
 
-            <div class="col-10 mb-8">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">
-							<span class="col-sm-10">Type de prestation : </span>
-							<button  data-toggle="modal" data-target="#myModal_add_type"  class=" btn btn-primary" type="button" title="Ajouter nouveaux Type de Préstation"><i class="fa fa-plus"></i>
-							</button>
-						</h6>						
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-							<table class="table table-bordered" id="dataTable_type" width="100%" cellspacing="0">
-                            <thead class="bg-warning text-dark">
-                            <tr>
-                                <th>#</th>
-                                <th>Type</th>                                
-                                <th>Date de création</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>#</th>
-                                <th>Type</th>
-                                <th>Date de création</th>
-                                <th>Action</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-								
-								{% if list_type != null %}
-									{% for lst in list_type %}
-										<tr>
-											<td>{{ lst.getId() }}</td>
-											<td>{{ lst.getTitle() }}</td>
-											<td>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}</td>
-											<td class="text-center">
-												
-												<a href="{{ path('delete_type', {id: lst.id}) }}" class="text-reset">
-													<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_type_{{ lst.getId() }}" type="button" title="Supprimer"><i class="fa fa-times"></i>
-													</button>
-												</a>
-												
-												<button class="btn btn-info"  data-toggle="modal" data-target="#myModal_edit_type"  type="button" title="Modifier"><i class="fa fa-edit"></i>
-												</button>
-											</td>
-										</tr>
-									{% endfor %}
-								{% else %}
-									<li class="text-center"></li>                                     
-								{% endif %}	
-										
-								
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-12 mb-8" id="api_type_table_load">
             </div>
+			
 			
 			<!-- End Content Column -->   
 
           </div>
 			<!-- End Content Row Type de prestation-->
+
+
+          <!-- Content Row Catégorie -->
+        <div class="row row_mode_prix" style="display:none">
+            <div class="col-12 mb-8" id="api_mode_prix_table_load">
+            </div>
+
+
+				
+
+			<!-- Modal edit Mode Prix-->
+			<div class="modal fade" id="myModal_edit_prix" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Modification: [Mode Prix]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="card-body">
+								<div id="load_modal_edit_mode_prix">                          
+								</div>							
+						   </div>
+							
+						</div>
+						
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- End /.modal  Mode Prix -->
+
+
+
+
 			
+			<!-- Modal suppression Catégorie -->
+			<div class="modal fade" id="myModal_sup_prix" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer la suppression: [Mode Prix]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="" id="load_modal_sup_prix">
+							
+							</div>
+
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal suppression Catégorie-->
+		
+		</div>
+
           <!-- Content Row Catégorie -->
           <div class="row row_categorie" style="display:none">
 
-		{% if list_cat != null %}							
-			{% for lst in list_cat %}
+
+
+            <div class="col-12 mb-8" id="api_category_table_load">
+            </div>
+			
+			
 			<!-- Modal suppression Catégorie -->
-			<div class="modal fade" id="myModal_sup_cat_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="myModal_sup_cat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">									
@@ -322,31 +280,14 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<span class="font-weight-bold " >ID:</span> {{ lst.getId() }}	<br>
-							<span class="font-weight-bold " >Nom:</span> {{ lst.getCategTitle() }}<br>		
-							<span class="font-weight-bold " >Description:</span> {{ lst.getDescription() }}<br>
-							<span class="font-weight-bold " >Date de création:</span>{{ lst.getCategDateCrea() | date('d/m/y H:m:s') }}<br>				
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-							data-dismiss="modal">
-								NON
-							</button>
-							<button type="button" class=" btn btn-success">
-								OUI
-							</button>
+							<div class="" id="load_modal_sup_cat">
+							</div>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- end /.modal suppression Catégorie-->
-			{% endfor %}
-		{% else %}
-			<li class="text-center"></li>
-		{% endif %}	
-				
-				
-				
-
+		
+		
 			<!-- Modal edit Catégorie-->
 			<div class="modal fade" id="myModal_add_cat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
@@ -413,7 +354,402 @@
 						</div>
 						<div class="modal-body">
 							<div class="card-body">
+								<div id="load_modal_edit_cat">                          
+								</div>							
+						   </div>
+							
+						</div>
+						
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- End /.modal Edit Catégorie -->
+
+
+
+
+
+		{% if list_cat != null %}							
+			{% for lst in list_cat %}
+			<!-- Modal afficher type-->
+			<div class="modal fade" id="myModal_aff_cat_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+								Détail du Catégorie:
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+						
+							<span class="font-weight-bold " >Type:</span>
+							{{ lst.getCategTitle() }} <br>
+							<span class="font-weight-bold " >Date de création:</span>
+							{{ lst.getCategDateCrea() | date('d/m/y H:m:s') }}<br>
+							<span class="font-weight-bold " >Description:</span>
+							{{ lst.getDescription() }}<br>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success"
+							data-dismiss="modal">
+								OK
+							</button>
+							
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- End /.modal afficher type -->
+			{% endfor %}
+		{% else %}
+			<li class="text-center"></li>                                     
+		{% endif %}	
+									
+
+
+			<!-- Content Column -->    
+			
+
+			<!-- End Content Column -->   
+
+          </div>
+          <!-- End Content Row Catégorie -->
+		  
+		  
+	        <!-- Content Row SousCategory -->
+          	<div class="row row_souscategory"  style="display:none">
+
+				<!-- Modal suppression Sous Catégorie -->
+				<div class="modal fade" id="myModal_sup_sous_cat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">									
+								<h4 class="modal-title" id="myModalLabel">
+								Confirmer la suppression: [Catégorie]
+								</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="" id="load_modal_sup_sous_cat">
+
+								</div>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- end /.modal suppression Sous Catégorie-->
+				
+				
+				<!-- Modal edit Catégorie-->
+				<div class="modal fade" id="myModal_edit_sous_cat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">									
+								<h4 class="modal-title" id="myModalLabel">
+								Modification: [Sous Catégorie]
+								</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="card-body">
+									<div id="load_modal_edit_sous_cat">                          
+									</div>							
+							</div>
+								
+							</div>
+							
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- End /.modal Edit Catégorie -->
+
+				<!-- Load DataTable SousCat -->
+				<div class="col-12 mb-8" id="api_souscategory_table_load">
+					
+				</div>
+
+
+			</div>
+			
+			
+		  <!-- Content Row -->
+          <div class="row row_article"  style="display:none">
+
+			<!-- Content Column -->    
+			
+			
+			<!-- Modal suppression Article -->
+			<div class="modal fade" id="myModal_sup_article" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+							Confirmer la suppression:
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">													
+							<div id="load_modal_sup_article">
+							</div>								
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal suppression Article-->
+			
+
+			<!-- Modal edit type-->
+			<div class="modal fade" id="myModal_add_article" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">
+								Ajouter nouveau: [Article]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="card-body">
 								<form class="form_edit_type">
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">
+										<h4 class="small  font-weight-bold">Type (Article):</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<input type="email" class="form-control form-control-user" id="_title_art" placeholder="Type du prestation">
+									  </div>
+									</div>
+
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">Catégorie :</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">     
+										<select class="form-control form-control-user" name="categorie_option" id="_cat_art" >
+											
+											{% if list_cat != null %}							
+												{% for lst in list_cat %}
+													<option  value="{{ lst.getId()}}">{{ lst.getCategTitle() }}</option>										  
+												{% endfor %}
+											{% else %}
+												<button class=" btn btn-primary" data-toggle="modal" data-target="#myModal_add_cat"  type="button" title="Ajouter nouveaux Categorie"><i class="fa fa-plus"></i>
+												</button>
+											{% endif %}	
+										  
+										</select>									  										
+									  </div>                                                  
+									</div>
+									
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0" >
+											<!-- Button trigger modal -->
+											<button type="button" class="btn btn-default" data-dismiss="modal">
+												Annuler
+											</button>
+										</div>
+										<div class="col-sm-6 mb-3 mb-sm-0" >
+											<button class="btn-register-article btn btn-success btn-user btn-block">
+												Valider
+											</button>
+										</div>
+									</div>					
+								</form>								
+						   </div>
+						</div>
+						
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- End /.modal Edit type -->
+			
+
+			<!-- Modal edit Article-->
+			<div class="modal fade" id="myModal_edit_article" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+								Modification Article:
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="card-body">
+								<div id="load_modal_edit_article">
+
+								</div>		
+							</div>
+						   
+						</div>
+						
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- End /.modal Edit Article -->
+
+
+		{% if list_art != null %}							
+			{% for lst in list_art %}
+			<!-- Modal edit Article-->
+			<div class="modal fade" id="myModal_info_article_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+								Détail Article:
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<span class="font-weight-bold " >Type:</span>{{ lst.getArticleTitle() }}
+							<br>
+							<span class="font-weight-bold " >Catégorie:</span>{{ lst.getArticleCategId().getCategTitle() }}<br>
+							<span class="font-weight-bold " >Date de création:</span>{{ lst.getArticleDateCrea() | date('d/m/y H:m:s') }}<br>
+							
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success"
+							data-dismiss="modal">
+								OK
+							</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- End /.modal Edit Article -->
+
+		{% endfor %}
+	{% else %}
+		<li class="text-center"></li>                                     
+	{% endif %}
+
+            <!-- DataTales Example -->
+            <div class="col-12 mb-8" id="api_article_table_load">
+                 
+            </div>
+
+
+			<!-- End Content Column -->   
+
+          </div>
+        
+		</div>
+        <!-- /.container-fluid -->
+
+
+
+  
+  	<form class="form_edit_type">
+									
+										<div class="form-group row">
+										  <div class="col-sm-12 mb-3 mb-sm-0">                          
+											<h4 class="small  font-weight-bold">ID:</h4>
+										  </div>
+										  <div class="col-sm-12 mb-3 mb-sm-0">                          
+											<input type="email" class="form-control form-control-user" id="" placeholder="Identification">
+										  </div>                                                  
+										</div>
+										
+										<div class="form-group row">
+										  <div class="col-sm-12 mb-3 mb-sm-0">                          
+											<h4 class="small  font-weight-bold">Type (PRESTATION):</h4>
+										  </div>
+										  <div class="col-sm-12 mb-3 mb-sm-0">                          
+											<input type="email" class="form-control form-control-user" id="" placeholder="Type du prestation">
+										  </div>                                                  
+										</div>
+
+										<div class="form-group row">
+										  <div class="col-sm-12 mb-3 mb-sm-0">                          
+											<h4 class="small  font-weight-bold">Date de création:</h4>
+										  </div>
+										  <div class="col-sm-12 mb-3 mb-sm-0">                          
+											<input type="email" class="form-control form-control-user" id="" placeholder="Date de création">
+										  </div>                                                  
+										</div>
+
+										<div class="form-group row">
+											<div class="col-sm-6 mb-3 mb-sm-0" >
+												<!-- Button trigger modal -->
+												<button type="button" class="btn btn-default" data-dismiss="modal">
+													Annuler
+												</button>
+											</div>
+											<div class="col-sm-6 mb-3 mb-sm-0" >
+												<button class="btn btn-success btn-user btn-block">
+													Valider
+												</button>
+											</div>
+										</div>					
+									</form>	
+			
+<form class="form_edit_type">
+								
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">ID:</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<input type="email" class="form-control form-control-user" id="id_type" placeholder="Identification">
+									  </div>                                                  
+									</div>
+									
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">Type (Article):</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<input type="email" class="form-control form-control-user" id="nom_type" placeholder="Type du prestation" value="" >
+									  </div>                                                  
+									</div>
+
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">Catégorie :</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										
+										<select class="form-control form-control-user" name="categorie_option" id="_cat_art" >
+											
+											
+													<option  value=""></option>										  
+												
+												
+												<button class=" btn btn-primary" data-toggle="modal" data-target="#myModal_add_cat"  type="button" title="Ajouter nouveaux Categorie"><i class="fa fa-plus"></i>
+												</button>
+												
+										  
+										</select>	
+									  </div>                                                  
+									</div>
+
+									<div class="form-group row">
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<h4 class="small  font-weight-bold">Date de création:</h4>
+									  </div>
+									  <div class="col-sm-12 mb-3 mb-sm-0">                          
+										<input type="email" class="form-control form-control-user" id="date_creat_type" placeholder="Date de création" value="">
+									  </div>
+									</div>
+
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0" >
+											<!-- Button trigger modal -->
+											<button type="button" class="btn btn-default" data-dismiss="modal">
+												Annuler
+											</button>
+										</div>
+										<div class="col-sm-6 mb-3 mb-sm-0" >
+											<button class="btn btn-success btn-user btn-block">
+												Valider
+											</button>
+										</div>
+									</div>					
+								</form>		
+
+
+								
+								<form class="form_edit_cat">
 								
 									<div class="form-group row">
 									  <div class="col-sm-12 mb-3 mb-sm-0">                          
@@ -483,449 +819,8 @@
 										Enregistrer
 									</span>
 																	
-								</form>								
-						   </div>
-							
-						</div>
-						
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</div><!-- End /.modal Edit Catégorie -->
+								</form>	
 
-
-
-		{% if list_cat != null %}							
-			{% for lst in list_cat %}
-			<!-- Modal afficher type-->
-			<div class="modal fade" id="myModal_aff_cat_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">									
-							<h4 class="modal-title" id="myModalLabel">
-								Détail du Catégorie:
-							</h4>
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-							</button>
-						</div>
-						<div class="modal-body">
-						
-							<span class="font-weight-bold " >Type:</span>
-							{{ lst.getCategTitle() }} <br>
-							<span class="font-weight-bold " >Date de création:</span>
-							{{ lst.getCategDateCrea() | date('d/m/y H:m:s') }}<br>
-							<span class="font-weight-bold " >Description:</span>
-							{{ lst.getDescription() }}<br>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-success"
-							data-dismiss="modal">
-								OK
-							</button>
-							
-						</div>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</div><!-- End /.modal afficher type -->
-			{% endfor %}
-		{% else %}
-			<li class="text-center"></li>                                     
-		{% endif %}	
-									
-
-
-			<!-- Content Column -->    
-			
-            <!-- DataTales Example -->
-            <div class="col-10 mb-8">
-                <div class="card shadow mb-4">
-                    <div class="card-header btn-success-1 py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">
-							Listes des Catégorie :
-							<button class=" btn btn-primary" data-toggle="modal" data-target="#myModal_add_cat"  type="button" title="Ajouter nouveaux Categorie"><i class="fa fa-plus"></i>
-							</button>
-						</h6>
-						
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-							<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead class="bg-warning text-dark">
-                            <tr>
-								<th>#</th>
-                                <th>Nom</th>
-                                <th>Date de création</th>
-                                <th>Description</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-								<th>#</th>
-                                <th>Nom</th>
-                                <th>Date de création</th>
-                                <th>Description</th>
-                                <th>Action</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-							
-							
-							{% if list_cat != null %}							
-                                {% for lst in list_cat %}
-									<tr>
-										<td>{{ lst.getId() }}</td>
-										<td>{{ lst.getCategTitle() }}</td>
-										<td>{{ lst.getCategDateCrea() | date('d/m/y H:m:s') }}</td>
-										<td>{{ lst.getDescription() }}</td>
-										<td>
-											
-											<a href="{{ path('delete_cat', {id: lst.id}) }}" class="text-reset">
-												<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_cat_{{ lst.getId() }}" type="button" title="Supprimer"><i class="fa fa-times"></i>
-												</button>
-											</a>
-											<button class="btn btn-info" data-toggle="modal" data-target="#myModal_edit_cat"  type="button" title="Modifier"><i class="fa fa-edit"></i>
-											</button>
-											
-											<button class="btn btn-warning"  data-toggle="modal" data-target="#myModal_aff_cat_{{ lst.getId() }}"   type="button" title="Modifier"><i class="fa fa-eye"></i>
-											</button>
-											
-										</td>
-									</tr>
-								{% endfor %}
-							{% else %}
-								<li class="text-center"></li>                                     
-							{% endif %}	
-									
-							
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-			<!-- End Content Column -->   
-
-          </div>
-          <!-- End Content Row Catégorie -->
-		  
-		  
-		  <!-- Content Row -->
-          <div class="row row_article"  style="display:none">
-
-			<!-- Content Column -->    
-			
-
-		{% if list_art != null %}							
-			{% for lst in list_art %}
-			<!-- Modal suppression Article -->
-			<div class="modal fade" id="myModal_sup_article_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">									
-							<h4 class="modal-title" id="myModalLabel">
-							Confirmer la suppression:
-							</h4>
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-							</button>
-						</div>
-						<div class="modal-body">
-							<span class="font-weight-bold " >Type:</span>{{ lst.getArticleTitle() }}
-							<br>	
-							<span class="font-weight-bold " >Date de création:</span>{{ lst.getArticleDateCrea() | date('d/m/y H:m:s') }}<br>	
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-							data-dismiss="modal">
-								NON
-							</button>
-							<button type="button" class=" btn btn-success">
-								OUI
-							</button>
-						</div>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</div><!-- end /.modal suppression Article-->
-		{% endfor %}
-	{% else %}
-		<li class="text-center"></li>                                     
-	{% endif %}	
-
-
-			<!-- Modal edit type-->
-			<div class="modal fade" id="myModal_add_article" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">
-								Ajouter nouveau: [Article]
-							</h4>
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-							</button>
-						</div>
-						<div class="modal-body">		
-							<div class="card-body">
-								<form class="form_edit_type">
-								
-									<div class="form-group row">
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<h4 class="small  font-weight-bold">Type (Article):</h4>
-									  </div>
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<input type="email" class="form-control form-control-user" id="_title_art" placeholder="Type du prestation">
-									  </div>                                                  
-									</div>
-
-									<div class="form-group row">
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<h4 class="small  font-weight-bold">Catégorie :</h4>
-									  </div>
-									  <div class="col-sm-12 mb-3 mb-sm-0">     
-										<select class="form-control form-control-user" name="categorie_option" id="_cat_art" >
-											
-											{% if list_cat != null %}							
-												{% for lst in list_cat %}
-													<option  value="{{ lst.getId()}}">{{ lst.getCategTitle() }}</option>										  
-												{% endfor %}
-											{% else %}
-												<button class=" btn btn-primary" data-toggle="modal" data-target="#myModal_add_cat"  type="button" title="Ajouter nouveaux Categorie"><i class="fa fa-plus"></i>
-												</button>
-											{% endif %}	
-										  
-										</select>									  										
-									  </div>                                                  
-									</div>
-									
-									<div class="form-group row">
-										<div class="col-sm-6 mb-3 mb-sm-0" >
-											<!-- Button trigger modal -->
-											<button type="button" class="btn btn-default" data-dismiss="modal">
-												Annuler
-											</button>
-										</div>
-										<div class="col-sm-6 mb-3 mb-sm-0" >
-											<button class="btn-register-article btn btn-success btn-user btn-block">
-												Valider
-											</button>
-										</div>
-									</div>					
-								</form>								
-						   </div>
-						</div>
-						
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</div><!-- End /.modal Edit type -->
-
-
-
-
-
-
-		{% if list_art != null %}							
-			{% for lst in list_art %}
-			<!-- Modal edit Article-->
-			<div class="modal fade" id="myModal_edit_article_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">									
-							<h4 class="modal-title" id="myModalLabel">
-								Modification Article:
-							</h4>
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-							</button>
-						</div>
-						<div class="modal-body">
-						<div class="card-body">
-								<form class="form_edit_type">
-								
-									<div class="form-group row">
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<h4 class="small  font-weight-bold">ID:</h4>
-									  </div>
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<input type="email" class="form-control form-control-user" id="id_type" placeholder="Identification">
-									  </div>                                                  
-									</div>
-									
-									<div class="form-group row">
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<h4 class="small  font-weight-bold">Type (Article):</h4>
-									  </div>
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<input type="email" class="form-control form-control-user" id="nom_type" placeholder="Type du prestation" value="{{ lst.getArticleTitle() }}" >
-									  </div>                                                  
-									</div>
-
-									<div class="form-group row">
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<h4 class="small  font-weight-bold">Catégorie :</h4>
-									  </div>
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										
-										<select class="form-control form-control-user" name="categorie_option" id="_cat_art" >
-											
-											{% if list_cat != null %}							
-												{% for lst in list_cat %}
-													<option  value="{{ lst.getId()}}">{{ lst.getCategTitle() }}</option>										  
-												{% endfor %}
-											{% else %}
-												<button class=" btn btn-primary" data-toggle="modal" data-target="#myModal_add_cat"  type="button" title="Ajouter nouveaux Categorie"><i class="fa fa-plus"></i>
-												</button>
-											{% endif %}	
-										  
-										</select>	
-									  </div>                                                  
-									</div>
-
-									<div class="form-group row">
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<h4 class="small  font-weight-bold">Date de création:</h4>
-									  </div>
-									  <div class="col-sm-12 mb-3 mb-sm-0">                          
-										<input type="email" class="form-control form-control-user" id="date_creat_type" placeholder="Date de création" value="{{ lst.getArticleDateCrea() | date('d/m/y H:m:s') }}">
-									  </div>                                                  
-									</div>
-
-									<div class="form-group row">
-										<div class="col-sm-6 mb-3 mb-sm-0" >
-											<!-- Button trigger modal -->
-											<button type="button" class="btn btn-default" data-dismiss="modal">
-												Annuler
-											</button>
-										</div>
-										<div class="col-sm-6 mb-3 mb-sm-0" >
-											<button class="btn btn-success btn-user btn-block">
-												Valider
-											</button>
-										</div>
-									</div>					
-								</form>								
-						   </div>
-						   
-						</div>
-						
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</div><!-- End /.modal Edit Article -->
-
-		{% endfor %}
-	{% else %}
-		<li class="text-center"></li>                                     
-	{% endif %}
-
-		{% if list_art != null %}							
-			{% for lst in list_art %}
-			<!-- Modal edit Article-->
-			<div class="modal fade" id="myModal_info_article_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">									
-							<h4 class="modal-title" id="myModalLabel">
-								Détail Article:
-							</h4>
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-							</button>
-						</div>
-						<div class="modal-body">
-							<span class="font-weight-bold " >Type:</span>{{ lst.getArticleTitle() }}
-							<br>
-							<span class="font-weight-bold " >Catégorie:</span>{{ lst.getArticleCategId().getCategTitle() }}<br>
-							<span class="font-weight-bold " >Date de création:</span>{{ lst.getArticleDateCrea() | date('d/m/y H:m:s') }}<br>
-							
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-success"
-							data-dismiss="modal">
-								OK
-							</button>
-						</div>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</div><!-- End /.modal Edit Article -->
-
-		{% endfor %}
-	{% else %}
-		<li class="text-center"></li>                                     
-	{% endif %}
-
-            <!-- DataTales Example -->
-            <div class="col-10 mb-8">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">
-							Article : 
-							<button class=" btn btn-primary" data-toggle="modal" data-target="#myModal_add_article"  type="button" title="Ajouter nouveaux Article"><i class="fa fa-plus"></i>
-							</button> 
-						</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-							<table class="table table-bordered" id="dataTable_acticle" width="100%" cellspacing="0">
-                            <thead class="bg-warning text-dark">
-                            <tr>
-                                <th>#</th>
-                                <th>Nom Article</th>
-                                <th>Type de categorie</th>
-                                <th>Date de création</th>                                
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-								<th>#</th>
-                                <th>Nom Article</th>								
-                                <th>Type de categorie</th>
-                                <th>Date de création</th>                                
-                                <th>Action</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-							
-							
-							{% if list_art != null %}							
-                                {% for lst in list_art %}
-									<tr>
-										<td>{{ lst.getId() }}</td>
-										<td>{{ lst.getArticleTitle() }}</td>
-										<td>{{ lst.getArticleCategId().getCategTitle() }}</td>
-										<td>{{ lst.getArticleDateCrea() | date('d/m/y H:m:s') }}</td>
-										<td>
-											
-											<a href="{{ path('delete_art', {id: lst.id}) }}" class="text-reset">
-												<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_article_{{ lst.getId() }}" type="button" title="Supprimer"><i class="fa fa-times"></i>
-												</button>
-											</a>
-											
-											<button class="btn btn-info" data-toggle="modal" data-target="#myModal_edit_article_{{ lst.getId() }}" type="button" title="Modifier"><i class="fa fa-edit"></i>
-											</button>
-											
-											<button class="btn btn-warning" data-toggle="modal" data-target="#myModal_info_article_{{ lst.getId() }}"  type="button" title="Plus de Détail"><i class="fa fa-eye"></i>
-											</button>
-											
-										</td>
-									</tr>
-								{% endfor %}
-							{% else %}
-								<li class="text-center"> AUCUN RESULTAT!<li>                                     
-							{% endif %}	
-									
-							
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-			<!-- End Content Column -->   
-
-          </div>
-        
-		</div>
-        <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
@@ -941,93 +836,6 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  
-  
-							<div class="col-12">
-								
-								<!-- Begin The Modal Login-->
-								<div class="" id="my-form-particular-register">
-									<div class="modal-dialog" style="position: relative; top: 5em;">
-										<div class="modal-content" style="background: dimgrey;">
-											<!-- Modal Header -->
-											<div class="modal-header border-bottom">
-												<h4 class="modal-title text-white">Inscription Gratuite pour les particuliers</h4>
-												<button type="button" class="close btn-annule h6" data-dismiss="modal">&times;</button>
-											</div>
-											<!-- Modal body -->
-											<div class="modal-body">
-											   <form class="form-register-user">
-													<div class="form-group mb-3">
-														<label class="">Nom</label>
-														<div class="input-group mb-3">
-															<input type="text" class="form-control _username" name="_username" style="height: auto !important;"  placeholder="Votre nom">
-														</div>
-													</div>
-													<div class="form-group mb-3">
-														<label class="">Email</label>
-														<div class="infos-message"></div>
-														<div class="input-group mb-3">
-															
-															<input type="email" class="form-control _email" name="_email" style="height: auto !important;"  placeholder="Votre e-mail">
-														</div>
-													</div>
-													<div class="form-group mb-3">
-														<label class="">Mot de passe</label>
-														<div class="input-group mb-3">
-															
-															<input type="password" class="form-control password" name="_password" style="height: auto !important;"  placeholder="Votre mot de passe ">
-														</div>
-													</div>
-													<div class="form-group mb-3">
-														<label class="">Confirmation mot de passe</label>
-														<div class="input-group mb-3">
-														
-															<input type="password" class="form-control password-comfirm" style="height: auto !important;"  placeholder="Reconfirmer votre mot de passe">
-														</div>
-														<div class="input-group mb-3">
-															
-															<input type="hidden" value="PARTICULAR_USER" name="TYPE_USER">
-														</div>
-													</div>
-													<div class="text-center">
-														<a class="btn btn-register-user text-white btn-warning">ENREGISTRER</a>
-														<!--<button type="button" class="btn btn-annule btn-danger float-right" data-dismiss="modal">Annuler</button> -->
-													</div>
-												</form>
-											</div>
-											<!-- Modal footer -->
-											<div class="modal-footer d-block text-center text-white">
-												Vous avez déjà un compte ?, <a class="text-warning show-form-pro-mouseclick" href="javascript:void();">se connecter</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- End The Modal Login-->
-							</div>
-			
-  
-  
-			
 
 </body>
 	{% endblock %}
@@ -1061,8 +869,8 @@
 		// Call the dataTables jQuery plugin
 		$(document).ready(function() {
 		  $('#dataTable_acticle').DataTable();
-		  
 		  $('#dataTable_type').DataTable();
+		  
 		});
 
 	</script>
@@ -1075,6 +883,8 @@
 	</script>
 		
   <script>
+  
+
     // SAVE User Register
     jQuery('.btn-register-type').click( function() {
 		
@@ -1091,13 +901,13 @@
 		
 		$('.reload_page').click();
 		
+		
 	});
 	
 	
 	
 	 // SAVE Article Register
     jQuery('.btn-register-categorie').click( function() {
-		alert('qsdqs');
 		
         //AJAX TO REGISTER USERS HERE
 		$title_cat = $('#_title_cat').val();
@@ -1223,15 +1033,164 @@
   
 	<script>
 	
+		function load_api_mode_prix_table(){
+
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("api_mode_prix_table_load").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "objet_devis/api_mode_prix_table", true);
+                 xhttp.send();
+		}
+		
+		$('.active_row_mode_prix').click(function (){
+			$('.chg_title_objet').text('Mode Prix');
+			
+			$('.row_mode_prix').removeAttr('style','display:none');
+			
+			
+			$('.row_categorie').attr('style','display:none');
+			$('.row_souscategory').attr('style','display:none');	
+			$('.row_article').attr('style','display:none');		
+			$('.row_type').attr('style','display:none');
+			
+			load_api_mode_prix_table();
+			
+		});
+
+
+
+		function load_api_category_table(){
+
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("api_category_table_load").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "objet_devis/api_category_table", true);
+                 xhttp.send();
+		}
+		
 		$('.active_row_categorie').click(function (){
 			$('.chg_title_objet').text('Catégorie');
 			
 			$('.row_categorie').removeAttr('style','display:none');
 			
+			$('.row_mode_prix').attr('style','display:none');
+			$('.row_souscategory').attr('style','display:none');	
 			$('.row_article').attr('style','display:none');		
 			$('.row_type').attr('style','display:none');
 			
+			load_api_category_table();
+			
 		});
+
+		
+
+		
+		function show_modal_delete_article($id){
+			
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_sup_article").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "../article/"+$id , true);
+                 xhttp.send();
+				 
+		}
+
+
+		
+
+
+		function show_modal_edit_mode_prix($id){
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_edit_mode_prix").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "../mode/prix/" , true);
+                 xhttp.send();
+				 
+		}
+
+
+
+		function show_modal_delete_mode_prix($id){
+			
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_sup_prix").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "../mode/prix/"+$id , true);
+                 xhttp.send();
+				 
+		}
+
+
+		
+		
+		function show_modal_delete_sous_categorie($id){
+			
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_sup_sous_cat").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "../sous/category/"+$id , true);
+                 xhttp.send();
+				 
+		}
+
+		function show_modal_delete_categorie($id){
+			
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_sup_cat").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "../category/"+$id , true);
+                 xhttp.send();
+				 
+		}
+
+
+
+
+		function show_modal_edit_article($id){
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_edit_article").innerHTML = xhttp.responseText;
+                    }
+                 };
+
+                 xhttp.open("GET", "../article/"+$id+"/edit" , true);
+                 xhttp.send();
+				 
+		}
+
+		function load_api_article_table(){
+
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("api_article_table_load").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "objet_devis/api_article_table", true);
+                 xhttp.send();
+		}
 
 		$('.active_row_article').click(function (){		
 		
@@ -1241,12 +1200,79 @@
 		
 			$('.row_article').removeAttr('style','display:none');
 			
+			$('.row_mode_prix').attr('style','display:none');
+			$('.row_souscategory').attr('style','display:none');	
 			$('.row_categorie').attr('style','display:none');		
 			$('.row_type').attr('style','display:none');
+
+			load_api_article_table();
 			
 		});
 		
+		 
+
+
+		function show_modal_delete_type($id){
+			
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_sup_type").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "../type/"+$id , true);
+                 xhttp.send();
+				 
+		}
+
+
+
+		function show_modal_edit_type($id){
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_edit_type").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "../type/"+$id+"/edit" , true);
+                 xhttp.send();
+				 
+		}
+
+
+
+
+		function show_modal_edit_cat($id){
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_edit_cat").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "../category/"+$id+"/edit" , true);
+                 xhttp.send();
+				 
+		}
+
+
 		
+		
+
+
+		function load_api_type_table(){
+
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("api_type_table_load").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "objet_devis/api_type_table", true);
+                 xhttp.send();
+		}
+
+		load_api_type_table();
+
 		$('.active_row_type').click(function (){
 			
 			$('.chg_title_objet').text('Préstation');
@@ -1254,10 +1280,64 @@
 			
 			$('.row_type').removeAttr('style','display:none');
 			
+			$('.row_mode_prix').attr('style','display:none');
+			$('.row_article').attr('style','display:none');	
+			$('.row_souscategory').attr('style','display:none');	
+			$('.row_categorie').attr('style','display:none');
+			
+			load_api_type_table();
+			
+		});
+
+		
+		 
+
+
+		function show_modal_edit_sous_categorie($id){
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_edit_sous_cat").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "../category/"+$id+"/edit" , true);
+                 xhttp.send();
+				 
+		}
+
+
+		
+		
+		function load_api_souscategory_table(){
+
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("api_souscategory_table_load").innerHTML = xhttp.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "objet_devis/api_souscategory_table", true);
+                 xhttp.send();
+		}
+
+		load_api_type_table();
+
+		$('.active_row_souscategorie').click(function (){
+			$('.chg_title_objet').text('Sous Categorie');	
+
+			$('.row_souscategory').removeAttr('style','display:none');
+			
+			$('.row_mode_prix').attr('style','display:none');
+			$('.row_type').attr('style','display:none');			
 			$('.row_article').attr('style','display:none');		
 			$('.row_categorie').attr('style','display:none');
 			
+			load_api_souscategory_table();
+			
 		});
+
+		
+		 
 		
 		
 		$('.link_prestation').click(function(){

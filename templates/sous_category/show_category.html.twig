@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sous_category.id }}</td>
+            </tr>
+            <tr>
+                <th>SousCategTitle</th>
+                <td>{{ sous_category.sousCategTitle }}</td>
+            </tr>
+            <tr>
+                <th>SousCategDateCrea</th>
+                <td>{{ sous_category.sousCategDateCrea ? sous_category.sousCategDateCrea|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ sous_category.description }}</td>
+            </tr>
+            <tr>
+                <th>Img</th>
+                <td>{{ sous_category.img }}</td>
+            </tr>
+            <tr>
+                <th>Icon</th>
+                <td>{{ sous_category.icon }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+{% endblock %}

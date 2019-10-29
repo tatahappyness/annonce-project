@@ -18,11 +18,13 @@ class Images
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article")
+     * @ORM\JoinColumn(name="article_title_id",referencedColumnName="id",onDelete="CASCADE")
      */
     private $articleTitle;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_id_id",referencedColumnName="id",onDelete="CASCADE")
      */
     private $UserId;
 

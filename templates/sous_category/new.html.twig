@@ -1,0 +1,171 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block stylesheets %}
+
+  <!-- Custom fonts for this template-->
+    <link href="{{ absolute_url('/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+	<!-- Custom styles for this template-->
+    <link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
+
+	
+	<link href="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+	
+  <style>
+      .card-header {
+          background-color: #fcd42f4a;
+      }
+      #wrapper{
+       background-color:#ececec;
+      }
+    </style>
+    
+{% endblock %}
+
+{% block body %}
+
+
+<body id="page-top">
+
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
+  <!-- Page Wrapper -->
+  <div id="wrapper" >
+
+	<!--Begin nav_bar api_admin space -->
+	{% include "./admin/api_admin/nav_bar.html.twig" %}
+	<!--End nav_bar api_admin space -->
+
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+	</br>
+      <!-- Main Content -->
+      <div id="content">
+	  
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+			<!-- Divider -->
+				<h3 class="chg_title_objet">Préstation</h3>
+			<hr class="sidebar-divider">
+				
+				<div class="row" style="justify-content: space-evenly">				
+
+						<a class=""  href="{{ path('type_index') }}">
+							<div class="active_row_type link-1 btn btn-success text-white shadow">
+								<div class="card-body">
+									Préstation                    
+								</div>
+							</div>
+						</a>		
+						<a class="collapse-item"  href="{{ path('category_index') }}">
+							<div class="active_row_categorie link-1 btn  text-dark shadow" style="background-color: yellow;">
+								<div class="card-body">
+									Catégorie
+								</div>
+							</div>
+						</a>	
+						<a class="collapse-item"   href="{{ path('sous_category_index') }}">
+				
+							<div class="active_row_souscategorie link-1 btn btn-info text-white shadow">
+								<div class="card-body">
+									Sous-categorie
+								</div>
+							</div>
+						</a>			
+						
+						<a class="collapse-item"  href="{{ path('article_index') }}">
+							<div class="active_row_article link-1 btn text-white btn-secondary  shadow" >
+								<div class="card-body">
+									Article
+								</div>
+							</div>
+						</a>
+						<a class="collapse-item"  href="{{ path('mode_prix_index') }}">				
+							<div class="active_row_mode_prix link-1 btn btn-warning text-dark shadow" >
+								<div class="card-body">
+									Mode Prix
+								</div>
+							</div>
+						</a> 
+                        
+				</div>
+				
+			</br> 
+            
+            <!-- DataTales Example -->
+            <div class="col-lg-5 mb-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Ajouter Sous Categorie</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">			
+                        
+                            {{ include('sous_category/_form.html.twig') }}
+
+                            <a class="btn btn-secondary"  href="{{ path('sous_category_index') }}">back to list</a>
+
+						</div> 
+					</div> 
+				 </div> 
+			 </div>
+
+
+    
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+</body>
+	{% endblock %}
+
+	{% block javascripts %}
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
+
+
+
+  <!-- Page level plugins -->
+  <script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/datatables/datatables-demo.js') }}"></script>
+
+
+
+	<script>
+	
+		$(function () { $('#myModal').modal('hide')});
+		
+		
+		// Call the dataTables jQuery plugin
+		$(document).ready(function() {
+		  $('#dataTable_acticle').DataTable();
+		  $('#dataTable_type').DataTable();
+		  
+		});
+
+	</script>
+	
+	<script>
+	
+		$('.nav-item').removeClass('active');
+		$('.nav_objet_devis').addClass('active');
+		
+	</script>
+	
+{% endblock %}

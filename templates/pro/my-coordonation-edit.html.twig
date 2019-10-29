@@ -125,6 +125,44 @@
                                     <!-- </div> -->
                                 </div>
                                 <!-- END MY CORDONNE -->
+
+                                <!--BEGIN MY LOGO EDIT-->
+                                <div class="card text-center">
+                                    <div class="card-header p-2 font-weight-bold bg-darkgray">
+                                        <h5 class="text-uppercase">Ajouter logo de votre société</h5>
+                                    </div>
+                                    <div class="card-body">
+										
+                                        <!-- Modal body -->
+                                        <div class="pt-2">
+                                            <form id="form-logo-pro">
+                                                
+                                                <div class="form-group mb-1 border borber-secondary" style="height: 50px;">
+                                                    <label class="text-warning">Cliquez ici ! ou Glissez votre logo !</label></label>
+                                                    <input id="logo-upload" type="file" name="file-upload">
+												</div>
+                                                <div class="w-100 border borber-secondary">
+                                                    <div id="uploads" class="p-0 d-flex flex-wrap" style="height: 80px;"></div>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                                                    <div class="g-recaptcha" data-sitekey="6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></div>
+                                                </div>
+                                               <!--<button type="button" class="btn btn-annule btn-danger float-right" data-dismiss="modal">Annuler</button> -->
+                                            </form>
+                                            <div class="w-100 text-center">
+                                                <a href="{{ path('pro_show_profil') }}" class="btn btn-darkgray w-100"> << Retour</a>
+                                            </div>
+                                        </div>
+                                        <!-- Modal footer -->
+										
+                                    </div>
+                                    <!-- <div class="card-footer text-muted pb-4"> -->
+									 
+                                    <!-- </div> -->
+                                </div>
+                                <!-- END MY LOGO EDIT -->
+
                             </div>
                         </div>
                     </div>
@@ -214,5 +252,6 @@
 <script src="{{ absolute_url('/assets/js/list-city-ajax.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
 <script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
+<script src="{{ absolute_url('/assets/file-upload/myfile.js') }}"></script>
 
 {% endblock %}

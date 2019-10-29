@@ -38,7 +38,7 @@ $(document).ready(function(){
 				progressBar.remove();
 				cancelButton.remove();
 				//var data = JSON.parse(response);
-				alert(response.infos);
+				//alert(response.infos);
 				
 				var errorDiv = '<img class="format text-dark" width="120" height="80" src="/uploads/images/' +  response.infos + '" style="margin-top: 0!important;"></img>';
 				block.append(errorDiv);
@@ -59,6 +59,67 @@ $(document).ready(function(){
 
 	});
 	//END IMAGE UPLOAD
+
+
+	//LOGO UPLOAD
+	$('input[id=logo-upload]').change(function () {
+
+		var form_imgs = $('#form-logo-pro')[0];
+		var file_data =  $(this).prop('files')[0];
+		var block = $('<div class="block"></div>');
+		var progressBar = $('<div class="progressBar"></div>');
+		var cancelButton = $('<div class="cancelButton">x</div>');
+
+		cancelButton.click(function() {
+			//upload cancelled
+			block.fadeOut(400, function() {
+				$(this).remove();
+			});
+		});
+
+		block.append(progressBar).append(cancelButton);
+		$('#uploads').append(block);
+		
+		progressBar.width(Math.floor(Math.random() * 100) + "%");
+
+		if(file_data != undefined) {
+			
+			jQuery.ajax({
+				type: 'POST',
+				url: '/pro/edit-logo',
+				contentType: false,
+				processData: false,
+				cache:false,
+				dataType:'json',
+				data: new FormData(form_imgs)
+				
+			}).done(function(response){
+				
+				//upload successful
+				progressBar.remove();
+				cancelButton.remove();
+				//var data = JSON.parse(response);
+				//alert(response.info);
+				
+				var errorDiv = '<img class="format text-dark" width="120" height="80" src="/uploads/logo/' +  response.info + '" style="margin-top: 0!important;"></img>';
+				block.append(errorDiv);
+
+				}).fail(function(){
+				// Here you should treat the http errors (e.g., 403, 40
+					progressBar.remove();
+					cancelButton.remove();
+					var errorDiv = $('<div class="error"></div>').text('Echoué!!');
+					block.append(errorDiv);
+					
+					}).always(function(){
+						console.log("AJAX request finished!");
+					});
+		}
+		return false;
+					
+
+	});
+	//END LOGO UPLOAD
 		
 		
 		

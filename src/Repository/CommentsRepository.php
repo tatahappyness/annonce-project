@@ -22,19 +22,19 @@ class CommentsRepository extends ServiceEntityRepository
     // /**
     //  * @return Comments[] Returns an array of Comments objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findAllComments($limit = 6, $value = true)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+            ->andWhere('c.isParticular = :val')
             ->setParameter('val', $value)
             ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     public function findOneById($value): ?Comments
     {

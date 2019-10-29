@@ -130,8 +130,50 @@
                                         </div>                              
 
                                     </div>
+                                    <div class="card-footer pt-0 text-center">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-warning btn-show-form-service m-4">
+                                            Ajouter un service
+                                        </button>
+                                    </div>
                                 </div>
                                 <!-- END MY CORDONNE -->
+
+                                <!--BEGIN MY SERVICE-->
+                                <div class="card text-center cantainer-add-service d-none">
+                                    <div class="card-header p-2 font-weight-bold bg-darkgray">
+                                        <h5 class="text-uppercase">Ajouter un service</h5>
+                                    </div>
+                                    <div class="card-body">
+										
+                                        <!-- Modal body -->
+                                        <div class="pt-2">
+                                            <form id="form-add-service-pro">
+
+                                                <select id="category_id_pro" class="form-control category_id_pro" name="category_id_pro">
+                                                    <option></option>
+                                                    {% if categories != null %}
+                                                        {% for categ in categories %}
+                                                        <option value="{{ categ.id }}">{{ categ.getCategTitle() }}</option>
+                                                        {% endfor %}
+                                                        {% else %}
+                                                            Aucun élément enrégistré
+                                                    {% endif %}
+                                                </select>
+                            
+                                                <div class="w-100 text-center">
+                                                    <a  class="btn btn-warning d-inline-block btn-record-service-pro">Enrégistrer</a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- Modal footer -->
+										
+                                    </div>
+                                    <!-- <div class="card-footer text-muted pb-4"> -->
+									 
+                                    <!-- </div> -->
+                                </div>
+                                <!-- END MY SERVICE ADD -->
 								
                             </div>
                         </div>
@@ -139,6 +181,13 @@
                 </div>
             </section>
             <!--End section  of the list ads by artisan-->
+
+            <!-- Begin section  of form add service -->
+            <section class="bg-transparent">
+              
+               
+            </section>
+            <!--End section  of form add service -->
 	
             <!--Begin section the Presse Talk US -->
             <section id="" class="bg-transparent">

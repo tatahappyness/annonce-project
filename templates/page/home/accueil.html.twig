@@ -126,23 +126,26 @@
                             <h5 class="text-center text-dark">DEVIS TRAVAUX LES PLUS DEMANDÉS</h5>
                             <div class="text-center  text-muted">Choisissez les travaux que vous souhaitez réaliser : nous vous accompagnons dans le choix du prestataire et nous vous donnons de nombreux conseils pour les réussir.</div>
                         </div>
-						
-                        <div class="col-12 col-sm-6 col-lg-4 py-4">
-                            <div class="img-container-popular popular-container-img-1 d-flex flex-column align-items-center" style="background-image: url(/assets/img/photos/head-1.jpg);">
-                                <div class="bg-transparent w-100" style="">
-                                    <a class="btn btn-success rounded-circle float-right m-1 p-0" alt="voir détail...">
-                                        <span class="lnr lnr-eye icon-popular-ask-eyes"></span>
-                                    </a>
+						{% if popularDevis != null %}
+                            {% for devPopular in popularDevis %}
+                               <div class="col-12 col-sm-6 col-lg-4 py-4">
+                                <div class="img-container-popular popular-container-img-1 d-flex flex-column align-items-center" style="background-image: url(/uploads/images/{{ devPopular.getImg() }});">
+                                    <div class="bg-transparent w-100" style="">
+                                        <a href="{{ path('view_art_cat_galery_page', {id: devPopular.getArticleCategId().getId()}) }}" class="btn btn-warning text-decoration-none rounded-circle float-right m-1 p-0" alt="voir détail...">
+                                            <span class="lnr lnr-eye icon-popular-ask-eyes"></span>
+                                        </a>
+                                    </div>
+                                    <div class="img-title popular-title-img-1 h4 h-100 text-center">{{ devPopular.getArticleTitle() }}</div>
+                                    <div class="img-desc popular-desc-img-1 w-100 text-center">
+                                        <a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page', {id: devPopular.getArticleCategId().getId()}) }}">Demander un devis</a>
+                                    </div>
+                                    <div class="bg-transparent d-flex align-items-end justify-content-end h-100 w-100" style=""><a class="btn bg-darkgray m-2">vote(3215)</a></div>
                                 </div>
-                                <div class="img-title popular-title-img-1 h4 h-100 text-center">Carrelage/Dallage</div>
-                                <div class="img-desc popular-desc-img-1 w-100 text-center">
-                                    <a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page') }}">Demander un devis</a>
-                                </div>
-                                <div class="bg-transparent d-flex align-items-end justify-content-end h-100 w-100" style=""><a class="btn bg-darkgray m-2">vote(3215)</a></div>
                             </div>
-                        </div>
+                        {% endfor %}
+                        {% endif %}
                         <div class="col-12 d-flex justify-content-center">
-                            <a class="btn btn-warning btn-show-cat-popular-all" href="{{ path('view_all_tavaux_page') }}">Voir tous les catégories >></a>
+                            <a class="btn btn-warning btn-show-cat-popular-all" href="{{ path('view_all_tavaux_page') }}">Voir plus + >></a>
                         </div>						
                     </div>
                 </div>
@@ -157,33 +160,37 @@
                                 <h5 class="text-center">LES PARTICULIERS PARLENT DE NOUS</h5>
                                 <div class="text-center">Chaque mois, plus de 15 000 personnes nous confient les travaux de leur maison en demandant des devis à notre réseau d'experts. En ferez-vous partie ?</div>
                             </div>
-                            <div class="col-12 col-sm-6 col-lg-4 pt-4">
-                                <div class="card">
-                                    <div class="card-header text-right">
-                                        <span class="pro-icon mb-3">
-                                            <span class="icon-message-pro">
-                                                <object type="image/svg+xml" data="{{absolute_url('/assets/icon/message_512.svg')}}" class="icon-message-pro icon-bike">
-                                                    Bike
-                                                </object>
+                            {% if comments != null %}
+                                {% for comment in comments %}
+                                <div class="col-12 col-sm-6 col-lg-4 pt-4">
+                                    <div class="card">
+                                        <div class="card-header text-right">
+                                            <span class="pro-icon mb-3">
+                                                <span class="icon-message-pro">
+                                                    <object type="image/svg+xml" data="{{absolute_url('/assets/icon/message_512.svg')}}" class="icon-message-pro icon-bike">
+                                                        Bike
+                                                    </object>
+                                                </span>
                                             </span>
-                                        </span>
-                                    </div>
-                                    <div class="message-content h-auto py-2 px-4">
-                                        <div class=""></div>
-                                        <div>"J'ai découvert l'efficacité de votre site. Très rapidement 4 artisans ou entreprises se sont manifestés. Après avoir reçu 3 devis, j'ai traité avec l'artisan qui me paraissait le plus avantageux. Veuillez accepter mes remerciements 💨🌀🏡💥"</div>
-                                    </div>
-                                    <div class="card-footer d-flex flex-row align-items-center">
-                                        <span class="pro-icon mb-3">
-                                            <span class="icon-message-pro">
-                                                <object type="image/svg+xml" data="{{ absolute_url('/assets/icon/user_icon-64.svg') }}" class="icon-message-pro icon-bike">
-                                                    Bike
-                                                </object>
+                                        </div>
+                                        <div class="message-content h-auto py-2 px-4">
+                                            <div class=""></div>
+                                            <div>{{ comment.getDescription() }}</div>
+                                        </div>
+                                        <div class="card-footer d-flex flex-row align-items-center">
+                                            <span class="pro-icon mb-3">
+                                                <span class="icon-message-pro">
+                                                    <object type="image/svg+xml" data="{{ absolute_url('/assets/icon/user_icon-64.svg') }}" class="icon-message-pro icon-bike">
+                                                        Bike
+                                                    </object>
+                                                </span>
                                             </span>
-                                        </span>
-                                        <span class="ml-2 text-secondary">Jean-Noël S.</span>
+                                            <span class="ml-2 text-secondary">{{ comment.getUserId().getFirstname() }}</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            {% endfor %}
+                            {% endif %}
                             <div class="col-12 d-flex justify-content-center">
                                 <a class="btn btn-warning btn-particular-talk" href="{{ path('comments_particular_page') }}">Consulter tous les témoignages >></a>
                             </div>
@@ -200,36 +207,40 @@
                             <div class="text-center text-muted">Vous souhaitez réaliser des travaux et ne savez quel professionnel choisir ? Demandez des devis travaux auprès de notre réseau des nouveaux professionnels partout.
                             </div>
                         </div>
-                        <div class="col-12 col-sm-6 col-lg-4 py-4">
-                            <div class="img-new-pro-container d-flex flex-column align-items-center justify-content-center bg-white rounded">
-                                <div class="img-new-pro-content rounded-top" style="background-image: url(/assets/img/photos/jardin/jardin-1.jpg); width: 100%; height: 250px;">
-                                    <div class="w-100">
-                                        <a class="btn btn-success float-left m-1 text-white">Nom category ici</a>
-                                        <a class="btn btn-danger btn-pro-emotion-heart rounded-circle float-right m-1">
-                                            <span class="lnr lnr-heart icon-pro-emotion-heart"></span>
-                                        </a>
+                        {% if newPros != null %}
+                            {% for newpro in newPros %}
+                            <div class="col-12 col-sm-6 col-lg-4 py-4">
+                                <div class="img-new-pro-container d-flex flex-column align-items-center justify-content-center bg-white rounded">
+                                    <div class="img-new-pro-content rounded-top" style="background-image: url(/uploads/images/{{newpro.getUserCategoryActivity().getImg()}}); width: 100%; height: 250px;">
+                                        <div class="w-100">
+                                            <a class="btn btn-warning float-left m-1 text-white">{{ newpro.getUserCategoryActivity().getCategTitle() }}</a>
+                                            <a class="btn btn-warning btn-pro-emotion-heart rounded-circle float-right m-1">
+                                                <span class="lnr lnr-heart icon-pro-emotion-heart"></span>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="img-pro-desc d-flex flex-row align-items-center justify-content-center  text-center py-2">
-                                    <div class="border border-secondary rounded-circle">
-                                        <img class="pro-logo rounded-circle" src="{{ absolute_url('/assets/img/photos/artisan.jpg') }} " style="width: 64px; height: auto;"></img>
-                                    </div>
-                                    <div class="d-flex flex-column align-items-center justify-content-center text-left">
-                                        <span class="d-inline text-center">
-                                            <a class="btn btn-outline-secondary m-2">En vedette</a>
-                                            <a class="btn btn-outline-secondary m-2">vérifié</a>
-                                        </span>
-                                        <span class="text-center ml-1">
-                                            <a href="{{ path('show_detail_pro_page') }}" class="text-decoration-none text-secondary">Bright Future Group & Company</a>
-                                        </span>
-                                        <span class="small text-center">
-                                            <span class="pro-point-star p-1"><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star-half icon-star-pro text-warning"></span></span>
-                                            <span class="pro-like-percent text-secondary p-1"><span class="lnr lnr-thumbs-up icon-like-pro text-secondary"></span> 99% (1009 votes) </span>
-                                        </span>
+                                    <div class="img-pro-desc d-flex flex-row align-items-center justify-content-center  text-center py-2">
+                                        <div class="border border-warning rounded-circle">
+                                            <img class="pro-logo rounded-circle" src="{{ absolute_url('/uploads/logo/' ~ newpro.getLogo()) }} " style="width: 64px; height: 64px;"></img>
+                                        </div>
+                                        <div class="d-flex flex-column align-items-center justify-content-center text-left">
+                                            <span class="d-inline text-center">
+                                                <a class="btn btn-outline-secondary m-2">En vedette</a>
+                                                <a class="btn btn-outline-secondary m-2">vérifié</a>
+                                            </span>
+                                            <span class="text-center ml-1">
+                                                <a href="{{ path('show_detail_pro_page', {id: newpro.getId()}) }}" class="text-decoration-none text-secondary">{{ newpro.getCompanyName() }}</a>
+                                            </span>
+                                            <span class="small text-center">
+                                                <span class="pro-point-star p-1"><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star-half icon-star-pro text-warning"></span></span>
+                                                <span class="pro-like-percent text-secondary p-1"><span class="lnr lnr-thumbs-up icon-like-pro text-secondary"></span> 99% (1009 votes) </span>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            {% endfor %}
+                        {% endif %}
                         <div class="col-12 d-flex justify-content-center">
                             <a class="btn btn-warning btn-show-pro-all" href="{{ path('space_find_pro_page') }}">Voir tous les professionnels >></a>
                         </div>						
@@ -239,7 +250,7 @@
                 <!--End section profesionnels news -->
 				
                 <!--Begin section of the guide for conseils -->
-                <section id="" class="bg-transparent">
+                {# <section id="" class="bg-transparent">
                 <div class="container">
                     <div class="row py-5">
                         <div class="col-12">
@@ -277,7 +288,7 @@
                     </div>
                 </div>
                 </section>
-                <!--End section  of the guide for conseils -->
+                <!--End section  of the guide for conseils --> #}
 				
                 <!--Begin section slide testmonial -->
                 <section id="" class="bg-transparent">
@@ -358,7 +369,7 @@
                                             <div class="card" style="width: 50%; height: auto; background-color: rgb(19, 19, 19, 50%);">
                                             <img class="card-img-top" style="height: 65%;" src="{{ absolute_url('/assets/img/photos/devenir-chef-equipe-btp.jpg') }}" alt="Card image cap">
                                             <div class="bg-transparent small">
-                                                <a href="inscription.html" class="btn btn-warning w-auto">S'inscrire en tant que Pro?</a>
+                                                <a href="{{ path('inscription_page') }}" class="btn btn-warning w-auto">S'inscrire en tant que Pro?</a>
                                             </div>
                                             </div>
                                         </div>
@@ -376,7 +387,7 @@
                                                 <div class="card" style="width: 50%; height: auto;  background-color: rgb(19, 19, 19, 50%);">
                                                 <img class="card-img-top" style="height: 65%;" src="{{ absolute_url('/assets/img/photos/devenir-chef-equipe-btp.jpg') }}" alt="Card image cap">
                                                 <div class="bg-transparent small">
-                                                    <a href="#" class="btn btn-warning w-auto show-particular-inscription text-nowrap">S'inscrire en tant que particulier</a>
+                                                    <a href="{{ path('inscription_particulier_page') }}" class="btn btn-warning w-auto show-particular-inscription text-nowrap">S'inscrire en tant que particulier</a>
                                                 </div>
                                                 </div>
                                         </div>

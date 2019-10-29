@@ -114,23 +114,7 @@ class PartController extends AbstractController
         }  
 
     }
-
-    /**
-    * @Route("/get-list-emojis", name="particulier_get_list_emojis")
-    */
-    public function getListEmojis(Security $security, EmojiRepository $emojiRep)
-    {
-        //$emojisArray = array();
-        $emojis = $emojiRep->findAllArray();
-        if (count($emojis) > 0) {
-            foreach ($emojis as $key => $value) {    
-                $emojisArray = str_replace("'", "", $value->getCode());
-               $emojisArrayFilter = explode(',', $emojisArray);
-            }
-            //dump($emojisArrayFilter);die;
-            return new JsonResponse(['code'=>200, 'emojis'=> $emojisArrayFilter], 200);
-        }
-    }
+    
 
     /**
     * @Route("/lists-ask-projects-devis", name="particulier_ask_project_devis")
@@ -776,11 +760,11 @@ class PartController extends AbstractController
                         ->setIsParticular(true)
                         ->setUserId($security->getUser())
                         ->setDatecrea(new \DateTime('now'));
-                    $entityManager->merge($comment);
+                    $entityManager->persist($comment);
                     $entityManager->flush();
                     $entityManager->commit();
 
-                    return new JsonResponse(array('code'=> 200, 'info'=>  'Vous avez envoyé un commentaire!'), 200);
+                    return new JsonResponse(array('code'=> 200, 'info'=>  'Vous avez misé(e) un commentaire!'), 200);
 
                 } 
                 catch (\Exception $e) {

@@ -90,7 +90,7 @@ class UserRepository extends ServiceEntityRepository
     }
 	
 	
-    public function findAllProfessionals($data = null, $limit = 50, $offset = 0)
+    public function findAllProfessionals($data = null, $limit = 10, $offset = 0)
     {
 
         if ($data == null) {

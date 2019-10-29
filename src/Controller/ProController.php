@@ -8,6 +8,7 @@ use App\Entity\Category;
 use App\Entity\Article;
 use App\Entity\Devis;
 use App\Entity\Customer;
+use App\Entity\Comments;
 use App\Entity\Transaction;
 use App\Entity\ReponsePostAds;
 use App\Entity\Abonnement;
@@ -62,6 +63,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
@@ -109,6 +112,7 @@ class ProController extends AbstractController
              'user'=> $security->getUser(),
         ]);
     }
+
 
     /**
     * @Route("/lists-projects-disponible", name="pro_dispos_projects")
@@ -491,22 +495,37 @@ class ProController extends AbstractController
     /**
     * @Route("/lists-my-evaluations", name="pro_evaluations")
     */
-    public function proEvaluations(Security $security, CustomerRepository $customRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function proEvaluations(Security $security, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep, EvaluationsRepository $evaluationRep, ImagesRepository $imageRep, CustomerRepository $customRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
+        $devisAcceptArray = $devisAcceptRep->findByUserId($security->getUser());
+        $devisValidArray = $devisValidRep->findByUserId($security->getUser());
+        $devisFinishArray = $devisFinishRep->findByUserId($security->getUser());
 
+        $devisAccept = count( $devisAcceptArray) > 0 ?  $devisAcceptArray : null;
+        $devisValid = count( $devisValidArray) > 0 ?  $devisValidArray : null;
+        $devisFinish = count( $devisFinishArray) > 0 ?  $devisFinishArray : null;
+
+        //get Evaluations
+        $evaluation = $evaluationRep->findByUserId(array(1=> $security->getUser()));
+        $evaluations = count($evaluation) > 0 ? $evaluation : null;
 
         return $this->render('pro/pro-evaluations.html.twig', [
+            'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
+            'devisAccept'=> $devisAccept,
+            'devisValid'=> $devisValid,
+            'devisFinish'=> $devisFinish,
             'user'=> $security->getUser(),
+            'evaluations'=> $evaluations,
         ]);
     }
 
     /**
     * @Route("/show-my-profil", name="pro_show_profil")
     */
-    public function profil(Security $security, DocummentRepository $docummentRep, EvaluationsRepository $evaluationRep, ImagesRepository $imageRep, CustomerRepository $customRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep)
+    public function profil(Security $security, DocummentRepository $docummentRep, LabelsRepository $labelRep, EvaluationsRepository $evaluationRep, ImagesRepository $imageRep, CustomerRepository $customRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -536,9 +555,14 @@ class ProController extends AbstractController
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
 
         //get Document
-        $document = $docummentRep->findByUserId($security->getUser());
-        //get label
+        $document = $docummentRep->findByUserId(array(1=> $security->getUser()));
+        $documents = count($document) > 0 ? $document : null;
+       //get Labels Quality
+        $label = $labelRep->findByUserId(array(1=> $security->getUser())); 
+        $labels = count($label) > 0 ? $label : null;
         //get image realize
+        $image = $imageRep->findByUserId(array(1=> $security->getUser()));
+        $images = count($image) > 0 ? $image : null;
 
 
         return $this->render('pro/profil.html.twig', [
@@ -546,6 +570,9 @@ class ProController extends AbstractController
             'postAds'=> $postsAds,
             'nbProjectDispo'=> count($postsAds),
             'user'=> $security->getUser(),
+            'documents'=> $documents,
+            'images'=> $images,
+            'labels'=> $labels,
         ]);
     }
 
@@ -579,7 +606,7 @@ class ProController extends AbstractController
                     $entityManager->merge($user);
                     $entityManager->flush();
 
-                    return new JsonResponse(array('code'=> 200, 'info'=>  $filename), 200);
+                    return new JsonResponse(array('code'=> 200, 'info'=>  'Chargement de profil effectué1;'), 200);
 
                 } 
                 catch (\Exception $e) {
@@ -603,16 +630,48 @@ class ProController extends AbstractController
     }
 
     /**
-    * @Route("/company-edit", name="pro_company_edit")
+    * @Route("/edit-logo", name="pro_edit_logo")
     */
-    public function editCompany(Request $request, Security $security, CustomerRepository $customRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function editLogo(Request $request, Security $security, CustomerRepository $customRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
-        return $this->render('pro/my-company-edit.html.twig', [
-            'user'=> $security->getUser(),
-        ]);
+        if (!is_null($request->files->get('file-upload')) ) {
+
+            $file = $request->files->get('file-upload');
+            
+            $output_dir = $this->getParameter('logo_directory');
+            $arr_extensions = ["jpeg", "jpg", "png"];
+            //@Assert\File(maxSize="6000000")
+
+            if (!(in_array($file->getClientOriginalExtension(), $arr_extensions))) 
+            {
+                return new JsonResponse(array('code'=> 401, 'info'=> 'Type de fichier n\'est pas autorisé'), 401);
+            }
+               
+            try { 
+                // generate a random name for the file but keep the extension
+                $filename = uniqid().".".$file->getClientOriginalExtension();
+                $file->move( $output_dir, $filename); // move the file to a path
+
+                $user = $security->getUser();
+                $user
+                    ->setLogo($filename);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->merge($user);
+                $entityManager->flush();
+
+                return new JsonResponse(array('code'=> 200, 'info'=>   $filename), 200);
+
+            } 
+            catch (\Exception $e) {
+                return new JsonResponse(['code'=> 500, 'info' => $e->getMessage()], 500);
+            }
+        }
+        return new JsonResponse(['code'=> 500, "info" => 'Vous avez fait une movaise requête!'], 500);        
+
+      
     }
 
     /**
@@ -707,12 +766,51 @@ class ProController extends AbstractController
     /**
     * @Route("/password-edit", name="pro_password_edit")
     */
-    public function editpassword(Request $request, Security $security, CustomerRepository $customRep,  ServicesRepository $serviceRep,  DevisRepository $devisRep)
+    public function editpassword(Request $request, Security $security, UserPasswordEncoderInterface $passwordEncoder, ServicesRepository $serviceRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
+        if($_POST) {
+
+            //dump($request->request->get('passwd_new'));die;
+            if (!is_null($request->request->get('passwd_old')) && !is_null($request->request->get('passwd_new')) && $request->request->get('passwd_new') !== '' && !is_null($request->request->get('passwd_comfirm')) ) {
+               
+                $user = $security->getUser();
+                $user
+                    ->setPassword($passwordEncoder->encodePassword(
+                        $user,
+                        $request->request->get('passwd_new')
+                    ));
+                $entityManager = $this->getDoctrine()->getManager();
+                try {
+        
+                    $entityManager->merge($user);
+                    $entityManager->flush();
+                    return new JsonResponse(['code'=> 200, "info" => 'Vous avez changé votre mot de passe!'], 200);
+                } 
+                catch (\Exception $e) {
+                    return new JsonResponse(['code'=> 500, 'info' => $e->getMessage()], 500);
+                }
+            }
+            return new JsonResponse(['code'=> 400, "info" => 'Vous avez fait une movaise requête!'], 400);
+
+
+        }
+
+        $devisAcceptArray = $devisAcceptRep->findByUserId($security->getUser());
+        $devisValidArray = $devisValidRep->findByUserId($security->getUser());
+        $devisFinishArray = $devisFinishRep->findByUserId($security->getUser());
+
+        $devisAccept = count( $devisAcceptArray) > 0 ?  $devisAcceptArray : null;
+        $devisValid = count( $devisValidArray) > 0 ?  $devisValidArray : null;
+        $devisFinish = count( $devisFinishArray) > 0 ?  $devisFinishArray : null;
+
         return $this->render('pro/my-password-edit.html.twig', [
+            'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
+            'devisAccept'=> $devisAccept,
+            'devisValid'=> $devisValid,
+            'devisFinish'=> $devisFinish,
             'user'=> $security->getUser(),
         ]);
     }
@@ -757,6 +855,7 @@ class ProController extends AbstractController
                 $image
                     ->setUserId($security->getUser())
                     ->setArticleTitle($article)
+                    ->setName($filename)
                     ->setDateCrea(new \DateTime('now'));    
 
                 $em->persist($image); 
@@ -786,7 +885,7 @@ class ProController extends AbstractController
 
         //get list articles by lists category array
         $articles = $articleRep->findByCategoryArray(array(1=> $array));
-        $articles = count($articles) ? $articles : null;
+        $articles = count($articles) > 0 ? $articles : null;
 
         $devis = $devisRep->findByZipCodeAndCity($arrayData1);
         $nbdevis = count($devis);
@@ -1121,7 +1220,7 @@ class ProController extends AbstractController
     /**
     * @Route("/lists-services", name="pro_services")
     */
-    public function services(Security $security, ServicesRepository $serviceRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function services(Security $security, CategoryRepository $categoryRep, ServicesRepository $serviceRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -1136,6 +1235,9 @@ class ProController extends AbstractController
 
         $servicesArray = $serviceRep->findAll();
         $services = !is_null($servicesArray) ? $servicesArray : null;
+        //get category lists
+        $categories = $categoryRep->findAllArray();
+        $categories = count($categories) ? $categories : null;
         return $this->render('pro/services.html.twig', [
             'services' => $services,
             'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
@@ -1143,7 +1245,41 @@ class ProController extends AbstractController
             'devisValid'=> $devisValid,
             'devisFinish'=> $devisFinish,
             'user'=> $security->getUser(),
+            'categories'=> $categories,
         ]);
+    }
+
+    /**
+    * @Route("/add-service", name="pro_add_service")
+    */
+    public function addService(Request $request, Security $security, CategoryRepository $categoryRep)
+    {
+        if($_POST) {
+
+            if( $request->request->get('category_id_pro') !== null ) {
+
+               try {
+
+                    $em =  $this->getDoctrine()->getManager();
+                    $em->beginTransaction();
+                    $service = new Services();
+                    $service
+                        ->setUserId($security->getUser())
+                        ->setCategoryId($categoryRep->findById((int) $request->request->get('category_id_pro')))
+                        ->setDateCrea(new \DateTime('now'));
+                    $em->persist($service);
+                    $em->flush();
+                    $em->commit();
+                    return new JsonResponse(['code'=> 200 ,'info' => 'Vous avez ajouté un nouveau service!'], 200);
+
+                } catch (\Throwable $th) {
+                    return new JsonResponse(['code'=> 500 ,'info' => $th->getMessage()], 500);
+                }
+            }
+            
+        }
+        return new JsonResponse(['code'=> 500 ,'info' => 'Vous avez fait la movaise requête!'], 500);
+
     }
 
     /**
@@ -1168,39 +1304,78 @@ class ProController extends AbstractController
         return $this->redirectToRoute('pro_services');
     }
 
-    /**
-    * @Route("/guid-price-add/{id}", name="pro_guid_price_add")
-    */
-    public function addGuidePrice($id = null, Security $security, ServicesRepository $serviceRep)
-    {
-        // The second parameter is used to specify on what object the role is tested.
-        $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
-        if ($id !== null) {
-            $em =  $this->getDoctrine()->getManager();
-            try {
-                $em->beginTransaction();
-                $service = $serviceRep->findById((int) $id);
-                $em->remove($service);
-                $em->flush();
-                $em->commit();
-                return new JsonResponse(['code'=> 200 ,'info' => ''], 200);
-
-            } catch (\Throwable $th) {
-                return new JsonResponse(['code'=> 500 ,'info' => $th->getMessage()], 500);
-            }
-        }
-
-        return $this->render('pro/add-guide-price.html.twig');
-       
-    }
 
     /**
     * @Route("/talk-us", name="pro_talk_us")
     */
-    public function talkUs()
+    public function talkUs(Request $request, Security $security, ServicesRepository $serviceRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
-        return $this->render('pro/talk-us.html.twig');
+
+        if ($_POST) {
+           
+            if(!is_null($request->request->get('comment_description'))) {
+                
+                try {
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->beginTransaction();
+                    $comment = new Comments();
+                    $comment
+                        ->setDescription($request->request->get('comment_description'))
+                        ->setIsPro(true)
+                        ->setUserId($security->getUser())
+                        ->setDatecrea(new \DateTime('now'));
+                    $entityManager->persist($comment);
+                    $entityManager->flush();
+                    $entityManager->commit();
+                    return new JsonResponse(['code'=> 200 ,'info' => 'Vous avez misé(e) un commentaire!'], 200);
+
+                } catch (\Throwable $th) {
+                    return new JsonResponse(['code'=> 500 ,'info' => $th->getMessage()], 500);
+                }
+
+            }
+
+        }
+
+        $devisAcceptArray = $devisAcceptRep->findByUserId($security->getUser());
+        $devisValidArray = $devisValidRep->findByUserId($security->getUser());
+        $devisFinishArray = $devisFinishRep->findByUserId($security->getUser());
+
+        $devisAccept = count( $devisAcceptArray) > 0 ?  $devisAcceptArray : null;
+        $devisValid = count( $devisValidArray) > 0 ?  $devisValidArray : null;
+        $devisFinish = count( $devisFinishArray) > 0 ?  $devisFinishArray : null;
         
+        return $this->render('pro/talk-us.html.twig', [
+            'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
+            'devisAccept'=> $devisAccept,
+            'devisValid'=> $devisValid,
+            'devisFinish'=> $devisFinish,
+            'user'=> $security->getUser(),
+        ]);
+        
+    }
+
+    /**
+    * @Route("/download-file/{id}", name="pro_download_file")
+    */
+    public function downloadAction($id = null) {
+
+        try {
+            $displayName = $id;
+            $file_with_path = $this->getParameter( 'documents_directory' ) . "/" . $id;
+            $response = new BinaryFileResponse( $file_with_path );
+            $response->headers->set( 'Content-Type', 'text/plain' );
+            $response->setContentDisposition( ResponseHeaderBag::DISPOSITION_ATTACHMENT, $displayName );
+            return $response;
+
+        } catch( Exception $e ) {
+            $array = array (
+                'status' => 0,
+                'message' => 'Download error' 
+            );
+            $response = new JsonResponse ( $array, 400 );
+            return $response;
+        }
     }
 
     public function countDevis(Security $security, ServicesRepository $serviceRep, DevisRepository $devisRep): ?int

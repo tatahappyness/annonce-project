@@ -48,6 +48,25 @@ class DevisRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getResult();
     }
+
+    //Get top popular devis, Return array Id articles
+    public function findTopPopularDevis(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+                SELECT d.nature_project_id AS article_id, COUNT(d.id) AS number_top_devis 
+                FROM devis d
+                GROUP BY d.nature_project_id
+                ORDER BY number_top_devis DESC
+                LIMIT 10;
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(); // return data array ,not array ogbject
+
+    }
+
     
     public function findOneById($value): ?Devis
     {

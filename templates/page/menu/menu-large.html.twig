@@ -47,32 +47,28 @@
 			
                 <div class="navbar-mega large-menu d-md-flex justify-content-center">
                     <div class="dropdown-mega">
-                        <a class="dropbtn">Types des travaux
+                        <a class="dropbtn"> Demander un devis
                         <i class="fa fa-caret-down"></i>
                         </a>
                         <div class="dropdown-content">
-                            <div class="row-mega px-4">
-                                <div class="column text-white">
-                                <h3>Category 1</h3>
-                                <a href="#">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
-                                </div>
-                                <div class="column text-white">
-                                <h3>Category 2</h3>
-                                <a href="#">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
-                                </div>
-                                <div class="column">
-                                <h3>Category 3</h3>
-                                <a href="#">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
-                                </div>
-                            </div>
+                            <ul class=" px-4">
+                                {% if categories != null %}
+                                    {% for categ in categories %}
+                                        <li class="column-list text-left px-0" style="line-height: 0;">
+                                        <a href="{{ path('post_ask_devis_page', {id: categ.getId()}) }}" class="d-flex align-items-center">
+                                        <span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+                                        <span class="text-warning">{{ categ.getCategTitle() }}</span>
+                                        </a>
+                                       </li>
+                                    {% endfor %}
+                                <li class="text-center"  style="line-height: 0;">
+                                <a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+                                </li>
+                                {% endif %}
+                            </ul>
                             <div class="row-mega">
                                 <div class="column-12">
+                                {% if popularDevis != null %}
                                     <div class="w-100 text-center">
                                         <h3> Les  plus populaires </h3>
 							        </div>
@@ -81,13 +77,18 @@
                                         <section class="wrapper">
                                             <!-- ".slider" has a width greater than 100% to give way to all albums to align.  -->
                                             <ul class="slider">
-                                                <li class="text-center">
-                                                    <a href="#" class="d-block mb-4 p-0">
-                                                        <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/aob0ukAYfuI/400x300" />
+                                           
+                                                {% for devPopular in popularDevis %}
+                                                <li class="column-list text-center">
+                                                    <a href="#" class="d-block mb-1 p-0">
+                                                        <img class="img-fluid img-thumbnail" src="{{ absolute_url('/uploads/images/' ~ devPopular.getImg()) }}" />
                                                     </a>
-                                                    <p><a id="" href="#">Category name</a></p>
-                                                    <p><a id="" href="#" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
+                                                    <p><a href="{{ path('view_art_cat_galery_page', {id: devPopular.getArticleCategId().getId()}) }}">{{ devPopular.getArticleTitle() }}</a></p>
+                                                    <p><a href="{{ path('post_ask_devis_page', {id: devPopular.getArticleCategId().getId()}) }}" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
                                                 </li>
+                                                {% endfor %}
+                                           
+                                            
                                             </ul>
                                         </section>
                                         <!-- End wrapper -->
@@ -114,7 +115,7 @@
                                         </button>
                                     </section>
                                     <!-- End sliderComplete -->
-
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -127,8 +128,8 @@
                         <div class="dropdown-content">
                             <div class="row-mega px-4">
                                 <div class="column">
-                                <h3> <a href="#"> Category 1</a> </h3>
-                                <a href="{{ path('guide_price_page') }}">Link 1</a>
+                                <h3> <a href="{{ path('guide_price_page', {categId: 1}) }}"> Category 1</a> </h3>
+                                <a href="{{ path('guide_price_page', {categId: 1, sousCategId: 1}) }}">Link 1</a>
                                 <a href="#">Link 2</a>
                                 <a href="#">Link 3</a>
                                 <a class="mm-view-more" href="#">Voir + </a>

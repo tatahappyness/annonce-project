@@ -81,7 +81,7 @@
     float: left;
     /* width: 33.33%; */
     width: auto;
-    padding: 14px;
+    padding: 8px;
     /* background-color: #ccc; */
     max-width: 25%;
     max-height: 180px;
@@ -117,8 +117,9 @@
     }
     
     /* Add a background color on hover */
-    .column a:hover {
-    background-color: #ddd;
+    .column-list a:hover {
+        background-color: transparent;
+        text-decoration: underline;
     }
     
     /* Clear floats after the columns */

@@ -10,6 +10,7 @@ use App\Repository\TypeRepository;
 use App\Repository\UserRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ArticleRepository;
+use App\Repository\GuidePriceRepository;
 use App\Repository\FonctionRepository;
 use App\Repository\PostRepository;
 use App\Repository\CitiesRepository;
@@ -17,7 +18,15 @@ use App\Repository\ServicesRepository;
 use App\Repository\CustomerRepository;
 use App\Repository\AbonnementRepository;
 use App\Repository\DevisRepository;
+use App\Repository\EmojiRepository;
 use App\Repository\CommentsRepository;
+use App\Repository\EvaluationsRepository;
+use App\Repository\DocummentRepository;
+use App\Repository\ImagesRepository;
+use App\Repository\LabelsRepository;
+use App\Repository\OfferRepository;
+use App\Repository\SiteinternetRepository;
+use App\Repository\VideosRepository;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,21 +48,52 @@ class PageController extends AbstractController
     /**
     * @Route("/", name="home_page")
     */
-    public function home( ArticleRepository $artRep, TypeRepository $typeRep)
+    public function home( ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
         
        try {
            
         $arrayarticles = $artRep->findAll();
         $arraytypes = $typeRep->findAll();
-        $articles =  !is_null($arrayarticles) ? $arrayarticles : null;
-        $types = !is_null($arraytypes) ? $arraytypes : null;
+        $categories = $categoryRep->findAllArray();
+        $articles =  count($arrayarticles) > 0 ? $arrayarticles : null;
+        $types = count($arraytypes) > 0 ? $arraytypes : null;
+       $categories = count( $categories) > 0 ? $categories : null;
+       //Get new pros list
+        //array(1=> true, 2=> $activity, 3=> $city, 4=> $activity)
+        $newPros = $userRep->findAllProfessionals();
+        $newPros = count( $newPros) > 0 ? $newPros : null;
+       //Get guides prices list
 
+       //Get top devis more asked
+        $devisPopulars = $devisRep->findTopPopularDevis();
+        $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+        $popularDevis = array();
+        if($devisPopulars !== null) {
+
+            foreach ($devisPopulars as $key => $value) {
+               $popularDevis[] =  $artRep->findById($value['article_id']);
+            }
+
+        }
+        //dump($popularDevis);die;
+       //Get comments list by particulars
+        $comments = $commentRep->findAllComments(6);
+        $comments = count( $comments) > 0 ? $comments : null;
+        //dump( $comments);die;
        } catch (\Throwable $th) {
         return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
        }
         return $this->render('page/home/accueil.html.twig', [
-            'articles'=> $articles, 'types'=> $types
+            'articles'=> $articles, 
+            'types'=> $types,
+           'popularDevis'=> $popularDevis,
+           'categories'=> $categories,
+           'newPros'=> $newPros,
+           'comments'=> $comments,
+           'guidesPrice'=> 1
+
+
         ]);
         
     }
@@ -120,21 +160,72 @@ class PageController extends AbstractController
     }
 
     /**
+    * @Route("/get-list-emojis", name="get_list_emojis_page")
+    */
+    public function getListEmojis(Security $security, EmojiRepository $emojiRep)
+    {
+        //$emojisArray = array();
+        $emojis = $emojiRep->findAllArray();
+        if (count($emojis) > 0) {
+            foreach ($emojis as $key => $value) {    
+                $emojisArray = str_replace("'", "", $value->getCode());
+            $emojisArrayFilter = explode(',', $emojisArray);
+            }
+            //dump($emojisArrayFilter);die;
+            return new JsonResponse(['code'=>200, 'emojis'=> $emojisArrayFilter], 200);
+        }
+    }
+
+    /**
     * @Route("/inscription", name="inscription_page")
     */
-    public function inscription(ArticleRepository $artRep, TypeRepository $typeRep)
+    public function inscription(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
       
-       return $this->render('page/inscription.html.twig');
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+      //Get top devis more asked
+            $devisPopulars = $devisRep->findTopPopularDevis();
+            $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+            $popularDevis = array();
+            if($devisPopulars !== null) {
+    
+                foreach ($devisPopulars as $key => $value) {
+                $popularDevis[] =  $artRep->findById($value['article_id']);
+                }
+    
+            }
+
+       return $this->render('page/inscription.html.twig', [
+           'categories'=> $categories,
+           'devisPopulars'=> $devisPopulars,
+           ]);
         
     }
 
     /**
     * @Route("/inscription-particulier", name="inscription_particulier_page")
     */
-    public function inscriptionParticulier()
+    public function inscriptionParticulier(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
-        return $this->render('page/inscription-particular.html.twig');
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+
+        return $this->render('page/inscription-particular.html.twig', [
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
+        ]);
         
     }
 
@@ -150,7 +241,7 @@ class PageController extends AbstractController
     /**
     * @Route("/post-ask-devis/{id}/{prosId}", name="post_ask_devis_page", requirements={"id"="\d+"})
     */
-    public function postAskDevis($id = null, $prosId = null, Request $request,CitiesRepository $cityRep, TypeRepository $typeRep, CategoryRepository $categRep, ArticleRepository $artRep, FonctionRepository $foncRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, \Swift_Mailer $mailer, UserRepository $userRep)
+    public function postAskDevis($id = null, $prosId = null, Request $request, GuidePriceRepository $guidePriceRep, CitiesRepository $cityRep, TypeRepository $typeRep, CategoryRepository $categRep, ArticleRepository $artRep, FonctionRepository $foncRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, \Swift_Mailer $mailer, UserRepository $userRep)
     {       
             // dump($_ENV['MAILER_URL']);die;
             
@@ -163,13 +254,18 @@ class PageController extends AbstractController
 
         if ($_POST) {
             // Posting Ask in Server data base
-            if(!is_null($request->request->get('post_metier_ask_devis')) && !is_null($request->request->get('post_description_ask_devis')) && !is_null($request->request->get('post_email_ask_devis')) && !is_null($request->request->get('post_zipcode_ask_devis')) && !is_null($request->request->get('post_phone_ask_devis'))){
+            if(!is_null($request->request->get('post_metier_ask_devis')) && !is_null($request->request->get('post_civility_ask_devis')) && !is_null($request->request->get('post_description_ask_devis')) && !is_null($request->request->get('post_email_ask_devis')) && !is_null($request->request->get('post_zipcode_ask_devis')) && !is_null($request->request->get('post_phone_ask_devis'))){
+               
                 $devis = new Devis();
                 //dump($request->request->get('ask_devis_type'));die;
+                $em = $this->getDoctrine()->getManager();
+                $em->beginTransaction();
+
                 if (!is_null($request->request->get('UserProsId'))) {
                    $userPros = $userRep->findOneById((int) $request->request->get('UserProsId'));
                    $devis->setDevUserIdDest($userPros);
                 }
+
                 $article = $artRep->findById((int) $request->request->get('post_metier_ask_devis'));
                 $devis
                    ->setTypeProject($typeRep->findById((int) $request->request->get('ask_devis_type')))
@@ -184,18 +280,20 @@ class PageController extends AbstractController
                     ->setZipCode($request->request->get('post_zipcode_ask_devis'))
                     ->setCity($cityRep->findById((int) $request->request->get('city')))
                     ->setIsAcceptedCondition(true)
-                    ->setDateCrea(new \DateTime())
+                    ->setDateCrea(new \DateTime('now'))
                     ->setCivility($request->request->get('post_civility_ask_devis'))
                     ->setIsAskDemande(true);
+                    //dump($request->request->get('ask_devis_type'));die;
 
                     try {
 
                         if($this->sendMail($devis, $article->getArticleCategId(), $serviceRep, $customRep, $abonnementRep, $mailer)) 
                         {
-                            $em = $this->getDoctrine()->getManager();
-                                $em->persist($devis);
+                            $em->persist($devis);
                             $em->flush();
-                                return new JsonResponse(['code'=> 200, 
+                            $em->commit();
+                            
+                            return new JsonResponse(['code'=> 200, 
                                                 "infos" => 'Votre demmande a été engregistré!,
                                                     Nos professionels le traiterons!!'
                                                 ], 200);
@@ -210,6 +308,20 @@ class PageController extends AbstractController
             //To show ask devis form page from forms data by post
             elseif (!is_null($request->request->get('metier_ask_devis')) && $request->request->get('metier_ask_devis') != '') {
                 
+                $categories = $categoryRep->findAllArray();
+                $categories = count( $categories) > 0 ? $categories : null;
+                //Get top devis more asked
+                        $devisPopulars = $devisRep->findTopPopularDevis();
+                        $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                        $popularDevis = array();
+                        if($devisPopulars !== null) {
+    
+                            foreach ($devisPopulars as $key => $value) {
+                            $popularDevis[] =  $artRep->findById($value['article_id']);
+                            }
+    
+                        }
+
                 //dump($request->request->get('metier_ask_devis')); die;
                 $category = $categRep->findOneById((int) $request->request->get('metier_ask_devis'));
                 $arrayArticles = $artRep->findByCategory( $category);
@@ -217,16 +329,32 @@ class PageController extends AbstractController
                     'types'=> $types, 'articles'=> $arrayArticles,
                     'fonctions'=> $fonctions, 'category'=> $category,
                     'UserProsId'=> $prosId,
+                    'popularDevis'=> $popularDevis,
+                    'categories'=> $categories,
                 ]);
 
             } else {
                 // return self page when it fired null value
-                return $this->redirectToRoute($request->request->get('route_page'));
+                return $this->redirectToRoute('home_page');
 
             }   
         }
         // To show ask devis form page from link data using parameters
         if($id !== null) {
+
+            $categories = $categoryRep->findAllArray();
+            $categories = count( $categories) > 0 ? $categories : null;
+            //Get top devis more asked
+                    $devisPopulars = $devisRep->findTopPopularDevis();
+                    $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                    $popularDevis = array();
+                    if($devisPopulars !== null) {
+    
+                        foreach ($devisPopulars as $key => $value) {
+                        $popularDevis[] =  $artRep->findById($value['article_id']);
+                        }
+    
+                    }
 
             $category = $categRep->findOneById((int) $id);
             $arrayArticles = $artRep->findByCategory( $category);
@@ -234,14 +362,13 @@ class PageController extends AbstractController
                 'types'=> $types, 'articles'=> $arrayArticles,
                 'fonctions'=> $fonctions, 'category'=> $category,
                 'UserProsId'=> $prosId,
+                'popularDevis'=> $popularDevis,
+                'categories'=> $categories,
             ]);
         }
 
-        // Go to create new project page
-        return $this->render('page/post_ask_devis.html.twig', [
-            'types'=> $types, 'articles'=> $articles,
-            'fonctions'=> $fonctions
-        ]);
+        // return self page when it fired null value
+        return $this->redirectToRoute('home_page');
 
     }
     
@@ -249,46 +376,112 @@ class PageController extends AbstractController
     /**
     * @Route("/space-find-chantier", name="find_chantier_page")
     */
-    public function findChantier(Request $request, CategoryRepository $categRep, PostRepository $postRep)
+    public function findChantier(Request $request, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep)
     {
-        //HERE GET PROJECT ADS DISPO BY Filter or all or periodity
-        if(!is_null($request->request->get('filter_CategoryId')) || !is_null($request->request->get('filter_CategoryId')) && !is_null($request->request->get('filter_postCity'))) {
-            
-            $CategoryId = $categRep->findById((int) $request->request->get('filter_CategoryId'));
-           
-            $arrayData = array(1=> $CategoryId,
-                                2=> $CategoryId, 3=> $postCity = 3, 
-                                4=> null, 5=> null
-                            );
-            $postsAds = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData);
+        
+       if($_POST) {
 
-            if(!is_null($request->request->get('switch_periodity'))) {
-                $arrayPostAds = Array();
-                foreach ($postsAds as $key => $value) {
+            //BEGIN REQUEST POST FORM SEARCH
+            if(!is_null($request->request->get('CategoryId')) || !is_null($request->request->get('CategoryId')) && !is_null($request->request->get('postCity'))) {
 
-                    $datetime1 = $value->getPostAdsDateCrea();
-                    $datetime2 = new \DateTime('now');
-                    $interval = $datetime1->diff($datetime2);
+                // dump($request->request->get('CategoryId') . ' ' . $request->request->get('postCity'));die;
+                $arrayData = array(1=>  $request->request->get('CategoryId'), 
+                                    2=> null, null,
+                                    4=>  $request->request->get('CategoryId'), 5=> $request->request->get('postCity')
+                                    );          
+                $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData, 100, 0);
+                $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
+                //dump($postsAds);die;
 
-                        if ((int) $interval->format('%R%a') < (int) $request->request->get('switch_periodity')) {
-                            $arrayPostAds[] = $value;
+                $categories = $categoryRep->findAllArray();
+                $categories = count( $categories) > 0 ? $categories : null;
+                //Get top devis more asked
+                        $devisPopulars = $devisRep->findTopPopularDevis();
+                        $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                        $popularDevis = array();
+                        if($devisPopulars !== null) {
+    
+                            foreach ($devisPopulars as $key => $value) {
+                            $popularDevis[] =  $artRep->findById($value['article_id']);
+                            }
+    
                         }
-                    
-                }
-                return $this->render('pro/projects-dispos.html.twig', [
-                    'postsAds' => $arrayPostAds,
+
+                return $this->render('page/chantier_find_space.html.twig',[
+                    'postsAds' => $postsAds,
+                    'popularDevis'=> $popularDevis,
+                    'categories'=> $categories,
                 ]);
-            }
+
+
+            } //END REQUEST POST FORM SEARCH
+
+       } //END POST VIA FORM
+        
+        
+        //HERE GET PROJECT ADS DISPO BY Filter or all or periodity
+        if(!is_null($request->query->get('filter_CategoryId')) || !is_null($request->query->get('filter_CategoryId')) && !is_null($request->query->get('filter_postCity'))) {
+            // dump($request->query->get('offset') . ' ' . $request->query->get('limit') . ' ' . $request->query->get('filter_CategoryId') . ' ' . $request->query->get('filter_postCity') . ' ' . $request->query->get('switch_periodity'));die;
+                $arrayData = array(1=>  $request->query->get('filter_CategoryId'), 
+                                    2=> null, null,
+                                    4=>  $request->query->get('filter_CategoryId'), 5=> $request->query->get('filter_postCity')
+                                    );          
+                $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData, 100, 0);
+                $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
+                //dump($postsAds);die;
+    
+                if($postsAds !== null && !is_null($request->query->get('switch_periodity'))) {
+                $arrayPostAds = Array();
+                    foreach($postsAds as $key => $value) {
+    
+                        $datetime1 = $value->getPostAdsDateCrea();
+                        $datetime2 = new \DateTime('now');
+                        $interval = $datetime1->diff($datetime2);
+    
+                            if((int) $interval->format('%R%a') < (int) $request->query->get('switch_periodity')) {
+                                $arrayPostAds[$key] = ['id'=> $value->getId(), 
+                                                        'title'=> $value->getCategoryId()->getCategTitle(),
+                                                        'firstname'=> $value->getPostUserId()->getFirstname(),
+                                                        'city'=> $value->getCity()->getVilleNomReel(),
+                                                        'description'=> $value->getPostAdsTravauxDescription(),
+                                                        'date'=> $value->getPostAdsDateCrea()
+                                                        ];
+                            }
+                            else {
+                                $arrayPostAds[$key] = ['id'=> $value->getId(), 
+                                                        'title'=> $value->getCategoryId()->getCategTitle(),
+                                                        'firstname'=> $value->getPostUserId()->getFirstname(),
+                                                        'city'=> $value->getCity()->getVilleNomReel(),
+                                                        'description'=> $value->getPostAdsTravauxDescription(),
+                                                        'date'=> $value->getPostAdsDateCrea()->format('d/m/Y H:i:s')                           
+                                                        ];
+                            }
+                        
+                    }
+                    return new JsonResponse($arrayPostAds, 200);
+                }
             
-            return $this->render('page/chantier_find_space.html.twig',[
-                'postsAds' => $postsAds,
-            ]);
-           
-        }
+            } //END REQUEST AJAX 
+
+            $categories = $categoryRep->findAllArray();
+            $categories = count( $categories) > 0 ? $categories : null;
+            //Get top devis more asked
+                    $devisPopulars = $devisRep->findTopPopularDevis();
+                    $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                    $popularDevis = array();
+                    if($devisPopulars !== null) {
+        
+                        foreach ($devisPopulars as $key => $value) {
+                        $popularDevis[] =  $artRep->findById($value['article_id']);
+                        }
+        
+                    }
 
         $postsAds = $postRep->findAllPost(50, 0);
         return $this->render('page/chantier_find_space.html.twig',[
             'postsAds' => $postsAds,
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
         ]);
         
     }
@@ -296,33 +489,65 @@ class PageController extends AbstractController
     /**
     * @Route("/space-pro", name="space_pro_page")
     */
-    public function spacePro(Request $request, CategoryRepository $categRep, PostRepository $postRep)
+    public function spacePro(Request $request, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
-
+              
         $arrayPostAds = Array();
         $postsAds = $postRep->findAllArray();
-        foreach ($postsAds as $key => $value) {
+        foreach($postsAds as $key => $value) {
 
             $datetime1 = $value->getPostAdsDateCrea();
             $datetime2 = new \DateTime('now');
             $interval = $datetime1->diff($datetime2);
-                //14 means 30 months
-                if ((int) $interval->format('%R%a') < 30) {
+                //Filtering by switch periodity 
+                //14 ads less than 30 days
+                if((int) $interval->format('%R%a') < 30) {
                     $arrayPostAds[] = $value;
                 }
                     
         }
+
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+
         return $this->render('page/pro_space.html.twig',[
             'postsAds' => $arrayPostAds,
-        ]);;
-        
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
+        ]);
+            
     }
 
     /**
     * @Route("/space-find-pro", name="space_find_pro_page")
     */
-    public function findPro(Request $request, UserRepository $user, CategoryRepository $categRep)
+    public function findPro(Request $request, UserRepository $user, CategoryRepository $categRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, TypeRepository $typeRep)
     {
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+
         if (!is_null($request->request->get('filter_CategoryId')) || !is_null($request->request->get('filter_CategoryId')) && !is_null($request->request->get('filter_postCity'))) {
            
             $categoryId = $categRep->findById((int) $request->request->get('filter_CategoryId'));
@@ -331,82 +556,266 @@ class PageController extends AbstractController
                 2=> $categoryId, 3=> 'city'
             );
             $pros = $user->findAllProfessionals($arrayData);
-            return $this->render('page/pro_find_space.html.twig');
+            return $this->render('page/pro_find_space.html.twig', [
+                'popularDevis'=> $popularDevis,
+                'categories'=> $categories,
+            ]);
         }
         $pros = $user->findAllProfessionals();
-        return $this->render('page/pro_find_space.html.twig');
+        return $this->render('page/pro_find_space.html.twig', [
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
+        ]);
         
     }
 
     /**
     * @Route("/show-one-detail-pro/{id}", name="show_detail_pro_page")
     */
-    public function detailPro($id = null)
+    public function detailPro($id = null, ArticleRepository $artRep, DevisRepository $devisRep, CommentsRepository $commentRep, ImagesRepository $imageRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, VideosRepository $videoRep, CategoryRepository $categoryRep, EvaluationsRepository $evaluationRep, DocummentRepository $docummentRep, LabelsRepository $labelRep)
     {
-        return $this->render('page/show_one_detail_pro.html.twig');
+
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+
+        return $this->render('page/show_one_detail_pro.html.twig', [
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
+        ]);
         
     }
 
     /**
     * @Route("/show-detail-ads", name="show_detail_ads_page")
     */
-    public function detailAds()
+    public function detailAds(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
-        return $this->render('premuim/show-one-detail-artisant-ads.html.twig');
+        
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+
+        
+        return $this->render('premuim/show-one-detail-artisant-ads.html.twig', [
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
+        ]);
         
     }
 
     /**
-    * @Route("/view-all-travaux", name="view_all_tavaux_page")
+    * @Route("/view-all-travaux/{id}", name="view_all_tavaux_page")
     */
-    public function viewAllTravaux($page = 0, $morepage = 12)
+    public function viewAllTravaux($id = null, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
-        return $this->render('page/view_all_art_cat_family_byfilter.html.twig');
+        $page = 0; $morepage = 20; // Paginations
+        
+       if($id !== null) {
+            $articles = $artRep->findByCategory($categoryRep->findById((int) $id));
+            $articles = count($articles) > 0 ? $articles : null;
+        }
+        else {
+            $articles = $artRep->findAllArticles($morepage);
+            $articles = count($articles) > 0 ? $articles : null;
+        }
+
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+
+
+        return $this->render('page/view_all_art_cat_family_byfilter.html.twig', [
+            'articles'=>  $articles,
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
+
+        ]);
         
     }
 
     /**
-    * @Route("/view-art-cat-galery", name="view_art_cat_galery_page")
+    * @Route("/view-art-cat-galery/{id}", name="view_art_cat_galery_page")
     */
-    public function galery()
+    public function galery($id = null, CategoryRepository $categoryRep, ArticleRepository $articleRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep)
     {
-        return $this->render('page/catalog_art_img_galery.html.twig');
+        $category = $categoryRep->findById((int) $id);
+        $artiles = $articleRep->findByCategory($category);
+        $articles = count($artiles) > 0 ? $artiles : null;
+
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+        
+        return $this->render('page/catalog_art_img_galery.html.twig', [
+            'artiles'=> $artiles,
+            'category'=>  $category,
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
+        ]);
         
     }
 
     /**
     * @Route("/how-to-steping", name="how_to_step_page")
     */
-    public function howToStep()
+    public function howToStep( ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep )
     {
-        return $this->render('page/comment-ca-marche.html.twig');
+        
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+
+        return $this->render('page/comment-ca-marche.html.twig', [
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
+        ]);
         
     }
 
     /**
-    * @Route("/guide-price", name="guide_price_page")
+    * @Route("/guide-price/category/{categId}/{sousCategId}/{articleId}", name="guide_price_page")
     */
-    public function guidePrice()
+    public function guidePrice($categId = null, $sousCategId = null, $articleId = null, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
-        return $this->render('page/guide-price.html.twig');
+
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+
+        if((int) $categId !== null && $sousCategId == null) {
+
+            
+            return $this->render('page/guid-price-sous-category.html.twig', [
+                'popularDevis'=> $popularDevis,
+                'categories'=> $categories,
+            ]);
+        }
+
+        if((int) $categId !== null && (int) $sousCategId !== null) {
+
+            
+            return $this->render('page/guid-price-all-articles-sous-category.html.twig', [
+                'popularDevis'=> $popularDevis,
+                'categories'=> $categories,
+            ]);
+        }
+
+        return $this->redirectToRoute('home_page');
         
     }
 
     /**
     * @Route("/nos-tarif", name="nos_tarif_page")
     */
-    public function tarif()
+    public function tarif(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
-        return $this->render('pro/tarif.html.twig');
+
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+
+        return $this->render('page/nos-tarif.html.twig', [
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
+        ]);
         
     }
 
     /**
     * @Route("/sites-create", name="site_create_page")
     */
-    public function sites()
+    public function sites(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
-        return $this->render('page/sites.html.twig');
+
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+
+        return $this->render('page/sites.html.twig', [
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
+        ]);
         
     }
 
@@ -422,27 +831,81 @@ class PageController extends AbstractController
     /**
     * @Route("/temoingnage-particulier", name="comments_particular_page")
     */
-    public function commentsParticular()
+    public function commentsParticular(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
-        return $this->render('page/temoingnage-particulier.html.twig');
+
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+
+        return $this->render('page/temoingnage-particulier.html.twig', [
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
+        ]);
         
     }
 
     /**
     * @Route("/temoingnage-pro", name="comments_pro_page")
     */
-    public function commentsPro()
+    public function commentsPro(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
-        return $this->render('page/temoingnage-pro.html.twig');
+
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+
+        return $this->render('page/temoingnage-pro.html.twig', [
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
+        ]);
         
     }
 
     /**
     * @Route("/prince-talks-us", name="prince_talk_page")
     */
-    public function princeTalksUs()
+    public function princeTalksUs(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
-        return $this->render('page/prince-talks-us.html.twig');
+
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+
+        return $this->render('page/prince-talks-us.html.twig', [
+            'popularDevis'=> $popularDevis,
+            'categories'=> $categories,
+        ]);
         
     }
 
@@ -460,33 +923,85 @@ class PageController extends AbstractController
         // // Create the Mailer using your created Transport
         // $mailer = new Swift_Mailer($transport);
         
-        foreach ($myservices as $key => $myservice) {
-            $customer = $customRep->findByUser($myservice->getUserId());
-            $arrayCriticals = array(1=>  $customer, 2=> $myservice); // prepare query to get abonnement here!
-            if ($customer !== null && $myservice->getIsActived() == true && $abonnementRep->isPremiumAndDateExpireValid($arrayCriticals)) 
-            {
-                //urlencode($foo) 
-                $message = (new \Swift_Message('DEMANDE DEVIS ORANGE TRAVEAUX'))
-                    ->setFrom('florent.tata23@gmail.com')
-                    ->setTo('florent.tata15@gmail.com')
-                    ->setBody("Test Email", 'text/html');
-                    // ->setBody(
-                    //     $this->renderView(
-                    //         // templates/emails/registration.html.twig
-                    //         'premuim/send-email-devis.html.twig',
-                    //         ['devis' => $devis]
-                    //     ),
-                    //     'text/html'
-                    // );
+        if(count($myservices) > 0) {
 
-              return   $mailer->send($message);     
+            foreach ($myservices as $key => $myservice) {
+                $customer = $customRep->findByUser($myservice->getUserId());
+                $arrayCriticals = array(1=>  $customer, 2=> $myservice); // prepare query to get abonnement here!
+                if ($customer !== null && $myservice->getIsActived() == true && $abonnementRep->isPremiumAndDateExpireValid($arrayCriticals)) 
+                {
+                    //urlencode($foo) 
+                    $message = (new \Swift_Message('DEMANDE DEVIS ORANGE TRAVEAUX'))
+                        ->setFrom('florent.tata15@gmail.com')
+                        ->setTo('florent.tata23@gmail.com')
+                        ->setBody("Test Email", 'text/html');
+                        // ->setBody(
+                        //     $this->renderView(
+                        //         // templates/emails/registration.html.twig
+                        //         'premuim/send-email-devis.html.twig',
+                        //         ['devis' => $devis]
+                        //     ),
+                        //     'text/html'
+                        // );
 
+                     $mailer->send($message);     
+
+                }
             }
-        }
+            return true;
+
+        }//END IF TEST SERVICE COUNT HERE
 
         return false;
 
     }
+
+    //GET DISTANCE BETWEEN TWO ZIP CODE OR LAT AND LONG
+    // This function returns Longitude & Latitude from zip code.
+    function getLnt($zip)
+    {
+
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?address=
+        ".urlencode($zip)."&sensor=false&key=[YOUR API KEY]";
+        $result_string = file_get_contents($url);
+        $result = json_decode($result_string, true);
+        $result1[]=$result['results'][0];
+        $result2[]=$result1[0]['geometry'];
+        $result3[]=$result2[0]['location'];
+        return $result3[0];
+
+    }
+    
+    function getDistance($zip1, $zip2, $unit)
+    {
+
+        $first_lat = getLnt($zip1);
+        $next_lat = getLnt($zip2);
+        $lat1 = $first_lat['lat'];
+        $lon1 = $first_lat['lng'];
+        $lat2 = $next_lat['lat'];
+        $lon2 = $next_lat['lng']; 
+        $theta=$lon1-$lon2;
+        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +
+        cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+        cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $unit = strtoupper($unit);
+
+        if ($unit == "K"){
+            return ($miles * 1.609344)." ".$unit;
+        }
+        else if ($unit =="N"){
+            return ($miles * 0.8684)." ".$unit;
+        }
+        else{
+            return $miles." ".$unit;
+        }
+
+    } //End function get distance 
+
     
 
 }

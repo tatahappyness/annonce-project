@@ -1,0 +1,392 @@
+{% extends  'base.html.twig' %}
+
+        {% block stylesheets %}
+
+        <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+        <!-- CSS Files -->
+        <link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="{{ absolute_url('/menu-panel/css/jquery.jscrollpane.custom.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ absolute_url('/menu-panel/css/bookblock.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ absolute_url('/menu-panel/css/custom.css') }}" />
+        <script src="{{ absolute_url('/menu-panel/js/modernizr.custom.79639.js') }}"></script>
+        <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+        <style>
+            .js .menu-panel {
+                position: absolute !important;
+                left: -248px !important;
+            }
+            .menu-panel, .bb-custom-wrapper nav span, .menu-button {
+            background-color: rgb(255, 144, 0) !important;
+            }
+
+            .li.menu-toc-current a, .menu-toc li a {
+                background: #777 !important;
+            }
+
+            .menu-toc li a { 
+                background-color: transparent !important;
+                border-bottom-color: white !important;
+            }
+            .content h2 {
+            font-size: 8vw !important;
+            text-align: center !important
+            }
+        </style>
+    
+    {% endblock %}
+
+    {% block body %}
+	
+    <div class="page-header page-header-inscription">
+        <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
+        </div>
+        <div class="row">
+            <div class="col-12 p-0">
+                <div class="contenair-header-menu">
+					
+                    <nav class="navbar navbar-expand bg-gray py-0 navbar-head">
+                    <div class="container border-0">
+                        <div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+                            <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
+                                <a class="text-decoration-none" href="{{ path('home_page') }}">
+                                <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
+                                </a>
+							
+                                <ul class="navbar-nav mt-2 mt-lg-0">
+                                    <li class="nav-item active">
+                                    <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+                                <span class="mr-1">
+                                    <button class="btn btn-round show-form-pro-mouseclick-11 bg-gray font-weight-bold text-warning border-warning text-nowrap" type="button">
+                                        <i class="">🔒</i> Se connecter
+                                    </button>
+                                </span>
+                                <span class="">
+                                    <a href="{{ path('inscription_particulier_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
+                                        <i class="">👷🏾</i>  Inscription gratuite
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    </nav>
+                    <!-- Navbar menu end here -->
+					  
+                    <!-- ############################# NAVBAR HERE LARGE -->
+						
+                    <div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
+                    <div class="container">
+                        <button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
+                        <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                        <li class="nav-item"><a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Types des travaux</a>
+                                <ul class="dropdown-menu megamenu">
+                                    <div class="row">
+                                        <li class="col-12 col-sm-4 text-center pb-4">
+                                            <ul><li class="h6 text-warning border-bottom border-warning">INSTALLER</li></ul>
+                                            <ul class="row text-centert" style=" list-style-type: none;">
+
+                                                <div class="col-4 p-0">
+                                                    <li class="dropdown-header">Categorie-1</li>
+                                                    <li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
+                                                    </li>
+                                                    <li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                </div>
+										
+                                                <div class="col-12">
+                                                    <li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
+                                                </div>
+
+                                            </ul>
+                                        </li>
+                                        <li class="col-12 col-sm-4 text-center pb-4">
+                                            <ul><li class="h6 text-warning border-bottom border-warning">RENOVER</li></ul>
+                                            <ul class="row text-centert" style=" list-style-type: none;">
+
+                                                <div class="col-4 p-0">
+                                                    <li class="dropdown-header">Categorie-1</li>
+                                                    <li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
+                                                    </li>
+                                                    <li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                </div>
+										
+                                                <div class="col-12">
+                                                    <li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
+                                                </div>
+
+                                            </ul>
+                                    </li>
+                                    <li class="col-12 col-sm-4 text-center pb-4">
+                                            <ul><li class="h6 text-warning border-bottom border-warning">AMENAGER SON INTERIEUR</li></ul>
+                                            <ul class="row text-centert" style=" list-style-type: none;">
+
+                                                <div class="col-4 p-0">
+                                                    <li class="dropdown-header">Categorie-1</li>
+                                                    <li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
+                                                    </li>
+                                                    <li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                </div>
+										
+                                                <div class="col-12">
+                                                    <li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
+                                                </div>
+
+                                            </ul>
+                                    </li>
+                                    <li class="col-12 col-sm-4 text-center pb-4">
+                                            <ul><li class="h6 text-warning border-bottom border-warning">AMENAGER SON EXTERIEUR</li></ul>
+                                            <ul class="row text-centert" style=" list-style-type: none;">
+
+                                                <div class="col-4 p-0">
+                                                    <li class="dropdown-header">Categorie-1</li>
+                                                    <li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
+                                                    </li>
+                                                    <li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                </div>
+										
+                                                <div class="col-12">
+                                                    <li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
+                                                </div>
+
+                                            </ul>
+                                    </li>
+                                    <li class="col-12 col-sm-4 text-center pb-4">
+                                            <ul><li class="h6 text-warning border-bottom border-warning">CONSTRUIRE</li></ul>
+                                            <ul class="row text-centert" style=" list-style-type: none;">
+
+                                                <div class="col-4 p-0">
+                                                    <li class="dropdown-header">Categorie-1</li>
+                                                    <li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
+                                                    </li>
+                                                    <li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                </div>
+										
+                                                <div class="col-12">
+                                                    <li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
+                                                </div>
+
+                                            </ul>
+                                    </li>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a href="{{ path('guide_price_page') }}" class="nav-link">Guide de prix</a>
+                            </li>
+                            <li class="nav-item"><a href="{{ path('how_to_step_page') }}" class="nav-link">Comment ça marche</a>
+                            </li>
+                            <li class="nav-item"><a href="{{ path('particulier_dashbord') }}" class="nav-link particular-dashbord-access">Gérer mon espace particulier</a>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    </div>
+                    <!-- ############################# END NAVBAR HERE LARGE -->
+
+                    <!-- Begin Progress barr slid scroll -->
+                    <div class="progress-container fixed-top">
+                        <div class="progress-bar" id="myBar"></div>
+                    </div> 
+                    <!-- End Progress barr slid scroll -->
+                </div>
+            </div>
+        </div>
+        <!-- End Row for Menu header -->
+		
+        <!-- Begin for row content header parallax -->
+        <div class="row d-flex justify-content-center font-weight-light" style="">
+            <!-- ############# Begin slide beside -->
+            <div class="col-8" style="padding-top: 4em;">
+                <div class="container border-0">
+                    <div class="w-100 d-flex flex-column pb-4 justify-content-center">
+                        <div class="h4 text-text-white text-uppercase">
+                            Guide des prix
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ############# End slide beside -->
+        </div>
+        <!-- End for row content header parallax -->
+    </div>
+    <!--END HEADER-->
+	
+
+    {# <div class="jumbotron bg-transparent"> #}
+        {# <main class="section-1 section-main" style="background-attachment: fixed;"> #}
+
+            <!--Begin section  of the list ads by artisan-->
+            {# <section class="bg-gray"> #}
+
+                <div id="container" class="container border-left-0 m-0">
+		
+                    <!-- Begin menu-panel -->
+                    <div class="menu-panel">
+                        <h3>Liste des categories</h3>
+                        <ul id="menu-toc" class="menu-toc">
+                            <!-- Here we need to use sous category at item by reference -->
+                            <li class="menu-toc-current"><a href="#item1">Self-destruction</a></li>
+                            <li><a href="#item2">Why we die</a></li>
+                            <li><a href="#item3">The honeymoon</a></li>
+                            <li><a href="#item4">A drawing joke</a></li>
+                            <li><a href="#item5">Commencing practice</a></li>
+                        </ul>				
+                    </div>
+                    <!-- End menu-panel -->
+
+                    <!-- Begin bb-custom-wrapper -->
+                    <div class="bb-custom-wrapper">
+                        <div id="bb-bookblock" class="bb-bookblock">
+                            <!-- Here we need to use sous category at item by reference -->
+                            <div class="bb-item" id="item1">
+                                <div class="content">
+                                    <div class="scroller">
+                                        <h2>Self-destruction</h2>
+                                        <p>The Hon. Francis Gillette, in a speech in Hartford, Conn., in 1871, said
+                                        that there was "in Connecticut, on an average, one liquor shop to every
+                                        forty voters, and three to every Christian church. In this city, as stated
+                                        in the _Hartford Times_, recently, we have five hundred liquor shops, and
+                                        one million eight hundred and twenty-five thousand dollars were, last
+                                        year, paid for intoxicating drinks. A cry, an appeal, came to me from the
+                                        city, a few days since, after this wise: 'Our young men are going to
+                                        destruction, and we want your influence, counsel, and prayers, to help
+                                        save them.'"</p>								
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bb-item" id="item2">
+                                <div class="content">
+                                    <div class="scroller">
+                                        <h2>Why we die</h2>
+                                        <p>But few of the human race die of old age. Besides the thousand and one
+                                        diseases flesh is heir to, and the disease which Mrs. O'Flannagan said her
+                                        husband died of, viz., "Of a Saturday 'tis that poor Mike died," very many
+                                        die of disappointment. More _fret_ out. Mr. Beecher said, "It is the
+                                        fretting that wears out the machinery; friction, not the real wear."</p>										
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bb-item" id="item3">
+                                <div class="content">
+                                    <div class="scroller">
+                                        <h2>The honeymoon</h2>
+                                        <p>The origin of the honeymoon is not generally known.</p>
+
+                                        <p>The Saxons long and long ago got up the delightful occasion. Amongst the
+                                        ancient Saxons and Teutons a beverage was made of honey and water, and
+                                        sometimes flavored with mulberries. This drink was used especially at
+                                        weddings and the after festivals. These festivals were kept up among the
+                                        nobility sometimes for a month--"monath." The "hunig monath" was thus
+                                        established, and the next moon after the marriage was called the
+                                        honeymoon.</p>								
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bb-item" id="item4">
+                                <div class="content">
+                                    <div class="scroller">
+                                        <h2>A drawing joke</h2>
+                                        <p>Several kings and great lords are made mention of as being particularly
+                                        fond of using the lancet. Peter the Great of Russia was remarkably fond of
+                                        witnessing dissections and surgical operations. He even used to carry a
+                                        case of instruments in his pocket. He often visited the hospitals to
+                                        witness capital operations, at times assisting in person, and was able to
+                                        dissect properly, to bleed a patient, and extract a tooth as well as one
+                                        of the faculty.</p>								
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bb-item" id="item5">
+                                <div class="content">
+                                    <div class="scroller">
+                                        <h2>Commencing practice</h2>
+                                        <p>From that excellent work, "Scenes in the Practice of a New York Surgeon,"
+                                        by Dr. E. H. Dixon, I copy, with some abbreviation, the following, which
+                                        the author terms "Leaves from the Log-book of an Unfledged Æsculapian:"--</p>
+
+                                        <p>"In the year 1830 I was sent forth, like our long-suffering and
+                                        much-abused prototype,--old father Noah's crow,--from the ark of safety,
+                                        the old St. Duane Street College. I pitched my tent, and set up my trap,
+                                        in what was then a fashionable up-town street.</p>								
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+				
+                        <nav>
+                            <span id="bb-nav-prev">&larr;</span>
+                            <span id="bb-nav-next">&rarr;</span>
+                        </nav>
+
+                        <span id="tblcontents" class="menu-button">Table of Contents</span>
+
+                    </div>
+                    <!-- End bb-custom-wrapper -->
+				
+                </div>
+                <!-- /container -->
+
+
+            {# </section>
+            <!--End section  of the list ads by artisan--> #}
+			
+        {# </main> #}
+			
+        <!-- Begin footer page -->
+        {% include "./page/footer/footer.html.twig" %}
+        <!-- END footer page -->
+
+    {# </div> #}
+
+{% endblock %}
+
+{% block javascripts %}
+
+<!-- MESSAGE NTIFICATION -->
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<!--Local-->
+<script src="{{ absolute_url('/assets/loadbar/js/loading-bar.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/jquery.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/now-ui-kit.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+<script src="{{ absolute_url('/menu-panel/js/jquery.mousewheel.js') }}"></script>
+<script src="{{ absolute_url('/menu-panel/js/jquery.jscrollpane.min.js') }}"></script>
+<script src="{{ absolute_url('/menu-panel/js/jquerypp.custom.js') }}"></script>
+<script src="{{ absolute_url('/menu-panel/js/jquery.bookblock.js') }}"></script>
+<script src="{{ absolute_url('/menu-panel/js/page.js') }}"></script>    
+<script src="{{ absolute_url('/assets/js/guid-price.js') }}"></script>
+
+{% endblock %}

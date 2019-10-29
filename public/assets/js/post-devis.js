@@ -47,7 +47,7 @@ var curStep = $(this).closest(".setup-content"),
                 Swal.fire({
                     html: '<span class="h2 text-warning text-center">Info</span><br><span class="text-warning small text-center">Veillez definir ' + result+ '</span>',
                     type: 'warning',
-                    background: 'rgb(119, 119, 119)',
+                    // background: 'rgb(119, 119, 119)',
                     backdrop: `rgba(0,0,123,0.4)`,
                     confirmButtonColor: 'rgb(255, 144, 0)'
                 });
@@ -74,7 +74,7 @@ var curStep = $(this).closest(".setup-content"),
                 Swal.fire({
                     html: '<span class="h2 text-warning text-center">Attention!</span><br><span class="text-warning small text-center">Veillez definir ' + result+ ' exacte</span>',
                     type: 'warning',
-                    background: 'rgb(119, 119, 119)',
+                    // background: 'rgb(119, 119, 119)',
                     backdrop: `rgba(0,0,123,0.4)`,
                     confirmButtonColor: 'rgb(255, 144, 0)'
                 });
@@ -101,7 +101,7 @@ var curStep = $(this).closest(".setup-content"),
                 title: 'Reponse',
                 html:'<span class="text-success font-weight-bol">' + response.infos + '</span>',
                 type: 'success',
-                background: 'rgb(119, 119, 119)',
+                // background: 'rgb(119, 119, 119)',
                 backdrop: `rgba(0,0,123,0.4)`,
                 confirmButtonColor: 'rgb(255, 144, 0)'
                 })
@@ -112,7 +112,7 @@ var curStep = $(this).closest(".setup-content"),
                     title: 'Reponse',
                     text: 'Erreur dans le serveur interne!!',
                     type: 'error',
-                    background: 'rgb(119, 119, 119)',
+                    // background: 'rgb(119, 119, 119)',
                     backdrop: `rgba(0,0,123,0.4)`,
                     confirmButtonColor: 'rgb(255, 144, 0)'
                     })

@@ -42,7 +42,7 @@
 
 	{% block body %}
 	
-	<div class="page-header page-header-inscription">
+	<div class="page-header page-header-inscription" style="min-height: 85vh !important;">
 		<div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important; border-bottom: 5px solid orange;">
 		</div>
 		<div class="row">
@@ -89,274 +89,9 @@
 					  <div class="container">
 						<button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
 						<div class="navbar-collapse collapse">
-							 <ul class="nav navbar-nav">
-								</li>
-								<li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">INSTALLER</a>
-								  <ul class="dropdown-menu megamenu">
-								  <div class="row">
-								  <li class="col-12 col-sm-7 text-center">
-									<ul class="row" style=" list-style-type: none;">
-
-										<div class="col-12 col-md-4 col-lg-3 p-0">
-											<li class="dropdown-header">Categorie-1</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-											</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-											</li>
-											<li class="divider"></li>
-										</div>
-								
-										<div class="col-12 col-md-4 col-lg-3 p-0">
-											<li class="dropdown-header">Categorie-2</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-											</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-											</li>
-											<li class="divider"></li>
-										</div>
-
-									</ul>
-								  </li>
-								  <li class=" col-12 col-sm-5 dropdown-item">
-									<div class="row">
-										<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-										<div class="col-12 col-md-6">
-											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-												<a href="#" class="thumbnail">
-												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-												</a>
-												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-											</div>
-										</div>
-										<div class="col-12 col-md-6">
-											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-												<a href="#" class="thumbnail">
-												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-												</a>
-												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-											</div>
-										</div>
-
-									</div>
-								  </li>
-								  </div>
-								  </ul>
-							  </li>
-							  <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">RENOVER </a>
-								<ul class="dropdown-menu megamenu">
-								  <div class="row">
-								  <li class="col-12 col-sm-7 text-center">
-									<ul class="row" style=" list-style-type: none;">
-
-										<div class="col-12 col-md-4 col-lg-3 p-0">
-											<li class="dropdown-header">Categorie-1</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-											</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-											</li>
-											<li class="divider"></li>
-										</div>
-								
-										<div class="col-12 col-md-4 col-lg-3 p-0">
-											<li class="dropdown-header">Categorie-2</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-											</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-											</li>
-											<li class="divider"></li>
-										</div>
-
-
-									</ul>
-								  </li>
-								  <li class=" col-12 col-sm-5 dropdown-item">
-									<div class="row">
-										<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-										<div class="col-12 col-md-6">
-											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-												<a href="#" class="thumbnail">
-												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-												</a>
-												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-											</div>
-										</div>
-										<div class="col-12 col-md-6">
-											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-												<a href="#" class="thumbnail">
-												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-												</a>
-												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-											</div>
-										</div>
-
-									</div>
-								  </li>
-								  </div>
-								  </ul>
-							  </li>
-							 <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Aménager son intérieur</a>
-								<ul class="dropdown-menu megamenu">
-								  <div class="row">
-								  <li class="col-12 col-sm-7 text-center">
-									<ul class="row" style=" list-style-type: none;">
-
-										<div class="col-12 col-md-4 col-lg-3 p-0">
-											<li class="dropdown-header">Categorie-1</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-											</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-											</li>
-											<li class="divider"></li>
-										</div>
-								
-										<div class="col-12 col-md-4 col-lg-3 p-0">
-											<li class="dropdown-header">Categorie-2</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-											</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-											</li>
-											<li class="divider"></li>
-										</div>
-
-
-									</ul>
-								  </li>
-								  <li class=" col-12 col-sm-5 dropdown-item">
-									<div class="row">
-										<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-										<div class="col-12 col-md-6">
-											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-												<a href="#" class="thumbnail">
-												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-												</a>
-												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-											</div>
-										</div>
-										<div class="col-12 col-md-6">
-											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-												<a href="#" class="thumbnail">
-												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-												</a>
-												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-											</div>
-										</div>
-
-									</div>
-								  </li>
-								  </div>
-								  </ul>
-								</li>
-								<li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Aménager son extérieur</a>
-								<ul class="dropdown-menu megamenu">
-								  <div class="row">
-								  <li class="col-12 col-sm-7 text-center">
-									<ul class="row" style=" list-style-type: none;">
-
-										<div class="col-12 col-md-4 col-lg-3 p-0">
-											<li class="dropdown-header">Categorie-1</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-											</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-											</li>
-											<li class="divider"></li>
-										</div>
-								
-										<div class="col-12 col-md-4 col-lg-3 p-0">
-											<li class="dropdown-header">Categorie-2</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-											</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-											</li>
-											<li class="divider"></li>
-										</div>
-
-
-									</ul>
-								  </li>
-								  <li class=" col-12 col-sm-5 dropdown-item">
-									<div class="row">
-										<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-										<div class="col-12 col-md-6">
-											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-												<a href="#" class="thumbnail">
-												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-												</a>
-												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-											</div>
-										</div>
-										<div class="col-12 col-md-6">
-											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-												<a href="#" class="thumbnail">
-												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-												</a>
-												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-											</div>
-										</div>
-
-									</div>
-								  </li>
-								  </div>
-								 </ul>
-								</li>
-								<li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Construire </a>
-								<ul class="dropdown-menu megamenu">
-								  <div class="row">
-								  <li class="col-12 col-sm-7 text-center">
-									<ul class="row" style=" list-style-type: none;">
-
-										<div class="col-12 col-md-4 col-lg-3 p-0">
-											<li class="dropdown-header">Categorie-1</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-											</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-											</li>
-											<li class="divider"></li>
-										</div>
-								
-										<div class="col-12 col-md-4 col-lg-3 p-0">
-											<li class="dropdown-header">Categorie-2</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-											</li>
-											<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-											</li>
-											<li class="divider"></li>
-										</div>
-
-
-									</ul>
-								  </li>
-								  <li class=" col-12 col-sm-5 dropdown-item">
-									<div class="row">
-										<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-										<div class="col-12 col-md-6">
-											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-												<a href="#" class="thumbnail">
-												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-												</a>
-												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-											</div>
-										</div>
-										<div class="col-12 col-md-6">
-											<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-												<a href="#" class="thumbnail">
-												<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-												</a>
-												<a href="{{ path('post_ask_devis_page') }}" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-											</div>
-										</div>
-
-									</div>
-								  </li>
-								  </div>
-								  </ul>
-								</li>
+							<ul class="nav navbar-nav">
 								<li class="nav-item"><a href="{{ path('find_chantier_page') }}" class="nav-link">Trouver un chantier</a></li>
-							  </ul>
+							</ul>
 						</div>
 					  </div>
 					</div>
@@ -383,7 +118,7 @@
 						<div class="">
 							Devenez l’un de nos professionnels partenaires et recevez toutes les demandes de devis de notre réseau. 
 						</div>
-						<div class="progress w-50 border-0" style="height: 4px;">
+						<div class="progress w-100 d-flex justify-content-center border-0" style="height: 4px;">
 							<div class="progress-bar bg-warning" style="width:40%"></div>
 						</div>	
 					</div>
@@ -402,47 +137,53 @@
 					<div class="container">
 						<div class="row">	
 							<!--Pub left side -->
-							<div class="col-md-7 d-none d-md-block p-0" style="background: linear-gradient(45deg, currentColor, transparent);">
+							<div class="col-lg-7 d-none d-lg-block p-0" style="background: linear-gradient(45deg, currentColor, transparent);">
 								<!-- Modal Header -->
 								<div class="modal-header modal-head-img-right d-flex flex-column align-items-center">
-									<div class="modal-title h6">Professionnels du bâtiment,</div>
+									<div class="w-100 text-left h6">
+										<span class="lnr lnr-chevron-right text-warning float-left align-middle" style="font-size: 32px;"></span>
+										Professionnels du bâtiment,
+									</div>
 									<div class="text-warning">accélérez votre activité commerciale !</div>
 									<ul class="list-group">
 										<li class="list-group-item border-0">
-										Recevez des opportunités de chantiers ciblées selon votre activité et zone d'intervention
+											<span class="lnr lnr-chevron-right-circle  mr-2 text-warning float-left align-middle" style="font-size: 28px;"></span>
+											Recevez des opportunités de chantiers ciblées selon votre activité et zone d'intervention
 										</li>
 										<li class="list-group-item border-0">
-										Gardez le contrôle de votre budget prospection et payez au réel de votre consommation
+											<span class="lnr lnr-chevron-right-circle  mr-2 text-warning float-left align-middle" style="font-size: 28px;"></span>
+											Gardez le contrôle de votre budget prospection et payez au réel de votre consommation
 										</li>
 										<li class="list-group-item border-0">
-										Remplissez simplement et rapidement votre carnet de commandes
+											<span class="lnr lnr-chevron-right-circle mr-2 text-warning float-left align-middle" style="font-size: 28px;"></span>
+											Remplissez simplement et rapidement votre carnet de commandes
 										</li>
 									</ul>
 								</div>
 								<!-- Modal body -->
 								<div class="modal-body">
 								   <div class="d-md-flex flex-md-column align-items-md-center">
-										<div class="w-100 text-center h6 font-weight-normal text-success">
+										<div class="w-100 text-center h6 font-weight-normal text-white">
 											Pourquoi choisir notre service ?
 										</div>
 										<div class="d-md-flex flex-md-column flex-lg-row w-100">
 											<div class="d-md-flex flex-column align-items-md-center m-4">
 												<span class="d-md-flex flex-md-row align-items-center justify-content-md-center">
-													<span class="lnr lnr-book text-left mr-4 text-success"  style="font-size: 50px;"></span>
+													<span class="lnr lnr-book text-left mr-4 text-white"  style="font-size: 50px;"></span>
 													<span class="font-weight-normal text-warning">Remplissez rapidement votre carnet de commandes</span>
 												</span>
 												<span class="small text-white">Choisissez les chantiers qui vous rapportent et recevez chaque jour en temps réel, vos alertes par SMS et email.</span>
 											</div>
 											<div class="d-md-flex flex-column align-items-md-center m-4">
 												<span class="d-md-flex flex-md-row align-items-center justify-content-md-center">
-													<span class="lnr lnr-earth text-left mr-4 text-success" style="font-size: 50px;"></span>
+													<span class="lnr lnr-earth text-left mr-4 text-white" style="font-size: 50px;"></span>
 													<span class="font-weight-normal text-warning">Augmentez votre visibilité sur Internet</span>
 												</span>
 												<span class="small text-white">Bénéficiez d’une présence préférentielle sur Google et montrez-vous localement dans nos annuaires.</span>
 											</div>
 											<div class="d-md-flex flex-column align-items-md-center m-4">
 												<span class="d-md-flex flex-md-row align-items-center justify-content-md-center">
-													<span class="lnr lnr-diamond text-left mr-4 text-success" style="font-size: 50px;"></span>
+													<span class="lnr lnr-diamond text-left mr-4 text-white" style="font-size: 50px;"></span>
 													<span class="font-weight-normal text-warning">Optimisez votre budget prospection</span>
 												</span>
 												<span class="small text-white">Définissez vous-même votre budget mensuel et payez au réel de votre communication.</span>
@@ -455,7 +196,7 @@
 									<div class="d-md-flex flex-md-row justify-content-between">
 										<div class="d-md-flex flex-md-column text-center align-items-md-center">
 											<span class="text-success">
-												<img type="image/png" src="{{ absolute_url('/assets/icon/people-network-512.png') }}" class="icon-incrition-pro icon-bike">
+												<img type="image/png" src="{{ absolute_url('/uploads/logo/first-network-white.svg') }}" class="icon-incrition-pro icon-bike">
 												</img>
 											</span>
 											<span class="h6 text-warning">1er réseau de France</span>
@@ -463,7 +204,7 @@
 										</div>
 										<div class="d-md-flex flex-md-column text-center align-items-md-center">
 											<span class="text-success">
-												<object type="image/svg+xml" data="{{ absolute_url('/assets/img/svg/construction.svg') }}" class="icon-catego-circle-midle icon-bike">
+												<object type="image/svg+xml" data="{{ absolute_url('/uploads/logo/operator-white.svg') }}" class="icon-incrition-pro icon-bike">
 													Icon
 												</object>
 											</span>
@@ -472,7 +213,7 @@
 										</div>
 										<div class="d-md-flex flex-md-column text-center align-items-md-center">
 											<span class="text-success">
-												<object type="image/svg+xml" data="{{ absolute_url('/assets/img/svg/construction.svg') }}" class="icon-catego-circle-midle icon-bike">
+												<object type="image/svg+xml" data="{{ absolute_url('/uploads/logo/cominicate-white.svg') }}" class="icon-incrition-pro icon-bike">
 													Icon
 												</object>
 											</span>
@@ -482,14 +223,14 @@
 									</div>
 									<!--Boutton to go particular or artisant inscription -->
 									<div id="my_map" class="text-center w-100" style="margin-top: 5em;">
-										<a href="{{ path('space_find_pro_page') }}" class="btn btn-success btn-register w-50 text-uppercase" style="border-radius: 0 !important;">Je suis un artisant</a>
+										<a href="{{ path('space_find_pro_page') }}" class="btn btn-warning btn-register w-50 text-uppercase" style="border-radius: 0 !important;">Je suis un artisant</a>
 									</div>
 								</div>
 							</div>
 							<!-- End Pub left side -->
 							
 							<!--Form right side-->
-							<div class="col-12 col-md-5 modal-content pl-4">
+							<div class="col-12 col-lg-5 modal-content pl-4">
 								<!-- Modal Header 6Lcr-qsUAAAAAELM1gpeSFTN9Zj8-qnQP15g8dI9 -->
 								<div class="modal-header d-flex flex-column">
 									<h6 class="modal-title text-warning">Inscription Gratuite pour les Professionnels</h6>

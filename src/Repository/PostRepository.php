@@ -33,12 +33,16 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function filterByCategoryOrCityOrZipcodeOrDepartement($data = null, $limit = 100, $offset = 0)
+    public function filterByCategoryOrCityOrZipcodeOrDepartement($data = null, $offset = 0, $limit = 15)
     {
+        if($offset > 0) {
+            $limit = $limit * $offset;
+        }
+
         return $this->createQueryBuilder('p')
             ->where('p.CategoryId IN (?1) OR p.CategoryId IN (?2) AND p.city = ?3 OR p.CategoryId IN (?4) AND p.postZipcode = ?5')
             ->setParameters($data)
-            ->orderBy('p.id', 'ASC')
+            ->orderBy('p.id', 'DESC')
             ->setFirstResult( $offset )
             ->setMaxResults($limit)
             ->getQuery()

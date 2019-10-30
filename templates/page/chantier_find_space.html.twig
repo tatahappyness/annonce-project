@@ -13,16 +13,34 @@
 		<link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/select-form/css/normalize.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/select-form/css/stylesheet.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+		<style>
+			.selectize-input > input {
+				width: 100% !important;
+				height: 100% !important;
+			}
+			.selectize-control.single .selectize-input, .selectize-dropdown.single {
+				border-color: #FF9000 !important;
+			}
+			.selectize-control.single .selectize-input, .selectize-control {
+				width: 100% !important;
+				border-radius: 32px !important;
+				height: 45px !important;
+			}
+		</style>
     
 	{% endblock %}
 
 	{% block body %}
 	
-	<div class="page-header page-header-inscription">
+	<div class="page-header page-header-space-pros">
 		<div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
 		</div>
 		<div class="row">
@@ -49,7 +67,7 @@
 							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
 								<span class="mr-1">
 									<button class="btn btn-round show-form-pro-mouseclick-11 bg-gray font-weight-bold text-warning border-warning text-nowrap" type="button">
-										<i class="">🔒</i> Se connecter
+										<i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
 									</button>
 								</span>
 								<span class="">
@@ -70,15 +88,15 @@
 						<button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
 						<div class="navbar-collapse collapse">
 						  <ul class="nav navbar-nav">
-							<li class="nav-item"><a href="{{path('find_chantier_page')}}" class="nav-link">Trouver des chantiers</a>
+							<li class="nav-item"><a href="{{ path('nos_tarif_page') }}" class="nav-link">Nos tarifs</a>
 							</li>
-							<li class="nav-item"><a href="{{path('nos_tarif_page')}}" class="nav-link">Guide prix</a>
+							{# <li class="nav-item"><a href="{{ path('guide_price_page') }}" class="nav-link">Guide de prix</a>
+							</li> #}
+							<li class="nav-item"><a href="{{ path('how_to_step_page') }}" class="nav-link">Comment ça marche</a>
 							</li>
-							<li class="nav-item"><a href="{{path('how_to_step_page')}}" class="nav-link">Comment ça marche</a>
+							<li class="nav-item"><a href="{{ path('site_create_page') }}" class="nav-link">Créer mon site internet</a>
 							</li>
-							<li class="nav-item"><a href="{{path('site_create_page')}}" class="nav-link">Créer mon site internet</a>
-							</li>
-							<li class="nav-item"><a href="{{path('pro_dashbord')}}" class="nav-link pro-dashbord-access">Gérer mon espace professionnel</a>
+							<li class="nav-item"><a href="{{ path('pro_dashbord') }}" class="nav-link pro-dashbord-access">Gérer mon espace professionnel</a>
 							</li>
 						  </ul>
 						</div>
@@ -113,21 +131,26 @@
 			<div class="col-10" style="padding-top: 1em;">
 				<div class="container bg-dark pl-0 h-auto" style="box-shadow: 5px 5px 5px black;">
 					
-					<form action>
+					<form action="{{ path('find_chantier_page') }}" method="POST">
 						<div class="form-group">
 							
 							<div class="d-flex flex-column flex-sm-row w-100 align-items-center justify-content-center">
-								<select class="form-control show-input-list-metier-pro" name="metier">
-									 <option></option>
-									 <option value="AL">art-1</option>
-									 <option value="WY">art-2</option> 
-									 <option value="AL">art-3</option>
-									 <option value="WY">art-4</option>	
-								</select>
-								<input type="text" class="form-control m-2" placeholder="Géo location" style="line-height: 50px; height: 50px;">
+								
+								<input id="show-input-list-search" type="text" name="categLabel" value="{{ (categLabel is defined) ? categLabel :'' }}" class="form-control text-center show-input-list-search m-2" placeholder="Quel métier ?" style="height: 45px;">
+								{# <select id="select-beast" class="border animated fadeIn delay-8s border-warning demo-default" name="postCity"  placeholder="Dans quelle ville ?">
+								<option></option>
+								{% if cities != null %}
+									{% for city in cities %}
+									<option {{ (postCityId is defined and city.getId() == postCityId) ? 'selected': '' }} value="{{ city.getId() }}">{{ city.getVilleNomReel() }}</option>
+									{% endfor %}
+								{% endif %}
+								</select> #}
+								<div id="group-form-spcial-input-hidden"></div>
+								
 								<div class="input-group-append input-group-append-find-artisant bg-warning text-center">
-								  <a class="btn btn-warning border-0 text-center text-nowrap w-100">Trouver des chantiers</a>
+								<button id="btn-serch-chantier-pros" type="submit" class="btn btn-warning border-0 btn-serch-chantier-pros text-center text-nowrap w-100">Trouver des chantiers</button>
 								</div>
+								
 							</div>
 							
 						</div>
@@ -146,7 +169,7 @@
 			<section class="mt-5 bg-gray">
 				<div Class="row bg-white">
 					<div class="col-12">
-							<a href="{{ path('space_find_pro_page') }}" class="btn btn-success float-right text-decoration-none border-0 text-center text-nowrap mr-5">Je suis un particulier</a>
+							<a href="{{ path('space_find_pro_page') }}" class="btn btn-warning text-white float-right text-decoration-none border-0 text-center text-nowrap mr-5">Je suis un particulier</a>
 					</div>
 					<div class="col-12 d-flex flex-column text-center">
 						<span class="h6">Nos chantiers disponibles</span>
@@ -156,59 +179,39 @@
 					<div class="triangle triangle-pro-space pt-4" style="width: 100%; height: 4px; background: white; box-shadow: 0px 0px 0px 0px !important"> </div>
 				</div>
 				<div class="container">
-					<div class="row py-5">
-						<div class="col-12 col-sm-6 col-lg-4 my-2">
-							<div class="card card-pub-artisant text-leftt" style="width: auto;">
-								<div class="card-header">
-									<div class="d-flex flex-column align-items-center justify-content-center w-100 pt-4">
-										<h4 class="card-title text-warning text-nowrap">Terrassement</h4>
-										<span class="ads-icon text-center">
-											<span class="icon" style="height: 128px;">
-												<object type="image/svg+xml" data="{{ absolute_url('/assets/icon/1-47_icon-icons.com_60431.svg') }}" class="icon icon-bike">
-													Bike
-												</object>
-											</span>
-										<span>
+					<div class="row container-show-more-ajax py-5">
+						{% if postsAds != null %}
+							{% for post in postsAds %}
+							<div class="col-12 col-sm-6 col-lg-4 my-2">
+								<div class="card card-pub-artisant text-leftt" style="width: auto;">
+									<div class="card-header">
+										<div class="d-flex flex-column align-items-center justify-content-center w-100 pt-4">
+											<h4 class="card-title text-warning text-center px-2">{{ post.getArticleId().getArticleTitle() }}</h4>
+											<span class="ads-icon text-center">
+												<span class="icon" style="height: 128px;">
+													<object type="image/svg+xml" data="{{ absolute_url('/uploads/icons/' ~ post.getArticleId().getIcon()) }}" class="icon icon-bike">
+														Bike
+													</object>
+												</span>
+											<span>
+										</div>
 									</div>
-								</div>
-								<div class="card-body">
-									<p class="text-secondary">05/07/2019</p>
-									<p class="card-text motif-pub text-truncate">Je souhaite faire une dalle de béton exterieur sur 52 m², pour une terrasse.</p>
-									<p class="text-secondary small">Postulé par: Mr Tata Florent</p><br>
-									<a class="text-link-success float-right" href="{{ path('show_detail_ads_page') }}">voir le chantier >></a>
-								</div>
-							  <div class="card-footer text-secondary text-center mt-0 py-2">
-								Il y a 1 heure.
-							  </div>
-							</div>
-						</div>
-						<div class="col-12 col-sm-6 col-lg-4 mobile-top-position my-2">
-							<div class="card card-pub-artisant text-leftt" style="width: auto;">
-								<div class="card-header">
-									<div class="d-flex flex-column align-items-center justify-content-center w-100 pt-4">
-										<h4 class="card-title text-warning text-nowrap">Plomberie</h4>
-										<span class="ads-icon text-center">
-											<span class="icon" style="height: 128px;">
-												<object type="image/svg+xml" data="{{ absolute_url('/assets/icon/work_building_repair_tool_construction__working_construction_works_-75_icon-icons.com_60357.svg') }}" class="icon icon-bike">
-													Bike
-												</object>
-											</span>
-										<span>
+									<div class="card-body">
+										<p class="text-secondary">{{ post.getPostAdsDateCrea() | date('d/m/y H:m:s') }}</p>
+										<p class="card-text motif-pub">{{ post.getPostAdsTravauxDescription() }}</p>
+										<p class="text-secondary small">Postulé par: {{ post.getPostUserId().getFirstname() }}</p><br>
+										{# <p class="text-secondary small">Habite à: {{ post.getPostUserId().getUserCity().getVilleNomReel()}}.</p> #}
+										<a class="text-warning float-right" href="{{ path('show_detail_ads_page', { id: post.getId() }) }}">voir le chantier >></a>
 									</div>
+								<div class="card-footer text-secondary text-center mt-0 py-2">
+									{{''}}
 								</div>
-								<div class="card-body">
-									<p class="text-secondary">05/07/2019</p>
-									<p class="card-text motif-pub text-truncate">Je souhaite déposer la chaudière et mettre un ballon d'eau chaude, remplacer la...</p>
-									<p class="text-secondary small">Postulé par: Mr Tata Florent</p><br>
-									<a class="text-link-success float-right" href="#">voir le chantier >></a>
 								</div>
-							  <div class="card-footer text-secondary text-center mt-0 py-2">
-								Il y a 1 heure.
-							  </div>
 							</div>
-						</div>
+							{% endfor %}
+						{% endif %}
 						<div class="col-12 d-flex justify-content-center pt-4">
-							<a class="btn btn-warning btn-more-all-chantier ld ld-ext-right running" href="{{ path('view_all_tavaux_page') }}"> <i class="ld ld-ring ld-spin"></i> Voir plus</a>
+							<a data-categoryid="{{ (CategoryId is defined) ? CategoryId :'' }}" class="btn btn-warning btn-more-all-ajax ld ld-ext-right" href="{{ path('view_all_tavaux_page') }}"> <i class="ld ld-ring ld-spin"></i> Voir plus</a>
 						</div>	
 					</div>
 				</div>
@@ -276,6 +279,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+<!-- Auto-complete -->
+<script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
 <!-- MESSAGE NTIFICATION -->
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
@@ -288,12 +293,12 @@
 <script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select-form/js/selectize.js') }}"></script>
+<script src="{{ absolute_url('/assets/select-form/js/index.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/city.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/page.js') }}"></script>
 
 {% endblock %}

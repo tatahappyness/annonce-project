@@ -1,4 +1,76 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="col-lg-4 mb-4 card shadow" style="height: 400px;">
+    {{ form_start(form) }}
+    
+        {{ form_row(form.categTitle, {
+            label: 'Categorie:'
+        }) }}        
+        {{ form_row(form.categTitle) }}
+        
+        
+        {{ form_row(form.description, {
+            label: 'Description:'
+        }) }}        
+        {{ form_row(form.description) }}        
+
+        {{ form_row(form.img, {
+            label: 'Image '
+        }) }}
+        {{ form_row(form.img) }}
+        
+
+        {{ form_row(form.icon, {
+            label: 'Icon '
+        }) }}
+        {{ form_row(form.icon) }}
+        <hr>
+        
+        <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+        <hr>
+    
+        <div class="row ">						
+            <div class="col-lg-6 ">
+                <a class="btn btn-secondary" href="{{ path('category_index') }}">Retourne list</a>
+            </div>
+            <div class="col-lg-6 ">
+                {{ include('category/_delete_form.html.twig') }}
+            </div>
+        </div>
+</div>
+
+<div class="col-lg-1 ">
+</div>
+
+<div class="col-lg-7 mb-4 card shadow">
+
+ <tr>
+    <th>
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">ICON</h6>
+        </div>
+    </th>
+        <hr>
+        <td>
+            <div class="card-body">
+                <div class="text-center">
+                    <img class="img-fluid img-fluid shadow" style="width: 7rem;" src="{{ absolute_url('/uploads/logo/') }}{{ category.icon }}" alt="">
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th>
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">IMAGE</h6>
+        </div>
+        </th><hr>
+        <td>
+            <div class="card-body">
+                <div class="text-center">
+                    <img class="img-fluid img-fluid shadow" style="width: 60rem;" src="{{ absolute_url('/uploads/images/') }}{{ category.img }}" alt="">
+                </div>
+            </div>
+        </td>
+    </tr>
+</div>

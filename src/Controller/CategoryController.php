@@ -10,6 +10,7 @@ use App\Repository\DevisValidRepository;
 use App\Repository\DevisAcceptRepository;
 use App\Repository\ServicesRepository;
 use App\Repository\PostRepository;
+use App\Repository\ConfigsiteRepository;
 use App\Repository\DevisRepository;
 use App\Repository\CitiesRepository;
 use App\Repository\ArticleRepository;
@@ -34,10 +35,15 @@ class CategoryController extends AbstractController
     /**
      * @Route("/", name="category_index", methods={"GET"})
      */
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(CategoryRepository $categoryRepository,  ConfigsiteRepository $configsiteRepository ): Response
     {
+        
+
+        $output_dir = $this->getParameter('images_directory');
         return $this->render('category/index.html.twig', [
+            'configsites' => $configsiteRepository->findAll(),
             'page_head_title' => 'OBJET DEVIS [Categorie]',
+            'outdir' => $output_dir,
             'categories' => $categoryRepository->findAll(),
         ]);
     }
@@ -121,28 +127,72 @@ class CategoryController extends AbstractController
     /**
      * @Route("/new", name="category_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ConfigsiteRepository $configsiteRepository ): Response
     {
         
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
         
-        $file = $form['img']->getData();
+        
+        
+        //$file = $request->files->get('category_img');    
+        
+        //$filename = uniqid().".".$file->getClientOriginalExtension();
+
         
         if ($form->isSubmitted() && $form->isValid()) {
+            /* * @var UploadedFile $uploadedFile 
+            $uploadedFile = $form['imageFile']->getData();
+            */
 
-            $file->move($output_dir, $someNewFilename);
+            
+            /** @var File $file */
+            $file = $form['img']->getData();
+            
+            
+            /** @var FileIcon $fileIcon */
+            $fileIcon = $form['icon']->getData();
+
+            if ( $file &&  $fileIcon ) {
+                
+                $output_dir = $this->getParameter('images_directory');      
+                $output_dir_icon = $this->getParameter('logo_directory');      
+        
+                //$destination = $this->getParameter('kernel.project_dir').'/public/uploads/article_image';
+                   
+                //$originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                //$originalFilename_icon = pathinfo($fileIcon->getClientOriginalName(), PATHINFO_FILENAME);
+
+                
+                $newFilename = uniqid().".".$file->getClientOriginalExtension();
+                $newFilename_icon = uniqid().".".$fileIcon->getClientOriginalExtension();
+
+                $file->move($output_dir, $newFilename);
+                $fileIcon->move($output_dir_icon, $newFilename_icon);
+
+                $category->setCategDateCrea(new \DateTime());
+
+                $category->setImg($newFilename);
+                $category->setIcon($newFilename_icon);
+                
+                            
 
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($category);
-            $entityManager->flush();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($category);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('category_index');
+                return $this->redirectToRoute('category_index');
+
+            }
+
         }
 
-        return $this->render('category/new.html.twig', [
+        //dump($file);die;
+        
+        return $this->render('/category/new.html.twig', [
+            'configsites' => $configsiteRepository->findAll(),
             'page_head_title' => 'OBJET DEVIS [Categorie]',
             'category' => $category,
             'form' => $form->createView(),
@@ -163,25 +213,60 @@ class CategoryController extends AbstractController
     /**
      * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Category $category): Response
+    public function edit(Request $request, Category $category, ConfigsiteRepository $configsiteRepository ): Response
     {
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('category_index', [
-                'page_head_title' => 'OBJET DEVIS [Categorie]',
-                'id' => $category->getId(),
-            ]);
+            
+            /** @var File $file */
+            $file = $form['img']->getData();
+            
+            
+            /** @var FileIcon $fileIcon */
+            $fileIcon = $form['icon']->getData();
+
+            if ( $file &&  $fileIcon ) {
+                
+                $output_dir = $this->getParameter('images_directory');      
+                $output_dir_icon = $this->getParameter('logo_directory');      
+        
+                $newFilename = uniqid().".".$file->getClientOriginalExtension();
+                $newFilename_icon = uniqid().".".$fileIcon->getClientOriginalExtension();
+
+                $file->move($output_dir, $newFilename);
+                $fileIcon->move($output_dir_icon, $newFilename_icon);
+
+                $category->setCategDateCrea(new \DateTime('now'));
+
+                $category->setImg($newFilename);
+                $category->setIcon($newFilename_icon);
+                            
+                /*
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($category);
+                $entityManager->flush();*/
+
+            
+                $this->getDoctrine()->getManager()->flush();
+
+                return $this->redirectToRoute('category_index', [
+                    'configsites' => $configsiteRepository->findAll(),
+                    'page_head_title' => 'OBJET DEVIS [Categorie]',
+                    'id' => $category->getId(),
+                ]);
+
+            }
+
         }
 
         return $this->render('category/edit.html.twig', [
             'page_head_title' => 'OBJET DEVIS [Categorie]',
+            'configsites' => $configsiteRepository->findAll(),
             'category' => $category,
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 

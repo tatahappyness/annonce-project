@@ -57,46 +57,49 @@
           <div class="row">
           
             <!-- card visualisation numero email logo -->
-            <div class="col-5 mb-5">              
+            <div class="col-12 mb-5">              
               <div class="card shadow mb-4">                
-                <div class="card-body">
-                  <div class="text-center">                                                            
+                <div class="card-body ">
+                  <div class="text-center  row">                                                            
                     <hr>
                     
                     {% for configsite in configsites %}
 
-                    <div class="form-group row">
-                    
-                      <div class="col-sm-12 mb-3 mb-sm-0">
-                        <h4 class="small  font-weight-bold"><i class="fa fa-cog"></i> Email officielle [ {{ configsite.nomsite }} ] :</h4>
-                        <h3 class="email_org text-primary font-weight-bold">{{ configsite.email }}</h3>
-						            <h3 style="display:none" class="email_new text-success font-weight-bold"></h3>
+                    <div class="col-lg-6">
+                      <div class="form-group row">     
+                        <div class="col-sm-12 mb-3 mb-sm-0"></br></br></br></br>
+                          <h4 class="small  font-weight-bold"><i class="fa fa-cog"></i> Email officielle [ {{ configsite.nomsite }} ] :</h4>
+                          <h3 class="email_org text-primary font-weight-bold">{{ configsite.email }}</h3>
+                          <h3 style="display:none" class="email_new text-success font-weight-bold"></h3>
+                        </div>
                       </div>
 
+                      <div class="form-group row">
+                        <div class="col-sm-12 mb-3 mb-sm-0">
+                          <h4 class="small  font-weight-bold"><i class="fa  fa-phone-alt"></i> Numero telephone:</h4>
+                          <h1 class="numtel_org text-primary  font-weight-bold">{{ configsite.numphone }}</h1>
+                          <h1 style="display:none" class="numtel_new text-success  font-weight-bold"></h1>
+                        </div>                          
+                      </div>
+                      
+                      <a href="{{ path('configsite_edit', {'id': configsite.id}) }}">
+                          <div  class="btn btn-warning">
+                              Modifier
+                          </div>
+                      </a>
                     </div>
+                    <div class="col-lg-6">
+                      <div class="form-group row">
+                        <div class="col-sm-12 mb-3 mb-sm-0">
+                          <h4 class="small  font-weight-bold"><i class="fa  fa-business-time "></i> Logo de l'entreprise:</h4>              
+                          
+                          <hr>                           
+                          <img style="width: 30em;" class="img-fluid img-fluid shadow" src="{{ absolute_url('/uploads/logo/') }}{{ configsite.image }}">
+                        </div>                          
+                      </div>
+                    </div>
+                   
 
-                    <div class="form-group row">
-                      <div class="col-sm-12 mb-3 mb-sm-0">
-                        <h4 class="small  font-weight-bold"><i class="fa  fa-phone-alt"></i> Numero telephone:</h4>
-                        <h1 class="numtel_org text-primary  font-weight-bold">{{ configsite.numphone }}</h1>
-						<h1 style="display:none" class="numtel_new text-success  font-weight-bold"></h1>
-                      </div>                          
-                    </div>
-                    
-                    <div class="form-group row">
-                      <div class="col-sm-12 mb-3 mb-sm-0">
-                        <h4 class="small  font-weight-bold"><i class="fa  fa-business-time "></i> Logo de l'entreprise:</h4>              
-                        
-                        <hr>                           
-                        <img class="" src="{{ absolute_url('/assets/img/') }}{{ configsite.image }}">
-                      </div>                          
-                    </div>
-
-                    <a href="{{ path('configsite_edit', {'id': configsite.id}) }}">
-                        <div  class="btn btn-warning">
-                            Modifier
-                        </div>
-                    </a>
                       
                     <hr>                           
                     

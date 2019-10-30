@@ -54,6 +54,8 @@ class SecurityController extends AbstractController
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
                 $popularDevis = array();
+                
+                /*
                 if($devisPopulars !== null) {
 
                     foreach ($devisPopulars as $key => $value) {
@@ -61,6 +63,7 @@ class SecurityController extends AbstractController
                     }
 
                 }
+                */
 
             return $this->render('page/connexion.html.twig', [
                 'controller_name' => 'PremuimController', 

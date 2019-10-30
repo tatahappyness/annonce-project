@@ -1,0 +1,40 @@
+<div class="col-lg-4 mb-4 card shadow" style="height: 400px;">
+    {{ form_start(form) }}
+    
+    <div class="form-group">
+        <label class="col-lg-2 control-label" for="focusedInput">
+            {{ form_row(form.categTitle, { label: 'Categorie:' } ) }}
+        </label>
+    </div>
+    
+
+        
+    <div class="form-group">
+        <label class="control-label">
+            {{ form_label(form.description) }}
+        </label>
+        {{ form_errors(form.description) }}
+        <div class="">
+            {{ form_widget(form.description ) }}
+        </div>
+    </div>
+    
+
+        {{ form_row(form.img, {
+            label: 'Image '
+        }) }}
+        {{ form_row(form.img, {'attr': {'novalidate': 'novalidate'}}  ) }}
+
+        
+
+        {{ form_row(form.icon, {
+            label: 'Icon '
+        }) }}
+        {{ form_row(form.icon) }}
+        <hr>
+                
+        <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+        <hr>
+
+</div>

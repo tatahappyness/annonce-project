@@ -68,24 +68,50 @@ class ConfigsiteController extends AbstractController
     /**
      * @Route("/{id}/edit", name="configsite_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Configsite $configsite): Response
-    {
+    public function edit(Request $request, Configsite $configsite, ConfigsiteRepository $configsiteRepository): Response
+    { 
+        
+
         $form = $this->createForm(ConfigsiteType::class, $configsite);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            
+            /** @var File $file */
+            $file = $form['image']->getData();
+            
 
-            return $this->redirectToRoute('configsite_index', [                
+            if ( $file ) {
                 
-                
-                'id' => $configsite->getId(),
-                'page_head_title' => 'CONFIGURATION DU SITE',
-            ]);
+                $output_dir = $this->getParameter('logo_directory');      
+
+        
+                $newFilename = uniqid().".".$file->getClientOriginalExtension();
+
+
+                $file->move($output_dir, $newFilename);
+
+
+                //$configsite->setCategDateCrea(new \DateTime('now'));
+                $configsite->setImage($newFilename);
+
+                            
+                /*
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($category);
+                $entityManager->flush();*/
+
+            
+                $this->getDoctrine()->getManager()->flush();
+                return $this->redirectToRoute('configsite_index', [
+                    'id' => $configsite->getId(),   'configsites' => $configsiteRepository->findAll(),
+                    'page_head_title' => 'CONFIGURATION DU SITE',
+                ]);
+            }
         }
 
         return $this->render('configsite/edit.html.twig', [
-            'page_head_title' => 'CONFIGURATION DU SITE',
+            'page_head_title' => 'CONFIGURATION DU SITE', 'configsites' => $configsiteRepository->findAll(),
             'configsite' => $configsite,
             'form' => $form->createView(),
         ]);

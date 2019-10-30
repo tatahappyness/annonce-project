@@ -27,16 +27,16 @@ class ModePrixType extends AbstractType
             ->add('prixMoyen')
             ->add('prixHautGamme')
             ->add('prixDateCrea')
-            ->add('prixCategoryId', EntityType::class, [
+           /* ->add('prixCategoryId', EntityType::class, [
                 'class' => Category::class, 'label' => 'Category',
                 'mapped' => false,
                 'choice_label' => 'Category',
                 'query_builder' => function (EntityRepository $er ){
-                    return $er->createQueryBuilder ('c')
-                                ->orderBy('c.id', 'ASC');
+                    return $er->createQueryBuilder ('c');
                 }
             ]
-        )
+        )*/
+        /*
         ->add('prixArticleId', EntityType::class, [
             'class' => Article::class, 'label' => 'Article',
             'mapped' => false,
@@ -44,9 +44,10 @@ class ModePrixType extends AbstractType
             'query_builder' => function (EntityRepository $er ){
                 return $er->createQueryBuilder ('a')
                             ->orderBy('a.id', 'ASC') ;
-            }
-        ]
-    )
+                }
+            ]
+        )
+        */
         ;
     }
 

@@ -1,4 +1,3 @@
-{% extends 'base.html.twig' %}
 
 {% block body %}
 
@@ -9,25 +8,38 @@
                 <td>{{ category.id }}</td>
             </tr>
             <tr>
-                <th>CategTitle</th>
+                <th>Categorie</th>
                 <td>{{ category.categTitle }}</td>
             </tr>
             <tr>
-                <th>CategDateCrea</th>
+                <th>Date de creation</th>
                 <td>{{ category.categDateCrea | date('d/m/y H:m:s') }}</td>
             </tr>
             <tr>
                 <th>Description</th>
                 <td>{{ category.description }}</td>
-            </tr>
-            <tr>
-                <th>Img</th>
-                <td>{{ category.img }}</td>
-            </tr>
+            </tr> 
             <tr>
                 <th>Icon</th>
-                <td>{{ category.icon }}</td>
+                <td>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 7rem;" src="{{ absolute_url('/uploads/logo/') }}{{ category.icon }}" alt="">
+                        </div>
+                    </div>
+                </td>
             </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 60rem;" src="{{ absolute_url('/uploads/images/') }}{{ category.img }}" alt="">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+           
         </tbody>
     </table>
     

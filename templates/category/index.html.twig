@@ -103,7 +103,7 @@
 
       <div class="modal fade" id="myModal_aff_cat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
-					<div class="modal-content">
+					<div class="modal-content" style="width: 50rem;">
 						<div class="modal-header">									
 							<h4 class="modal-title" id="myModalLabel">
 								Détail du Catégorie:
@@ -194,10 +194,23 @@
             <tr>
                 <td>{{ category.id }}</td>
                 <td>{{ category.categTitle }}</td>
-                <td>{{ category.categDateCrea | date('d/m/y H:m:s') }}</td>
+                <td>{{ category.categDateCrea | date('d/m/y h:m:s') }}</td>
                 <td>{{ category.description }}</td>
-                <td>{{ category.img }}</td>
-                <td>{{ category.icon }}</td>
+                <td>
+
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/images/') }}{{ category.img }}" alt="">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/logo/') }}{{ category.icon }}" alt="">
+                        </div>
+                    </div>
+                </td>
                 <td>
                     <button class="btn btn-warning" onclick="show_modal_affiche_categorie({{ category.id }})" data-toggle="modal" data-target="#myModal_aff_cat"   type="button" title="Modifier"><i class="fa fa-eye"></i>
                     </button>
@@ -298,7 +311,7 @@
                     }
                  };
 
-                 xhttp.open("GET", "/category/"+$id , true);
+                 xhttp.open("GET", "/admin/category/"+$id , true);
                  xhttp.send();
 				 
 		}

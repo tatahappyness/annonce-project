@@ -67,7 +67,7 @@ class ModePrix
     private $prixHautGamme;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $prixDateCrea;
 

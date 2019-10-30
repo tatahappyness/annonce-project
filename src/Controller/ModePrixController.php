@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\ModePrix;
 use App\Form\ModePrixType;
+
+use App\Repository\ConfigsiteRepository;
 use App\Repository\ModePrixRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +21,10 @@ class ModePrixController extends AbstractController
     /**
      * @Route("/", name="mode_prix_index", methods={"GET"})
      */
-    public function index(ModePrixRepository $modePrixRepository): Response
+    public function index(ModePrixRepository $modePrixRepository,  ConfigsiteRepository $configsiteRepository ): Response
     {
         return $this->render('mode_prix/index.html.twig', [
+            'configsites' => $configsiteRepository->findAll(),
             'page_head_title' => 'OBJET DEVIS [Mode Prix]',
             'mode_prixes' => $modePrixRepository->findAll(),
         ]);
@@ -29,7 +33,7 @@ class ModePrixController extends AbstractController
     /**
      * @Route("/new", name="mode_prix_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,  ConfigsiteRepository $configsiteRepository ): Response
     {
         $modePrix = new ModePrix();
         
@@ -47,6 +51,7 @@ class ModePrixController extends AbstractController
 
         return $this->render('mode_prix/new.html.twig', [
             'page_head_title' => 'OBJET DEVIS [Mode Prix]',
+            'configsites' => $configsiteRepository->findAll(),
             'mode_prix' => $modePrix,
             'form' => $form->createView(),
         ]);
@@ -66,7 +71,7 @@ class ModePrixController extends AbstractController
     /**
      * @Route("/{id}/edit", name="mode_prix_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, ModePrix $modePrix): Response
+    public function edit(Request $request, ModePrix $modePrix,  ConfigsiteRepository $configsiteRepository ): Response
     {
         $form = $this->createForm(ModePrixType::class, $modePrix);
         $form->handleRequest($request);
@@ -76,12 +81,14 @@ class ModePrixController extends AbstractController
 
             return $this->redirectToRoute('mode_prix_index', [
                 'page_head_title' => 'OBJET DEVIS [Mode Prix]',
-                'id' => $modePrix->getId(),
+                'configsites' => $configsiteRepository->findAll(),
+                'id' => $modePrix->getId()
             ]);
         }
 
         return $this->render('mode_prix/edit.html.twig', [
             'page_head_title' => 'OBJET DEVIS [Mode Prix]',            
+            'configsites' => $configsiteRepository->findAll(),
             'mode_prix' => $modePrix,
             'form' => $form->createView(),
         ]);

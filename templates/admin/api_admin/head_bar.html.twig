@@ -5,7 +5,9 @@
 
       <!-- Sidebar - Brand -->
       <div class="sidebar-brand d-flex align-items-center justify-content-center" href="/">    
-        <img class="img_logo" src="{{ absolute_url('/assets/img/logo.png') }}"  />
+        {% for configsite in configsites %}          
+            <img style="height: 50px; " class="img_logo" src="{{ absolute_url('/uploads/logo/') }}{{ configsite.image }}"  />          
+        {% endfor %}
       </div> _
 	  <div class="topbar-divider d-none d-sm-block"></div>
 	  

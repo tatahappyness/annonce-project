@@ -30,7 +30,7 @@ class Article
     private $articleTitle;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $articleDateCrea;
 

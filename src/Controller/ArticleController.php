@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+
+use App\Repository\ConfigsiteRepository;
 use App\Repository\ArticleRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +21,10 @@ class ArticleController extends AbstractController
     /**
      * @Route("/", name="article_index", methods={"GET"})
      */
-    public function index(ArticleRepository $articleRepository): Response
+    public function index(ArticleRepository $articleRepository,  ConfigsiteRepository $configsiteRepository ): Response
     {
         return $this->render('article/index.html.twig', [
+            'configsites' => $configsiteRepository->findAll(),
             'page_head_title' => 'OBJET DEVIS [Article]',
             'articles' => $articleRepository->findAll(),
         ]);
@@ -29,7 +33,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ConfigsiteRepository $configsiteRepository): Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
@@ -45,6 +49,7 @@ class ArticleController extends AbstractController
 
         return $this->render('article/new.html.twig', [
             'page_head_title' => 'OBJET DEVIS [Article]',
+            'configsites' => $configsiteRepository->findAll(),
             'article' => $article,
             'form' => $form->createView(),
         ]);
@@ -53,9 +58,10 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}", name="article_show", methods={"GET"})
      */
-    public function show(Article $article): Response
+    public function show(Article $article,  ConfigsiteRepository $configsiteRepository ): Response
     {
         return $this->render('article/show_article.html.twig', [
+            'configsites' => $configsiteRepository->findAll(),
             'page_head_title' => 'OBJET DEVIS [Article]',
             'article' => $article,
         ]);
@@ -64,7 +70,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Article $article): Response
+    public function edit(Request $request, Article $article, ConfigsiteRepository $configsiteRepository ): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -73,6 +79,7 @@ class ArticleController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('article_index', [
+                'configsites' => $configsiteRepository->findAll(),
                 'id' => $article->getId(),
                 'page_head_title' => 'OBJET DEVIS [Article]'
             ]);
@@ -81,6 +88,7 @@ class ArticleController extends AbstractController
 
         return $this->render('article/edit.html.twig', [
             'page_head_title' => 'OBJET DEVIS [Article]',
+            'configsites' => $configsiteRepository->findAll(),
             'article' => $article,
             'form' => $form->createView(),
         ]);

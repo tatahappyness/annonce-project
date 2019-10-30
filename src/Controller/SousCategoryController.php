@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\SousCategory;
 use App\Form\SousCategory1Type;
+
 use App\Repository\SousCategoryRepository;
+use App\Repository\ConfigsiteRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +21,10 @@ class SousCategoryController extends AbstractController
     /**
      * @Route("/", name="sous_category_index", methods={"GET"})
      */
-    public function index(SousCategoryRepository $sousCategoryRepository): Response
+    public function index(SousCategoryRepository $sousCategoryRepository ,   ConfigsiteRepository $configsiteRepository ): Response
     {
         return $this->render('sous_category/index.html.twig', [
+            'configsites' => $configsiteRepository->findAll(),
             'page_head_title' => 'OBJET DEVIS [Sous Categorie]',
             'sous_categories' => $sousCategoryRepository->findAll(),
         ]);
@@ -29,7 +33,7 @@ class SousCategoryController extends AbstractController
     /**
      * @Route("/new", name="sous_category_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,    ConfigsiteRepository $configsiteRepository ): Response
     {
         $sousCategory = new SousCategory();
         $form = $this->createForm(SousCategory1Type::class, $sousCategory);
@@ -45,6 +49,7 @@ class SousCategoryController extends AbstractController
 
         return $this->render('sous_category/new.html.twig', [
             'page_head_title' => 'OBJET DEVIS [Sous Categorie]',
+            'configsites' => $configsiteRepository->findAll(),
             'sous_category' => $sousCategory,
             'form' => $form->createView(),
         ]);
@@ -64,7 +69,7 @@ class SousCategoryController extends AbstractController
     /**
      * @Route("/{id}/edit", name="sous_category_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, SousCategory $sousCategory): Response
+    public function edit(Request $request, SousCategory $sousCategory,   ConfigsiteRepository $configsiteRepository ): Response
     {
         $form = $this->createForm(SousCategory1Type::class, $sousCategory);
         $form->handleRequest($request);
@@ -73,12 +78,14 @@ class SousCategoryController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('sous_category_index', [
+                'configsites' => $configsiteRepository->findAll(),
                 'page_head_title' => 'OBJET DEVIS [Sous Categorie]',
                 'id' => $sousCategory->getId(),
             ]);
         }
 
         return $this->render('sous_category/edit.html.twig', [
+            'configsites' => $configsiteRepository->findAll(),
             'page_head_title' => 'OBJET DEVIS [Sous Categorie]',
             'sous_category' => $sousCategory,
             'form' => $form->createView(),

@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Type;
 use App\Form\TypeType;
+
 use App\Repository\TypeRepository;
+use App\Repository\ConfigsiteRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +21,10 @@ class TypeController extends AbstractController
     /**
      * @Route("/", name="type_index", methods={"GET"})
      */
-    public function index(TypeRepository $typeRepository): Response
+    public function index(TypeRepository $typeRepository, ConfigsiteRepository $configsiteRepository ): Response
     {
         return $this->render('type/index.html.twig', [
+            'configsites' => $configsiteRepository->findAll(),
             'types' => $typeRepository->findAll(),
             'page_head_title' => 'OBJET DEVIS [Type]'
         ]);
@@ -29,7 +33,7 @@ class TypeController extends AbstractController
     /**
      * @Route("/new", name="type_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ConfigsiteRepository $configsiteRepository  ): Response
     {
         $type = new Type();
         $form = $this->createForm(TypeType::class, $type);
@@ -49,7 +53,7 @@ class TypeController extends AbstractController
         }
 
         return $this->render('type/new.html.twig', [
-            
+            'configsites' => $configsiteRepository->findAll(),            
             'page_head_title' => 'OBJET DEVIS [Type]',
             'type' => $type,
             'form' => $form->createView(),
@@ -59,9 +63,10 @@ class TypeController extends AbstractController
     /**
      * @Route("/{id}", name="type_show", methods={"GET"})
      */
-    public function show(Type $type): Response
+    public function show(Type $type, ConfigsiteRepository $configsiteRepository ): Response
     {
         return $this->render('type/show.html.twig', [
+            'configsites' => $configsiteRepository->findAll(),
             'type' => $type,
         ]);
     }
@@ -69,7 +74,7 @@ class TypeController extends AbstractController
     /**
      * @Route("/{id}/edit", name="type_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Type $type): Response
+    public function edit(Request $request, Type $type, ConfigsiteRepository $configsiteRepository ): Response
     {
         $form = $this->createForm(TypeType::class, $type);
         $form->handleRequest($request);
@@ -78,6 +83,7 @@ class TypeController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('type_index', [
+                'configsites' => $configsiteRepository->findAll(),
                 'page_head_title' => 'OBJET DEVIS [Type]',
                 'id' => $type->getId(),
             ]);
@@ -85,6 +91,7 @@ class TypeController extends AbstractController
 
         return $this->render('type/edit.html.twig', [
             'page_head_title' => 'OBJET DEVIS [Type]',
+            'configsites' => $configsiteRepository->findAll(),
             'type' => $type,
             'form' => $form->createView(),
         ]);

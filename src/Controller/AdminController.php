@@ -129,7 +129,7 @@ class AdminController extends AbstractController
     /**
     * @Route("/", name="admin_home")
     */
-    public function index(Security $security, DevisRepository $devisRep, ServicesRepository $serviceRep, UserRepository $pro_user_rep, TypeRepository $type_rep, ArticleRepository $art_rep, CategoryRepository $cat_rep,  PostRepository $post_rep)
+    public function index(Security $security, DevisRepository $devisRep, ServicesRepository $serviceRep, UserRepository $pro_user_rep, TypeRepository $type_rep, ArticleRepository $art_rep, CategoryRepository $cat_rep,  PostRepository $post_rep, ConfigsiteRepository $configsiteRepository)
     {
         //$this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -143,7 +143,8 @@ class AdminController extends AbstractController
 		$count_category = $cat_rep->findAll();
 		$count_post =  $post_rep->findAll();
 		
-        return $this->render('admin/index.html.twig', [
+        return $this->render('admin/index.html.twig', [    
+            'configsites' => $configsiteRepository->findAll(),
 			'page_head_title' => 'DASHBOARD',
 			'devis' => $count_devis,
 			'numberDevis' => count($count_devis),
@@ -244,7 +245,7 @@ class AdminController extends AbstractController
     * @Route("/dem_devis", name="dem_devis")
     */
 		
-    public function dem_devis(Security $security, DevisRepository $devisRep, ServicesRepository $serviceRep, CustomerRepository $customRep)
+    public function dem_devis(Security $security, DevisRepository $devisRep, ServicesRepository $serviceRep, CustomerRepository $customRep, ConfigsiteRepository $configsiteRepository)
     {
         
         
@@ -255,7 +256,8 @@ class AdminController extends AbstractController
         $devis = $devisRep->findAllArray();
 
         return $this->render('admin/dem_devis.html.twig', [
-            'devis' => $devis, 'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
+            'devis' => $devis, 'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),            
+            'configsites' => $configsiteRepository->findAll(),
 			'page_head_title' => 'DEMANDE DE DEVIS',
             'isAbonned'=> false
         ]);
@@ -351,7 +353,7 @@ class AdminController extends AbstractController
     /**
     * @Route("/lst_in_pro", name="lst_in_pro")
     */
-    public function lst_in_pro(UserRepository $pro_user_rep)
+    public function lst_in_pro(UserRepository $pro_user_rep, ConfigsiteRepository $configsiteRepository )
     {
 		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 		
@@ -362,7 +364,8 @@ class AdminController extends AbstractController
 		
 		return $this->render('admin/lst_in_pro.html.twig', [
 			'page_head_title' => 'PROFESSIONNELS',
-			 'numberUserPro' => count($count_pro),
+            'configsites' => $configsiteRepository->findAll(),
+            'numberUserPro' => count($count_pro),
 			 'list_pros' => $count_pro
         ]);
 		
@@ -422,7 +425,7 @@ class AdminController extends AbstractController
     /**
     * @Route("/m_e_email", name="m_e_email")
     */
-    public function m_e_email(UserRepository $pro_user_rep, OptionEmailRepository $option_email_rep)
+    public function m_e_email(UserRepository $pro_user_rep, OptionEmailRepository $option_email_rep, ConfigsiteRepository $configsiteRepository )
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');        
         		
@@ -430,6 +433,7 @@ class AdminController extends AbstractController
         $count_option_email = $option_email_rep->findAll();
                   
 		return $this->render('admin/m_e_email.html.twig', [
+            'configsites' => $configsiteRepository->findAll(),
 			'page_head_title' => 'MODES D’ENVOI D’EMAIL',
              'list_pros' => $count_pro,
              'option_email' => $count_option_email
@@ -440,7 +444,7 @@ class AdminController extends AbstractController
     /**
     * @Route("/trans", name="trans")
     */
-    public function trans(TransactionRepository $transRep)
+    public function trans(TransactionRepository $transRep, ConfigsiteRepository $configsiteRepository )
     { 
 		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 		
@@ -448,6 +452,7 @@ class AdminController extends AbstractController
 		
 		//
         return $this->render('admin/trans.html.twig', [	
+            'configsites' => $configsiteRepository->findAll(),
 			'page_head_title' => 'TRANSACTION',
 			'res_trans' => $res_req
         ]);
@@ -572,7 +577,7 @@ class AdminController extends AbstractController
     /**
     * @Route("/client", name="client")
     */
-    public function client(UserRepository $part_user_rep)
+    public function client(UserRepository $part_user_rep , ConfigsiteRepository $configsiteRepository)
     {
 		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 		
@@ -582,6 +587,7 @@ class AdminController extends AbstractController
 		
 		return $this->render('admin/client.html.twig', [
 			'page_head_title' => 'CLIENT',
+            'configsites' => $configsiteRepository->findAll(),
 			 'numberUserPart' => count($count_part),
 			 'list_part' => $count_part
         ]);
@@ -592,7 +598,7 @@ class AdminController extends AbstractController
     /**
     * @Route("/abonnement", name="abonnement")
     */
-    public function abonnement(AbonnementRepository $abon_rep)
+    public function abonnement(AbonnementRepository $abon_rep ,ConfigsiteRepository $configsiteRepository )
     {
 		/*
         return $this->render('admin/abonnement.html.twig', [	
@@ -606,6 +612,7 @@ class AdminController extends AbstractController
  		$count_abon = $abon_rep->findAll();		
 		
 		return $this->render('admin/abonnement.html.twig', [
+            'configsites' => $configsiteRepository->findAll(),
 			'page_head_title' => 'ABONNEMENT',
 			 'numberAbon' => count($count_abon),
 			 'abonnements' => $count_abon
@@ -648,7 +655,7 @@ class AdminController extends AbstractController
     /**
     * @Route("/service", name="service")
     */
-    public function service(ServicesRepository $service_rep)
+    public function service(ServicesRepository $service_rep ,ConfigsiteRepository $configsiteRepository ) 
     {
 		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 		
@@ -665,7 +672,8 @@ class AdminController extends AbstractController
 		
 		return $this->render('admin/service.html.twig', [
 			'page_head_title' => 'SERVICE',
-			 'numberService' => count($count_service),
+            'configsites' => $configsiteRepository->findAll(),
+            'numberService' => count($count_service),
 			 'list_services' => $count_service
         ]);
 		

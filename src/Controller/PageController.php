@@ -376,24 +376,32 @@ class PageController extends AbstractController
     /**
     * @Route("/space-find-chantier", name="find_chantier_page")
     */
-    public function findChantier(Request $request, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep)
+    public function findChantier(Request $request, CitiesRepository $cityRep, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep)
     {
         
        if($_POST) {
 
             //BEGIN REQUEST POST FORM SEARCH
-            if(!is_null($request->request->get('CategoryId')) || !is_null($request->request->get('CategoryId')) && !is_null($request->request->get('postCity'))) {
+            if(!is_null($request->request->get('CategoryId'))) {
 
                 // dump($request->request->get('CategoryId') . ' ' . $request->request->get('postCity'));die;
                 $arrayData = array(1=>  $request->request->get('CategoryId'), 
                                     2=> null, null,
-                                    4=>  $request->request->get('CategoryId'), 5=> $request->request->get('postCity')
-                                    );          
-                $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData, 100, 0);
-                $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
+                                    4=> null , 5=> null
+                                    );   
+                  //When using search city                  
+                // if (!is_null($request->request->get('postCity'))) {
+                //     $arrayData = array(1=>  $request->request->get('CategoryId'), 
+                //                         2=> $request->request->get('CategoryId'), $request->request->get('postCity'),
+                //                         4=> null , 5=> null
+                //                         );   
+                // }
+
+                $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData, 0);
+                $postsAds = count( $postsAdsArray ) > 0 ? $postsAdsArray : null;
                 //dump($postsAds);die;
 
-                $categories = $categoryRep->findAllArray();
+                $categories = $categRep->findAllArray();
                 $categories = count( $categories) > 0 ? $categories : null;
                 //Get top devis more asked
                         $devisPopulars = $devisRep->findTopPopularDevis();
@@ -406,82 +414,71 @@ class PageController extends AbstractController
                             }
     
                         }
-
+                //get all city
+                // $cities =  $cityRep->findAllArray();
+                // $cities = count($cities) > 0 ? $cities : null;
+                //dump($categories);die;
                 return $this->render('page/chantier_find_space.html.twig',[
                     'postsAds' => $postsAds,
                     'popularDevis'=> $popularDevis,
                     'categories'=> $categories,
+                    // 'cities'=> $cities,
+                    'categLabel'=> $request->request->get('categLabel'),
+                    'CategoryId'=> $request->request->get('CategoryId'),
+
                 ]);
 
 
             } //END REQUEST POST FORM SEARCH
 
        } //END POST VIA FORM
-        
-        
-        //HERE GET PROJECT ADS DISPO BY Filter or all or periodity
-        if(!is_null($request->query->get('filter_CategoryId')) || !is_null($request->query->get('filter_CategoryId')) && !is_null($request->query->get('filter_postCity'))) {
-            // dump($request->query->get('offset') . ' ' . $request->query->get('limit') . ' ' . $request->query->get('filter_CategoryId') . ' ' . $request->query->get('filter_postCity') . ' ' . $request->query->get('switch_periodity'));die;
-                $arrayData = array(1=>  $request->query->get('filter_CategoryId'), 
-                                    2=> null, null,
-                                    4=>  $request->query->get('filter_CategoryId'), 5=> $request->query->get('filter_postCity')
-                                    );          
-                $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData, 100, 0);
-                $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
-                //dump($postsAds);die;
-    
-                if($postsAds !== null && !is_null($request->query->get('switch_periodity'))) {
-                $arrayPostAds = Array();
-                    foreach($postsAds as $key => $value) {
-    
-                        $datetime1 = $value->getPostAdsDateCrea();
-                        $datetime2 = new \DateTime('now');
-                        $interval = $datetime1->diff($datetime2);
-    
-                            if((int) $interval->format('%R%a') < (int) $request->query->get('switch_periodity')) {
-                                $arrayPostAds[$key] = ['id'=> $value->getId(), 
-                                                        'title'=> $value->getCategoryId()->getCategTitle(),
-                                                        'firstname'=> $value->getPostUserId()->getFirstname(),
-                                                        'city'=> $value->getCity()->getVilleNomReel(),
-                                                        'description'=> $value->getPostAdsTravauxDescription(),
-                                                        'date'=> $value->getPostAdsDateCrea()
-                                                        ];
-                            }
-                            else {
-                                $arrayPostAds[$key] = ['id'=> $value->getId(), 
-                                                        'title'=> $value->getCategoryId()->getCategTitle(),
-                                                        'firstname'=> $value->getPostUserId()->getFirstname(),
-                                                        'city'=> $value->getCity()->getVilleNomReel(),
-                                                        'description'=> $value->getPostAdsTravauxDescription(),
-                                                        'date'=> $value->getPostAdsDateCrea()->format('d/m/Y H:i:s')                           
-                                                        ];
-                            }
-                        
-                    }
-                    return new JsonResponse($arrayPostAds, 200);
-                }
-            
-            } //END REQUEST AJAX 
 
-            $categories = $categoryRep->findAllArray();
-            $categories = count( $categories) > 0 ? $categories : null;
-            //Get top devis more asked
-                    $devisPopulars = $devisRep->findTopPopularDevis();
-                    $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                    $popularDevis = array();
-                    if($devisPopulars !== null) {
+
+       //BEGIN GET LIST BY AJAX PAGINATION
+
+        if(!is_null($request->query->get('category_id')) && !is_null($request->query->get('offset'))) {
+
+            $offset = $request->query->get('offset');
+            $arrayData = array(1=>  $request->query->get('category_id'), 
+            2=> null, null,
+            4=> null , 5=> null
+            ); 
+            $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData, $offset);
+            $postsAds = count( $postsAdsArray ) > 0 ? $postsAdsArray : null;
+            if($postsAds !== null) {
+            
+                
+
+            }
+
+
+        }
+
+        //END GET LIST BY AJAX PAGINATION
         
-                        foreach ($devisPopulars as $key => $value) {
-                        $popularDevis[] =  $artRep->findById($value['article_id']);
-                        }
-        
+        $categories = $categRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
                     }
+    
+                }
+        //get all city
+        $cities =  $cityRep->findAllArray();
+        $cities = count($cities) > 0 ? $cities : null;
 
         $postsAds = $postRep->findAllPost(50, 0);
         return $this->render('page/chantier_find_space.html.twig',[
             'postsAds' => $postsAds,
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'cities'=> $cities,
         ]);
         
     }
@@ -489,7 +486,7 @@ class PageController extends AbstractController
     /**
     * @Route("/space-pro", name="space_pro_page")
     */
-    public function spacePro(Request $request, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function spacePro(Request $request, CitiesRepository $cityRep, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
               
         $arrayPostAds = Array();
@@ -520,11 +517,15 @@ class PageController extends AbstractController
                     }
     
                 }
+        //get all city
+        // $cities =  $cityRep->findAllArray();
+        // $cities = count($cities) > 0 ? $cities : null;
 
         return $this->render('page/pro_space.html.twig',[
             'postsAds' => $arrayPostAds,
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            // 'cities'=> $cities,
         ]);
             
     }
@@ -553,7 +554,7 @@ class PageController extends AbstractController
             $categoryId = $categRep->findById((int) $request->request->get('filter_CategoryId'));
             $arrayData = array(
                 1=> $categoryId, 
-                2=> $categoryId, 3=> 'city'
+                2=> $categoryId, 3=> $request->request->get('filter_postCity')
             );
             $pros = $user->findAllProfessionals($arrayData);
             return $this->render('page/pro_find_space.html.twig', [
@@ -597,9 +598,9 @@ class PageController extends AbstractController
     }
 
     /**
-    * @Route("/show-detail-ads", name="show_detail_ads_page")
+    * @Route("/show-detail-ads/{id}", name="show_detail_ads_page")
     */
-    public function detailAds(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function detailAds($id = null, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
         
         $categories = $categoryRep->findAllArray();
@@ -616,8 +617,13 @@ class PageController extends AbstractController
     
                 }
 
+        //get detail one devis
+        $devis = $devisRep->findById((int) $id);
+        $devis = !is_null($devis) ? $devis : null;
+
         
         return $this->render('premuim/show-one-detail-artisant-ads.html.twig', [
+            'devis'=>  $devis,
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
         ]);

@@ -90,24 +90,28 @@ class UserRepository extends ServiceEntityRepository
     }
 	
 	
-    public function findAllProfessionals($data = null, $limit = 10, $offset = 0)
+    public function findAllProfessionals($data = null, $offset = 0, $limit = 15)
     {
 
         if ($data == null) {
             return $this->createQueryBuilder('u')
             ->where('u.isProfessional = ?1')
             ->setParameters(array(1=> true))
-            ->orderBy('u.id', 'ASC')
+            ->orderBy('u.id', 'DESC')
             ->setFirstResult( $offset )
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
         }
 
+        if($offset > 0) {
+            $limit = $offset * $limit;
+        }
+
         return $this->createQueryBuilder('u')
-            ->where('u.isProfessional = 1? AND u.userCategoryActivity = ?2 AND u.userCity = ?3 OR u.userCategoryActivity = ?4 AND u.isProfessional = 5?')
+            ->where('u.isProfessional = ?1 AND u.userCategoryActivity = ?2 OR u.userCategoryActivity = ?3 AND u.isProfessional = ?4 AND  u.userCity = ?5')
             ->setParameters($data)
-            ->orderBy('u.id', 'ASC')
+            ->orderBy('u.id', 'DESC')
             ->setFirstResult( $offset )
             ->setMaxResults($limit)
             ->getQuery()

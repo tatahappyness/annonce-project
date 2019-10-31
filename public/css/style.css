@@ -8,6 +8,11 @@ body {
     /* background: whitesmoke; */
 }
 
+.autocomplete {
+	background-color: #ffffff !important;
+	z-index: 25;
+}
+
 .icon-tarif {
 	width: 128px;
 	height: 128px;

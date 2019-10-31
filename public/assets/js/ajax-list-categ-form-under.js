@@ -1,3 +1,4 @@
+//AJAX FOR FORM UNDER IN SPACE FIND PROS
 jQuery.ajax({
     type : 'GET',
     url : '/list-cagory-ajax',
@@ -7,7 +8,7 @@ jQuery.ajax({
     }).done(function(response){
 			
         //console.log(response);return false;
-        var input = document.getElementById("show-input-list-search");
+        var input = document.getElementById("show-input-list-search-under-find");
         autocomplete({
             input: input,
             minLength: 2,
@@ -34,7 +35,8 @@ jQuery.ajax({
 
 //Function to create element input
 function inputCreate(id) {
-    var parentDiv = document.getElementById('group-form-spcial-input-hidden');
+    var parentDiv = document.getElementById('form-hidden-under-find');
+    //console.log(parentDiv);
     parentDiv.innerHTML = '<input type="hidden" name="metier_ask_devis" value="' + id +'">';
 }
-//END FORM FRONT SEARCH Category
+//END AJAX FOR FORM UNDER IN SPACE FIND PROS

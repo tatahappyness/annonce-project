@@ -1,6 +1,6 @@
 
 jQuery('.zipcode').focusout( function() {
-    alert(jQuery(this).val());
+    //alert(jQuery(this).val());
     //FORM  SEARCH CITY
     jQuery.ajax({
         type : 'GET',
@@ -55,8 +55,8 @@ jQuery('.zipcode').focusout( function() {
         input.type = 'hidden';
         input.value = id	
         input.name = 'city';
-        //parentDiv.append(input);
-        parentDiv.innerHTML = input;
+        parentDiv.append(input);
+        //parentDiv.innerHTML = input;
     }
     //END FORM FRONT SEARCH CITY
 

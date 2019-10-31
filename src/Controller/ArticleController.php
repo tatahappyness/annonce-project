@@ -105,14 +105,46 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('article_index', [
-                'configsites' => $configsiteRepository->findAll(),
-                'id' => $article->getId(),
-                'page_head_title' => 'OBJET DEVIS [Article]'
-            ]);
+
             
+            /** @var File $file */
+            $file = $form['img']->getData();
+            
+            
+            /** @var FileIcon $fileIcon */
+            $fileIcon = $form['icon']->getData();
+
+            if ( $file &&  $fileIcon ) {
+                
+                $output_dir = $this->getParameter('images_directory');      
+                $output_dir_icon = $this->getParameter('logo_directory');      
+        
+
+
+                $newFilename = uniqid().".".$file->getClientOriginalExtension();
+                $newFilename_icon = uniqid().".".$fileIcon->getClientOriginalExtension();
+
+                $file->move($output_dir, $newFilename);
+                $fileIcon->move($output_dir_icon, $newFilename_icon);
+
+                $article->setArticleDateCrea(new \DateTime());
+
+                $article->setImg($newFilename);
+                $article->setIcon($newFilename_icon);
+
+                
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($article);
+                $entityManager->flush();                                                            
+
+                return $this->redirectToRoute('article_index', [
+                    'configsites' => $configsiteRepository->findAll(),
+                    'id' => $article->getId(),
+                    'page_head_title' => 'OBJET DEVIS [Article]'
+                ]);
+
+            }           
         }
 
         return $this->render('article/edit.html.twig', [

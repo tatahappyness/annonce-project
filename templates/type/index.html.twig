@@ -109,7 +109,7 @@
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Listes des Client: 
                             <a href="{{ path('type_new') }}">
-                                <button data-toggle="modal" data-target="#myModal_add_type" class=" btn btn-primary" type="button" title="Ajouter nouveaux Type de Préstation"><i class="fa fa-plus"></i>
+                                <button data-toggle="modal" data-target="#myModal_add_type" class=" btn btn-primary" type="button" title="Ajouter nouveaux Type de Préstation"><i class="fa fa-plus"></i> Ajouter Type
                                 </button>
                             </a>
                         </h6> 
@@ -141,12 +141,39 @@
                                         <td>{{ type.dateCrea ? type.dateCrea|date('Y-m-d H:i:s') : '' }}</td>
                                         <td>
                                             <a href="{{ path('type_edit', {'id': type.id}) }}">
-                                                <button class="btn btn-info" data-toggle="modal" onclick="show_modal_edit_type(7)" data-target="#myModal_edit_type" type="button" title="Modifier"><i class="fa fa-edit"></i> Modifier
+                                                <button class="col-lg-12 btn btn-info" data-toggle="modal" onclick="show_modal_edit_type(7)" data-target="#myModal_edit_type" type="button" title="Modifier"><i class="fa fa-edit"></i> Modifier
                                                 </button>
                                             </a>
 
-                                            {{ include('type/_delete_form.html.twig') }}
+                                            
+                                            <button type="button" class="col-lg-12 btn btn-danger" data-toggle="modal" data-target="#myModal_sup_type"  data-dismiss="modal">
+                                                <i class="fa fa-times"></i> Supprimer
+                                            </button>
+                                                                            
                                         </td>
+
+                                        <div class="modal fade" id="myModal_sup_type" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content" style="width: 50rem;">
+                                                    <div class="modal-header">									
+                                                        <h4 class="modal-title" id="myModalLabel">
+                                                            Confirmer la suppression:
+                                                        </h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ID: {{ type.id }}
+                                                        Nom du type: {{ type.title }}
+                                                        Date de creation: {{ type.dateCrea ? type.dateCrea|date('Y-m-d H:i:s') : '' }}                                                      
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        {{ include('type/_delete_form.html.twig') }}
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div><!-- End /.modal afficher type -->
+
                                     </tr>
                                 {% else %}
                                     <tr>

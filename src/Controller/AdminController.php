@@ -120,41 +120,60 @@ class AdminController extends AbstractController
 			UNION
 			SELECT COUNT(MONTH(`article`.`article_date_crea`)) as total, MONTHNAME (`article`.`article_date_crea`) as mois, `article`.`article_title`, `article`.`article_date_crea`  FROM `article` WHERE MONTH(`article`.`article_date_crea`) = 11
 			UNION
-			SELECT COUNT(MONTH(`article`.`article_date_crea`)) as total, MONTHNAME (`article`.`article_date_crea`) as mois, `article`.`article_title`, `article`.`article_date_crea`  FROM `article` WHERE MONTH(`article`.`article_date_crea`) = 12
-			
-		
+            SELECT COUNT(MONTH(`article`.`article_date_crea`)) as total, MONTHNAME (`article`.`article_date_crea`) as mois, `article`.`article_title`, `article`.`article_date_crea`  FROM `article` WHERE MONTH(`article`.`article_date_crea`) = 12
+            			
 		**/
     }
 	
     /**
     * @Route("/", name="admin_home")
     */
-    public function index(Security $security, DevisRepository $devisRep, ServicesRepository $serviceRep, UserRepository $pro_user_rep, TypeRepository $type_rep, ArticleRepository $art_rep, CategoryRepository $cat_rep,  PostRepository $post_rep, ConfigsiteRepository $configsiteRepository)
+    public function index(Security $security, SousCategoryRepository $sousCatRep, DevisRepository $devisRep, ServicesRepository $serviceRep, UserRepository $pro_user_rep, TypeRepository $type_rep, ArticleRepository $art_rep, CategoryRepository $cat_rep,  PostRepository $post_rep, ConfigsiteRepository $configsiteRepository)
     {
         //$this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
+        $count_sousCat = $sousCatRep->findAll(); 
  		$count_pro = $pro_user_rep->findAll();
  		$count_part = $pro_user_rep->findAll();
 		
+        $devisPopulars = $devisRep->findTopPopularDevis();
+        $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+        
+        $popularDevis = array();
+        if($devisPopulars !== null) {
+            foreach ($devisPopulars as $key => $value) {
+               $popularDevis[] =  $art_rep->findById($value['article_id']);
+            }
+        }
+        
+
         $count_devis = $devisRep->findAll();
+
 		$count_type = $type_rep->findAll();
  		$count_article = $art_rep->findAllArray();
 		$count_category = $cat_rep->findAll();
 		$count_post =  $post_rep->findAll();
 		
-        return $this->render('admin/index.html.twig', [    
+        return $this->render('admin/index.html.twig', [
+
             'configsites' => $configsiteRepository->findAll(),
 			'page_head_title' => 'DASHBOARD',
-			'devis' => $count_devis,
-			'numberDevis' => count($count_devis),
+            
+            'devis' => $count_devis,            
+            'numberDevis' => count($count_devis),
+            'popularDevis' => $popularDevis,
+            'devisPopulars' => $devisPopulars[0],
+            
 			'numberPro' =>  count($count_pro),
 			'numberPart' =>  count($count_part),
-			
-			 'numberType' => count($count_type),
-			 'numberArt' => count($count_article),
-			 'numberCat' => count($count_category),
-             'numberPost' => count($count_post)
+        
+            'numberType' => count($count_type),
+            'numberArt' => count($count_article),
+            'numberCat' => count($count_category),
+            'numberSousCat' => count($count_sousCat),
+            
+            'numberPost' => count($count_post)
              
         ]);
     }

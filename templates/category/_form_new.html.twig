@@ -1,10 +1,9 @@
-<div class="col-lg-4 mb-4 card shadow" style="height: 400px;">
+<div class="col-lg-12 mb-4 ">
     {{ form_start(form) }}
+    </br>
     
     <div class="form-group">
-        <label class="col-lg-2 control-label" for="focusedInput">
-            {{ form_row(form.categTitle, { label: 'Categorie:' } ) }}
-        </label>
+        {{ form_row(form.categTitle, { label: 'Categorie:' } ) }}        
     </div>
     
 
@@ -20,21 +19,36 @@
     </div>
     
 
-        {{ form_row(form.img, {
-            label: 'Image '
-        }) }}
-        {{ form_row(form.img, {'attr': {'novalidate': 'novalidate'}}  ) }}
+        
+    <div class="form-group">
+        <label class="control-label">
+            {{ form_label(form.img) }}
+        </label>
+        {{ form_errors(form.img) }}
+        <div class="">
+            {{ form_widget(form.img ) }}
+        </div>
+    </div>
 
         
-
-        {{ form_row(form.icon, {
-            label: 'Icon '
-        }) }}
-        {{ form_row(form.icon) }}
-        <hr>
-                
-        <button class="btn btn-success">{{ button_label|default('Save') }}</button>
-    {{ form_end(form) }}
-        <hr>
-
+    <div class="form-group">
+        <label class="control-label">
+            {{ form_label(form.icon) }}
+        </label>
+        {{ form_errors(form.icon) }}
+        <div class="">
+            {{ form_widget(form.icon ) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">    
+            <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+        </div>
+        <div class="col-lg-6">
+            <a class="btn btn-secondary"   href="{{ path('category_index') }}">Retourner list</a>        
+        </div>
+    </div>
+    <hr>
+{{ form_end(form) }}
+    
 </div>

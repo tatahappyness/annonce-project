@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/article")
+ * @Route("/admin/article")
  */
 class ArticleController extends AbstractController
 {
@@ -40,11 +40,40 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($article);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('article_index');
+            
+            /** @var File $file */
+            $file = $form['img']->getData();
+            
+            
+            /** @var FileIcon $fileIcon */
+            $fileIcon = $form['icon']->getData();
+
+            if ( $file &&  $fileIcon ) {
+                
+                $output_dir = $this->getParameter('images_directory');      
+                $output_dir_icon = $this->getParameter('logo_directory');      
+        
+
+
+                $newFilename = uniqid().".".$file->getClientOriginalExtension();
+                $newFilename_icon = uniqid().".".$fileIcon->getClientOriginalExtension();
+
+                $file->move($output_dir, $newFilename);
+                $fileIcon->move($output_dir_icon, $newFilename_icon);
+
+                $article->setArticleDateCrea(new \DateTime());
+
+                $article->setImg($newFilename);
+                $article->setIcon($newFilename_icon);
+
+                
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($article);
+                $entityManager->flush();
+                                            
+                return $this->redirectToRoute('article_index');
+            }
         }
 
         return $this->render('article/new.html.twig', [

@@ -15,28 +15,29 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('categTitle', TextType::class, array(
-                  
+                'attr' => ['class' => 'form-control col-lg-12'],
                 'label' => 'Categorie',                              
                 'required'    => true
             ))  
             ->add('description', TextType::class, array(                
+                'attr' => ['class' => 'form-control col-lg-12'],
                 'label' => 'Description',                            
                 'required'    => false
                 
             ))               
             ->add('img', FileType::class, [
-                'label' => 'Image',                                  
+                'label' => 'Image',                
+                'attr' => ['class' => 'form-control btn-info col-lg-12'],                  
                 'mapped' => false,
                 'required'    => true
             ])     
             ->add('icon', FileType::class, [
                 'label' => 'Icon',    
                 'mapped' => false,
+                'attr' => ['class' => 'form-control btn-info col-lg-12'],
                 'required'    => true
             ])
-
             
-
         ;
     }
 

@@ -10,31 +10,38 @@
                 <td>{{ mode_prix.id }}</td>
             </tr>
             <tr>
-                <th>PrixTitle</th>
+                <th>Nom</th>
                 <td>{{ mode_prix.prixTitle }}</td>
             </tr>
             <tr>
-                <th>PrixDescription</th>
+                <th>Déscription</th>
                 <td>{{ mode_prix.prixDescription }}</td>
             </tr>
             <tr>
-                <th>PrixImage</th>
-                <td>{{ mode_prix.prixImage }}</td>
+                <th>Image</th>
+
+                <td>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 60rem;"  src="{{ absolute_url('/uploads/images/') }}{{ mode_prix.prixImage }}" alt="">
+                        </div>
+                    </div>
+                </td>
             </tr>
             <tr>
-                <th>PrixGlobale</th>
+                <th>Prix Globale</th>
                 <td>{{ mode_prix.prixGlobale }}</td>
             </tr>
             <tr>
-                <th>PrixMoyen</th>
+                <th>Prix Moyen</th>
                 <td>{{ mode_prix.prixMoyen }}</td>
             </tr>
             <tr>
-                <th>PrixHautGamme</th>
+                <th>Prix Haut Gamme</th>
                 <td>{{ mode_prix.prixHautGamme }}</td>
             </tr>
             <tr>
-                <th>PrixDateCrea</th>
+                <th>Date de creation</th>
                 <td>{{ mode_prix.prixDateCrea ? mode_prix.prixDateCrea|date('Y-m-d') : '' }}</td>
             </tr>
         </tbody>

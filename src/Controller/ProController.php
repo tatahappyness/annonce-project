@@ -104,7 +104,7 @@ class ProController extends AbstractController
                             4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
-        $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
+        $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : [null];
         return $this->render('pro/dashbord.html.twig', [
             'numberDevis' => $nbdevis,
             'postAds'=> $postsAds,

@@ -529,34 +529,6 @@
 					
 					<!-- Earnings (Monthly) Card Example -->
 					<div class="col-xl-3 col-md-6 mb-4">
-					  <div class="card border-left-primary shadow h-100 py-2">
-						<div class="card-body">
-						  <div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-							  <div class="h5 mb-0 font-weight-bold text-gray-800">Article</div>      
-							</div>
-							
-									  <a class="col nav-link btn" href="#"></a>
-							</br>
-
-							<div class="row no-gutters align-items-center">             
-							  <div class="col mr-2 text-xs text-primary text-uppercase mb-1"></div>           
-							  <div class="col mr-2 h1 font-weight-bold  text-primary text-uppercase mb-1"> </div>
-							</div>        
-							
-							<div class="row no-gutters align-items-center">                        
-							  <div class="col mr-2 text-xs  text-primary text-uppercase mb-1">TOTALE</div>
-							  <div class="col mr-2 h1 font-weight-bold  text-primary text-uppercase mb-1">{{numberArt}}</div>
-							</div>   
-							
-						  </div>
-						</div>
-					  </div>
-					</div>
-					
-					
-					<!-- Earnings (Monthly) Card Example -->
-					<div class="col-xl-3 col-md-6 mb-4">
 					  <div class="card border-left-success shadow h-100 py-2">
 						<div class="card-body">
 						  <div class="row no-gutters align-items-center">
@@ -584,6 +556,62 @@
 					</div>
 					
 					
+					<!-- Earnings (Monthly) Card Example -->
+					<div class="col-xl-3 col-md-6 mb-4">
+					  <div class="card border-left-warning shadow h-100 py-2">
+						<div class="card-body">
+						  <div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+							  <div class="h5 mb-0 font-weight-bold text-gray-800">Sous Catégorie</div>      
+							</div>
+							
+							<a class="col nav-link btn" href="#">
+							</a>
+							</br>
+
+							<div class="row no-gutters align-items-center">             
+							  <div class="col mr-2 text-xs text-warning text-uppercase mb-1"></div>           
+							  <div class="col mr-2 h1 font-weight-bold  text-warning text-uppercase mb-1"> </div>
+							</div>        
+							
+							<div class="row no-gutters align-items-center">                        
+							  <div class="col mr-2 text-xs  text-warning text-uppercase mb-1">TOTALE</div>
+							  <div class="col mr-2 h1 font-weight-bold  text-warning text-uppercase mb-1">{{numberSousCat}}</div>
+							</div>   
+							
+						  </div>
+						</div>
+					  </div>
+					</div>
+					
+					
+					
+					<!-- Earnings (Monthly) Card Example -->
+					<div class="col-xl-3 col-md-6 mb-4">
+					  <div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+						  <div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+							  <div class="h5 mb-0 font-weight-bold text-gray-800">Article</div>      
+							</div>							
+							<a class="col nav-link btn" href="#"></a>
+							</br>
+
+							<div class="row no-gutters align-items-center">             
+							  <div class="col mr-2 text-xs text-primary text-uppercase mb-1"></div>           
+							  <div class="col mr-2 h1 font-weight-bold  text-primary text-uppercase mb-1"> </div>
+							</div>        
+							
+							<div class="row no-gutters align-items-center">                        
+							  <div class="col mr-2 text-xs  text-primary text-uppercase mb-1">TOTALE</div>
+							  <div class="col mr-2 h1 font-weight-bold  text-primary text-uppercase mb-1">{{numberArt}}</div>
+							</div>   
+							
+						  </div>
+						</div>
+					  </div>
+					</div>
+					
 				</div>
 				
 			</div>
@@ -592,7 +620,30 @@
 			<div class="row_stat_show">
 				<!-- Divider -->
 				Statistique :
-				  
+
+
+
+
+				{% if popularDevis != null %}
+					{% for devPopular in popularDevis %}												
+							<div class="img-title popular-title-img-1 h4 h-100 text-center">{{ devPopular.getArticleTitle() }}</div>						
+					{% endfor %}
+				{% endif %}
+				
+							
+
+
+
+				{% if devisPopulars != null %}
+					{% for x in devisPopulars %}												
+							<div class="img-title popular-title-img-1 h4 h-100 text-center">{{ x }}</div>						
+					{% endfor %}
+				{% endif %}
+				
+							
+
+
+
 				<hr class="sidebar-divider">					
 				  <!-- Content Column -->
 				<div class="col-lg-6 mb-4">

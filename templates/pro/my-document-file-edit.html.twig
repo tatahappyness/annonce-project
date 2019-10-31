@@ -67,6 +67,40 @@
 
                         <div class="col-12 col-sm-8 pt-4">
                             <div class="container-content-pro-space-right">
+
+                                <!--BEGIN  MY COMPANY EDIT -->
+                                <div class="card text-center">
+                                    <div class="card-header p-2 font-weight-bold bg-darkgray">
+                                        <h5 class="text-uppercase">Ajoutez quelques infos de votre entreprise </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="pt-2">
+                                        <form id="form-company" enctype="multipart/form-data">
+
+                                                <div class="form-group mb-3">
+                                                    <label class="">Titre de votre document</label>
+                                                <input type="text" id="document_title" class="form-control document_title" name="document_title"  placeholder="Titre de votre document">
+                                                </div>
+                                                <div class="form-group mb-1 border borber-secondary" style="height: 50px;">
+                                                    <label class="text-warning">Cliquez ici ! ou Glissez vos documents ici !</label></label>
+                                                    <input id="fileDocumentCompany" class="fileDocumentCompany" type="file" name="fileDocumentCompany" multiple>
+                                                </div>
+                                                <div class="w-100 border borber-secondary">
+                                                    <div id="uploads" class="p-0"></div>
+                                                </div>
+												
+                                                <div class="form-group mb-3">
+                                                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                                                    <div class="g-recaptcha" data-sitekey="6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div> 
+                                    <div class="card-footer text-muted pb-4">
+                                        <a href="{{path('pro_show_profil')}}" class="btn btn-warning text-decoration-none btn-retour-profile text-uppercase w-50"><< Retour</a>
+                                    </div>
+                                </div>
+                                <!-- END MY COMPANY EDIT -->
 							
                                 <!--BEGIN MY DOCUMENT OFFICIAL-->
                                 <div class="card text-center">

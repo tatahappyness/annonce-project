@@ -22,12 +22,24 @@
                 <td>{{ sous_category.description }}</td>
             </tr>
             <tr>
-                <th>Img</th>
-                <td>{{ sous_category.img }}</td>
+                <th>Icon</th>
+                <td>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 7rem;" src="{{ absolute_url('/uploads/logo/') }}{{ sous_category.icon }}" alt="">
+                        </div>
+                    </div>
+                </td>
             </tr>
             <tr>
-                <th>Icon</th>
-                <td>{{ sous_category.icon }}</td>
+                <th>Img</th>
+                <td>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 60rem;" src="{{ absolute_url('/uploads/images/') }}{{ sous_category.img }}" alt="">
+                        </div>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>

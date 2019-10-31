@@ -38,6 +38,7 @@ class CategoryController extends AbstractController
     public function index(CategoryRepository $categoryRepository,  ConfigsiteRepository $configsiteRepository ): Response
     {
         
+        $cc = $categoryRepository->findAllGreaterThanPrice('zaza');
 
         $output_dir = $this->getParameter('images_directory');
         return $this->render('category/index.html.twig', [
@@ -45,6 +46,7 @@ class CategoryController extends AbstractController
             'page_head_title' => 'OBJET DEVIS [Categorie]',
             'outdir' => $output_dir,
             'categories' => $categoryRepository->findAll(),
+            'cc'=> $cc
         ]);
     }
 
@@ -175,10 +177,7 @@ class CategoryController extends AbstractController
 
                 $category->setImg($newFilename);
                 $category->setIcon($newFilename_icon);
-                
-                            
-
-
+                                            
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($category);
                 $entityManager->flush();

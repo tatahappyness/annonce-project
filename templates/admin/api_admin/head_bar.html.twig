@@ -6,7 +6,7 @@
       <!-- Sidebar - Brand -->
       <div class="sidebar-brand d-flex align-items-center justify-content-center" href="/">    
         {% for configsite in configsites %}          
-            <img style="height: 50px; " class="img_logo" src="{{ absolute_url('/uploads/logo/') }}{{ configsite.image }}"  />          
+            <img style="height: 50px; " class="img_logo" src="{{ absolute_url('/uploads/logo/') }}{{ configsite.image }}"  />
         {% endfor %}
       </div> _
 	  <div class="topbar-divider d-none d-sm-block"></div>
@@ -24,7 +24,18 @@
           <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>            
-		  
+		      <div class="navbar-nav">
+              <span class="nav-item active">
+                <a class="nav-link"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{% for configsite in configsites %} {{ configsite.numphone }} {% endfor %}</span></span></a>
+              </span>
+              <span class="nav-item">
+                <a class="nav-link"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">{% for configsite in configsites %} {{ configsite.email }} {% endfor %}</span></span></a>
+              </span>
+              <a class="nav-link " href="{{ path('configsite_index') }}">
+                <button class="btn-circle btn-warning" type="button" title="Modifier les Configuration du site"><i class="fa fa-edit"></i>
+                </button>
+						  </a>
+          </div>
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 

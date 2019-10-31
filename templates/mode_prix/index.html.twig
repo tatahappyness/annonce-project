@@ -107,7 +107,7 @@
 
       <div class="modal fade" id="myModal_aff_cat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
-					<div class="modal-content">
+					<div class="modal-content" style="width: 50rem;">
 						<div class="modal-header">									
 							<h4 class="modal-title" id="myModalLabel">
 								Détail du Mode Prix:
@@ -139,6 +139,7 @@
                         <h6 class="m-0 font-weight-bold text-primary">Listes des Mode Prix: 
                             <a href="{{ path('mode_prix_new') }}">
                                 <button data-toggle="modal" data-target="#myModal_add_type" class=" btn btn-primary" type="button" title="Ajouter nouveaux Type de Préstation"><i class="fa fa-plus"></i>
+                                    Ajouter Mode de Prix
                                 </button>
                             </a>
                         </h6> 
@@ -149,25 +150,26 @@
                             <thead class="bg-warning text-dark">
                             <tr>
                                 <th>#</th>
-                                <th>PrixTitle</th>
-                                <th>PrixDescription</th>
-                                <th>PrixImage</th>
-                                <th>PrixGlobale</th>
-                                <th>PrixMoyen</th>
-                                <th>PrixHautGamme</th>
-                                <th>PrixDateCrea</th>                                
+                                <th>Nom</th>
+                                <th>Déscription</th>
+                                <th>Image</th>
+                                <th>Prix Globale</th>
+                                <th>Prix Moyen</th>
+                                <th>Prix Haut Gamme</th>
+                                <th>Prix Date de Creation</th>                                
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tfoot>
-                            <tr>     <th>#</th>
-                                <th>PrixTitle</th>
-                                <th>PrixDescription</th>
-                                <th>PrixImage</th>
-                                <th>PrixGlobale</th>
-                                <th>PrixMoyen</th>
-                                <th>PrixHautGamme</th>
-                                <th>PrixDateCrea</th>                                
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Déscription</th>
+                                <th>Image</th>
+                                <th>Prix Globale</th>
+                                <th>Prix Moyen</th>
+                                <th>Prix Haut Gamme</th>
+                                <th>Prix Date de Creation</th>                                
                                 <th>Actions</th>
                             </tr>
                             </tfoot>
@@ -178,12 +180,18 @@
                 <td>{{ mode_prix.id }}</td>
                 <td>{{ mode_prix.prixTitle }}</td>
                 <td>{{ mode_prix.prixDescription }}</td>
-                <td>{{ mode_prix.prixImage }}</td>
+                <td>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/images/') }}{{ mode_prix.prixImage }}" alt="">
+                        </div>
+                    </div>
+                </td>
                 <td>{{ mode_prix.prixGlobale }}</td>
                 <td>{{ mode_prix.prixMoyen }}</td>
                 <td>{{ mode_prix.prixHautGamme }}</td>
                 <td>{{ mode_prix.prixDateCrea ? mode_prix.prixDateCrea|date('Y-m-d') : '' }}</td>
-                <td>                
+                <td class="row">                
                     <button class="btn btn-warning" onclick="show_modal_affiche_article({{ mode_prix.id }})" data-toggle="modal" data-target="#myModal_aff_cat"   type="button" title="Modifier"><i class="fa fa-eye"></i>
                     </button>
 
@@ -192,10 +200,42 @@
 						</button>						
 					</a>
 					
-                    {{ include('mode_prix/_delete_form.html.twig') }}
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_mode_prix"  data-dismiss="modal">
+                        <i class="fa fa-times"></i> supprimer
+                    </button>
                                                                             
 
                 </td>
+                
+                
+
+                <div class="modal fade" id="myModal_sup_mode_prix" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="width: 50rem;">
+                            <div class="modal-header">									
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Confirmer la suppression:
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ID:{{ mode_prix.id }}
+                                Nom: {{ mode_prix.prixTitle }}
+                                Déscription: {{ mode_prix.prixDescription }}
+                                Date de creation: {{ mode_prix.prixDateCrea ? mode_prix.prixDateCrea |date('Y-m-d') : '' }}                           
+                                Prix Globale: {{ mode_prix.prixGlobale }}
+                                Prix Moyen: {{ mode_prix.prixMoyen }}
+                                Prix Haute Gamme: {{ mode_prix.prixHautGamme }}
+                                 
+                            </div>
+                            <div class="modal-footer">                                
+                                {{ include('mode_prix/_delete_form.html.twig') }}
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- End /.modal afficher type -->
+
             </tr>
         {% else %}
             <tr>
@@ -268,7 +308,7 @@
                     }
                  };
 
-                 xhttp.open("GET", "/mode/prix/"+$id , true);
+                 xhttp.open("GET", "/admin/mode/prix/"+$id , true);
                  xhttp.send();
                  				 
 		}

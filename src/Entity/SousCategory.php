@@ -24,7 +24,7 @@ class SousCategory
     private $sousCategTitle;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $sousCategDateCrea;
 

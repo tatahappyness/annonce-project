@@ -23,6 +23,7 @@ class ArticleControllerType extends AbstractType
             ->add('description')
             ->add('img')
             ->add('icon')
+            
         ;
     }
 

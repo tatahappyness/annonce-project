@@ -104,7 +104,7 @@
 
       <div class="modal fade" id="myModal_aff_cat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
-					<div class="modal-content">
+					<div class="modal-content" style="width: 50rem;">
 						<div class="modal-header">									
 							<h4 class="modal-title" id="myModalLabel">
 								Détail du Article:
@@ -148,6 +148,8 @@
                                 <th>#</th>
                                 <th>ArticleTitle</th>
                                 <th>ArticleDateCrea</th>
+                                <th>Image</th>
+                                <th>Icon</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -156,6 +158,8 @@
                                 <th>#</th>
                                 <th>ArticleTitle</th>
                                 <th>ArticleDateCrea</th>
+                                <th>Image</th>
+                                <th>Icon</th>
                                 <th>Actions</th>
                             </tr>
                             </tfoot>
@@ -165,21 +169,28 @@
                 <td>{{ article.id }}</td>
                 <td>{{ article.articleTitle }}</td>
                 <td>{{ article.articleDateCrea ? article.articleDateCrea| date('d/m/y H:m:s') }}</td>
-        
                 <td>
-                    <button class="btn btn-warning" onclick="show_modal_affiche_article({{ article.id }})" data-toggle="modal" data-target="#myModal_aff_cat"   type="button" title="Modifier"><i class="fa fa-eye"></i>
-                    </button>
-                    
-                    <a  href="{{ path('article_edit', {'id': article.id}) }}">
-						<button class="btn btn-info"  type="button" title="Modifier"><i class="fa fa-edit"></i>
-						</button>						
-					</a>
-					
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/images/') }}{{ article.img }}" alt="">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/logo/') }}{{ article.icon }}" alt="">
+                        </div>
+                    </div>
+                </td>
+                <td class="row">
+                    <button class="col-lg-4  btn btn-warning" onclick="show_modal_affiche_article({{ article.id }})" data-toggle="modal" data-target="#myModal_aff_cat"   type="button" title="Modifier"><i class="fa fa-eye"></i>                      
+                    </button>                    
+                    <a  class="col-lg-4" href="{{ path('article_edit', {'id': article.id}) }}">
+                      <button class=" btn btn-info"  type="button" title="Modifier"><i class="fa fa-edit"></i>
+                      </button>						
+                    </a>                    
 					{{ include('article/_delete_form.html.twig') }}
-						
-						
-                    <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -251,7 +262,7 @@
                     }
                  };
 
-                 xhttp.open("GET", "/article/"+$id , true);
+                 xhttp.open("GET", "/admin/article/"+$id , true);
                  xhttp.send();
 				 
 		}

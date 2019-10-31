@@ -36,6 +36,23 @@ class CategoryRepository extends ServiceEntityRepository
     }
     */
 
+    
+    public function findAllGreaterThanPrice($cat): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT c FROM App\Entity\Category c WHERE c.categTitle = :cat '
+        )->setParameter('cat', $cat);
+
+        //SELECT * FROM `devis` WHERE `devis`.`date_crea` <= '2019-12-31' AND `devis`.`date_crea` >= '2019-01-01'
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
+
+
     public function findOneById($value): ?Category
     {
         return $this->createQueryBuilder('c')

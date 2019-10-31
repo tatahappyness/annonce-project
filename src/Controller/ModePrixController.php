@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/mode/prix")
+ * @Route("/admin/mode/prix")
  */
 class ModePrixController extends AbstractController
 {
@@ -39,14 +39,35 @@ class ModePrixController extends AbstractController
         
         $form = $this->createForm(ModePrixType::class, $modePrix);
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
+                
+            /** @var File $file */
+            $file = $form['prixImage']->getData();
             
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($modePrix);
-            $entityManager->flush();
+            if ( $file ) {
+                
+                $output_dir = $this->getParameter('images_directory');      
+                       
+                $newFilename = uniqid().".".$file->getClientOriginalExtension();
+             
+                
+                $file->move($output_dir, $newFilename);
+                
+                $modePrix->SetPrixDateCrea(new \DateTime());
 
-            return $this->redirectToRoute('mode_prix_index');
+                $modePrix->SetPrixImage($newFilename);
+                
+                
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($modePrix);
+                $entityManager->flush();
+    
+                return $this->redirectToRoute('mode_prix_index');
+
+            }
+        
         }
 
         return $this->render('mode_prix/new.html.twig', [
@@ -77,13 +98,35 @@ class ModePrixController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            
+            /** @var File $file */
+            $file = $form['prixImage']->getData();
+            
+            if ( $file ) {
+                
+                $output_dir = $this->getParameter('images_directory');      
+                
+                $newFilename = uniqid().".".$file->getClientOriginalExtension();
+                
+                $file->move($output_dir, $newFilename);
+                
+                $modePrix->SetPrixDateCrea(new \DateTime());
 
-            return $this->redirectToRoute('mode_prix_index', [
-                'page_head_title' => 'OBJET DEVIS [Mode Prix]',
-                'configsites' => $configsiteRepository->findAll(),
-                'id' => $modePrix->getId()
-            ]);
+                $modePrix->SetPrixImage($newFilename);
+                
+                
+                            
+            
+                $this->getDoctrine()->getManager()->flush();
+
+                return $this->redirectToRoute('mode_prix_index', [
+                    'page_head_title' => 'OBJET DEVIS [Mode Prix]',
+                    'configsites' => $configsiteRepository->findAll(),
+                    'id' => $modePrix->getId()
+                ]);
+
+            }
+
         }
 
         return $this->render('mode_prix/edit.html.twig', [

@@ -15,29 +15,29 @@ class ConfigsiteType extends AbstractType
     {
         $builder
             ->add('nomsite', TextType::class, array(
-                'label' => 'Nom du site ',               
-                'required'    => false
+                'label' => 'Nom du site ',  
+                'attr' => ['class' => 'form-control col-lg-12'],           
+                'required'    => true
             ))         
             
             ->add('email', TextType::class, array(
-                'label' => 'Email ',               
-                'required'    => false
+                'label' => 'Email ',              
+                'attr' => ['class' => 'form-control col-lg-12'],        
+                'required'    => true
             ))         
             
             ->add('numphone', TextType::class, array(
                 'label' => 'Numero mobile ',               
-                'required'    => false
+                'attr' => ['class' => 'form-control col-lg-12'],
+                'required'    => true
             ))         
-            
-            ->add('numphone')
-            
-
-            
+                        
             //->add('categDateCrea')
             //->add('description')            
             ->add('image', FileType::class, [
                 'label' => 'Image ',    
                 'mapped' => false,
+                'attr' => ['class' => 'form-control btn-info col-lg-12'],  
                 'required'    => true
             ])     
 

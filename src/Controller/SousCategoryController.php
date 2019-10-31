@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/sous/category")
+ * @Route("/admin/sous/category")
  */
 class SousCategoryController extends AbstractController
 {
@@ -40,11 +40,35 @@ class SousCategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($sousCategory);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('sous_category_index');
+            /** @var File $file */
+            $file = $form['img']->getData();            
+            
+            /** @var FileIcon $fileIcon */
+            $fileIcon = $form['icon']->getData();
+
+            if ( $file &&  $fileIcon ) {
+                
+                $output_dir = $this->getParameter('images_directory');      
+                $output_dir_icon = $this->getParameter('logo_directory');      
+            
+                $newFilename = uniqid().".".$file->getClientOriginalExtension();
+                $newFilename_icon = uniqid().".".$fileIcon->getClientOriginalExtension();
+
+                $file->move($output_dir, $newFilename);
+                $fileIcon->move($output_dir_icon, $newFilename_icon);
+
+            
+                $sousCategory->setSousCategDateCrea(new \DateTime());
+                $sousCategory->setImg($newFilename);
+                $sousCategory->setIcon($newFilename_icon);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($sousCategory);
+                $entityManager->flush();
+                
+                return $this->redirectToRoute('sous_category_index');
+            }
+
         }
 
         return $this->render('sous_category/new.html.twig', [
@@ -75,13 +99,48 @@ class SousCategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+                        
+            /** @var File $file */
+            $file = $form['img']->getData();            
+            
+            /** @var FileIcon $fileIcon */
+            $fileIcon = $form['icon']->getData();
 
-            return $this->redirectToRoute('sous_category_index', [
-                'configsites' => $configsiteRepository->findAll(),
-                'page_head_title' => 'OBJET DEVIS [Sous Categorie]',
-                'id' => $sousCategory->getId(),
-            ]);
+            if ( $file &&  $fileIcon ) {
+                
+                $output_dir = $this->getParameter('images_directory');      
+                $output_dir_icon = $this->getParameter('logo_directory');      
+        
+                $newFilename = uniqid().".".$file->getClientOriginalExtension();
+                $newFilename_icon = uniqid().".".$fileIcon->getClientOriginalExtension();
+
+                $file->move($output_dir, $newFilename);
+                $fileIcon->move($output_dir_icon, $newFilename_icon);
+
+                $sousCategory->setSousCategDateCrea(new \DateTime());
+
+                $sousCategory->setImg($newFilename);
+                $sousCategory->setIcon($newFilename_icon);
+                            
+                /*
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($category);
+                $entityManager->flush();*/
+
+                $this->getDoctrine()->getManager()->flush();
+
+                return $this->redirectToRoute('sous_category_index', [
+                    'configsites' => $configsiteRepository->findAll(),
+                    'page_head_title' => 'OBJET DEVIS [Sous Categorie]',
+                    'id' => $sousCategory->getId(),
+                ]);
+
+            }
+
+
+
+
+
         }
 
         return $this->render('sous_category/edit.html.twig', [

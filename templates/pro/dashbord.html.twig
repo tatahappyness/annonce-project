@@ -73,7 +73,7 @@
 									<div class="card-body">
 										
 										<ul class="list-group list-group-flush text-secondary">
-										{% if postAds != null %}
+										{% if postAds|length > 0 %}
 										    {% for post in postAds %}
 												<li class="list-group-item">
 													<div class="d-block">

@@ -5,22 +5,28 @@ jQuery(document).ready(function() {
 
 })
 
-//AJAX PAGINATION once more
+//AJAX PAGINATION FIND CHANTIER
 jQuery('.btn-more-all-ajax').click(function() {
     jQuery(this).addClass('running');
+    var that = this;
     var category_id = jQuery(this).data('categoryid');
     var offset = 0;
     offset += 1;
     jQuery.ajax({
         type : 'GET',
-        url : '/space-find-chantier?category_id=' + category_id + '&&offset=' + offset,
+        url : '/space-find-chantier/?category_id=' + category_id + '&&offset=' + offset,
         contentType : false,
         processData : false
                     
-        }).done(function(response){
+        }).done(function(response) {
                 
+           if (response == 0) {
+            that.style.display = 'none';
+           }
+           else{
+            jQuery('.container-show-more-ajax').append(response);
+           }
            
-                    
         }).fail(function(){
             // Here you should treat the http errors (e.g., 403, 40
             alert('serveur internal error!!')					
@@ -31,8 +37,42 @@ jQuery('.btn-more-all-ajax').click(function() {
 
 
 })
-//END PAGINATION AJAX
+//END PAGINATION AJAX  FIND CHANTIER
 
+
+//AJAX PAGINATION FIND PROS
+jQuery('.btn-more-all-pros').click(function() {
+    jQuery(this).addClass('running');
+    var that = this;
+    var category_id = jQuery(this).data('categoryid');
+    var offset = 0;
+    offset += 1;
+    jQuery.ajax({
+        type : 'GET',
+        url : '/space-find-pro/?category_id=' + category_id + '&&offset=' + offset,
+        contentType : false,
+        processData : false
+                    
+        }).done(function(response) {
+                
+        if (response == 0) {
+            that.style.display = 'none';
+        }
+        else{
+            jQuery('.container-show-more-ajax').append(response);
+        }
+           
+        }).fail(function(){
+            // Here you should treat the http errors (e.g., 403, 40
+            alert('serveur internal error!!')					
+            }).always(function(){
+                console.log("AJAX request finished!");
+            });
+
+
+
+})
+//END PAGINATION AJAX  FIND PROS
 
 
 jQuery.ajax({

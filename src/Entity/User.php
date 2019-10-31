@@ -168,6 +168,21 @@ class User implements UserInterface
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCrea;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $companyCarater;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $companydescription;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $companyDateCrea;
     
 
     public function __construct()
@@ -545,6 +560,42 @@ class User implements UserInterface
     public function setDateCrea(?\DateTimeInterface $dateCrea): self
     {
         $this->dateCrea = $dateCrea;
+
+        return $this;
+    }
+
+    public function getCompanyCarater(): ?string
+    {
+        return $this->companyCarater;
+    }
+
+    public function setCompanyCarater(string $companyCarater): self
+    {
+        $this->companyCarater = $companyCarater;
+
+        return $this;
+    }
+
+    public function getCompanydescription(): ?string
+    {
+        return $this->companydescription;
+    }
+
+    public function setCompanydescription(?string $companydescription): self
+    {
+        $this->companydescription = $companydescription;
+
+        return $this;
+    }
+
+    public function getCompanyDateCrea(): ?\DateTimeInterface
+    {
+        return $this->companyDateCrea;
+    }
+
+    public function setCompanyDateCrea(?\DateTimeInterface $companyDateCrea): self
+    {
+        $this->companyDateCrea = $companyDateCrea;
 
         return $this;
     }

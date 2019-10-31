@@ -214,21 +214,26 @@
 			<div class="col-10" style="padding-top: 1em;">
 				<div class="container bg-dark pl-0 h-auto" style="box-shadow: 5px 5px 5px black;">
 					
-					<form action>
+					<form action="{{ path('space_find_pro_page') }}" method="POST">
 						<div class="form-group">
 							
 							<div class="d-flex flex-column flex-sm-row w-100 align-items-center justify-content-center">
-								<select class="form-control show-input-list-metier-pro" name="metier">
-									 <option></option>
-									 <option value="AL">art-1</option>
-									 <option value="WY">art-2</option> 
-									 <option value="AL">art-3</option>
-									 <option value="WY">art-4</option>	
-								</select>
-								<input type="text" class="form-control m-2" placeholder="Votre ville ou département" style="line-height: 50px; height: 50px;">
+								
+								<input id="show-input-list-search" type="text" name="categLabel" value="{{ (categLabel is defined) ? categLabel :'' }}" class="form-control text-center show-input-list-search m-2" placeholder="Quel métier ?" style="height: 45px;">
+								{# <select id="select-beast" class="border animated fadeIn delay-8s border-warning demo-default" name="postCity"  placeholder="Dans quelle ville ?">
+								<option></option>
+								{% if cities != null %}
+									{% for city in cities %}
+									<option {{ (postCityId is defined and city.getId() == postCityId) ? 'selected': '' }} value="{{ city.getId() }}">{{ city.getVilleNomReel() }}</option>
+									{% endfor %}
+								{% endif %}
+								</select> #}
+								<div id="group-form-spcial-input-hidden"></div>
+								
 								<div class="input-group-append input-group-append-find-artisant bg-warning text-center">
-								  <a class="btn btn-warning border-0 text-center text-nowrap w-100">Trouver des professionnels</a>
+								  <button type="submit" class="btn btn-warning border-0 text-center text-nowrap w-100">Trouver des professionnels</button>
 								</div>
+
 							</div>
 							
 						</div>
@@ -247,7 +252,7 @@
 			<section class="bg-gray">
 				<div Class="row bg-white">
 					<div class="col-12">
-							<a href="{{ path('find_chantier_page') }}" class="btn btn-success float-right text-decoration-none border-0 text-center text-nowrap mr-5">Je suis un professionnel</a>
+							<a href="{{ path('find_chantier_page') }}" class="btn btn-warning float-right text-decoration-none border-0 text-center text-nowrap mr-5">Je suis un professionnel</a>
 					</div>
 					<div class="col-12 d-flex flex-column text-center">
 						<span class="h6">Nos professionnels disponibles</span>
@@ -257,72 +262,43 @@
 					<div class="triangle triangle-pro-space pt-4" style="width: 100%; height: 4px; background: white; box-shadow: 0px 0px 0px 0px !important"> </div>
 				</div>
 				<div class="container">
-					<div class="row py-5">
-
-						<div class="col-12 col-sm-6 col-lg-4 my-2">
-							<div class="img-new-pro-container d-flex flex-column align-items-center justify-content-center bg-white rounded">
-								<div class="img-new-pro-content rounded-top" style="background-image: url(/assets/img/photos/jardin/jardin-1.jpg); width: 100%; height: 250px;">
-									<div class="w-100">
-										<a class="btn btn-success float-left m-1 text-white">Nom category ici</a>
-										<a class="btn btn-danger btn-pro-emotion-heart rounded-circle float-right m-1">
-											<span class="lnr lnr-heart icon-pro-emotion-heart"></span>
-										</a>
+					<div class="row container-show-more-ajax py-5">
+					{% if pros != null %}
+						{% for pro in pros %}
+							<div class="col-12 col-sm-6 col-lg-4 my-2">
+								<div class="img-new-pro-container d-flex flex-column align-items-center justify-content-center bg-white rounded">
+									<div class="img-new-pro-content rounded-top" style="background-image: url(/uploads/images/{{ pro.getUserCategoryActivity().getImg() }}); width: 100%; height: 250px;">
+										<div class="w-100">
+											<a class="btn btn-warning float-left m-1 text-white">{{ pro.getUserCategoryActivity().getCategTitle() }}</a>
+											<a class="btn btn-warning btn-pro-emotion-heart rounded-circle float-right m-1">
+												<span class="lnr lnr-heart icon-pro-emotion-heart"></span>
+											</a>
+										</div>
 									</div>
-								</div>
-								<div class="img-pro-desc d-flex flex-row align-items-center justify-content-center  text-center py-2">
-									<div class="border border-secondary rounded-circle">
-										<img class="pro-logo rounded-circle" src="{{ absolute_url('/assets/img/photos/artisan.jpg') }}" style="width: 64px; height: auto;"></img>
-									</div>
-									<div class="d-flex flex-column align-items-center justify-content-center text-left">
-										<span class="d-inline text-center">
-											<a class="btn btn-outline-secondary m-2">En vedette</a>
-											<a class="btn btn-outline-secondary m-2">vérifié</a>
-										</span>
-										<span class="text-center ml-1">
-											<a href="{{ path('show_detail_pro_page') }}" class="text-decoration-none text-secondary">Bright Future Group & Company</a>
-										</span>
-										<span class="small text-center">
-											<span class="pro-point-star p-1"><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star-half icon-star-pro text-warning"></span></span>
-											<span class="pro-like-percent text-secondary p-1"><span class="lnr lnr-thumbs-up icon-like-pro text-secondary"></span> 99% (1009 votes) </span>
-										</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-12 col-sm-6 col-lg-4 mobile-top-position my-2">
-							<div class="img-new-pro-container d-flex flex-column align-items-center justify-content-center bg-white rounded">
-								<div class="img-new-pro-content rounded-top" style="background-image: url(/assets/img/photos/jardin/jardin-1.jpg); width: 100%; height: 250px;">
-									<div class="w-100">
-										<a class="btn btn-success float-left m-1 text-white">Nom category ici</a>
-										<a class="btn btn-danger btn-pro-emotion-heart rounded-circle float-right m-1">
-											<span class="lnr lnr-heart icon-pro-emotion-heart"></span>
-										</a>
-									</div>
-								</div>
-								<div class="img-pro-desc d-flex flex-row align-items-center justify-content-center  text-center py-2">
-									<div class="border border-secondary rounded-circle">
-										<img class="pro-logo rounded-circle" src="{{ absolute_url('/assets/img/photos/artisan.jpg') }}" style="width: 64px; height: auto;"></img>
-									</div>
-									<div class="d-flex flex-column align-items-center justify-content-center text-left">
-										<span class="d-inline text-center">
-											<a class="btn btn-outline-secondary m-2">En vedette</a>
-											<a class="btn btn-outline-secondary m-2">vérifié</a>
-										</span>
-										<span class="text-center ml-1">
-											<a href="{{ path('show_detail_pro_page') }}" class="text-decoration-none text-secondary">Bright Future Group & Company</a>
-										</span>
-										<span class="small text-center">
-											<span class="pro-point-star p-1"><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star-half icon-star-pro text-warning"></span></span>
-											<span class="pro-like-percent text-secondary p-1"><span class="lnr lnr-thumbs-up icon-like-pro text-secondary"></span> 99% (1009 votes) </span>
-										</span>
+									<div class="img-pro-desc d-flex flex-row align-items-center justify-content-center  text-center py-2">
+										<div class="border border-secondary rounded-circle">
+											<img class="pro-logo rounded-circle" src="{{ absolute_url('/uploads/logo/' ~ pro.getLogo()) }}" style="width: 64px; height: 64px;"></img>
+										</div>
+										<div class="d-flex flex-column align-items-center justify-content-center text-left">
+											<span class="d-inline text-center">
+												<a class="btn btn-outline-secondary m-2">En vedette</a>
+												<a class="btn btn-outline-secondary m-2">vérifié</a>
+											</span>
+											<span class="text-center ml-1">
+												<a href="{{ path('show_detail_pro_page', {id: pro.getId() }) }}" class="text-decoration-none text-secondary">{{ pro.getCompanyName() }}</a>
+											</span>
+											<span class="small text-center">
+												<span class="pro-point-star p-1"><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star-half icon-star-pro text-warning"></span></span>
+												<span class="pro-like-percent text-secondary p-1"><span class="lnr lnr-thumbs-up icon-like-pro text-secondary"></span> 99% (1009 votes) </span>
+											</span>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-
+						{% endfor %}
+						{% endif %}
 						<div class="col-12 d-flex justify-content-center pt-4">
-							<a class="btn btn-warning btn-more-all-chantier ld ld-ext-right running" href="{{ path('space_find_pro_page') }}"> <i class="ld ld-ring ld-spin"></i> Voir plus</a>
+							<a data-categoryid="{{ (CategoryId is defined) ? CategoryId : null }}" class="btn btn-warning btn-more-all-pros ld ld-ext-right"> <i class="ld ld-ring ld-spin"></i> Voir plus</a>
 						</div>	
 					</div>
 				</div>
@@ -341,23 +317,27 @@
 					</div>
 					<div class="col-12 col-md-10 text-center">
 						<div class="container py-1 bg-dark" style="box-shadow: 5px 5px 5px black;">
-							<form>
-							    <div class="form-group d-flex flex-column flex-sm-row align-items-center justify-content-center">
-									<select class="form-control show-input-list-metier" name="metier">
-										 <option></option>
-										 <option value="AL">art-1</option>
-										 <option value="WY">art-2</option>
-										 <option value="AL">art-3</option>
-										 <option value="WY">art-4</option>	
-									</select>
-							  	</div>
-								<div class="forn-group">
-									<input  type="hidden" name="route_page" value="home_page">
-								</div>
-								<div class="input-group-append bg-warning">
-								<a class="btn btn-warning border-0 text-nowrap">Demander un devis</a>
+							
+							<form action="{{ path('post_ask_devis_page') }}" method="POST">
+								<div class="form-group">
+							
+									<div class="d-flex flex-column flex-sm-row w-100 align-items-center justify-content-center">
+								
+										<input id="show-input-list-search-under-find" type="text" class="form-control text-center show-input-list-search m-2" placeholder="Quel métier ?" style="height: 45px;">
+										
+										<div id="form-hidden-under-find">
+											
+										</div>
+								
+										<div class="input-group-append input-group-append-find-artisant bg-warning text-center">
+										<button type="submit" class="btn btn-warning border-0 text-center text-nowrap w-100">Demmander un devis</button>
+										</div>
+
+									</div>	
+							
 								</div>
 							</form>
+						
 						</div>
 					</div>
 				</div>
@@ -379,6 +359,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+<!-- Auto-complete -->
+<script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
 <!-- MESSAGE NTIFICATION -->
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
@@ -393,10 +375,9 @@
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/city.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/ajax-list-categ-form-under.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/page.js') }}"></script>
 
 {% endblock %}

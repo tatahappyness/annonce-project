@@ -104,7 +104,7 @@ class ProController extends AbstractController
                             4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
-        $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
+        $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : [null];
         return $this->render('pro/dashbord.html.twig', [
             'numberDevis' => $nbdevis,
             'postAds'=> $postsAds,
@@ -673,6 +673,26 @@ class ProController extends AbstractController
 
       
     }
+
+    /**
+    * @Route("/company-edit", name="pro_company_edit")
+    */
+    public function editCompany(Request $request, Security $security, CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    {
+
+        if($_POST) {
+           
+            if (!is_null($request->request->get('company_caracter')) && !is_null($request->request->get('company_datecrea')) && !is_null($request->request->get('company_description')) ) {
+
+                
+            
+            }
+
+        }
+        
+        return new Response('Cettes page n\'est pas autorisé!');
+    }
+
 
     /**
     * @Route("/coordonation-edit", name="pro_cordonation_edit")

@@ -239,12 +239,13 @@ class PageController extends AbstractController
     }
 
     /**
-    * @Route("/post-ask-devis/{id}/{prosId}", name="post_ask_devis_page", requirements={"id"="\d+"})
+    * @Route("/post-ask-devis/{id}/{prosId}", name="post_ask_devis_page" , requirements={"id"="\d+"})
     */
-    public function postAskDevis($id = null, $prosId = null, Request $request, GuidePriceRepository $guidePriceRep, CitiesRepository $cityRep, TypeRepository $typeRep, CategoryRepository $categRep, ArticleRepository $artRep, FonctionRepository $foncRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, \Swift_Mailer $mailer, UserRepository $userRep)
+    public function postAskDevis($id = null, $prosId = null, Request $request, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, CitiesRepository $cityRep, TypeRepository $typeRep, CategoryRepository $categRep, ArticleRepository $artRep, FonctionRepository $foncRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, \Swift_Mailer $mailer, UserRepository $userRep)
     {       
-            // dump($_ENV['MAILER_URL']);die;
-            
+            //dump($request->request->get('metier_ask_devis'));die;
+            //dump($_ENV['MAILER_URL']);die;
+
         $arrayTypes = $typeRep->findAllArray();
         $arrayArticles = $artRep->findAllArray();
         $articles =  !is_null($arrayArticles) ? $arrayArticles : null;
@@ -308,7 +309,7 @@ class PageController extends AbstractController
             //To show ask devis form page from forms data by post
             elseif (!is_null($request->request->get('metier_ask_devis')) && $request->request->get('metier_ask_devis') != '') {
                 
-                $categories = $categoryRep->findAllArray();
+                $categories = $categRep->findAllArray();
                 $categories = count( $categories) > 0 ? $categories : null;
                 //Get top devis more asked
                         $devisPopulars = $devisRep->findTopPopularDevis();
@@ -437,7 +438,7 @@ class PageController extends AbstractController
        //BEGIN GET LIST BY AJAX PAGINATION
 
         if(!is_null($request->query->get('category_id')) && !is_null($request->query->get('offset'))) {
-
+            //dump($request->query->get('category_id') . ' ' . $request->query->get('offset'));die;
             $offset = $request->query->get('offset');
             $arrayData = array(1=>  $request->query->get('category_id'), 
             2=> null, null,
@@ -445,12 +446,46 @@ class PageController extends AbstractController
             ); 
             $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData, $offset);
             $postsAds = count( $postsAdsArray ) > 0 ? $postsAdsArray : null;
+            //dump($postsAds);die;
+            $templetePostAds = '';
             if($postsAds !== null) {
             
-                
+                foreach ($postsAds as $key => $post) {
+                   
+                    $templetePostAds .= '<div class="col-12 col-sm-6 col-lg-4 my-2">
+                    <div class="card card-pub-artisant text-leftt" style="width: auto;">
+                        <div class="card-header">
+                            <div class="d-flex flex-column align-items-center justify-content-center w-100 pt-4">
+                                <h4 class="card-title text-warning text-center px-2">' . $post->getArticleId()->getArticleTitle() . '</h4>
+                                <span class="ads-icon text-center">
+                                    <span class="icon" style="height: 128px;">
+                                        <object type="image/svg+xml" data="/uploads/icons/"' . $post->getArticleId()->getIcon() . '"  class="icon icon-bike">
+                                            Bike
+                                        </object>
+                                    </span>
+                                <span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-secondary">' . $post->getPostAdsDateCrea()->format('d/m/Y H:m:s') . '</p>
+                            <p class="card-text motif-pub">{{ post.getPostAdsTravauxDescription() }}</p>
+                            <p class="text-secondary small">Postulé par: ' . $post->getPostUserId()->getFirstname() . '</p><br>
+                            <a class="text-warning float-right" href="/show-detail-ads/"' . $post->getId() . '">voir le chantier >></a>
+                        </div>
+                    <div class="card-footer text-secondary text-center mt-0 py-2">
+                      
+                    </div>
+                    </div>
+                </div>' ;
+                    
+
+                }
+
+                return new JsonResponse($templetePostAds, 200);
 
             }
 
+            return new JsonResponse($templetePostAds = 0, 200);
 
         }
 
@@ -470,15 +505,15 @@ class PageController extends AbstractController
     
                 }
         //get all city
-        $cities =  $cityRep->findAllArray();
-        $cities = count($cities) > 0 ? $cities : null;
+        // $cities =  $cityRep->findAllArray();
+        // $cities = count($cities) > 0 ? $cities : null;
 
         $postsAds = $postRep->findAllPost(50, 0);
         return $this->render('page/chantier_find_space.html.twig',[
             'postsAds' => $postsAds,
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
-            'cities'=> $cities,
+            // 'cities'=> $cities,
         ]);
         
     }
@@ -533,9 +568,9 @@ class PageController extends AbstractController
     /**
     * @Route("/space-find-pro", name="space_find_pro_page")
     */
-    public function findPro(Request $request, UserRepository $user, CategoryRepository $categRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, TypeRepository $typeRep)
+    public function findPro(Request $request, UserRepository $userRep, CategoryRepository $categRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, TypeRepository $typeRep)
     {
-        $categories = $categoryRep->findAllArray();
+        $categories = $categRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
         //Get top devis more asked
                 $devisPopulars = $devisRep->findTopPopularDevis();
@@ -549,23 +584,91 @@ class PageController extends AbstractController
     
                 }
 
-        if (!is_null($request->request->get('filter_CategoryId')) || !is_null($request->request->get('filter_CategoryId')) && !is_null($request->request->get('filter_postCity'))) {
+            //Request POST
+            if ($_POST) {
+                
+                if (!is_null($request->request->get('CategoryId')) && !is_null($request->request->get('categLabel'))) {
            
-            $categoryId = $categRep->findById((int) $request->request->get('filter_CategoryId'));
-            $arrayData = array(
-                1=> $categoryId, 
-                2=> $categoryId, 3=> $request->request->get('filter_postCity')
-            );
-            $pros = $user->findAllProfessionals($arrayData);
-            return $this->render('page/pro_find_space.html.twig', [
-                'popularDevis'=> $popularDevis,
-                'categories'=> $categories,
-            ]);
-        }
-        $pros = $user->findAllProfessionals();
+                    $categoryId = $categRep->findById((int) $request->request->get('CategoryId'));
+                    $arrayData = array(
+                        1=> true, 
+                        2=> $categoryId, 3=> null, 4=> null, 5=> null
+                    );
+                    $pros = $userRep->findAllProfessionals($arrayData);
+                    $pros = count($pros) > 0 ?  $pros : null;
+                    return $this->render('page/pro_find_space.html.twig', [
+                        'popularDevis'=> $popularDevis,
+                        'categories'=> $categories,
+                        'pros'=> $pros,
+                        'categoryId'=> $request->request->get('categoryId'),
+                        'categLabel'=> $request->request->get('categLabel'),
+                    ]);
+                }
+            } //END POST
+
+            //GET LIST PROS BY AJAX PAGINATION
+            if (!is_null($request->query->get('category_id')) && !is_null($request->query->get('offset'))) {
+                //dump($request->query->get('category_id'));die;
+                $offset = $request->query->get('offset');
+                $categoryId = $categRep->findById((int) $request->query->get('categoryId'));
+                $arrayData = array(
+                    1=> true, 
+                    2=> $categoryId, 3=> null, 4=> null, 5=> null
+                );
+                $pros = $userRep->findAllProfessionals($arrayData, (int) $offset);
+                $pros = count($pros) > 0 ?  $pros : null;
+                //dump($pros);die;
+                $templatePros = '';
+
+                if ($pros !== null) {
+                   
+                    foreach ($pros as $key => $pro) {
+                        
+                        $templatePros .= '<div class="col-12 col-sm-6 col-lg-4 my-2">
+                        <div class="img-new-pro-container d-flex flex-column align-items-center justify-content-center bg-white rounded">
+                            <div class="img-new-pro-content rounded-top" style="background-image: url(/uploads/images/' . $pro->getUserCategoryActivity()->getImg() . '); width: 100%; height: 250px;">
+                                <div class="w-100">
+                                    <a class="btn btn-warning float-left m-1 text-white">' . $pro->getUserCategoryActivity()->getCategTitle() . '</a>
+                                    <a class="btn btn-warning btn-pro-emotion-heart rounded-circle float-right m-1">
+                                        <span class="lnr lnr-heart icon-pro-emotion-heart"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="img-pro-desc d-flex flex-row align-items-center justify-content-center  text-center py-2">
+                                <div class="border border-secondary rounded-circle">
+                                    <img class="pro-logo rounded-circle" src="/uploads/logo/' . $pro->getLogo() . '" style="width: 64px; height: 64px;"></img>
+                                </div>
+                                <div class="d-flex flex-column align-items-center justify-content-center text-left">
+                                    <span class="d-inline text-center">
+                                        <a class="btn btn-outline-secondary m-2">En vedette</a>
+                                        <a class="btn btn-outline-secondary m-2">vérifié</a>
+                                    </span>
+                                    <span class="text-center ml-1">
+                                        <a href="/show-one-detail-pro/' . $pro->getId() . '" class="text-decoration-none text-secondary">' . $pro->getCompanyName() . '</a>
+                                    </span>
+                                    <span class="small text-center">
+                                        <span class="pro-point-star p-1"><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star icon-star-pro text-warning"></span><span class="lnr lnr-star-half icon-star-pro text-warning"></span></span>
+                                        <span class="pro-like-percent text-secondary p-1"><span class="lnr lnr-thumbs-up icon-like-pro text-secondary"></span> 99% (1009 votes) </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>';
+
+                    }
+                    
+                    return new JsonResponse($templatePros, 200);
+                }
+
+                return new JsonResponse($templatePros = 0, 200);
+
+            } //END LIST AJAX PAGINATION
+
+        $pros = $userRep->findAllProfessionals();
         return $this->render('page/pro_find_space.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'pros'=> $pros,
         ]);
         
     }
@@ -575,6 +678,17 @@ class PageController extends AbstractController
     */
     public function detailPro($id = null, ArticleRepository $artRep, DevisRepository $devisRep, CommentsRepository $commentRep, ImagesRepository $imageRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, VideosRepository $videoRep, CategoryRepository $categoryRep, EvaluationsRepository $evaluationRep, DocummentRepository $docummentRep, LabelsRepository $labelRep)
     {
+
+        //get pros user one infos company
+
+        //get images chantier realize
+
+        //get Evaluations
+
+        //get Quality Label
+
+        //get Viddeos chantier realize
+        
 
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
@@ -958,7 +1072,7 @@ class PageController extends AbstractController
 
         }//END IF TEST SERVICE COUNT HERE
 
-        return false;
+        return true;
 
     }
 

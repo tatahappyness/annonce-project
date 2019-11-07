@@ -17,10 +17,10 @@ class GuidePrice
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
-     * @ORM\JoinColumn(name="category_id_id",referencedColumnName="id",onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="App\Entity\SousCategory")
+     * @ORM\JoinColumn(name="sous_category_id_id",referencedColumnName="id",onDelete="CASCADE")
      */
-    private $categoryId;
+    private $sousCategoryId;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article")
@@ -58,14 +58,14 @@ class GuidePrice
         return $this->id;
     }
 
-    public function getCategoryId(): ?Category
+    public function getCategoryId(): ?SousCategory
     {
-        return $this->categoryId;
+        return $this->sousCategoryId;
     }
 
-    public function setCategoryId(?Category $categoryId): self
+    public function setCategoryId(?SousCategory $sousCategoryId): self
     {
-        $this->categoryId = $categoryId;
+        $this->sousCategoryId = $sousCategoryId;
 
         return $this;
     }

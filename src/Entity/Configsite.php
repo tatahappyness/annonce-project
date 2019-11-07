@@ -36,6 +36,11 @@ class Configsite
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isActive;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +90,18 @@ class Configsite
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(?bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

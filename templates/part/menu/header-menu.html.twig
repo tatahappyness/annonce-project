@@ -34,197 +34,121 @@
             </nav>
             <!-- Navbar menu end here -->
 
+
             <!-- ############################# NAVBAR HERE LARGE -->
-
-            <div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
-            <div class="container">
-                <button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
-                <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    </li>
-                    <li class="nav-item"><a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Types des travaux</a>
-                        <ul class="dropdown-menu megamenu">
-                            <div class="row">
-                                <li class="col-12 col-sm-4 text-center pb-4">
-                                    <ul><li class="h6 text-warning border-bottom border-warning">INSTALLER</li></ul>
-                                    <ul class="row text-centert" style=" list-style-type: none;">
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-1</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-2</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-3</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-                                        <div class="col-12">
-                                            <li><a href="#" class="text-warning pt-2">Voir tous les articles >></a></li>
-                                        </div>
-                                    </ul>
+            <!-- BEGIN MOBILE MENU -->
+            {% include "./page/menu/menu-mobile.html.twig" %}
+            <!-- END MOBILE MENU -->	
+                
+            <!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
+			
+            <div class="navbar-mega large-menu d-md-flex justify-content-center">
+                <div class="dropdown-mega">
+                    <a class="dropbtn"> Demander un devis
+                    <i class="fa fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <ul class=" px-4">
+                            {% if categories != null %}
+                                {% for categ in categories %}
+                                    <li class="column-list text-left px-0" style="line-height: 0;">
+                                    <a href="{{ path('post_ask_devis_page', {id: categ.getId()}) }}" class="d-flex align-items-center">
+                                    <span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+                                    <span class="text-warning">{{ categ.getCategTitle() }}</span>
+                                    </a>
                                 </li>
-                                <li class="col-12 col-sm-4 text-center pb-4">
-                                    <ul><li class="h6 text-warning border-bottom border-warning">RENOVER</li></ul>
-                                    <ul class="row text-centert" style=" list-style-type: none;">
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-1</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-2</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-3</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-                                        <div class="col-12">
-                                            <li><a href="#" class="text-warning pt-2">Voir tous les articles >></a></li>
-                                        </div>
-                                    </ul>
+                                {% endfor %}
+                            <li class="text-center"  style="line-height: 0;">
+                            <a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
                             </li>
-                            <li class="col-12 col-sm-4 text-center pb-4">
-                                    <ul><li class="h6 text-warning border-bottom border-warning">AMENAGER SON INTERIEUR</li></ul>
-                                    <ul class="row text-centert" style=" list-style-type: none;">
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-1</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-2</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-3</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-                                        <div class="col-12">
-                                            <li><a href="#" class="text-warning pt-2">Voir tous les articles >></a></li>
-                                        </div>
-                                    </ul>
-                            </li>
-                            <li class="col-12 col-sm-4 text-center pb-4">
-                                    <ul><li class="h6 text-warning border-bottom border-warning">AMENAGER SON EXTERIEUR</li></ul>
-                                    <ul class="row text-centert" style=" list-style-type: none;">
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-1</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-2</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-3</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-                                        <div class="col-12 pt-2">
-                                            <li><a href="#" class="text-warning">Voir tous les articles >></a></li>
-                                        </div>
-                                    </ul>
-                            </li>
-                            <li class="col-12 col-sm-4 text-center pb-4">
-                                    <ul><li class="h6 text-warning border-bottom border-warning">CONSTRUIRE</li></ul>
-                                    <ul class="row text-centert" style=" list-style-type: none;">
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-1</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-2</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-                                        <div class="col-4 p-0">
-                                        <li class="dropdown-header">Categorie-3</li>
-                                        <li><a href="#">Article-1</a>
-                                        </li>
-                                        <li><a href="#">Article-2</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        </div>
-                                        <div class="col-12 pt-2">
-                                            <li><a href="#" class="text-warning">Voir tous les articles >></a></li>
-                                        </div>
-                                    </ul>
-                            </li>
-                            </div>
+                            {% endif %}
                         </ul>
-                    </li>
-                    <li class="nav-item"><a href="#" class="nav-link">Guide des prix</a>
-                    </li>
-                    <li class="nav-item"><a href="#" class="nav-link">Comment ça marche</a>
-                    </li>
-                    {# <li class="nav-item"><a href="#" class="nav-link">Créer mon site internet</a> #}
-                    </li>
-                    <li class="nav-item"><a href="{{ path('particulier_post_comments') }}" class="nav-link particular-dashbord-access">Parlez à nous</a>
-                    </li>
-                </ul>
+
+                        <div class="row-mega">
+                            <div class="column-12">
+                            {% if popularDevis != null %}
+                                <div class="w-100 text-center">
+                                    <h3> Les  plus populaires </h3>
+                                </div>
+                                <section class="sliderComplete">
+                                    <!-- Wrapper -->
+                                    <section class="wrapper">
+                                        <!-- ".slider" has a width greater than 100% to give way to all albums to align.  -->
+                                        <ul class="slider">
+                                           
+                                            {% for devPopular in popularDevis %}
+                                            <li class="column-list text-center">
+                                                <a href="#" class="d-block mb-1 p-0">
+                                                    <img class="img-fluid img-thumbnail" src="{{ absolute_url('/uploads/images/' ~ devPopular.getImg()) }}" />
+                                                </a>
+                                                <p><a href="{{ path('view_art_cat_galery_page', {id: devPopular.getArticleCategId().getId()}) }}">{{ devPopular.getArticleTitle() }}</a></p>
+                                                <p><a href="{{ path('post_ask_devis_page', {id: devPopular.getArticleCategId().getId()}) }}" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
+                                            </li>
+                                            {% endfor %}
+                                           
+                                            
+                                        </ul>
+                                    </section>
+                                    <!-- End wrapper -->
+
+                                    <button title="before" class="close button-slid bg-warning" style="height: 50%;">
+                                        <svg version="1.1" id="left" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                            viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
+                                        <g id="chevron-right">
+                                            <polygon fill="#38373A" points="13,15 25,27 27.8,24.2 18.6,15 27.8,5.8 25,3 	"/>
+                                        </g>
+                                        </svg>
+                                    </button>
+
+                                    <!-- 
+                                    ".open" is on display:block; to be visible.
+                                    -->
+                                    <button title="after" class="open button-slid bg-warning" style="height: 50%;">
+                                        <svg version="1.1" id="right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                            viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
+                                        <g id="chevron-right">
+                                            <polygon fill="#38373A" points="15.8,3 13,5.8 22.2,15 13,24.2 15.8,27 27.8,15 	"/>
+                                        </g>
+                                        </svg>
+                                    </button>
+                                </section>
+                                <!-- End sliderComplete -->
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+                <!-- END TYPE TRAVAUX -->
+                <div class="dropdown-mega">
+                    <a class="dropbtn">Guides des prix
+                    <i class="fa fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <ul class=" px-4">
+                            {% if categories != null %}
+                                {% for categ in categories %}
+                                    <li class="column-list text-left px-0" style="line-height: 0;">
+                                    <a href="{{ path('category_sous_category_page', {categId: categ.getId()}) }}" class="d-flex align-items-center">
+                                    <span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+                                    <span class="text-warning">{{ categ.getCategTitle() }}</span>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            {# <li class="text-center"  style="line-height: 0;">
+                            <a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+                            </li> #}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <a href="{{ path('how_to_step_page') }}">Comment ça marche ?</a>
+                <a href="{{ path('particulier_post_comments') }}">Parlez à nous</a>
             </div>
-            </div>
-            <!-- ############################# END NAVBAR HERE LARGE -->
+			
+            <!-- END MENU DISPALY WHEN  WHEN LARGE SCREEN -->
+
+
             <!-- Progress barr slid scroll -->
                 <div class="progress-container fixed-top">
                     <div class="progress-bar" id="myBar"></div>

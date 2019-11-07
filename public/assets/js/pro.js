@@ -335,6 +335,7 @@ jQuery(document).ready(function () {
             }
         }
 
+
         //AJAX TO EDIT USERS PROS HERE
         jQuery.ajax({
             type: 'POST',
@@ -376,6 +377,54 @@ jQuery(document).ready(function () {
                 });
 
     })
+
+    //AJAX COMPANY INFOS EDIT
+    jQuery('.btn-save-company-infos').click(function() {
+
+        var form_record = jQuery('#form-company-edit');
+
+        jQuery.ajax({
+            type: 'POST',
+            url: '/pro/company-edit',
+            contentType: false,
+            processData: false,
+            cache:false,
+            dataType:'json',
+            data: new FormData(form_record[0])
+				
+        }).done(function(response){
+				
+            Swal.fire({
+                title: 'Reponse',
+                text: response.infos,
+                type: 'success',
+                // background: 'rgb(119, 119, 119)',
+                backdrop: `rgba(0,0,123,0.4)`,
+                confirmButtonColor: 'rgb(255, 144, 0)'
+                });
+
+                form_record[0].reset();
+
+				
+            }).fail(function(){
+            // Here you should treat the http errors (e.g., 403, 40
+                Swal.fire({
+                    title: 'Reponse',
+                    text: 'Erreur dans le serveur interne!!',
+                    type: 'error',
+                    // background: 'rgb(119, 119, 119)',
+                    backdrop: `rgba(0,0,123,0.4)`,
+                    confirmButtonColor: 'rgb(255, 144, 0)'
+                    });
+            
+					
+                }).always(function(){
+                    console.log("AJAX request finished!");
+                });
+        
+
+    })
+
 
     //AJAX POST PARTICULAR PASSWORD  UPDATE
     jQuery('.btn-update-password-pro').click(function() {
@@ -521,5 +570,88 @@ jQuery(document).ready(function () {
         });
 
 
+    //DISTANCE
+    distance('01190', '01190');
+	 
 
-})
+}) //END DOCUMENT READY
+
+//AJAX GET GEOLOCATION IN SERVEUR
+jQuery.ajax({
+    type : 'GET',
+    url : '/pro/get-lat-log-ajax',
+    contentType : false,
+    processData : false
+                        
+    }).done(function(response) {
+        
+        //alert(response.lat + '  ' + response.log);
+        initMap(response.lat, response.log);
+               
+    }).fail(function(){
+        // Here you should treat the http errors (e.g., 403, 40
+        alert('serveur internal error!!')					
+        }).always(function(){
+            console.log("AJAX request finished!");
+        });
+    
+
+// Initialize and add the map
+function initMap(lat, log) {
+    // The location of Uluru
+    var uluru = {lat: parseFloat(lat), lng: parseFloat(log)};
+    // The map, centered at Uluru
+    //The options
+    var mapOptions = {
+        zoom: 8,
+        center: uluru,
+        mapTypeId: 'roadmap'
+        };
+    var map = new google.maps.Map(
+        document.getElementById('map'), mapOptions);
+    // The marker, positioned at Uluru
+    var marker = new google.maps.Marker({position: uluru, map: map});
+
+// ///MAP II
+    var map2 = new google.maps.Map(
+        document.getElementById('map2'), mapOptions);
+    // The marker, positioned at Uluru
+    var marker = new google.maps.Marker({position: uluru, map: map2});
+
+    }
+
+
+    function distance(zip_code1, zip_code2) {
+        var zip_code1 = zip_code1;
+        var zip_code2 = zip_code2;
+        var units = 'km';
+        var clientKey = "CwFTCfT68FTf4g29tNAYyAOJxBq3mi6Yi5jljzGklJKK3YQuOFEHnBGMK0sTjUNW";
+        var url = 'https://www.zipcodeapi.com/rest/' + clientKey + '/distance.json/'+ zip_code1 + '/' + zip_code2 + '/' + units>
+    
+        // Make AJAX request
+        $.ajax({
+            "url": url,
+            "dataType": "json"
+        }).done(function(data) {
+            handleResp(data);
+                            
+            // Store in cache
+            cache[zipcode] = data;
+        }).fail(function(data) {
+            if (data.responseTextdata.responseText)
+            {
+                var json = data.responseTextdata;
+                // Store in cache
+                console.log(json);
+                                
+                // Check for error
+                if (json.error_msg)
+                    alert(json.error_msg);
+            }
+            else
+                alert('Request failed.');
+        });
+    
+    
+    }
+     

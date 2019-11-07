@@ -16,6 +16,10 @@
 		<link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/menu/menu-large.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/menu/menu-mobile.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
     
 	{% endblock %}
@@ -38,7 +42,7 @@
 								</a>
 							
 								<ul class="navbar-nav mt-2 mt-lg-0">
-									<li class="nav-item active">
+									<li class="nav-item">
 									  <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
 									</li>
 									<li class="nav-item">
@@ -49,7 +53,7 @@
 							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
 								<span class="mr-1">
 									<button class="btn btn-round show-form-pro-mouseclick-11 bg-gray font-weight-bold text-warning border-warning text-nowrap" type="button">
-										<i class="">🔒</i> Se connecter
+										<i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
 									</button>
 								</span>
 								<span class="">
@@ -63,129 +67,66 @@
 					</nav>
 					<!-- Navbar menu end here -->
 					  
-					  <!-- ############################# NAVBAR HERE LARGE -->
-						
-					<div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
-					  <div class="container">
-						<button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
-						<div class="navbar-collapse collapse">
-						  <ul class="nav navbar-nav">
-							<li class="nav-item"><a href="{{ path('post_ask_devis_page') }}" class="nav-link">Demander un devis</a>
-							</li>
-							<li class="nav-item"><a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Types des travaux</a>
-								<ul class="dropdown-menu megamenu">
-									<div class="row">
-										<li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">INSTALLER</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-
-												<div class="col-4 p-0">
-													<li class="dropdown-header">Categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
-												</div>
-
-											</ul>
+					<!-- ############################# NAVBAR HERE LARGE -->
+					<!-- BEGIN MOBILE MENU -->
+					{% include "./page/menu/menu-mobile.html.twig" %}
+					<!-- END MOBILE MENU -->	
+                
+					<!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
+			
+					<div class="navbar-mega large-menu d-md-flex justify-content-center">
+						<div class="dropdown-mega">
+							<a class="dropbtn"> Demander un devis
+							<i class="fa fa-caret-down"></i>
+							</a>
+							<div class="dropdown-content">
+								<ul class=" px-4">
+									{% if categories != null %}
+										{% for categ in categories %}
+											<li class="column-list text-left px-0" style="line-height: 0;">
+											<a href="{{ path('post_ask_devis_page', {id: categ.getId()}) }}" class="d-flex align-items-center">
+											<span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+											<span class="text-warning">{{ categ.getCategTitle() }}</span>
+											</a>
 										</li>
-										<li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">RENOVER</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-
-												<div class="col-4 p-0">
-													<li class="dropdown-header">Categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
-												</div>
-
-											</ul>
-									  </li>
-									  <li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">AMENAGER SON INTERIEUR</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-
-												<div class="col-4 p-0">
-													<li class="dropdown-header">Categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
-												</div>
-
-											</ul>
-									  </li>
-									  <li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">AMENAGER SON EXTERIEUR</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-												
-												<div class="col-4 p-0">
-													<li class="dropdown-header">Categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
-												</div>
-
-											</ul>
-									  </li>
-									  <li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">CONSTRUIRE</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-
-												<div class="col-4 p-0">
-													<li class="dropdown-header">Categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
-												</div>
-
-											</ul>
-									  </li>
-									</div>
+										{% endfor %}
+									<li class="text-center"  style="line-height: 0;">
+									<a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+									</li>
+									{% endif %}
 								</ul>
-							</li>
-							<li class="nav-item"><a href="{{ path('nos_tarif_page') }}" class="nav-link">Guide prix</a>
-							</li>
-							<li class="nav-item"><a href="{{ path('how_to_step_page') }}" class="nav-link">Comment ça marche</a>
-							</li>
-							<li class="nav-item"><a href="{{ path('site_create_page') }}" class="nav-link">Créer mon site internet</a>
-							</li>
-							<li class="nav-item"><a href="{{ path('particulier_dashbord') }}" class="nav-link particular-dashbord-access">Gérer mon espace particulier</a>
-							</li>
-						  </ul>
+							</div>
 						</div>
-					  </div>
+						<!-- END TYPE TRAVAUX -->
+						<div class="dropdown-mega">
+							<a class="dropbtn">Guides des prix
+							<i class="fa fa-caret-down"></i>
+							</a>
+							<div class="dropdown-content">
+								<ul class=" px-4">
+									{% if categories != null %}
+										{% for categ in categories %}
+											<li class="column-list text-left px-0" style="line-height: 0;">
+											<a href="{{ path('category_sous_category_page', {categId: categ.getId()}) }}" class="d-flex align-items-center">
+											<span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+											<span class="text-warning">{{ categ.getCategTitle() }}</span>
+											</a>
+										</li>
+										{% endfor %}
+									{# <li class="text-center"  style="line-height: 0;">
+									<a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+									</li> #}
+									{% endif %}
+								</ul>
+							</div>
+						</div>
+						<a href="{{ path('how_to_step_page') }}">Comment ça marche ?</a>
+						<a href="{{ path('space_find_pro_page') }}">Trouvez un pros</a>
 					</div>
-					<!-- ############################# END NAVBAR HERE LARGE -->
+			
+					<!-- END MENU DISPALY WHEN  WHEN LARGE SCREEN -->
+
+
 					 <!-- Progress barr slid scroll -->
 						<div class="progress-container fixed-top">
 							<div class="progress-bar" id="myBar"></div>
@@ -297,9 +238,11 @@
 							</div>
 						{% endfor %}
 						{% endif %}
+					</div>
+					<div class="">
 						<div class="col-12 d-flex justify-content-center pt-4">
 							<a data-categoryid="{{ (CategoryId is defined) ? CategoryId : null }}" class="btn btn-warning btn-more-all-pros ld ld-ext-right"> <i class="ld ld-ring ld-spin"></i> Voir plus</a>
-						</div>	
+						</div>
 					</div>
 				</div>
 			</section>
@@ -375,6 +318,7 @@
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/ajax-list-categ-form-under.js') }}"></script>

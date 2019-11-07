@@ -36,6 +36,16 @@ class ConfigsiteRepository extends ServiceEntityRepository
     }
     */
 
+    public function findOneByIsActive($value = true): ?Configsite
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.isActive = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     public function findOneById($value): ?Configsite
     {
         return $this->createQueryBuilder('c')

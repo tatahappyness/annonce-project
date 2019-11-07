@@ -22,19 +22,44 @@ class SousCategoryRepository extends ServiceEntityRepository
     // /**
     //  * @return SousCategory[] Returns an array of SousCategory objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findByCategoryId($value, $offset = 0, $limit = 10) 
     {
+        if($offset > 0) {
+            $limit = $offset * $limit;
+        }
+
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
+            ->andWhere('s.catSousCategoryId = :val')
             ->setParameter('val', $value)
             ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
+            ->setFirstResult( $offset )
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+    public function findAllArray(): ?Array
+    {
+        return $this->findAll();
+    }
+
+    public function findOneByArray(array $criteria, array $orderBy = null): ?SousCategory
+    {
+        return $this->findOneBy($criteria, $orderBy);
+    }
+    
+    public function findById($id, $lockMode = null, $lockVersion = null): ?SousCategory
+    {
+        return $this->find($id);
+    }
+
+    public function findByArray(array $criteria, array $orderBy = null, $limit = null, $offset = null): ?Array
+    {
+        return $this->findBy($criteria, $orderBy = null, $limit = null, $offset = null);
+    }
+    
 
     /*
     public function findOneBySomeField($value): ?SousCategory

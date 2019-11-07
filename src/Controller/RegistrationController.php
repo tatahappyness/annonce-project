@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Services;
 use App\Repository\UserRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\CitiesRepository;

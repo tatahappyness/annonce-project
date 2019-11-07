@@ -6,11 +6,14 @@ use App\Entity\User;
 use App\Entity\Post;
 use App\Entity\Article;
 use App\Entity\Devis;
+use App\Entity\Newletter;
+use App\Entity\Siteinternet;
 use App\Repository\TypeRepository;
 use App\Repository\UserRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\SousCategoryRepository;
 use App\Repository\ArticleRepository;
-use App\Repository\GuidePriceRepository;
+use App\Repository\ModePrixRepository;
 use App\Repository\FonctionRepository;
 use App\Repository\PostRepository;
 use App\Repository\CitiesRepository;
@@ -26,6 +29,7 @@ use App\Repository\ImagesRepository;
 use App\Repository\LabelsRepository;
 use App\Repository\OfferRepository;
 use App\Repository\SiteinternetRepository;
+use App\Repository\ConfigsiteRepository;
 use App\Repository\VideosRepository;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,11 +52,11 @@ class PageController extends AbstractController
     /**
     * @Route("/", name="home_page")
     */
-    public function home( ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function home( ArticleRepository $artRep, ConfigsiteRepository $configsiteRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
         
        try {
-           
+        
         $arrayarticles = $artRep->findAll();
         $arraytypes = $typeRep->findAll();
         $categories = $categoryRep->findAllArray();
@@ -63,9 +67,7 @@ class PageController extends AbstractController
         //array(1=> true, 2=> $activity, 3=> $city, 4=> $activity)
         $newPros = $userRep->findAllProfessionals();
         $newPros = count( $newPros) > 0 ? $newPros : null;
-       //Get guides prices list
-
-       //Get top devis more asked
+      //Get top devis more asked
         $devisPopulars = $devisRep->findTopPopularDevis();
         $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
         $popularDevis = array();
@@ -77,6 +79,10 @@ class PageController extends AbstractController
 
         }
         //dump($popularDevis);die;
+
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
        //Get comments list by particulars
         $comments = $commentRep->findAllComments(6);
         $comments = count( $comments) > 0 ? $comments : null;
@@ -88,10 +94,11 @@ class PageController extends AbstractController
             'articles'=> $articles, 
             'types'=> $types,
            'popularDevis'=> $popularDevis,
-           'categories'=> $categories,
+           'categories'=> $categories,  
            'newPros'=> $newPros,
            'comments'=> $comments,
-           'guidesPrice'=> 1
+           'guidesPrice'=> 1,
+           'configsite'=> $configsite,
 
 
         ]);
@@ -177,9 +184,144 @@ class PageController extends AbstractController
     }
 
     /**
+    * @Route("category/sous-category/{categId}", name="category_sous_category_page")
+    */
+    public function showSousCategory($categId = null, Request $request, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, SousCategoryRepository $sousCategRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    {
+        
+        //Ajax get by pagination
+        if(!is_null($request->query->get('category_id')) && !is_null($request->query->get('offset'))) {
+            
+            $category = $categoryRep->findById((int) $request->query->get('category_id'));
+            $sousCategories = $sousCategRep->findByCategoryId($category, $request->query->get('offset'));
+            $sousCategories = count($sousCategories) > 0 ? $sousCategories : [];
+            $templeteSousCategory = '';
+
+            if(count($sousCategories) > 0) {
+
+                foreach ($sousCategories as $key => $sousCateg) {
+                    
+                    $templeteSousCategory .= '';
+
+                }
+
+                return new JsonResponse($templeteSousCategory, 200);
+
+            }
+
+            return new JsonResponse($templeteSousCategory = 0, 200);
+        }  
+
+        if($categId !== null) {
+            // get sous category by wildcard
+            $category = $categoryRep->findById((int) $categId);
+            $sousCategories = $sousCategRep->findByCategoryId($category);
+            $sousCategories = count($sousCategories) > 0 ? $sousCategories : [];
+        
+        }
+        //get Category
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories :[];
+
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
+        return $this->render('page/guid-price-sous-category.html.twig', [
+            'categories'=> $categories,
+            'devisPopulars'=> $devisPopulars,
+            'configsite'=> $configsite,
+            'sousCategories'=> $sousCategories,
+            
+            ]);
+        
+
+    }
+
+    /**
+    * @Route("category/sous-category/guide-price/{sousCategId}", name="category_sous_category_guide_price_page")
+    */
+    public function showGuidePrice($sousCategId = null, Request $request, SousCategoryRepository $sousCategRep, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, ModePrixRepository $modePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    {
+        
+        //Ajax get by pagination
+        if(!is_null($request->query->get('sous_category_id')) && !is_null($request->query->get('offset'))) {
+
+            $sousCategory = $sousCategRep->findById((int) $request->query->get('sous_category_id'));
+            $modePrices = $modePriceRep->findBySousCategoryId($sousCategory, $request->query->get('offset'));
+            $modePrices = count($modePrices) > 0 ? $modePrices : [];
+            $templetePrices = '';
+
+            if(count($modePrices) > 0) {
+
+                foreach ($modePrices as $key => $mod) {
+                    
+                    $templetePrices .= '';
+
+                }
+
+                return new JsonResponse($templetePrices, 200);
+
+            }
+
+            return new JsonResponse($templetePrices = 0, 200);
+        }  
+
+        if($sousCategId !== null) {
+            // get sous category by wildcard
+            $sousCategory = $sousCategRep->findById((int) $sousCategId);
+            $modePrices = $modePriceRep->findBySousCategoryId($sousCategory);
+            $modePrices = count($modePrices) > 0 ? $modePrices : [];
+        
+        }
+        //get sous Category
+        $sousCategories = $sousCategRep->findAllArray();
+        $sousCategories = count( $sousCategories) > 0 ? $sousCategories :[];
+
+        
+        //Get top devis more asked
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+                $popularDevis = array();
+                if($devisPopulars !== null) {
+    
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+    
+                }
+        //Get category for menu
+        $categories = $categoryRep->findAllArray();
+        $categories = count( $categories) > 0 ? $categories : null;
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
+        return $this->render('page/guid-price-all-articles-sous-category.html.twig', [
+            'categories'=> $categories,
+            'popularDevis'=> $popularDevis,
+            'configsite'=> $configsite,
+            'modePrices'=>  $modePrices,
+            'sousCategories'=>  $sousCategories,
+           
+            ]);
+
+    }
+
+
+    /**
     * @Route("/inscription", name="inscription_page")
     */
-    public function inscription(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function inscription(ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
       
         $categories = $categoryRep->findAllArray();
@@ -195,10 +337,13 @@ class PageController extends AbstractController
                 }
     
             }
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
 
        return $this->render('page/inscription.html.twig', [
            'categories'=> $categories,
-           'devisPopulars'=> $devisPopulars,
+           'popularDevis'=> $popularDevis,
+           'configsite'=> $configsite
            ]);
         
     }
@@ -206,7 +351,7 @@ class PageController extends AbstractController
     /**
     * @Route("/inscription-particulier", name="inscription_particulier_page")
     */
-    public function inscriptionParticulier(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function inscriptionParticulier(ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
@@ -221,30 +366,53 @@ class PageController extends AbstractController
                     }
     
                 }
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/inscription-particular.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'configsite'=> $configsite,
         ]);
         
     }
 
     /**
-    * @Route("/get-articles", name="get_articles_page")
+    * @Route("/new-letter", name="new_letter_page")
     */
-    public function articles()
+    public function addNewLetter(Request $request)
     {
-        return new JsonResponse(['code'=> 200], 200);
         
+        if($_POST) {
+
+            if($request->request->get('newLetter')) {
+                $em = $this->getDoctrine()->getManager();
+                $em->beginTransaction();
+                $newLetter = new Newletter();
+                $newLetter
+                    ->setEmail($request->request->get('newLetter'))
+                    ->setDateCrea(new \DateTime('now'));
+
+                    $em->persist($newLetter);
+                    $em->flush();
+                    $em->commit();
+
+                return new JsonResponse(['code'=> 200, 'info'=> 'Votre email est bien envoyé!'], 200);
+            }
+
+        }
+        return new JsonResponse(['info'=> "vous avez fait un erreur!"], 200);
     }
 
     /**
     * @Route("/post-ask-devis/{id}/{prosId}", name="post_ask_devis_page" , requirements={"id"="\d+"})
     */
-    public function postAskDevis($id = null, $prosId = null, Request $request, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, CitiesRepository $cityRep, TypeRepository $typeRep, CategoryRepository $categRep, ArticleRepository $artRep, FonctionRepository $foncRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, \Swift_Mailer $mailer, UserRepository $userRep)
+    public function postAskDevis($id = null, $prosId = null, Request $request, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep,   CitiesRepository $cityRep, TypeRepository $typeRep, CategoryRepository $categRep, ArticleRepository $artRep, FonctionRepository $foncRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, \Swift_Mailer $mailer, UserRepository $userRep)
     {       
             //dump($request->request->get('metier_ask_devis'));die;
             //dump($_ENV['MAILER_URL']);die;
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
 
         $arrayTypes = $typeRep->findAllArray();
         $arrayArticles = $artRep->findAllArray();
@@ -326,12 +494,14 @@ class PageController extends AbstractController
                 //dump($request->request->get('metier_ask_devis')); die;
                 $category = $categRep->findOneById((int) $request->request->get('metier_ask_devis'));
                 $arrayArticles = $artRep->findByCategory( $category);
+                    
                 return $this->render('page/post_ask_devis.html.twig', [
                     'types'=> $types, 'articles'=> $arrayArticles,
                     'fonctions'=> $fonctions, 'category'=> $category,
                     'UserProsId'=> $prosId,
                     'popularDevis'=> $popularDevis,
                     'categories'=> $categories,
+                    'configsite'=> $configsite,
                 ]);
 
             } else {
@@ -343,7 +513,7 @@ class PageController extends AbstractController
         // To show ask devis form page from link data using parameters
         if($id !== null) {
 
-            $categories = $categoryRep->findAllArray();
+            $categories = $categRep->findAllArray();
             $categories = count( $categories) > 0 ? $categories : null;
             //Get top devis more asked
                     $devisPopulars = $devisRep->findTopPopularDevis();
@@ -365,6 +535,7 @@ class PageController extends AbstractController
                 'UserProsId'=> $prosId,
                 'popularDevis'=> $popularDevis,
                 'categories'=> $categories,
+                'configsite'=> $configsite,
             ]);
         }
 
@@ -377,9 +548,13 @@ class PageController extends AbstractController
     /**
     * @Route("/space-find-chantier", name="find_chantier_page")
     */
-    public function findChantier(Request $request, CitiesRepository $cityRep, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep)
+    public function findChantier(ConfigsiteRepository $configsiteRep, Request $request, CitiesRepository $cityRep, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep)
     {
         
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
+
        if($_POST) {
 
             //BEGIN REQUEST POST FORM SEARCH
@@ -415,6 +590,7 @@ class PageController extends AbstractController
                             }
     
                         }
+
                 //get all city
                 // $cities =  $cityRep->findAllArray();
                 // $cities = count($cities) > 0 ? $cities : null;
@@ -426,6 +602,7 @@ class PageController extends AbstractController
                     // 'cities'=> $cities,
                     'categLabel'=> $request->request->get('categLabel'),
                     'CategoryId'=> $request->request->get('CategoryId'),
+                    'configsite'=> $configsite,
 
                 ]);
 
@@ -514,6 +691,7 @@ class PageController extends AbstractController
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             // 'cities'=> $cities,
+            'configsite'=> $configsite,
         ]);
         
     }
@@ -521,7 +699,7 @@ class PageController extends AbstractController
     /**
     * @Route("/space-pro", name="space_pro_page")
     */
-    public function spacePro(Request $request, CitiesRepository $cityRep, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function spacePro(ConfigsiteRepository $configsiteRep, Request $request, CitiesRepository $cityRep, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
               
         $arrayPostAds = Array();
@@ -552,6 +730,10 @@ class PageController extends AbstractController
                     }
     
                 }
+
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
         //get all city
         // $cities =  $cityRep->findAllArray();
         // $cities = count($cities) > 0 ? $cities : null;
@@ -561,6 +743,7 @@ class PageController extends AbstractController
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             // 'cities'=> $cities,
+            'configsite'=> $configsite,
         ]);
             
     }
@@ -568,8 +751,11 @@ class PageController extends AbstractController
     /**
     * @Route("/space-find-pro", name="space_find_pro_page")
     */
-    public function findPro(Request $request, UserRepository $userRep, CategoryRepository $categRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, TypeRepository $typeRep)
+    public function findPro(Request $request, UserRepository $userRep, ConfigsiteRepository $configsiteRep, CategoryRepository $categRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   TypeRepository $typeRep)
     {
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
         $categories = $categRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
         //Get top devis more asked
@@ -602,6 +788,7 @@ class PageController extends AbstractController
                         'pros'=> $pros,
                         'categoryId'=> $request->request->get('categoryId'),
                         'categLabel'=> $request->request->get('categLabel'),
+                        'configsite'=> $configsite,
                     ]);
                 }
             } //END POST
@@ -669,6 +856,7 @@ class PageController extends AbstractController
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             'pros'=> $pros,
+            'configsite'=> $configsite,
         ]);
         
     }
@@ -676,19 +864,26 @@ class PageController extends AbstractController
     /**
     * @Route("/show-one-detail-pro/{id}", name="show_detail_pro_page")
     */
-    public function detailPro($id = null, ArticleRepository $artRep, DevisRepository $devisRep, CommentsRepository $commentRep, ImagesRepository $imageRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, VideosRepository $videoRep, CategoryRepository $categoryRep, EvaluationsRepository $evaluationRep, DocummentRepository $docummentRep, LabelsRepository $labelRep)
+    public function detailPro($id = null, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, DevisRepository $devisRep, CommentsRepository $commentRep, ImagesRepository $imageRep,   UserRepository $userRep, VideosRepository $videoRep, CategoryRepository $categoryRep, EvaluationsRepository $evaluationRep, DocummentRepository $docummentRep, LabelsRepository $labelRep)
     {
 
         //get pros user one infos company
-
+        $user = $userRep->findOneById((int) $id);
         //get images chantier realize
-
+        $images = $imageRep->findByUserId(array(1=> $user));
+        $images = count($images) > 0 ? $images : [];
         //get Evaluations
-
+        $evaluations = $evaluationRep->findByUserId(array(1=> $user));
+        $evaluations = count($evaluations) > 0 ? $evaluations : [];
         //get Quality Label
-
+        $labels = $labelRep->findByUserId(array(1=> $user));
+        $labels = count($labels) > 0 ? $labels : [];
+        //get Documment entreprise
+        $documents = $docummentRep->findByUserId(array(1=> $user));
+        $documents = count($documents) > 0 ? $documents : [];
         //get Viddeos chantier realize
-        
+        $videos = $videoRep->findByUserId(array(1=> $user));
+        $videos = count($videos) > 0 ? $videos : [];
 
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
@@ -703,10 +898,19 @@ class PageController extends AbstractController
                     }
     
                 }
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/show_one_detail_pro.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'user'=> $user,
+            'images'=>  $images,
+            'videos'=> $videos,
+            'evaluations'=> $evaluations,
+            'labels'=> $labels,
+            'documents'=> $documents,
+            'configsite'=> $configsite,
         ]);
         
     }
@@ -714,7 +918,7 @@ class PageController extends AbstractController
     /**
     * @Route("/show-detail-ads/{id}", name="show_detail_ads_page")
     */
-    public function detailAds($id = null, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function detailAds($id = null, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
         
         $categories = $categoryRep->findAllArray();
@@ -734,12 +938,15 @@ class PageController extends AbstractController
         //get detail one devis
         $devis = $devisRep->findById((int) $id);
         $devis = !is_null($devis) ? $devis : null;
-
         
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
         return $this->render('premuim/show-one-detail-artisant-ads.html.twig', [
             'devis'=>  $devis,
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'configsite'=> $configsite,
         ]);
         
     }
@@ -747,19 +954,75 @@ class PageController extends AbstractController
     /**
     * @Route("/view-all-travaux/{id}", name="view_all_tavaux_page")
     */
-    public function viewAllTravaux($id = null, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function viewAllTravaux($id = null, Request $request, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
-        $page = 0; $morepage = 20; // Paginations
-        
+
+        //BEGIN GET LIST ARTICLES BY AJAX PAGINATION
+        if($request->query->get('category_id') !== null && $request->query->get('offset') !== null) {
+            //dump($request->request->get('CategoryId'));die;
+            $offset = $request->query->get('offset');
+            $articles = $artRep->findByCategory($categoryRep->findById((int) $request->query->get('category_id'), $offset));
+            $articles = count($articles) > 0 ? $articles : [];
+            $templateArticles = '';
+
+            if (count($articles) > 0) {
+                   
+                foreach ($articles as $key => $art) {
+                        
+                    $templateArticles .= '<div class="col-12 col-sm-6 col-lg-4 my-2">
+                                <div data-id="' .$art->getId() . '" class="img-new-pro-container article-image-show bg-white rounded" style="border: 4px solid white;">
+                                    <div class="img-new-pro-content d-flex flex-column rounded-top" style="background-image: url(/uploads/images/' . $art->getImg() . '); width: 100%; height: 250px;">
+                                        <div class="bg-transparent w-100" style="">
+                                            <a href="/view-art-cat-galery/' . $art->getArticleCategId()->getid() . '" class="btn bg-success icon-pro-img-over d-none text-decoration-none float-right m-2">
+                                                <span class="lnr lnr-eye icon-popular-ask-eyes"></span>
+                                            </a>
+                                        </div>
+                                        <div class="h-100 d-flex flex-column align-items-center justify-content-center">
+                                            <a id="item-' . $art->getId() . ' href="/post-ask-devis/' . $art->getArticleCategId()->getid() . '" class="btn-warning btn-pro-emotion-heart d-none text-decoration-none p-3 rounded">
+                                                Demander un devis
+                                            </a>
+                                            <span class="h6 text-white p-2">' . $art->getArticleTitle() . '</span>
+                                        </div>
+                                        <div class="bg-transparent d-flex align-items-end justify-content-end h-auto w-100 pb-3" style=""><a class="btn bg-darkgray icon-pro-img-over d-none m-2">vote(3215)</a></div>
+                                    </div>
+                                </div>
+                            </div>';
+                        
+                }
+                    
+                return new JsonResponse($templateArticles, 200);
+            }
+
+            return new JsonResponse($templateArticles = 0, 200);
+                
+
+
+        } //END GET LIST ARTICLES BY AJAX PAGINATION
+
+        $categoryId = '';
+        $labelCategory = '';
+        $articles = $artRep->findByCategory();
+        $articles = count($articles) > 0 ? $articles : [];
+
+        //Begin POST VIEW ALL TRAVAUX
+        if($_POST) {
+
+            if($request->request->get('CategoryId') !== null) {
+                //dump($request->request->get('CategoryId'));die;
+                $articles = $artRep->findByCategory($categoryRep->findById((int) $request->request->get('CategoryId')));
+                $articles = count($articles) > 0 ? $articles : [];
+                $categoryId = $request->request->get('CategoryId');
+                $labelCategory = $request->request->get('categLabel');
+            }
+
+        } //END POST VIEW ALL TRAVAUX
+
        if($id !== null) {
             $articles = $artRep->findByCategory($categoryRep->findById((int) $id));
-            $articles = count($articles) > 0 ? $articles : null;
+            $articles = count($articles) > 0 ? $articles : [];
+            $categoryId = $id;
         }
-        else {
-            $articles = $artRep->findAllArticles($morepage);
-            $articles = count($articles) > 0 ? $articles : null;
-        }
-
+       
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
         //Get top devis more asked
@@ -773,12 +1036,16 @@ class PageController extends AbstractController
                     }
     
                 }
-
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/view_all_art_cat_family_byfilter.html.twig', [
             'articles'=>  $articles,
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'configsite'=> $configsite,
+            'categLabel'=> $labelCategory,
+            'categoryId'=> $categoryId,
 
         ]);
         
@@ -787,7 +1054,7 @@ class PageController extends AbstractController
     /**
     * @Route("/view-art-cat-galery/{id}", name="view_art_cat_galery_page")
     */
-    public function galery($id = null, CategoryRepository $categoryRep, ArticleRepository $articleRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep)
+    public function galery($id = null, ConfigsiteRepository $configsiteRep, CategoryRepository $categoryRep, ArticleRepository $articleRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep)
     {
         $category = $categoryRep->findById((int) $id);
         $artiles = $articleRep->findByCategory($category);
@@ -806,12 +1073,15 @@ class PageController extends AbstractController
                     }
     
                 }
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
         
         return $this->render('page/catalog_art_img_galery.html.twig', [
             'artiles'=> $artiles,
             'category'=>  $category,
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'configsite'=> $configsite,
         ]);
         
     }
@@ -819,7 +1089,7 @@ class PageController extends AbstractController
     /**
     * @Route("/how-to-steping", name="how_to_step_page")
     */
-    public function howToStep( ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep )
+    public function howToStep( ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep )
     {
         
         $categories = $categoryRep->findAllArray();
@@ -835,60 +1105,22 @@ class PageController extends AbstractController
                     }
     
                 }
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/comment-ca-marche.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'configsite'=> $configsite,
         ]);
         
     }
 
-    /**
-    * @Route("/guide-price/category/{categId}/{sousCategId}/{articleId}", name="guide_price_page")
-    */
-    public function guidePrice($categId = null, $sousCategId = null, $articleId = null, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
-    {
-
-        $categories = $categoryRep->findAllArray();
-        $categories = count( $categories) > 0 ? $categories : null;
-        //Get top devis more asked
-                $devisPopulars = $devisRep->findTopPopularDevis();
-                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
-                if($devisPopulars !== null) {
-    
-                    foreach ($devisPopulars as $key => $value) {
-                    $popularDevis[] =  $artRep->findById($value['article_id']);
-                    }
-    
-                }
-
-        if((int) $categId !== null && $sousCategId == null) {
-
-            
-            return $this->render('page/guid-price-sous-category.html.twig', [
-                'popularDevis'=> $popularDevis,
-                'categories'=> $categories,
-            ]);
-        }
-
-        if((int) $categId !== null && (int) $sousCategId !== null) {
-
-            
-            return $this->render('page/guid-price-all-articles-sous-category.html.twig', [
-                'popularDevis'=> $popularDevis,
-                'categories'=> $categories,
-            ]);
-        }
-
-        return $this->redirectToRoute('home_page');
-        
-    }
 
     /**
     * @Route("/nos-tarif", name="nos_tarif_page")
     */
-    public function tarif(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function tarif(ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
 
         $categories = $categoryRep->findAllArray();
@@ -904,10 +1136,13 @@ class PageController extends AbstractController
                     }
     
                 }
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/nos-tarif.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'configsite'=> $configsite,
         ]);
         
     }
@@ -915,8 +1150,34 @@ class PageController extends AbstractController
     /**
     * @Route("/sites-create", name="site_create_page")
     */
-    public function sites(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function sites(Request $request, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
+
+ 
+        if($_POST) {
+
+            if($request->request->get('firstname') && $request->request->get('name') && $request->request->get('email') && $request->request->get('phone')) {
+                $em = $this->getDoctrine()->getManager();
+                $em->beginTransaction();
+                $site = new Siteinternet();
+                $site
+                    ->setEmail($request->request->get('email'))
+                    ->setFirstname($request->request->get('firstname'))
+                    ->setName($request->request->get('name'))
+                    ->setPhone($request->request->get('phone'))
+                    ->setDateCrea(new \DateTime('now'));
+
+                    $em->persist($site);
+                    $em->flush();
+                    $em->commit();
+
+                return new JsonResponse(['code'=> 200, 'info'=> 'Vos infomations bien envoyé!, vous serez reçevoir des devis par e-mail.'], 200);
+            }
+
+            return new JsonResponse(['info'=> "vous avez fait un erreur!"], 200);
+
+        } // END POST
+        
 
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
@@ -931,10 +1192,13 @@ class PageController extends AbstractController
                     }
     
                 }
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/sites.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'configsite'=> $configsite,
         ]);
         
     }
@@ -951,7 +1215,7 @@ class PageController extends AbstractController
     /**
     * @Route("/temoingnage-particulier", name="comments_particular_page")
     */
-    public function commentsParticular(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function commentsParticular(ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
 
         $categories = $categoryRep->findAllArray();
@@ -967,10 +1231,13 @@ class PageController extends AbstractController
                     }
     
                 }
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/temoingnage-particulier.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'configsite'=> $configsite,
         ]);
         
     }
@@ -978,7 +1245,7 @@ class PageController extends AbstractController
     /**
     * @Route("/temoingnage-pro", name="comments_pro_page")
     */
-    public function commentsPro(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function commentsPro(ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
 
         $categories = $categoryRep->findAllArray();
@@ -994,10 +1261,13 @@ class PageController extends AbstractController
                     }
     
                 }
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/temoingnage-pro.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'configsite'=> $configsite,
         ]);
         
     }
@@ -1005,7 +1275,7 @@ class PageController extends AbstractController
     /**
     * @Route("/prince-talks-us", name="prince_talk_page")
     */
-    public function princeTalksUs(ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, GuidePriceRepository $guidePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function princeTalksUs(ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
 
         $categories = $categoryRep->findAllArray();
@@ -1021,10 +1291,13 @@ class PageController extends AbstractController
                     }
     
                 }
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/prince-talks-us.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'configsite'=> $configsite,
         ]);
         
     }

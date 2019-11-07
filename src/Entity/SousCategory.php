@@ -49,6 +49,16 @@ class SousCategory
      */
     private $catSousCategoryId;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $sousCategIntro;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $sousCategLinkQuestion;
+
 
     public function __construct()
     {
@@ -129,6 +139,30 @@ class SousCategory
     public function setCatSousCategoryId(?Category $catSousCategoryId): self
     {
         $this->catSousCategoryId = $catSousCategoryId;
+
+        return $this;
+    }
+
+    public function getSousCategIntro(): ?string
+    {
+        return $this->sousCategIntro;
+    }
+
+    public function setSousCategIntro(?string $sousCategIntro): self
+    {
+        $this->sousCategIntro = $sousCategIntro;
+
+        return $this;
+    }
+
+    public function getSousCategLinkQuestion(): ?string
+    {
+        return $this->sousCategLinkQuestion;
+    }
+
+    public function setSousCategLinkQuestion(?string $sousCategLinkQuestion): self
+    {
+        $this->sousCategLinkQuestion = $sousCategLinkQuestion;
 
         return $this;
     }

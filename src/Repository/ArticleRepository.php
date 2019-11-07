@@ -22,27 +22,36 @@ class ArticleRepository extends ServiceEntityRepository
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
-
-    public function findAllArticles($limit = 20)
+    
+    public function findByCategory($value = null, $offset = 0, $limit = 10)
     {
+
+            if($offset > 0) {
+                $limit =  $limit * $offset;
+            }
+
+            if ($value !== null) {
+               
+                return $this->createQueryBuilder('a')
+                    ->where('a.articleCategId = :val')
+                    ->setParameter('val', $value)
+                    ->orderBy('a.id', 'ASC')
+                    ->setFirstResult($offset)
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult()
+                ;
+
+            }
+
         return $this->createQueryBuilder('a')
-           ->orderBy('a.id', 'ASC')
+        ->orderBy('a.id', 'ASC')
+        ->setFirstResult( $offset )
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
-    }
-    
-    public function findByCategory($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.articleCategId = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            //->setMaxResults(200)
-            ->getQuery()
-            ->getResult()
-        ;
+
     }
 
     public function findByCategoryArray($value)

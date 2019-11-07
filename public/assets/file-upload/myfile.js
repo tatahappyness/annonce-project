@@ -124,31 +124,10 @@ $(document).ready(function(){
 		
 		
 	//VIDEO UPLOAD
-	$('input[id=fileVideos]').change(function(){
+	$('.btn-video-url-save').click(function() {
 		
-		var file_data = $(this).prop('files')[0];
-		var form = $('#form-upload-images')[0];
-		//verify taill of videos file
-		if( file_data.size > 8388608 ) {
-			alert("Désolé, votre fichier est trop large, inférieur à 10Mo autorisé.");
-			return false;
-		}
-		var block = $('<div class="block"></div>');
-		var progressBar = $('<div class="progressBar"></div>');
-		var cancelButton = $('<div class="cancelButton">x</div>');
-
-		cancelButton.click(function(){
-			//upload cancelled
-			block.fadeOut(400, function(){
-				$(this).remove();
-			});
-		});
-
-		block.append(progressBar).append(cancelButton);
-		$('#uploads').append(block);
-		
-		if(file_data != undefined) {
-			
+		var form = $('#form-upload-video');
+			//console.log(form[0]); return false;
 			jQuery.ajax({
 				type: 'POST',
 				url: '/pro/video-chantier-realize-edit',
@@ -156,31 +135,35 @@ $(document).ready(function(){
 				processData: false,
 				cache:false,
 				dataType:'json',
-				data: new FormData(form)
+				data: new FormData(form[0])
 				
-			}).done(function(response){
+			}).done(function(response) {
 				
-				progressBar.remove();
-				cancelButton.remove();
-				//var data = JSON.parse(response);
-				alert(response.infos);
-				var errorDiv = '<video class="format" width="120" height="80" controls style="margin-top: 0!important;">'+
-								'<source src="/uploads/videos/' + response.infos + '" type="video/mp4">'+
-								'</video>';
-				block.append(errorDiv);	
+				Swal.fire({
+					title: 'Reponse',
+					text: response.infos,
+					type: 'success',
+					// background: 'rgb(119, 119, 119)',
+					backdrop: `rgba(0,0,123,0.4)`,
+					confirmButtonColor: 'rgb(255, 144, 0)'
+					});
 				
-				}).fail(function(){
+				}).fail(function() {
 				// Here you should treat the http errors (e.g., 403, 40
-					progressBar.remove();
-					cancelButton.remove();
-					var errorDiv = $('<div class="error"></div>').text('Echoué!!');
-					block.append(errorDiv);
-					
+				
+				Swal.fire({
+					title: 'Reponse',
+					text: 'serveur interne euror!',
+					type: 'error',
+					// background: 'rgb(119, 119, 119)',
+					backdrop: `rgba(0,0,123,0.4)`,
+					confirmButtonColor: 'rgb(255, 144, 0)'
+					});
+
 					}).always(function(){
 						console.log("AJAX request finished!");
 					});
-		}
-		return false;
+		
 		
 	});
 	//END VIDEO UPLOAD

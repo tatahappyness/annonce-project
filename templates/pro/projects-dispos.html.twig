@@ -101,13 +101,23 @@
                                                             <div class="d-flex flex-row align-items-center justify-content-around">
                                                                 <div class="">
                                                                     <div class="rounded-circle d-block" style="width: 80px; height: 80px; background: orange;">
+                                                                        {% if post.getCategoryId().getIcon() !=  null %}
+                                                                        <img class="" src="{{ absolute_url('/uploads/icons/' ~ post.getCategoryId().getIcon()) }}">
+                                                                        {% else %}
                                                                         <span class="lnr lnr-clock" style="font-size: 64px; line-height: 80px;"></span>
+                                                                        {% endif %}
                                                                     </div>
                                                                 </div>
                                                                 <div class="px-2 info-ads-detail">
                                                                     <a href="{{ path('pro_one_detail_ads_projects', {id: post.id}) }}" class="text-reset"><h3 class="d-block text-left">{{ post.getCategoryId().getCategTitle() }}</h3></a>
                                                                     <p class="d-block text-dark text-left">
-                                                                        {{ post.getPostUserId().getFirstname() }} - à {{ post.getCity().getVilleNomReel() }} <br>
+                                                                        {{ post.getPostUserId().getFirstname() }} - à {{ post.getCity().getVilleNomReel() }} 
+                                                                        {{ post.getPostUserId().getFirstname() }} - à {{ post.getCity().getVilleNomReel() }} 
+                                                                        {% for key, distance in distances %}
+                                                                            {% if key == post.getId() %}
+                                                                            (Aviron de {{ distance }})
+                                                                            {% endif %}
+                                                                        {% endfor %} <br>
                                                                         <span class="text-secondary">{{ post.getPostAdsTravauxDescription() }}</span>
                                                                     </p>
                                                                 </div>

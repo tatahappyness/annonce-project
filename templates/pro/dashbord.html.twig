@@ -92,9 +92,14 @@
 																</div>
 															</div>
 															<div class="px-2 info-ads-detail">
-																<a href="{{ path('pro_one_detail_ads_projects', {id: post.id}) }}" class="text-reset"><h3 class="d-block text-left">Electricité</h3></a>
+																<a href="{{ path('pro_one_detail_ads_projects', {id: post.id}) }}" class="text-reset"><h3 class="d-block text-left">{{ post.getArticleId().getArticleTitle() }} ({{ post.getCategoryId().getCategTitle() }})</h3></a>
 																<p class="d-block text-dark text-left">
-																	{{ post.getPostUserId().getFirstname() }} - à {{ post.getCity().getVilleNomReel() }} <br>
+																	{{ post.getPostUserId().getFirstname() }} - à {{ post.getCity().getVilleNomReel() }} 
+																	{% for key, distance in distances %}
+																		{% if key == post.getId() %}
+																		(Aviron de {{ distance }})
+																		{% endif %}
+																	{% endfor %} <br>
 																	<span class="text-secondary">{{ post.getPostAdsTravauxDescription() }}</span>
 																</p>
 															</div>

@@ -45,4 +45,15 @@ class Kernel extends BaseKernel
         $routes->import($confDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
     }
+
+    public function getProjectDir(): string
+    {
+        return \dirname(__DIR__);
+    }
+
+    public function getCharset()
+    {
+        return 'UTF-8';
+    }
+    
 }

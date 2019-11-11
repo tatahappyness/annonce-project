@@ -19,7 +19,7 @@
                                     > Bouster votre visibilité patout!
                                 </p>    
                                 </span>
-                                <a href="{{ path('pro_post_payements') }}" class="btn btn-danger text-decoration-none text-white">JE VEUX PROFITER</a>
+                                <a href="{{ path('pro_post_payements', {id: service.getId()}) }}" class="btn btn-danger text-decoration-none text-white">JE VEUX PROFITER</a>
                             </span>
                         </div>
 							
@@ -54,7 +54,11 @@
                         et il puisse m'évaluer aussi.
                     </div>
                     <div class="col-12 col-md-10 text-center bg-white">
+                        {% if isAbonned == true %}
                         <a class="btn btn-outline-warning btn-show-message-container text-warning w-50">Répondre au chantier</a>
+                        {% else %}
+                        <a href="{{ path('pro_post_payements', {id: service.getId()}) }}" class="btn btn-danger text-decoration-none text-white">JE VEUX PROFITER</a>
+                        {% endif %}
                     </div>
                 </div>
 					               	

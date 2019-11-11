@@ -568,11 +568,7 @@ jQuery(document).ready(function () {
         $(".upload-button").on('click', function() {
             $(".file-upload").click();
         });
-
-
-    //DISTANCE
-    distance('01190', '01190');
-	 
+        
 
 }) //END DOCUMENT READY
 
@@ -618,40 +614,5 @@ function initMap(lat, log) {
     // The marker, positioned at Uluru
     var marker = new google.maps.Marker({position: uluru, map: map2});
 
-    }
-
-
-    function distance(zip_code1, zip_code2) {
-        var zip_code1 = zip_code1;
-        var zip_code2 = zip_code2;
-        var units = 'km';
-        var clientKey = "CwFTCfT68FTf4g29tNAYyAOJxBq3mi6Yi5jljzGklJKK3YQuOFEHnBGMK0sTjUNW";
-        var url = 'https://www.zipcodeapi.com/rest/' + clientKey + '/distance.json/'+ zip_code1 + '/' + zip_code2 + '/' + units>
-    
-        // Make AJAX request
-        $.ajax({
-            "url": url,
-            "dataType": "json"
-        }).done(function(data) {
-            handleResp(data);
-                            
-            // Store in cache
-            cache[zipcode] = data;
-        }).fail(function(data) {
-            if (data.responseTextdata.responseText)
-            {
-                var json = data.responseTextdata;
-                // Store in cache
-                console.log(json);
-                                
-                // Check for error
-                if (json.error_msg)
-                    alert(json.error_msg);
-            }
-            else
-                alert('Request failed.');
-        });
-    
-    
     }
      

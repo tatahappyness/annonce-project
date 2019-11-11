@@ -36,6 +36,16 @@ class OfferRepository extends ServiceEntityRepository
     }
     */
 
+    public function findByCategoryId($value): ?Offer
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.categoryId = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
  
     public function findOneById($value): ?Offer
     {

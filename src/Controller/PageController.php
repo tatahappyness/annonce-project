@@ -1058,7 +1058,7 @@ class PageController extends AbstractController
     {
         $category = $categoryRep->findById((int) $id);
         $artiles = $articleRep->findByCategory($category);
-        $articles = count($artiles) > 0 ? $artiles : null;
+        $articles = count($artiles) > 0 ? $artiles : [];
 
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
@@ -1077,7 +1077,7 @@ class PageController extends AbstractController
         $configsite = $configsiteRep->findOneByIsActive();
         
         return $this->render('page/catalog_art_img_galery.html.twig', [
-            'artiles'=> $artiles,
+            'articles'=> $articles,
             'category'=>  $category,
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
@@ -1325,8 +1325,8 @@ class PageController extends AbstractController
                 {
                     //urlencode($foo) 
                     $message = (new \Swift_Message('DEMANDE DEVIS ORANGE TRAVEAUX'))
-                        ->setFrom('florent.tata15@gmail.com')
-                        ->setTo('florent.tata23@gmail.com')
+                        ->setFrom('florent.tata23@gmail.com')
+                        ->setTo('florent.tata91@gmail.com')
                         ->setBody("Test Email", 'text/html');
                         // ->setBody(
                         //     $this->renderView(

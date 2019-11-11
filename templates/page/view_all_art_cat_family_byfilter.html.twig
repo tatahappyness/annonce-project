@@ -42,10 +42,10 @@
 								</a>
 							
 								<ul class="navbar-nav mt-2 mt-lg-0">
-									<li class="nav-item active">
+									<li class="nav-item mx-1 active">
 									  <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
 									</li>
-									<li class="nav-item">
+									<li class="nav-item active mx-1">
 									  <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
 									</li>
 								</ul>
@@ -53,7 +53,7 @@
 							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
 								<span class="mr-1">
 									<button class="btn btn-round show-form-pro-mouseclick-11 bg-gray font-weight-bold text-warning border-warning text-nowrap" type="button">
-										<i class="">🔒</i> Se connecter
+										<i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
 									</button>
 								</span>
 								<span class="">
@@ -262,7 +262,7 @@
 								<div data-id="{{ art.getId() }}" class="img-new-pro-container article-image-show bg-white rounded" style="border: 4px solid white;">
 									<div class="img-new-pro-content d-flex flex-column rounded-top" style="background-image: url(/uploads/images/{{ art.getImg() }}); width: 100%; height: 250px;">
 										<div class="bg-transparent w-100" style="">
-											<a href="{{ path('view_art_cat_galery_page', {id: art.getArticleCategId().getid()}) }}" class="btn bg-success icon-pro-img-over d-none text-decoration-none float-right m-2">
+											<a href="{{ path('view_art_cat_galery_page', {id: art.getArticleCategId().getid()}) }}" class="btn bg-warning rounded-circle icon-pro-img-over d-none text-decoration-none float-right m-2">
 												<span class="lnr lnr-eye icon-popular-ask-eyes"></span>
 											</a>
 										</div>

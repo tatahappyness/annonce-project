@@ -106,8 +106,24 @@ class ProController extends AbstractController
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : [null];
+
+        //Get DISTANCE AND CALCULATE BY KM USING LAT AND LONG
+        foreach ($postsAds as $key => $post) {
+
+            $cityArray1['lat'] = $post->getCity()->getVilleLatitudeDeg();
+            $cityArray1['lng'] = $post->getCity()->getVilleLongitudeDeg();
+            $cityArray2['lat'] =  ($security->getUser()->getLat() !== null) ? $security->getUser()->getLat() : $security->getUser()->getUserCity()->getVilleLatitudeDeg();
+            $cityArray2['lng'] = ($security->getUser()->getLog() !== null) ? $security->getUser()->getLog() : $security->getUser()->getUserCity()->getVilleLongitudeDeg();
+
+            $distances[$post->getId()] =  $this->getDistance($cityArray1, $cityArray2, 'Km');
+
+        }
+        
+        //dump($distances);die;
+
         return $this->render('pro/dashbord.html.twig', [
             'numberDevis' => $nbdevis,
+            'distances'=> $distances,
             'postAds'=> $postsAds,
              'nbProjectDispo'=> count($postsAds),
              'user'=> $security->getUser(),
@@ -137,7 +153,7 @@ class ProController extends AbstractController
                             4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
                             );          
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData);
-        $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
+        $postsAds = count( $postsAdsArray ) > 0 ? $postsAdsArray : null;
         //dump($postsAds);die;
 
         if($postsAds !== null && !is_null($request->query->get('switch_periodity'))) {
@@ -171,17 +187,23 @@ class ProController extends AbstractController
             return new JsonResponse($arrayPostAds, 200);
         }
 
-        // //Get distance BY KM
-        // foreach ($postsAds as $key => $post) {
+        //Get DISTANCE AND CALCULATE BY KM USING LAT AND LONG
+        foreach ($postsAds as $key => $post) {
 
-        //     $distances[$post->getId()] =  $this->getDistance($post->getPostZipcode(), $security->getUser()->getUserCity()->getVilleCodePostal(), 'Km');
+            $cityArray1['lat'] = $post->getCity()->getVilleLatitudeDeg();
+            $cityArray1['lng'] = $post->getCity()->getVilleLongitudeDeg();
+            $cityArray2['lat'] =  ($security->getUser()->getLat() !== null) ? $security->getUser()->getLat() : $security->getUser()->getUserCity()->getVilleLatitudeDeg();
+            $cityArray2['lng'] = ($security->getUser()->getLog() !== null) ? $security->getUser()->getLog() : $security->getUser()->getUserCity()->getVilleLongitudeDeg();
 
-        // }
+            $distances[$post->getId()] =  $this->getDistance($cityArray1, $cityArray2, 'Km');
+
+        }
         
-        // dump($distances);die;
+        //dump($distances);die;
        
         return $this->render('pro/projects-dispos.html.twig', [
             'postAds' => $postsAds, 
+            'distances'=> $distances,
             'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
             'user'=> $security->getUser(),
         ]);
@@ -228,11 +250,12 @@ class ProController extends AbstractController
                 ]);
             }
         }
-
+        
         return $this->render('premuim/info-ads-premuim.html.twig', [
             'post' => $post, 'isAbonned'=> false, 
             'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
             'user'=> $security->getUser(),
+            'service'=> $myservice,
         ]);
     }
 
@@ -1367,7 +1390,7 @@ class ProController extends AbstractController
             }
         }
         //$offer = $offerRep->findAllArray();
-        $offer = $offerRep->findById(1);
+        $offer = $offerRep->findByCategoryId($serviceRep->findById((int) $id)->getCategoryId());
         return $this->render('premuim/strip-form.html.twig', [
             'serviceId' => $id, 'offer'=> $offer
         ]);   
@@ -1555,25 +1578,8 @@ class ProController extends AbstractController
 
     //GET DISTANCE BETWEEN TWO ZIP CODE OR LAT AND LONG
     // This function returns Longitude & Latitude from zip code.
-    function getLnt($zip)
+    function getDistance($first_lat, $next_lat, $unit)
     {
-
-        $url = "https://maps.googleapis.com/maps/api/geocode/json?address=
-        ".urlencode($zip)."&sensor=false&key=AIzaSyBqrz47gVZXhC-4Zl0KsR1JTx4TjRn-yUA";
-        $result_string = file_get_contents($url);
-        $result = json_decode($result_string, true);
-        $result1[]=$result['results'][0];
-        $result2[]=$result1[0]['geometry'];
-        $result3[]=$result2[0]['location'];
-        return $result3[0];
-
-    }
-    
-    function getDistance($zip1, $zip2, $unit)
-    {
-
-        $first_lat = $this->getLnt($zip1);
-        $next_lat = $this->getLnt($zip2);
         $lat1 = $first_lat['lat'];
         $lon1 = $first_lat['lng'];
         $lat2 = $next_lat['lat'];
@@ -1594,7 +1600,7 @@ class ProController extends AbstractController
             return ($miles * 0.8684)." ".$unit;
         }
         else{
-            return $miles." ".$unit;
+            return round($miles)." ".$unit;
         }
 
     } //End function get distance 

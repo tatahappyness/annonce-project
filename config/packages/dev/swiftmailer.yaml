@@ -1,4 +1,12 @@
 # See https://symfony.com/doc/current/email/dev_environment.html
-swiftmailer:
-    # send all emails to a specific address
-    #delivery_addresses: ['florent.tata15@gmail.com']
+# swiftmailer:
+#     # send all emails to a specific address
+#     delivery_addresses: ['florent.tata15@gmail.com']
+# swiftmailer:
+#     transport: gmail
+#     auth_mode: login
+#     port: 587
+#     host: smtp.gmail.com
+#     username: 'florent.tata15@gmail.com'
+#     password: '1991mars23'
+#     spool: { type: 'memory' }

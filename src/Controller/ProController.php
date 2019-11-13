@@ -67,6 +67,8 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Dompdf\Dompdf;
+// use Dompdf\Options;
 
 
 /**
@@ -247,6 +249,7 @@ class ProController extends AbstractController
                     'isAbonned'=> true,  
                     'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
                     'user'=> $security->getUser(),
+                    'service'=> $myservice,
                 ]);
             }
         }
@@ -346,9 +349,9 @@ class ProController extends AbstractController
     }
 
     /**
-    * @Route("/devis-receved-detail/{id}", name="pro_devis_receved_detail")
+    * @Route("/devis-receved-detail/{id}/{download}", name="pro_devis_receved_detail")
     */
-    public function devisRecevedDetail($id = null, Security $security, CustomerRepository $customRep, AbonnementRepository $abonnementRep, ServicesRepository $serviceRep, DevisRepository $devisRep)
+    public function devisRecevedDetail($id = null, $download = null, Security $security, CustomerRepository $customRep, AbonnementRepository $abonnementRep, ServicesRepository $serviceRep, DevisRepository $devisRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -373,7 +376,7 @@ class ProController extends AbstractController
         $customer = $customRep->findByUser($security->getUser());
         $devis = $devisRep->findById((int) $id);
         
-        if ($id !== null && !is_null($devis) && !is_null($customer)) {
+        if ($id !== null && $download == null && !is_null($devis) && !is_null($customer)) {
 
             $myservice = $serviceRep->findByUserAndCategoryId(array(1=> $security->getUser(), 2=> $devis->getNatureProject()->getArticleCategId()));
             $arrayCriticals = array(1=>  $customer, 2=> $myservice); // prepare query to get abonnement here!
@@ -389,6 +392,42 @@ class ProController extends AbstractController
                 ]);
             }
         }
+
+        /// DOWNLOAD DEVIS HERE TO PDF
+        if($devis !== null && $download == 'download') {
+                //die('OK');
+            $devis = $devisRep->findById((int) $id);
+            // Configure Dompdf according to your needs
+            // $pdfOptions = new Options();
+            // $pdfOptions->set('defaultFont', 'Arial');
+        
+            // Instantiate Dompdf with our options
+            $dompdf = new Dompdf();
+        
+            // Retrieve the HTML generated in our twig file
+            $html = $this->renderView('premuim/devis-to-pdf.html.twig', [
+                'devis' => $devis, 'isAbonned'=> true, 
+                // 'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
+                'user'=> $security->getUser(),
+            ]);
+        
+            // Load HTML to Dompdf
+            $dompdf->loadHtml($html);
+        
+            // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+            $dompdf->setPaper('A4', 'portrait');
+
+            // Render the HTML as PDF
+            $dompdf->render();
+
+            // Output the generated PDF to Browser (force download)
+            $dompdf->stream($devis->getCategoryId()->getCategTitle() . ".pdf", [
+                "Attachment" => true
+            ]);
+
+            
+        }// AEND GENERATE PDF
+
         if ($devis == null) {
             return  $this->redirectToroute('pro_devis_receved_lists');
         }
@@ -400,6 +439,7 @@ class ProController extends AbstractController
             'user'=> $security->getUser(),
         ]);
     }
+
     
     /**
     * @Route("/do-accept-project", name="pro_do_accept_devis")
@@ -1272,6 +1312,12 @@ class ProController extends AbstractController
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
+        return $this->render('premuim/felicitation-page.html.twig', [
+            'info' => 'Payement effectué!, Vous êtes abonné maintenant, Merci!!',
+        ]);
+        
+        die;
+
         if ($_POST) {
             
             if (!is_null($request->request->get('stripeToken'))) {
@@ -1279,7 +1325,9 @@ class ProController extends AbstractController
                 // Set your secret key: remember to change this to your live secret key in production
                 // See your keys here: https://dashboard.stripe.com/account/apikeys
 
-                \Stripe\Stripe::setApiKey('sk_test_vKh2QpGMT8Dv89CiAzpS8wbl00vsdGEYkc');
+                \Stripe\Stripe::setApiKey('sk_test_mRbQTD6K8LLIXCTLJbdNIMvJ00cHp20qyH');
+                // \Stripe\Stripe::setApiKey('sk_test_vKh2QpGMT8Dv89CiAzpS8wbl00vsdGEYkc');
+
                 //Token is created using Checkout or Elements!
                 //Get the payment token ID submitted by the form:
                 $token = $request->request->get('stripeToken');
@@ -1287,39 +1335,41 @@ class ProController extends AbstractController
                 $service = $serviceRep->findById((int) $request->request->get('service_id'));
                 //dump( $service);die;
                 $custom = $customRep->findById($security->getUser()->getId());
-                $custId = $custom->getCustomerId();
-                $email = $custom->getEmail();
-                if (is_null($custId)) {
+               
+                if (is_null($custom)) {
                     //Create new customer
                     $customer = \Stripe\Customer::create([
                         'email' => $request->request->get('email'),
                         'source' => $token,
-                        'name' => $request->request->get('name')
+                        'name' =>  $service->getCategoryId()->getCategTitle()
                     ]);
                     $custId = $customer->id;
                     $email = $request->request->get('email');
                     $newCustom = new Customer();
+                    $em =  $this->getDoctrine()->getManager();
+                    $em->beginTransaction();
                     $newCustom
-                        ->setUserId($security->getUser()->getId())
+                        ->setUserId($security->getUser())
                         ->setCustomerId($custId)
                         ->setEmail($email)
                         ->setName($request->request->get('name'))
                         ->setDateCrea(new \DateTime('now'));
 
-                    $em =  $this->getDoctrine()->getManager();
-                    $em->beginTransaction();
                     $em->persist($newCustom);
                     $em->flush();
-                    
-                    $custom = $customRep->findById($security->getUser()->getId());
+                    $em->commit();
+                    $custom = $customRep->findByUser($security->getUser());
                     $custId = $custom->getCustomerId();
                     $email = $custom->getEmail();
-                    $em->commit();
+                   
                     
                 }
                 //dump($customer);die;
-                if (!is_null($custId)) {
+                if (!is_null($custom)) {
                     //Do pay amount
+                    $custId = $custom->getCustomerId();
+                    $email = $custom->getEmail();
+
                     $charge = \Stripe\Charge::create([
                         'customer' => $custId,
                         'amount' => (float) $request->request->get('montant_paye'),
@@ -1377,7 +1427,8 @@ class ProController extends AbstractController
                         $em->merge($service);
                         $em->flush();
                         $em->commit();
-                        return new JsonResponse(['code'=>200, 'info'=> 'Payement effectué!, Vous êtes abonné maintenant, Merci!!'], 200);
+                       
+                        /// ETO IZY
 
                     } catch (\Throwable $th) {
                         return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);

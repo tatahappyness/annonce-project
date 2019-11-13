@@ -1,3 +1,4 @@
+//PAGE LOADER
 $(document).ready(function() {
 	
 	  //how form connexion user login

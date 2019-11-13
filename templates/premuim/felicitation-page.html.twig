@@ -1,0 +1,58 @@
+{% extends  'base.html.twig' %}
+
+        {% block stylesheets %}
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+        <!-- CSS Files -->
+        <link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+    
+    {% endblock %}
+
+    {% block body %}
+	
+    
+    <div class="jumbotron bg-transparent" style="overflow: hidden;">
+		
+        <main class="">
+				
+                <!--Begin section  of the form Login-->
+                <section class="">
+                    <div class="container border-0">
+                        <div class="row felicitation-alert d-flex justify-content-center bg-white rounded" style="padding-bottom: 375px; margin-top: 5%; overflow: hidden; background-image: url(/loaders/felicitation.gif) !important; background-position: center center !important; background-size: cover !important; margin-left: -35px; margin-right: -35px; box-sizing: border-box; box-shadow: 0 1px 8px black;margin-bottom: -165px;">
+                            <div class="col-12 rounded col-md-8 mb-5">
+                                <img class="d-none d-md-block" src="{{ absolute_url('/uploads/images/card-payement.png') }}">
+                                <h4 class="text-info py-5"></h4>
+                                <a href="{{ path('pro_dashbord') }}" class="btn float-right btn-warning my-5 font-weight-bold h1 text-decoration-none text-white"> OK </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!--End section  of the form Login-->
+				
+               
+        </main>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<!-- MESSAGE NTIFICATION -->
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<!--Local-->
+
+{% endblock %}

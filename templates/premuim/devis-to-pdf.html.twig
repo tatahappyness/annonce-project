@@ -23,7 +23,7 @@
 
 {% block body %}
 
-<div class="page-header page-header-image-gallery page-headers-pros">
+{# <div class="page-header page-header-image-gallery">
     <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
     </div>
 		
@@ -45,7 +45,7 @@
         </div>
         <!-- ############# End slide beside -->
     </div>
-</div>
+</div> #}
 <!--END HEADER-->
 
 
@@ -57,76 +57,20 @@
                 <div Class="row">
 					
                     <!-- Begin menu top pro -->
-                    {% include "./pro/menu/top-menu.html.twig" %}
+                    {# {% include "./pro/menu/top-menu.html.twig" %} #}
                     <!-- End menu top pro -->
 
                     <!-- Begin menu left pro -->
-                    {% include "./pro/menu/left-menu.html.twig" %}
+                    {# {% include "./pro/menu/left-menu.html.twig" %} #}
                     <!-- End menu left pro-->
-
-                    <div class="col-12 col-sm-8 pt-4">
-                        <div class="container-content-pro-space-right">
-                            <div class="card text-center">
-                                <div class="card-header p-2 font-weight-bold bg-darkgray text-uppercase">
-                                    <h5>{{ numberDevis }} devis reçu sur mon secteur</h5>
-                                </div>
-                                <div class="card-body">
-										
-                                    <ul class="list-group list-group-flush text-secondary">
-
-                                        {% if devis != null %}
-
-                                            {% for dev in devis %}
-                                  
-                                                <li class="list-group-item">
-                                                    <div class="d-block">
-                                                        <div class="d-flex flex-row align-items-center justify-content-around">
-                                                            <div class="">
-                                                                <div class="rounded-circle d-block" style="width: 80px; height: 80px; background: orange;">
-                                                                    <span class="lnr lnr-clock" style="font-size: 64px; line-height: 80px;"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="px-2 info-ads-detail">
-                                                                <a href="{{ path('pro_devis_receved_detail', {id: dev.id}) }}" class="text-reset"><h3 class="d-block text-left">{{ dev.getCategoryId().getCategTitle() }}</h3></a>
-                                                                <p class="text-dark text-left">
-                                                                    {{ dev.getFirstName() }} - à {{ dev.getCity() != null ? dev.getCity().getVilleNomReel() : '' }} <br>
-                                                                    <span class="text-secondary">{{ dev.getDetailProject() }}</span>
-                                                                </p> 
-                                                                <p class="text-center {% for devAccept in devisAccept %} {% if devAccept.getDevisId().getId() == dev.id %} d-none {% endif %}{% endfor %}">
-                                                                    {% if isAbonned == false %}
-                                                                    <a data-id="{{ dev.id }}" class="btn btn-warning btn-accept-devis text-decoration-none">J'accept</a>
-                                                                    {% endif %}
-                                                                    
-                                                                </p>
-                                                                {% if devisAccept != null %}                                                                   
-                                                                {% else %}
-                                                                <p class="text-dark text-left">
-                                                                    {{ dev.getFirstName() }} - à {{ dev.getCity().getVilleNomReel() }} <br>
-                                                                    <span class="text-secondary">{{ dev.getDetailProject() }}</span>
-                                                                </p>
-                                                                                                                                                                                                                                                                                                                                
-                                                                {% endif %}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-block text-center float-left">Date: {{ dev.getDateCrea() | date('d/m/y H:m:s') }}</div>
-                                                </li>
-                                              
-                                            {% endfor %}    
-                                        {% else %}
-                                            <li class="text-center"> AUCUN RESULTAT!<li>                                     
-                                        {% endif %}
-                                        
-                                           
-                                    </ul>
-										
-                                </div>
-                                <div class="card-footer text-muted pb-4">
-                                {# <a href="{{ path('pro_dispos_projects') }}" class="btn-outline-warning text-decoration-none text-warning">Voir tous les projets disponibles</a> #}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% if devis != null %}
+                        <!-- Begin recapulatif devis -->
+                        {% include "./premuim/recapitulatif-devis.html.twig" %}
+                        <!-- End recapulatif devis-->                                        
+                    {% else %}
+                        PAS DE RESULTAT!!
+                    {% endif %}
+                    
                 </div>
             </div>
         </section>
@@ -180,7 +124,7 @@
 
     </main>
 
-    {% include "./pro/footer/footer.html.twig" %}
+    {# {% include "./pro/footer/footer.html.twig" %} #}
 
 </div>
 
@@ -206,7 +150,6 @@
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
 <script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>

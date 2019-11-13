@@ -52,8 +52,22 @@ class PageController extends AbstractController
     /**
     * @Route("/", name="home_page")
     */
-    public function home( ArticleRepository $artRep, ConfigsiteRepository $configsiteRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function home( \Swift_Mailer $mailer, ArticleRepository $artRep, ConfigsiteRepository $configsiteRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
+        $message = (new \Swift_Message('DEMANDE DEVIS ORANGE TRAVEAUX'))
+        ->setFrom('florent15@gmail.com')
+        ->setTo('florent.tata23@gmail.com')
+        ->setBody("Test Email", 'text/html');
+        // ->setBody(
+        //     $this->renderView(
+        //         // templates/emails/registration.html.twig
+        //         'premuim/send-email-devis.html.twig',
+        //         ['devis' => $devis]
+        //     ),
+        //     'text/html'
+        // );
+
+        $mailer->send($message);  //die('stop');
         
        try {
         

@@ -720,6 +720,12 @@ hr {
 }
 /* // Extra small devices (portrait phones, less than 576px) */
 @media all and (max-width: 575.98px) { 
+	.nav-pro-header {
+		padding-bottom: 3em!important;
+	}
+	.btn-singout-pros {
+		margin-top: 1em;
+	}
 	.row-slide-beside-and-form-search {
 		margin-top: 0 !important;
 		height: 140px;
@@ -769,6 +775,12 @@ hr {
 
 /* // Small devices (landscape phones, less than 768px) */
 @media all and (max-width: 767.98px) { 
+	.felicitation-alert {
+		padding-bottom: 0px !important;
+		margin-left: 0px !important;
+		margin-right: 0px !important;
+		margin-bottom: -70px !important;
+	}
 	.page-header-space-pros {
 		min-height: 150vh !important;
 	}
@@ -808,11 +820,14 @@ hr {
  }
 
  @media screen and (width: 1024px) {
+	 .page-headers-pros {
+		min-height: 25vh !important;
+	 }
 	.content-parallax-forms {
 		padding-top: 12rem !important;
 	}
 	.page-header {
-		min-height: 55vh !important;
+		min-height: 55vh;
 	}
 	.row-slide-first-header {
 		margin-top:107 !important;
@@ -820,8 +835,11 @@ hr {
  }
 
  @media screen and (width: 1366px) {
+	 .page-headers-pros {
+		min-height: 32vh !important;
+	 }
 	.page-header {
-		min-height: 85vh !important;
+		min-height: 85vh;
 	}
 	.content-parallax-forms {
 		padding-top: 15rem !important;

@@ -37,6 +37,9 @@ function inputCreate(id) {
     var parentDiv = document.getElementById('group-form-spcial-input-hidden');
     parentDiv.innerHTML = '<input type="hidden" name="metier_ask_devis" value="' + id +'">';
     document.getElementById('group-form-spcial-input-hidden');
+    var form_dev = document.getElementById('form-ask-devis-home');
+    //submit the form post devis from home
+    form_dev.submit();
 
 }
 //END FORM FRONT SEARCH Category

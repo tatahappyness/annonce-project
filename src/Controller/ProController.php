@@ -68,8 +68,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Dompdf\Dompdf;
-// use Dompdf\Options;
-
+use Dompdf\Options;
 
 /**
 * @Route("/pro")
@@ -394,37 +393,39 @@ class ProController extends AbstractController
         }
 
         /// DOWNLOAD DEVIS HERE TO PDF
-        if($devis !== null && $download == 'download') {
-                //die('OK');
+        if($id !== null && $download !== null) {
+            //die($id);
             $devis = $devisRep->findById((int) $id);
+
             // Configure Dompdf according to your needs
-            // $pdfOptions = new Options();
-            // $pdfOptions->set('defaultFont', 'Arial');
-        
-            // Instantiate Dompdf with our options
-            $dompdf = new Dompdf();
-        
-            // Retrieve the HTML generated in our twig file
+            $pdfOptions = new Options();
+            $pdfOptions->set('defaultFont', 'Arial');
+           
+            $dompdf = new Dompdf($pdfOptions);
+                   
+            //Retrieve the HTML generated in our twig file
             $html = $this->renderView('premuim/devis-to-pdf.html.twig', [
-                'devis' => $devis, 'isAbonned'=> true, 
-                // 'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
-                'user'=> $security->getUser(),
-            ]);
-        
+               'devis' => $devis, 'isAbonned'=> true, 
+                ]);
+
             // Load HTML to Dompdf
             $dompdf->loadHtml($html);
         
-            // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+            //  (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
             $dompdf->setPaper('A4', 'portrait');
 
             // Render the HTML as PDF
             $dompdf->render();
 
-            // Output the generated PDF to Browser (force download)
-            $dompdf->stream($devis->getCategoryId()->getCategTitle() . ".pdf", [
-                "Attachment" => true
+            // Output the generated PDF to Browser (inline view)
+            $dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
             ]);
 
+            //dump("ok");die;
+
+        
+          
             
         }// AEND GENERATE PDF
 

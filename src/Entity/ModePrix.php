@@ -98,7 +98,7 @@ class ModePrix
     
     public function getPrixSousCategoryId(): ?SousCategory
     {
-        return $this->prixCategoryId;
+        return $this->prixSousCategoryId;
     }
 
     public function setPrixSousCategoryId(?SousCategory $prixSousCategoryId): self

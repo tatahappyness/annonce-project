@@ -1,157 +1,96 @@
-{% extends  'base.html.twig' %}
 
-{% block stylesheets %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Demande devis</title>
+    </head>
+    <body>
 
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />-->
-<script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
-<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
-<!-- CSS Files -->
-<link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
-<link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
-<link href="{{ absolute_url('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
-<link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
-<link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
-<link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
-<link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
-<link href="{{ absolute_url('/assets/form-multistep/form-step.css') }}" rel="stylesheet" />
-<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
-<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
-<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
-
-{% endblock %}
-
-{% block body %}
-
-{# <div class="page-header page-header-image-gallery">
-    <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
-    </div>
-		
-    <!--Begin heder-menu pro space -->
-    {% include "./pro/menu/header-menu.html.twig" %}
-    <!-- End header-menu pro space -->
-
-    <!-- Begin for row content header parallax -->
-    <div class="row d-flex justify-content-center font-weight-light">
-        <!-- ############# Begin slide beside -->
-        <div class="col-12 col-md-8" style="padding-top: 1em;">
-            <div class="container border-0">
-                <div class="w-100 d-flex flex-column pb-4 justify-content-center">
-                    <div class="h4 text-white text-uppercase">
-                        Bienvenu dans l'espace professionel
+        <!-- My devis receved section Detail-->
+        <div style="box-shadow: 0px 0px 4px; margin-top: 1.5rem!important; width: 100%!important; ">
+            <div style="margin-top: 1.5rem!important; width: 100%!important; ">
+                <small style="font-size: 80%; font-weight: 400;">www.orange-travaux.com</small>
+                <div style="float: right;">
+                    <img style="height: 30px;" src="../../public/assets/img/logo.png">
+                </div>                
+                <div style="margin-right: -15px; margin-left: -15px; margin-top: 2em;">
+                    <div style="border: 1px solid #dee2e6!important; border-color: #6c757d!important; text-align: center!important; padding-bottom: .5rem!important; padding-top: .5rem!important; margin-left: .5rem!important; margin-right: .5rem!important; width: 100%!important;">
+                        <h4 style="margin-bottom: .5rem; font-weight: 500; line-height: 1.2; margin-top: 0; ">
+                            DEMANDE DEVIS
+                        </h4>
                     </div>
+                    <div style="text-align: center!important; position: relative; width: 100%; padding-right: 15px; padding-left: 15px;">
+                        <p style="font-weight: 700!important; text-transform: capitalize!important; text-align: center!important; margin-top: 0; margin-bottom: 1rem; line-height: 1.61em; font-weight: 300; font-size: 1.2em;">Bonjour madame/monsieur,</p>
+                        <p style="margin-top: 0; margin-bottom: 1rem; line-height: 1.61em; font-weight: 300; font-size: 1.2em; text-align: center!important;">
+                        Monsieur <span style="text-transform: uppercase!important;"> {{ devis.getUserName() }} </span> disponsant du statatut de Particulier Propriétaire est à la recherche d'un professionnel
+                        pour la réalisation de prestation ci-dessous:
+                        </p>
+                    </div>
+                    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 15px; border: 1px solid #dee2e6!important; border-color: #ffc107!important;">
+                        <p style="font-size: 1.5em; line-height: 1.45em;  margin-top: 30px;  margin-bottom: 15px; font-weight: 700!important; text-align: center!important; color: #ffc107!important;">
+                            {{ devis.getNatureProject().getArticleCategId().getCategTitle() }}
+                        </p>
+                    </div>
+                  
+                    <table style="width: 100%;">
+                        <tr style=" text-align: center">
+                            
+                            <td>
+                                <p>Date de dépôt:</p>
+                                <p>Ville ou département:</p>
+                                <p>Type:</p>
+                                <p>Categorie:</p>
+                                <p>Nature:</p>
+                                <p>Email:</p>
+                                <p>Téléphone:</p>
+                            </td>
+                            <td style="">
+                                <p>{{ devis.getDateCrea() | date('d/m/y') }}</p>
+                                <p>{{ devis.getCity().getVilleNomReel() }}</p>
+                                <p>{{ devis.getTypeProject().getTitle() }}</p>
+                                <p>{{ devis.getNatureProject().getArticleCategId().getCategTitle() }}</p>
+                                <p>{{ devis.getNatureProject().getArticleTitle() }}</p>
+                                <p>
+                                {% if isAbonned == true %}
+                                    {{ devis.getEmail() }}
+                                {% else %}
+                                    XXXX
+                                {% endif %}
+                                </p>
+                                <p>
+                                {% if isAbonned == true %}
+                                    {{ devis.getPhoneNumber() }}
+                                {% else %}
+                                    XXXX
+                                {% endif %}
+                                </p>
+                            </td>
+                            
+                        </tr> 
+                    </table>
+                         
+                    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 15px; text-align: center">
+                        <p style="font-weight: 700!important; line-height: 1.61em; font-weight: 300; font-size: 1.2em;">Description de projet :</p>
+                        <p>{{ devis.getDetailProject() }}</p>
+                    </div>
+                    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 15px; width: 100%!important; text-align: center!important;">
+                    > Veuiller envoyer votre proposition de tarif à l'adresse électronique suivante: 
+                        <p style="line-height: 1.61em; font-weight: 300; font-size: 1.2em; font-weight: 700!important; text-align: left!important; "> <li style="color: #ffc107!important; font-weight: 700!important;">Email: {{ isAbonned == true ?  devis.getEmail() : 'XXXXXX'}} </li>
+                            ou <br> 
+                        <li style="color: #ffc107!important; font-weight: 700!important;"> Contacter à son numéro: {{ isAbonned == true ? devis.getPhoneNumber() : 'XXXXXX'}}</li>
+                        </p>
+                    </div>
+                    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 15px; border-left: 6px solid #343a40 !important;">
+                        Dans l'attente de votre devis, recevez, Monsieur/Madame, nos salutations les meilleures.
+                    </div>
+                    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 15px;">
+                        - <small style="font-size: 80%; font-weight: 400; color: #6c757d!important;">Vous pouvez nous contacter de préférente suivante cette heure de la journée: 09:00</small>
+                    </div>                                                                                                                                                                           
                 </div>
+
             </div>
         </div>
-        <!-- ############# End slide beside -->
-    </div>
-</div> #}
-<!--END HEADER-->
-
-
-<div class="jumbotron bg-transparent">
-    <main class="section-1 section-main bg-white">
-        <!--Begin section  of the list ads by artisan-->
-        <section class="bg-transparent">
-            <div class="container">
-                <div Class="row">
-					
-                    <!-- Begin menu top pro -->
-                    {# {% include "./pro/menu/top-menu.html.twig" %} #}
-                    <!-- End menu top pro -->
-
-                    <!-- Begin menu left pro -->
-                    {# {% include "./pro/menu/left-menu.html.twig" %} #}
-                    <!-- End menu left pro-->
-                    {% if devis != null %}
-                        <!-- Begin recapulatif devis -->
-                        {% include "./premuim/recapitulatif-devis.html.twig" %}
-                        <!-- End recapulatif devis-->                                        
-                    {% else %}
-                        PAS DE RESULTAT!!
-                    {% endif %}
-                    
-                </div>
-            </div>
-        </section>
-        <!--End section  of the list ads by artisan-->
-	
-        <!--Begin section the Presse Talk US -->
-        <section id="" class="bg-transparent">
-        <div class="container  bg-white">
-            <div class="row d-flex justify-content-center py-4">
-                <div class="col-12 text-center">
-                    <h5 class="text-uppercase">Restez connecté</h5>
-                    <div class="text-secondary small"><p class=" subtitle ">
-                        Pour être certain de ne rater aucun chantier, téléchargez l’application mobile pour suivre les projets lorsque vous êtes en déplacement.
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 lg-8 text-center">
-                    <img class="" src="{{ absolute_url('/assets/img/photos/app-mobile.png') }}"></img>
-                </div>
-                <div class="col-12 col-sm-6 lg-4 d-flex flex-column justify-content-center text-secondary">
-                    <a class="btn btn-outline-secondary d-flex flex-row text-center align-items-center">
-                        <span class="pro-icon mb-3">
-                            <span class="icon-message-pro">
-                                <object type="image/svg+xml" data="{{ absolute_url('/assets/icon/apple_icon-icons.com_62745.svg') }}" class="icon-message-pro icon-bike">
-                                    apple
-                                </object>
-                            </span>
-                        </span>
-                        <span class="">
-                            <span class="text-center ">Disponible sur <span/><br>
-                            <span class="font-weight-capitalize">App Store<span/>
-                        <span/>
-                    </a>
-                    <a class="btn btn-outline-secondary d-flex flex-row align-items-center">
-                        <span class="pro-icon mb-3">
-                            <span class="icon-message-pro">
-                                <object type="image/svg+xml" data="{{ absolute_url('/assets/icon/Google_Play_icon-icons.com_66988.svg') }} " class="icon-message-pro icon-bike">
-                                    play
-                                </object>
-                            </span>
-                        </span>
-                        <span class="text-center ">
-                            <span class="">Disponible sur <span/><br>
-                            <span class="font-weight-capitalize">Google Play<span/>
-                        <span/>
-                    </a>
-                </div>
-            </div>
-        </div>
-        </section>
-        <!--End section the Presse Talk US  -->
-
-    </main>
-
-    {# {% include "./pro/footer/footer.html.twig" %} #}
-
-</div>
-
-{% endblock %}
-
-{% block javascripts %}
-
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
-<!-- MESSAGE NTIFICATION -->
-<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
-<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
-<!--Local-->
-<script src="{{ absolute_url('/assets/loadbar/js/loading-bar.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/core/jquery.min.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/core/bootstrap.min.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/now-ui-kit.min.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
-<script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
-<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
-<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/app.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
-<script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
-
-{% endblock %}
+           
+    </body>
+</html>

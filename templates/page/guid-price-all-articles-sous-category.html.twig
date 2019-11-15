@@ -25,6 +25,16 @@
         <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
 
         <style>
+            .content-paraphe p {
+                font-size: 1em !important;
+                padding: 5px 3% !important;
+            }
+            .jspDrag {
+                background-color: rgb(255, 144, 0) !important;
+            }
+            .scroller {
+                padding: 10px 5% 10px 12% !important;
+            }
             .js .menu-panel {
                 position: absolute !important;
                 {# left: -322px !important; #}
@@ -266,17 +276,17 @@
                         {% if sousCategories|length > 0 %}
                             {% for sousCateg in sousCategories %}
                             <div class="bb-item" id="item1">
-                                <div class="content">
+                                <div class="content content-paraphe">
                                     <div class="scroller">
                                         <div class="row mt-5">
-                                            <div class="col-12">
+                                            <div class="col-12 text-center">
                                                 <h6 class="text-warning">{{sousCateg.getSousCategTitle()}}</h6>
-                                                <p class=""><img class="" src="{{absolute_url('/uploads/images/' ~ sousCateg.getImg())}}"></p>
+                                                <p class="text-center"><img class="" src="{{absolute_url('/uploads/images/' ~ sousCateg.getImg())}}"></p>
                                                 <p>
                                                    {{ sousCateg.getSousCategIntro() }}
                                                 </p>
                                         	</div>
-                                            <div class="col-12">
+                                            <div class="col-12 text-center">
                                                 <div class="d-flex align-items-center text-warning">
                                                 <span class="lnr lnr-chevron-right text-warning mr-1" style="font-size: 12px;"></span>
                                                 <h6 class=""> {{ sousCateg.getSOusCategLinkQuestion() }} <h6>
@@ -287,13 +297,13 @@
                                             {% if modePrices|length > 0 %}
                                                 {% for mod in modePrices %}
                                                     {% if sousCateg.getId() == mod.getPrixSousCategoryId().getId() %}
-                                                    <div class="col-12">
+                                                    <div class="col-12 text-center">
                                                         <div class="d-flex align-items-center text-warning">
                                                         <span class="lnr lnr-chevron-right text-warning mr-1" style="font-size: 12px;"></span>
                                                         <h6 class=""> {{ mod.getPrixTitle() }} <h6>
                                                         </div>
                                                         <p class=""> {{ mod.getPrixDescription() }} </p>
-                                                        <p class="text-center"><img class="" src="" style="width: 100%; height: 50%;"></p>
+                                                        <p class="text-center"><img class="text-center" src="{{absolute_url('/uploads/images/' ~ mod.getPrixImage())}}" style="width: 100%; height: 50%;"></p>
                                                     </div>
                                                     {% endif %}
                                                 {% endfor %}

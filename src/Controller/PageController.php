@@ -46,6 +46,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use \autoload;
 
 class PageController extends AbstractController
 {
@@ -55,7 +56,7 @@ class PageController extends AbstractController
     public function home( \Swift_Mailer $mailer, ArticleRepository $artRep, ConfigsiteRepository $configsiteRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
         $message = (new \Swift_Message('DEMANDE DEVIS ORANGE TRAVEAUX'))
-        ->setFrom('florent15@gmail.com')
+        ->setFrom('florent.tata15@gmail.com')
         ->setTo('florent.tata23@gmail.com')
         ->setBody("Test Email", 'text/html');
         // ->setBody(

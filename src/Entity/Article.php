@@ -50,6 +50,11 @@ class Article
      */
     private $icon;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isPopular;
+
 
     public function __construct()
     {
@@ -129,6 +134,18 @@ class Article
     public function setIcon(?string $icon): self
     {
         $this->icon = $icon;
+
+        return $this;
+    }
+
+    public function getIsPopular(): ?bool
+    {
+        return $this->isPopular;
+    }
+
+    public function setIsPopular(?bool $isPopular): self
+    {
+        $this->isPopular = $isPopular;
 
         return $this;
     }

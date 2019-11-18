@@ -1,4 +1,5 @@
-{
+{   "name": "orange-travaux",
+    "description": "Plateform pour demander de devis",
     "type": "project",
     "license": "proprietary",
     "require": {

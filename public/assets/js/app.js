@@ -14,7 +14,17 @@ $(document).ready(function() {
 		//selectOnClose: true
 		
 	});
-	  
+	
+	//Menu list Appartement type ajax
+	$('.appartement_type').select2({
+		//theme: 'bootstrap',
+		width: '100%',
+		language: 'fr',
+		placeholder: 'Quel type de bâtiment ?',
+		//selectOnClose: true
+		
+	});
+	
 	  
 	 $(window).scroll(function(){
 		 $(".animate").addClass('animated fadeIn delay-2s');

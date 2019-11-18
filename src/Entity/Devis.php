@@ -80,21 +80,6 @@ class Devis
     private $dateCrea;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $devisIsAccepted;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $devisIsValidated;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $devisIsFinished;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article")
      * @ORM\JoinColumn(name="nature_project_id", referencedColumnName="id",onDelete="SET NULL")
      */
@@ -123,6 +108,11 @@ class Devis
      * @ORM\JoinColumn(name="category_id_id", referencedColumnName="id",onDelete="SET NULL")
      */
     private $CategoryId;
+
+    /**
+     * @ORM\Column(type="string", length=250, nullable=true)
+     */
+    private $appartementType;
 
     public function getId(): ?int
     {
@@ -273,42 +263,6 @@ class Devis
         return $this;
     }
 
-    public function getDevisIsAccepted(): ?bool
-    {
-        return $this->devisIsAccepted;
-    }
-
-    public function setDevisIsAccepted(?bool $devisIsAccepted): self
-    {
-        $this->devisIsAccepted = $devisIsAccepted;
-
-        return $this;
-    }
-
-    public function getDevisIsValidated(): ?bool
-    {
-        return $this->devisIsValidated;
-    }
-
-    public function setDevisIsValidated(bool $devisIsValidated): self
-    {
-        $this->devisIsValidated = $devisIsValidated;
-
-        return $this;
-    }
-
-    public function getDevisIsFinished(): ?bool
-    {
-        return $this->devisIsFinished;
-    }
-
-    public function setDevisIsFinished(?bool $devisIsFinished): self
-    {
-        $this->devisIsFinished = $devisIsFinished;
-
-        return $this;
-    }
-
     public function getNatureProject(): ?Article
     {
         return $this->natureProject;
@@ -365,6 +319,18 @@ class Devis
     public function setCategoryId(?Category $CategoryId): self
     {
         $this->CategoryId = $CategoryId;
+
+        return $this;
+    }
+
+    public function getAppartementType(): ?string
+    {
+        return $this->appartementType;
+    }
+
+    public function setAppartementType(?string $appartementType): self
+    {
+        $this->appartementType = $appartementType;
 
         return $this;
     }

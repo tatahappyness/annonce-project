@@ -1,3 +1,17 @@
-swiftmailer:
-    url: '%env(MAILER_URL)%'
-    spool: { type: 'memory' }
+# swiftmailer:
+    # url: '%env(MAILER_URL)%'
+    # spool: { type: 'memory' }
+
+    # spool: { type: 'memory' }
+    # transport : gmail
+    # host: ssl://smtp.gmail.com
+    # port: 465
+    # auth_mode: login
+    # username: florent.tata15@gmail.com
+    # password: bnzkglnpuhzlxlgp
+    # encryption: ssl
+    # stream_options:
+    #     ssl:
+    #         allow_self_signed: true
+    #         verify_peer: false
+    #         verify_peer_name: false

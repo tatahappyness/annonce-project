@@ -46,30 +46,16 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use \autoload;
+
 
 class PageController extends AbstractController
 {
     /**
     * @Route("/", name="home_page")
     */
-    public function home( \Swift_Mailer $mailer, ArticleRepository $artRep, ConfigsiteRepository $configsiteRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function home(ArticleRepository $artRep, ConfigsiteRepository $configsiteRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
-        $message = (new \Swift_Message('DEMANDE DEVIS ORANGE TRAVEAUX'))
-        ->setFrom('florent.tata15@gmail.com')
-        ->setTo('florent.tata23@gmail.com')
-        ->setBody("Test Email", 'text/html');
-        // ->setBody(
-        //     $this->renderView(
-        //         // templates/emails/registration.html.twig
-        //         'premuim/send-email-devis.html.twig',
-        //         ['devis' => $devis]
-        //     ),
-        //     'text/html'
-        // );
-
-        $mailer->send($message);  //die('stop');
-        
+                      
        try {
         
         $arrayarticles = $artRep->findAll();
@@ -422,7 +408,7 @@ class PageController extends AbstractController
     /**
     * @Route("/post-ask-devis/{id}/{prosId}", name="post_ask_devis_page" , requirements={"id"="\d+"})
     */
-    public function postAskDevis($id = null, $prosId = null, Request $request, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep,   CitiesRepository $cityRep, TypeRepository $typeRep, CategoryRepository $categRep, ArticleRepository $artRep, FonctionRepository $foncRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, \Swift_Mailer $mailer, UserRepository $userRep)
+    public function postAskDevis($id = null, $prosId = null, Request $request, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep,   CitiesRepository $cityRep, TypeRepository $typeRep, CategoryRepository $categRep, ArticleRepository $artRep, FonctionRepository $foncRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, UserRepository $userRep)
     {       
             //dump($request->request->get('metier_ask_devis'));die;
             //dump($_ENV['MAILER_URL']);die;
@@ -463,6 +449,7 @@ class PageController extends AbstractController
                     ->setEmail($request->request->get('post_email_ask_devis'))
                     ->setZipCode($request->request->get('post_zipcode_ask_devis'))
                     ->setCity($cityRep->findById((int) $request->request->get('city')))
+                    ->setAppartementType($request->request->get('appartement_type'))
                     ->setIsAcceptedCondition(true)
                     ->setDateCrea(new \DateTime('now'))
                     ->setCivility($request->request->get('post_civility_ask_devis'))
@@ -471,7 +458,7 @@ class PageController extends AbstractController
 
                     try {
 
-                        if($this->sendMail($devis, $article->getArticleCategId(), $serviceRep, $customRep, $abonnementRep, $mailer)) 
+                        if($this->sendMail($devis, $article->getArticleCategId(), $configsiteRep, $serviceRep, $customRep, $abonnementRep)) 
                         {
                             $em->persist($devis);
                             $em->flush();
@@ -1318,41 +1305,62 @@ class PageController extends AbstractController
     }
 
     //Function to send mail to each professional
-    public function sendMail($devis = null, $category  =null, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, \Swift_Mailer $mailer)
+    public function sendMail($devis = null, $category  =null, $configsiteRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep)
     {
 
         $myservices = $serviceRep->findByCategoryId($category);
 
-        // Create the Transport
-        // $transport = (new Swift_SmtpTransport('smtp.example.org', 25))
-        //     ->setUsername('your username')
-        //     ->setPassword('your password');
-
-        // // Create the Mailer using your created Transport
-        // $mailer = new Swift_Mailer($transport);
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
         
         if(count($myservices) > 0) {
 
             foreach ($myservices as $key => $myservice) {
                 $customer = $customRep->findByUser($myservice->getUserId());
                 $arrayCriticals = array(1=>  $customer, 2=> $myservice); // prepare query to get abonnement here!
-                if ($customer !== null && $myservice->getIsActived() == true && $abonnementRep->isPremiumAndDateExpireValid($arrayCriticals)) 
+                if ($customer !== null && $myservice->getIsActived() == true && $abonnementRep->isPremiumAndDateExpireValid($arrayCriticals) == true) 
                 {
-                    //urlencode($foo) 
-                    $message = (new \Swift_Message('DEMANDE DEVIS ORANGE TRAVEAUX'))
-                        ->setFrom('florent.tata23@gmail.com')
-                        ->setTo('florent.tata91@gmail.com')
-                        ->setBody("Test Email", 'text/html');
-                        // ->setBody(
-                        //     $this->renderView(
-                        //         // templates/emails/registration.html.twig
-                        //         'premuim/send-email-devis.html.twig',
-                        //         ['devis' => $devis]
-                        //     ),
-                        //     'text/html'
-                        // );
+                   // $devis = $devisRep->findById(6);
 
-                     $mailer->send($message);     
+                        $transport = new \Swift_SmtpTransport();
+                            $transport
+                            ->setHost('smtp.gmail.com')
+                            ->setEncryption('ssl')
+                            ->setPort(465)  
+                            ->setAuthMode('login')
+                            ->setUsername($configsite->getEmail())
+                            ->setPassword('bnzkglnpuhzlxlgp');
+            
+                        // // Create the Mailer using your created Transport
+                        $mailer = new \Swift_Mailer($transport);
+
+                        $mailer->SMTPOptions = array(
+                            'ssl' => array(
+                                'verify_peer' => false,
+                                'verify_peer_name' => false,
+                                'allow_self_signed' => true
+                            )
+                        );
+
+                        $message = (new \Swift_Message('DEMANDE DEVIS ORANGE TRAVEAUX'))
+                        ->setFrom($configsite->getEmail())
+                        ->setTo($myservice->getUserId()->getEmail());
+                        // ->setBody('<p>Merci mon Dieu!!</p>', 'text/html', 'utf-8');
+     
+                        $img = $message->embed(\Swift_Image::fromPath('assets/img/logo.png'));
+
+                        $message->setBody(
+                            $this->renderView(
+                                // templates/emails/registration.html.twig
+                                'premuim/devis-to-pdf.html.twig',
+                                ['devis' => $devis, 'img' => $img, 'isAbonned'=> false, 'isMail'=> true]
+                            ),
+                            'text/html', 'utf-8'
+                        );
+
+                    $result =  $mailer->send($message);  //die('stop');
+                   
+                    //dump($result);die;
 
                 }
             }

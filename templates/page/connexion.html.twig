@@ -219,7 +219,7 @@
 				<!-- ############# Begin form search -->
 				<div class="col-12 col-md-10 d-flex flex-column justify-content-center align-items-end">
 					<div class="w-100 bg-dark" style="box-shadow: -14px 5px 5px black;">
-						<form action="{{ path('post_ask_devis_page') }}" method="POST">
+						<form id="form-ask-devis-home" action="{{ path('post_ask_devis_page') }}" method="POST">
 							<div class="d-flex flex-column flex-sm-row align-items-center justify-content-center">
 								<div class="form-group p-0 m-0 w-100">
 
@@ -460,7 +460,7 @@
 <script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/list-ajax-home.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/inscription.js') }}"></script>
 
 {% endblock %}

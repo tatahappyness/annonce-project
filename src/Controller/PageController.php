@@ -85,7 +85,7 @@ class PageController extends AbstractController
         $configsite = $configsiteRep->findOneByIsActive();
 
        //Get comments list by particulars
-        $comments = $commentRep->findAllComments(6);
+        $comments = $commentRep->findAllCommentsByParticular(6);
         $comments = count( $comments) > 0 ? $comments : null;
         //dump( $comments);die;
        } catch (\Throwable $th) {

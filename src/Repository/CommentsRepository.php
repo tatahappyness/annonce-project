@@ -23,16 +23,53 @@ class CommentsRepository extends ServiceEntityRepository
     //  * @return Comments[] Returns an array of Comments objects
     //  */
     
-    public function findAllComments($limit = 6, $value = true)
+    public function findAllCommentsByParticular($limit = null)
     {
+       if($limit !== null) {
+
         return $this->createQueryBuilder('c')
-            ->andWhere('c.isParticular = :val')
-            ->setParameter('val', $value)
+        ->andWhere('c.isParticular = ?1 AND c.isPublish = ?2')
+        ->setParameters(array(1=> true, 2=> true))
+        ->orderBy('c.id', 'ASC')
+        ->setMaxResults($limit)
+        ->getQuery()
+        ->getResult();
+
+       }
+       return $this->createQueryBuilder('c')
+       ->andWhere('c.isParticular = ?1 AND c.isPublish = ?2')
+       ->setParameters(array(1=> true, 2=> true))
+       ->orderBy('c.id', 'ASC')
+       //->setMaxResults($limit)
+       ->getQuery()
+       ->getResult();
+        
+    }
+
+    public function findAllCommentsByPros($limit = null)
+    {
+       
+        if ($limit !== null) {
+            
+            return $this->createQueryBuilder('c')
+                ->andWhere('c.isPro = ?1 AND c.isPublish = ?2')
+                ->setParameters(array(1=> true, 2=> true))
+                ->orderBy('c.id', 'ASC')
+                ->setMaxResults($limit)
+                ->getQuery()
+                ->getResult();
+            ;
+
+        }
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.isPro = ?1 AND c.isPublish = ?2')
+            ->setParameters(array(1=> true, 2=> true))
             ->orderBy('c.id', 'ASC')
             ->setMaxResults($limit)
             ->getQuery()
-            ->getResult()
+            ->getResult();
         ;
+        
     }
     
 

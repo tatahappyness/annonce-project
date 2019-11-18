@@ -167,7 +167,7 @@
                                 <th>#</th>
                                 <th>Client (Email)</th>
                                 <th>Catégorie</th>
-								<th>Date de Création</th>
+								                <th>Date de Création</th>
                                 <th>Action</th>                  
                             </tr>
                             </thead>
@@ -176,33 +176,37 @@
                                 <th>#</th>
                                 <th>Client Email</th>
                                 <th>Catégorie</th>
-								<th>Date de Création</th>
+								                <th>Date de Création</th>
                                 <th>Action</th>
                             </tr>
                             </tfoot>
                             <tbody>							
-							 {% if list_services != null %}							
+							              {% if list_services != null %}							
                                 {% for lst in list_services %}
                             <tr>
                                 <td>{{ lst.getId() }}</td>
                                 <td>{{ lst.getUserId().getEmail() }}
-									<button class="btn btn-info" data-toggle="modal" data-target="#myModal_info_service" onclick="show_modal_show_service({{ lst.getId() }})"  type="button" title="Plus de Détail"><i class="fa fa-eye"></i>
-                  </button></br>
-								</td>
-                
-                <td>{{ lst.getCategoryId().getCategTitle() }}</td>                          
-                  <td>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}</td>
-                  <td class="text-center">
-									{% if lst.getIsActived() == 1 %}
-										<div  type="button" data-toggle="modal" data-target="#myModal_bloquer_service" class=" btn-success">BLOQUE</div>										
-									{% else %}
-										<div   type="button" data-toggle="modal" data-target="#myModal_debloquer_service" class=" btn-dark">DEBLOQUE</div>
-									{% endif %}</br>
-									
-									<div class="btn-danger" data-toggle="modal" data-target="#myModal_sup_service" onclick="show_modal_delete_service({{ lst.getId() }})" type="button" title="Supprimer le service">
-										SUPPRIMER
-									</div>
-								</td>
+                                <button class="btn btn-info" data-toggle="modal" data-target="#myModal_info_service" onclick="show_modal_show_service({{ lst.getId() }})"  type="button" title="Plus de Détail"><i class="fa fa-eye"></i>
+                                </button></br>
+                            </td>
+                            
+                            <td>{{ lst.getCategoryId().getCategTitle() }}</td>                          
+                              <td>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}</td>
+                              <td class="text-center">
+                              {% if lst.getIsActived() == 1 %}
+                                <a class="col nav-link btn btn-success" href="{{ path('setServiceBoquer' , {id: lst.getId() } ) }}">
+                                  <div  data-toggle="modal" data-target="#myModal_bloquer_service" >BLOQUE</div>										
+                                </a>
+                              {% else %}
+                                <a class="col nav-link btn btn-secondary" href="{{ path('setServiceDebloque' , {id: lst.getId() } ) }}">
+                                  <div   data-toggle="modal" data-target="#myModal_debloquer_service" >DEBLOQUE</div>
+                                </a>
+                              {% endif %}</br>
+                              
+                              <div class="btn col-lg-12 btn-danger" data-toggle="modal" data-target="#myModal_sup_service" onclick="show_modal_delete_service({{ lst.getId() }})" title="Supprimer le service">
+                                SUPPRIMER
+                              </div>
+                            </td>
 								
                             </tr>
 								{% endfor %}

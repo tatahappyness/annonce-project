@@ -253,11 +253,10 @@
 		$('.nav_objet_devis').addClass('active');
 		
 		
-		function show_modal_affiche_article($id){
-			
+		function show_modal_affiche_article($id){			
                  var xhttp = new XMLHttpRequest();
                  xhttp.onreadystatechange = function() {
-                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    if (xhttp.readyState == 4 && xhttp.status == 200) {
                         document.getElementById("load_modal_affiche_article").innerHTML = xhttp.responseText;
                     }
                  };

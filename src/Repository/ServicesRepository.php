@@ -80,22 +80,57 @@ class ServicesRepository extends ServiceEntityRepository
         $stmt = $conn->prepare($sql);
         $stmt->execute();    
     }
+    
+    public function updateService_one_Actived($value) 
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = " UPDATE `services` SET `is_actived` = '1' WHERE `services`.`id` = $value ";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();    
+
+        /*
+        $conn = $this->getEntityManager()->getConnection();
+
+        $query = $this->_em->createQuery(" UPDATE services SET is_actived IN '1' WHERE services.id IN :val  ");
+            
+        
+        $query->setParameter('val', $value);
+
+        //$q = $_em->createQuery("UPDATE s SET is_actived IN '1' WHERE id IN :val")
+          //      ->setParameter(':val', $value);
+        
+        //return  $q->execute();
+
+        $stmt = $conn->prepare($query);
+        $stmt->execute();    */
+    }
+    
 
 
     
-    public function updateSetIdServiceDisable($value):  ?Services
+    public function updateSetIdService_Disable($value)
     {
         //$conn = $this->getEntityManager()->getConnection();
 
+        /*
         $query = $this->_em->createQuery(' UPDATE `services` SET `is_actived` = NULL WHERE `services`.`id` = :val ');
         $query->setParameter('val', $value);
 
         return $query->execute();
 
-        //$sql = ' UPDATE `services` SET `is_actived` = NULL WHERE `services`.`id` = :val ';
+        */
         
-        //$stmt = $conn->prepare($sql);
-        //$stmt->execute();
+
+        
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = " UPDATE `services` SET `is_actived` = '0' WHERE `services`.`id` = $value ";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();    
         
     }
 

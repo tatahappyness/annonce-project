@@ -73,25 +73,25 @@
 				<div class="row col-lg-12">
         
       
-							    {% if option_email != null %}							
-										{% for lst in option_email %}
-                          {% if lst.typekey() == 1 %}							
-                            <h4 class="" >MODE ACTIVER: </h4>
-                            <h3 class="btn-success" > [1] Normalement </h3>
-                          {% endif %}	
-                          {% if lst.typekey()  == 2 %}							
-                            <h4 class="" >MODE ACTIVER: </h4> 
-                            <h3 class=" btn-secondary" >[2] Envoyer à une seule personne</h3>
-                         	{% endif %}
-                          {% if lst.typekey()  == 3 %}	
-                            <h4 class="" >MODE ACTIVER: </h4>
-                            <h3 class="btn-info " >[3] Envoyer les devis à plusieurs personnes</h3>                                
-                          {% endif %}	
+					{% if option_email != null %}							
+						{% for lst in option_email %}
+							{% if lst.typekey() == 1 %}							
+								<h4 class="" >MODE ACTIVER: </h4>
+								<h3 class="btn-success" > [1] Normalement </h3>
+							{% endif %}	
+							{% if lst.typekey()  == 2 %}							
+								<h4 class="" >MODE ACTIVER: </h4> 
+								<h3 class=" btn-secondary" >[2] Envoyer à une seule personne</h3>
+								{% endif %}
+							{% if lst.typekey()  == 3 %}	
+								<h4 class="" >MODE ACTIVER: </h4>
+								<h3 class="btn-info " >[3] Envoyer les devis à plusieurs personnes</h3>                                
+							{% endif %}	
 
                     {% endfor %}
-									{% else %}
-										<li class="text-center"> AUCUN RESULTAT!<li>                                     
-									{% endif %}	
+					{% else %}
+						<li class="text-center"> AUCUN RESULTAT!<li>                                     
+					{% endif %}	
 
             
 				</div>
@@ -159,15 +159,15 @@
 							</button>
 						</div>						
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
+							<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">
 								NON
 							</button>
 
 							<a href="{{ path('setUpdateServiceActived') }}" class="text-reset">
-                <button type="button" class=" btn btn-success">
-                  OUI
-  							</button>	
+								<button type="button" class=" btn btn-success">
+									OUI
+								</button>	
 							</a>
 
 						</div>
@@ -198,25 +198,64 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form id="form_email_one_personne">	
+							<form id="form_email_one_personne" name="x_1">	
 								<div class="form-group row">
 								  <div class="col-sm-12 mb-3 mb-sm-0">                          
 									<h4 class="small  font-weight-bold">Email:</h4>
 								  </div>
 								  <div class="col-sm-12 mb-3 mb-sm-0">                          
-									<input type="email" class="form-control form-control-user" id="email_one_personne" placeholder="Adresse email">
+									<input type="email" class="form-control form-control-email-seul-perso" id="email_one_personne" placeholder="Adresse email" style="display: none;">
+									{% if list_serv != null %}							
+										<select id="select_email" name="x_2" onChange="Lien()" class="form-control" >
+											<option class="col-lg-12 ">--- Selectioner ---</option>
+											{% for x in list_serv %}
+												<option class="col-lg-12 ">{{ x.getUserId().getEmail() }}</option>
+											{% endfor %}
+										</select>
+										{% else %}
+										<li class="text-center"> AUCUN RESULTAT!<li>                                     
+									{% endif %}	
+
+
 								  </div>                                                  
 								</div>
 							</form>	
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
+							<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">
 								NON
 							</button>
-							<button type="button" class=" btn btn-success">
-								OUI
+							<button data-toggle="modal" data-target="#myModal_confirm_dev_personne" type="submit" class="confirmer_seul_pers btn btn-success" data-dismiss="modal">
+								CONTINUER
 							</button>
+							
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal comfirmer les devis normalement-->
+
+			<div class="modal fade" id="myModal_confirm_dev_personne" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+								Confirmer la mode d'envoi:</br> [Une seule personne]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							Email: <h4 class="select_my_email"></h4>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"	data-dismiss="modal">
+								NON
+							</button>
+							
+							<div id="valider_email">
+								
+							</div>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -234,7 +273,7 @@
 							</button>
 						</div>						
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
+							<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">
 								NON
 							</button>
@@ -257,51 +296,62 @@
                 <div class="card-body">
                   <div class="text-center">
                       <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable_plus" width="100%" cellspacing="0">
-                            
-                                <thead class="bg-warning text-dark">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nom</th>
-                                    <th>Prénom</th>
-                                    <th>Téléphone</th>
-                                    <th>Mail</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nom</th>
-                                    <th>Prénom</th>
-                                    <th>Téléphone</th>
-                                    <th>Mail</th>
-                                    <th>Action</th>                                    
-                                </tr>
-                                </tfoot>
-											
-								<tbody>
-							    {% if list_pros != null %}							
-										{% for lst in list_pros %}
-									
+						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+							<thead class="bg-warning text-dark">
+							<tr>
+								<th>#</th>
+								<th>Client (Email)</th>
+								<th>Catégorie</th>
+												<th>Date de Création</th>
+								<th>Action</th>                  
+							</tr>
+							</thead>
+								<tfoot>
+								<tr>
+									<th>#</th>
+									<th>Client Email</th>
+									<th>Catégorie</th>
+													<th>Date de Création</th>
+									<th>Action</th>
+								</tr>
+								</tfoot>
+								<tbody>							
+									{% if list_serv != null %}							
+										{% for lst in list_serv %}
 									<tr>
 										<td>{{ lst.getId() }}</td>
-										<td>{{ lst.firstname() }}</td>
-										<td>{{ lst.name() }}</td>
-										<td>{{ lst.getMobile() }}</td>
-										<td>{{ lst.getEmail() }}</td>
-										<td>
-											<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_pro_envoi_email" type="button" title="Enlever de la liste"><i class="fa fa-times"></i>
-											</button>
-										</td>
+										<td>{{ lst.getUserId().getEmail() }}
+										<button class="btn btn-info" data-toggle="modal" data-target="#myModal_info_service" onclick="show_modal_show_service({{ lst.getId() }})"  type="button" title="Plus de Détail"><i class="fa fa-eye"></i>
+										</button></br>
+									</td>
+									
+									<td>{{ lst.getCategoryId().getCategTitle() }}</td>                          
+									<td>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}</td>
+									<td class="text-center">
+									{% if lst.getIsActived() == 1 %}
+										<a class="col nav-link btn btn-success" href="{{ path('setEmailBoquer' , {id: lst.getId() } ) }}">
+											<div  data-toggle="modal" data-target="#myModal_bloquer_service" >BLOQUE</div>										
+										</a>
+									{% else %}
+										<a class="col nav-link btn btn-secondary" href="{{ path('setEmailDebloque' , {id: lst.getId() } ) }}">
+											<div   data-toggle="modal" data-target="#myModal_debloquer_service" >DEBLOQUE</div>
+										</a>
+									{% endif %}</br>
+									
+									<div class="btn col-lg-12 btn-danger" data-toggle="modal" data-target="#myModal_sup_service" onclick="show_modal_delete_service({{ lst.getId() }})" title="Supprimer le service">
+										SUPPRIMER
+									</div>
+									</td>
+										
 									</tr>
 										{% endfor %}
 									{% else %}
 										<li class="text-center"> AUCUN RESULTAT!<li>                                     
 									{% endif %}	
-
-                                </tbody>
-                            </table>
+									
+								
+								</tbody>
+							</table>
                         </div>
                   </div>
                </div>
@@ -361,7 +411,36 @@
 		$('.nav-item').removeClass('active');
 		$('.nav_m_e_email').addClass('active');
 		
-		
+			function Lien() {
+				i = document.x_1.x_2.selectedIndex;
+				if (i == 0) return;
+				selected = document.x_1.x_2.options[i].value;
+				
+				x = $('.form-control-email-seul-perso').val(selected);
+				alert(selected);
+				$('.select_my_email').text(selected);
+				//parent.location.href = url;
+
+				document.getElementById("valider_email").innerHTML = `
+					<a class="col nav-link btn btn-success" href="{{ path('setEmailDebloque' , {id: "`selected`"} ) }}">						
+						VALIDER						
+					</a>
+					`;
+				
+			}
+			
+
+		function edit_service_one_email($email){
+			alert("ACTIVER EMAIL = "+$email)
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+					if (xhttp.readyState == 4 && xhttp.status == 200) {
+				}
+			};
+			xhttp.open("GET", "{{ path('service') }}" , true);
+			xhttp.send();
+		}		
 		
 	
 	
@@ -376,6 +455,17 @@
 		});
 
 
+		$('.confirmer_seul_pers').click(function (){			
+			$x = $('.form-control-email-seul-perso').val();
+
+			if ($x != '' ) {
+				alert('not null')
+			}else{
+				alert('nullable')
+			}			
+			
+		});
+		
 
 		
 		$('.envoyer_normale').click(function (){

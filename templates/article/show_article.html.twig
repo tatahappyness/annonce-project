@@ -18,6 +18,28 @@
                 <th>Date de création:</th>
                 <td>{{ article.articleDateCrea() | date('d/m/y H:m:s') }}</td>
             </tr>
+
+                 <tr>
+                <th>Icon</th>
+                <td>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 7rem;" src="{{ absolute_url('/uploads/logo/') }}{{ article.icon }}" alt="">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 60rem;" src="{{ absolute_url('/uploads/images/') }}{{ article.img }}" alt="">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+           
         </tbody>
     </table>
     

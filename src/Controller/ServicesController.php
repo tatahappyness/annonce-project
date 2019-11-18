@@ -12,7 +12,7 @@ use App\Repository\ServicesRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\UserRepository;
 use App\Repository\CategoryRepository;
-
+use App\Repository\OptionEmailRepository;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * @Route("/services")
+ * @Route("/admin/services")
  */
 class ServicesController extends AbstractController
 {
@@ -36,6 +36,7 @@ class ServicesController extends AbstractController
             'services' => $servicesRepository->findAll(),
         ]);
     }
+    
 
 
     /**

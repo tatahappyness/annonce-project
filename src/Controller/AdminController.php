@@ -295,7 +295,6 @@ class AdminController extends AbstractController
 
 		       
         $serv = $serviceRep->updateServiceActived();
-
         $option_email_get = $optionEmail_rep->updateNormale();
 
         return $this->redirectToRoute('m_e_email');
@@ -306,15 +305,20 @@ class AdminController extends AbstractController
     /**
     * @Route("/setUpdateServiceDisable", name="setUpdateServiceDisable")
     */
-    public function setUpdateServiceDisable(ServicesRepository $serviceRep)
+    public function setUpdateServiceDisable( ServicesRepository $serviceRep, OptionEmailRepository $oneUpdateService)
     {
         
         
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
-		       
-        $serv = $serviceRep->updateServiceDisable();
+        
+        $serv = $serviceRep->updateServiceDisable();               
+        $option_email_get = $oneUpdateService->updateOne();
+        
+        $set_id_actived = $serviceRep->updateService_one_Actived(12);
+        
+        
         
         return $this->redirectToRoute('m_e_email');
 
@@ -444,18 +448,21 @@ class AdminController extends AbstractController
     /**
     * @Route("/m_e_email", name="m_e_email")
     */
-    public function m_e_email(UserRepository $pro_user_rep, OptionEmailRepository $option_email_rep, ConfigsiteRepository $configsiteRepository )
+    public function m_e_email(UserRepository $pro_user_rep, OptionEmailRepository $option_email_rep, ConfigsiteRepository $configsiteRepository, ServicesRepository $serviceRep )
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');        
         		
         $count_pro = $pro_user_rep->findRolesPro();
+        
+        $count_option_service = $serviceRep->findAll();
         $count_option_email = $option_email_rep->findAll();
                   
 		return $this->render('admin/m_e_email.html.twig', [
             'configsites' => $configsiteRepository->findAll(),
-			'page_head_title' => 'MODES D’ENVOI D’EMAIL',
-             'list_pros' => $count_pro,
-             'option_email' => $count_option_email
+            'page_head_title' => 'MODES D’ENVOI D’EMAIL',            
+            'list_serv' => $count_option_service,
+            'list_pros' => $count_pro,
+            'option_email' => $count_option_email
         ]);
     }
 
@@ -696,6 +703,95 @@ class AdminController extends AbstractController
 			 'list_services' => $count_service
         ]);
 		
+    }
+
+    
+    
+    /**
+    * @Route("/service/setServiceDebloque/{id}", name="setServiceDebloque")
+    */
+    public function setServiceDebloque($id = null, ServicesRepository $serviceRep, OptionEmailRepository $oneUpdateService)
+    {
+        	
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+        if ($id !== null) {
+           
+            try {
+                $set_id_actived = $serviceRep->updateService_one_Actived($id);
+            } catch (\Throwable $th) {
+                return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+            }
+        }
+        
+        return $this->redirectToRoute('service');
+      
+    }
+
+    
+    /**
+    * @Route("/service/setServiceBoquer/{id}", name="setServiceBoquer")
+    */
+    public function setServiceBoquer($id = null, ServicesRepository $serviceRep)
+    {
+        	
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+        if ($id !== null) {
+           
+            
+                $set_id_actived = $serviceRep->updateSetIdService_Disable($id);
+            
+        }
+        
+        return $this->redirectToRoute('service');
+      
+    }
+	
+	
+    /**
+    * @Route("/m_e_email/setEmailDebloque/{id}", name="setEmailDebloque")
+    */
+    public function setEmailDebloque($id = null, ServicesRepository $serviceRep, OptionEmailRepository $oneUpdateService)
+    {
+        	
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+        if ($id !== null) {
+           
+            try {
+                $set_id_actived = $serviceRep->updateService_one_Actived($id);
+            } catch (\Throwable $th) {
+                return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+            }
+        }
+        
+        return $this->redirectToRoute('m_e_email');
+      
+    }
+
+    
+    /**
+    * @Route("/m_e_email/setEmailBoquer/{id}", name="setEmailBoquer")
+    */
+    public function setEmailBoquer($id = null, ServicesRepository $serviceRep)
+    {
+        	
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+        if ($id !== null) {
+           
+            
+                $set_id_actived = $serviceRep->updateSetIdService_Disable($id);
+            
+        }
+        
+        return $this->redirectToRoute('m_e_email');
+      
     }
 	
 	

@@ -24,8 +24,8 @@
                         {{ devis.getNatureProject().getArticleCategId().getCategTitle() }}
                     </p>
                 </div>
-                <div class="col-12 d-flex flex-row justify-content-around border border-warning">
-                    <div class="text-right pt-2 font-weight-bold">
+                <div class="col-12 d-flex flex-row justify-content-around align-items-center border border-warning">
+                    <div class="text-right small p-2 font-weight-bold">
                         <p>Date de dépôt:</p>
                         <p>Ville ou département:</p>
                         <p>Type:</p>
@@ -34,7 +34,7 @@
                         <p>Email:</p>
                         <p>Téléphone:</p>
                     </div> 
-                    <div class="text-left pt-2 text-secondary">
+                    <div class="text-left small p-2 text-secondary">
                         <p>{{ devis.getDateCrea() | date('d/m/y') }}</p>
                         <p>{{ devis.getCity().getVilleNomReel() }}</p>
                         <p>{{ devis.getTypeProject().getTitle() }}</p>
@@ -59,7 +59,7 @@
                                    
                 <div class="col-12 text-left border border-warning">
                     <p class="font-weight-bold">Description de projet :</p>
-                    <p>Je veux refaire toute l'istallation d'électricité dans ma maison.</p>
+                    <p class="small">{{ devis.getDetailProject() }}</p>
                 </div>
                 <div class="col-12 text-center w-100">
                    {% if isAbonned != true %}
@@ -80,7 +80,10 @@
                     - <small class="text-secondary">Vous pouvez nous contacter de préférente suivante cette heure de la journée: 09:00</small>
                 </div>
                 <div class="col-12 w-100">
-                    <a class=" btn btn-warning float-right">Imprimer</a>
+                    {% if isAbonned == true %}
+                    <a href="{{path('pro_devis_receved_detail', {id: devis.getId(), download: 'download'})}}" class=" btn btn-warning float-right">Imprimer</a>
+                    {% endif %}
+                    
                 </div>                                                                                                                                                                             
             </div>
 

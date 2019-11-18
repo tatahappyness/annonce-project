@@ -25,3 +25,11 @@ $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
 $kernel->terminate($request, $response);
+
+Request::setTrustedProxies(
+    // trust *all* requests
+    ['127.0.0.1', $request->server->get('REMOTE_ADDR')],
+
+    // if you're using ELB, otherwise use a constant from above
+    Request::HEADER_X_FORWARDED_AWS_ELB
+);

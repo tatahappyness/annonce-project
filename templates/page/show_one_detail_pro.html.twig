@@ -16,6 +16,10 @@
 		<link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/menu/menu-large.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/menu/menu-mobile.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
     
 	{% endblock %}
@@ -37,11 +41,11 @@
 								  <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
 								</a>
 							
-								<ul class="navbar-nav mt-2 mt-lg-0">
-									<li class="nav-item active">
+								<ul class="navbar-nav mt-2 d-flex flex-column flex-sm-row justify-content-center mt-lg-0">
+									<li class="nav-item active active m-1">
 									  <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
 									</li>
-									<li class="nav-item">
+									<li class="nav-item active m-1">
 									  <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
 									</li>
 								</ul>
@@ -49,7 +53,7 @@
 							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
 								<span class="mr-1">
 									<button class="btn btn-round show-form-pro-mouseclick-11 bg-gray font-weight-bold text-warning border-warning text-nowrap" type="button">
-										<i class="">🔒</i> Se connecter
+										<i class="">🔒</i><label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
 									</button>
 								</span>
 								<span class="">
@@ -63,129 +67,119 @@
 					</nav>
 					<!-- Navbar menu end here -->
 					  
-					  <!-- ############################# NAVBAR HERE LARGE -->
-						
-					<div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
-					  <div class="container">
-						<button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
-						<div class="navbar-collapse collapse">
-						  <ul class="nav navbar-nav">
-							<li class="nav-item"><a href="{{ path('post_ask_devis_page') }}" class="nav-link">Demander un devis</a>
-							</li>
-							<li class="nav-item"><a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Types des travaux</a>
-								<ul class="dropdown-menu megamenu">
-									<div class="row">
-										<li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">INSTALLER</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-
-												<div class="col-4 p-0">
-													<li class="dropdown-header">Categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
-												</div>
-
-											</ul>
+					<!-- ############################# NAVBAR HERE LARGE -->
+					<!-- BEGIN MOBILE MENU -->
+					{% include "./page/menu/menu-mobile.html.twig" %}
+					<!-- END MOBILE MENU -->	
+                
+					<!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
+			
+					<div class="navbar-mega large-menu d-md-flex justify-content-center">
+						<div class="dropdown-mega">
+							<a class="dropbtn"> Demander un devis
+							<i class="fa fa-caret-down"></i>
+							</a>
+							<div class="dropdown-content">
+								<ul class=" px-4">
+									{% if categories != null %}
+										{% for categ in categories %}
+											<li class="column-list text-left px-0" style="line-height: 0;">
+											<a href="{{ path('post_ask_devis_page', {id: categ.getId()}) }}" class="d-flex align-items-center">
+											<span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+											<span class="text-warning">{{ categ.getCategTitle() }}</span>
+											</a>
 										</li>
-										<li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">RENOVER</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-
-												<div class="col-4 p-0">
-													<li class="dropdown-header">Categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
-												</div>
-
-											</ul>
-									  </li>
-									  <li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">AMENAGER SON INTERIEUR</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-
-												<div class="col-4 p-0">
-													<li class="dropdown-header">Categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
-												</div>
-
-											</ul>
-									  </li>
-									  <li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">AMENAGER SON EXTERIEUR</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-
-												<div class="col-4 p-0">
-													<li class="dropdown-header">Categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
-												</div>
-
-											</ul>
-									  </li>
-									  <li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">CONSTRUIRE</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-												
-												<div class="col-4 p-0">
-													<li class="dropdown-header">Categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">Article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">Article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">Voir tous les articles >></a></li>
-												</div>
-
-											</ul>
-									  </li>
-									</div>
+										{% endfor %}
+									<li class="text-center"  style="line-height: 0;">
+									<a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+									</li>
+									{% endif %}
 								</ul>
-							</li>
-							<li class="nav-item"><a href="{{ path('nos_tarif_page') }}" class="nav-link">Guide prix</a>
-							</li>
-							<li class="nav-item"><a href="{{ path('how_to_step_page') }}" class="nav-link">Comment ça marche</a>
-							</li>
-							<li class="nav-item"><a href="{{ path('site_create_page') }}" class="nav-link">Créer mon site internet</a>
-							</li>
-							<li class="nav-item"><a href="{{ path('particulier_dashbord') }}" class="nav-link particular-dashbord-access">Gérer mon espace particulier</a>
-							</li>
-						  </ul>
+
+								{# <div class="row-mega">
+									<div class="column-12">
+									{% if popularDevis != null %}
+										<div class="w-100 text-center">
+											<h3> Les  plus populaires </h3>
+										</div>
+										<section class="sliderComplete">
+											<!-- Wrapper -->
+											<section class="wrapper">
+												<!-- ".slider" has a width greater than 100% to give way to all albums to align.  -->
+												<ul class="slider">
+                                           
+													{% for devPopular in popularDevis %}
+													<li class="column-list text-center">
+														<a href="#" class="d-block mb-1 p-0">
+															<img class="img-fluid img-thumbnail" src="{{ absolute_url('/uploads/images/' ~ devPopular.getImg()) }}" />
+														</a>
+														<p><a href="{{ path('view_art_cat_galery_page', {id: devPopular.getArticleCategId().getId()}) }}">{{ devPopular.getArticleTitle() }}</a></p>
+														<p><a href="{{ path('post_ask_devis_page', {id: devPopular.getArticleCategId().getId()}) }}" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
+													</li>
+													{% endfor %}
+                                           
+                                            
+												</ul>
+											</section>
+											<!-- End wrapper -->
+
+											<button title="before" class="close button-slid bg-warning" style="height: 50%;">
+												<svg version="1.1" id="left" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+													viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
+												<g id="chevron-right">
+													<polygon fill="#38373A" points="13,15 25,27 27.8,24.2 18.6,15 27.8,5.8 25,3 	"/>
+												</g>
+												</svg>
+											</button>
+
+											<!-- 
+											".open" is on display:block; to be visible.
+											-->
+											<button title="after" class="open button-slid bg-warning" style="height: 50%;">
+												<svg version="1.1" id="right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+													viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
+												<g id="chevron-right">
+													<polygon fill="#38373A" points="15.8,3 13,5.8 22.2,15 13,24.2 15.8,27 27.8,15 	"/>
+												</g>
+												</svg>
+											</button>
+										</section>
+										<!-- End sliderComplete -->
+										{% endif %}
+									</div>
+								</div> #}
+
+							</div>
 						</div>
-					  </div>
+						<!-- END TYPE TRAVAUX -->
+						<div class="dropdown-mega">
+							<a class="dropbtn">Guides des prix
+							<i class="fa fa-caret-down"></i>
+							</a>
+							<div class="dropdown-content">
+								<ul class=" px-4">
+									{% if categories != null %}
+										{% for categ in categories %}
+											<li class="column-list text-left px-0" style="line-height: 0;">
+											<a href="{{ path('category_sous_category_page', {categId: categ.getId()}) }}" class="d-flex align-items-center">
+											<span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+											<span class="text-warning">{{ categ.getCategTitle() }}</span>
+											</a>
+										</li>
+										{% endfor %}
+									{# <li class="text-center"  style="line-height: 0;">
+									<a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+									</li> #}
+									{% endif %}
+								</ul>
+							</div>
+						</div>
+						<a href="{{ path('how_to_step_page') }}">Comment ça marche ?</a>
+						<a href="{{ path('space_find_pro_page') }}">Trouvez un pros</a>
 					</div>
-					<!-- ############################# END NAVBAR HERE LARGE -->
+			
+					<!-- END MENU DISPALY WHEN  WHEN LARGE SCREEN -->
+
 					 <!-- Progress barr slid scroll -->
 						<div class="progress-container fixed-top">
 							<div class="progress-bar" id="myBar"></div>
@@ -221,7 +215,7 @@
 			<section style="background-color: rgb(119, 119, 119);">
 				<div Class="row bg-white">
 					<div class="col-12 pr-5">
-							<a href="{{ path('find_chantier_page') }}" class="btn btn-success float-right text-decoration-none border-0 text-center text-nowrap">Je suis un professionnel</a>
+							<a href="{{ path('find_chantier_page') }}" class="btn btn-warning float-right text-decoration-none border-0 text-center text-nowrap">Je suis un professionnel</a>
 					</div>
 					<div class="col-12 d-flex flex-column text-center">
 						<span class="h6">INFORMATIONS SUR L’ENTREPRISE : </span>
@@ -233,19 +227,35 @@
 				<div class="container">
 					<div class="row py-5 text-white">
 						<div class="col-12 h-100 w-100 col-md-6 py-2 text-center">
-							<div class="w-100 h-100 p-4 bg-white rounded"><img class="rounded" src="{{ absolute_url('/assets/img/photos/Register-Cleaning-Company.jpg') }}"></img></div>
+							<div class="w-100 h-100 p-4 bg-white rounded"><img class="rounded" src="{{ absolute_url('/uploads/logo/' ~ user.getLogo()) }}"></img></div>
 						</div>
 						<div class="col-12 col-md-6 d-flex align-items-center border-top border-bottom border-warning  text-left py-2">
 							<div class="w-100 d-flex flex-column text-left align-items-center">
-							<span class="text-left p-2">Nom company ou Professinel ici</span>
-							<span class="text-left  p-2">Caracteristique company ici(Entreprise individuelle)</span>
-							<span class="text-left  p-2">Son Evaluation ici (***** (5 avis))</span>
-							<span class="text-left  p-2">Date création company (Entreprise créée en 2019)</span>
-							<span class="text-left  p-2">Géo localisation company ici (Languedoc-Roussillon)</span>
+							<span class="text-left p-2">{{user.getCompanyName()}}</span>
+							<span class="text-left  p-2">{{ user.getCompanyCarater() }}</span>
+							<span class="text-left  p-2">Entreprise créée en {{ user.getCompanyDateCrea() }}</span>
+							<span class="text-left  p-2">Lieu: {{ user.getUserCity().getVilleNomReel() }}</span>
 							</div>
 						</div>
 						<div class="col-12 py-2 text-left">
-							Entreprise spécialisé dans la fermeture ,dans l'automatisme, l'alarme le controle d'acces. le but etant de travaillé sur des produit de qualité, pour satisfaire pleinement le client, artisan avec decennales
+							{{ user.getCompanydescription() }}
+						</div>
+						<div class="col-12 py-2  py-4  text-center" style="border: 1px dashed #ffff;">
+							<h6 class="text-center"> Ses Documments officiels </h6>
+							<div class="row w-100">
+							{% if documents|length > 0 %}
+							<div class="col-12 col-md-4 col-lg-3 text-center">
+								{% for document in documents %}
+								<a class="m-2" href="{{ path('pro_download_file', {id: document.getName(), nameActually: document.getTitle()} )}}" title="{{ document.getTitle() }}">
+									<img class="rounded-circle" src="{{ absolute_url('/uploads/icons/pdf-icon.jpg') }}" style="width: 128px ; height: 128px;" alt="pdf document" />
+								</a>
+								<p class="">{{ document.getTitle() }}</p>
+								{% endfor %}
+							</div>
+							{% else %}
+							ce pros n'as pas encore ajouté ses documment officiels!
+							{% endif %}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -265,47 +275,35 @@
 				<div class="container">
 					<div class="row py-5">
 						<div class="col-12 h-100 my-2">
-						
+						{% if images|length > 0 %}
 							<!-- Swiper -->
 							<div class="swiper-container gallery-top">
 								<div class="swiper-wrapper swiper-container-gallery">
-								  <div class="swiper-slide swiper-slide-gallery" style="background-image:url(/assets/img/photos/painter/paint-header.jfif)">
-									<div class="w-100 text-center">
-										<a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page') }}">Demander un devis</a>
+								
+								{% for image in images %}
+									<div class="swiper-slide swiper-slide-gallery" style="background-image:url(/uploads/images/{{ image.getName()}})">
+										<div class="w-100 text-center">
+											<a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page', {id: image.getArticleTitle() != null ? image.getArticleTitle().getArticleCategId().getId() : ''}) }}">Demander un devis</a>
+										</div>
 									</div>
-								  </div>
-								  <div class="swiper-slide swiper-slide-gallery" style="background-image:url(/assets/img/photos/decoration/decoration-3.jpg)">
-									<div class="w-100 text-center">
-										<a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page') }}">Demander un devis</a>
-									</div>
-								  </div>
-								  <div class="swiper-slide swiper-slide-gallery" style="background-image:url(/assets/img/photos/jardin/garden-2.jpg)">
-									<div class="w-100 text-center">
-										<a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page') }}">Demander un devis</a>
-									</div>
-								  </div>
+								{% endfor %}
+								
 								</div>
 							</div>
 							<div class="swiper-container gallery-thumbs">
 							<div class="swiper-wrapper">
-							  <div class="swiper-slide swiper-slide-gallery" style="background-image:url(/assets/img/photos/painter/paint-header.jfif)">
+
+							{% for image in images %}
+							  <div class="swiper-slide swiper-slide-gallery" style="background-image:url(/uploads/images/{{ image.getName()}})">
 								<div class="w-100 text-dark text-center" style="font-weight: 700;">
-									Nom de l'article ici
+									{{ image.getArticleTitle() != null ? image.getArticleTitle().getArticleTitle() : '' }}
 								</div>
 							  </div>
-							  <div class="swiper-slide swiper-slide-gallery" style="background-image:url(/assets/img/photos/decoration/decoration-3.jpg)">
-								<div class="w-100 text-dark text-center" style="font-weight: 700;">
-									Nom de l'article ici
-								</div>
-							  </div>
-							  <div class="swiper-slide swiper-slide-gallery" style="background-image:url(/assets/img/photos/jardin/garden-2.jpg)">
-								<div class="w-100 text-dark text-center" style="font-weight: 700;">
-									Nom de l'article ici
-								</div>
-							  </div>
+							{% endfor %}
+
 							</div>
 						  </div>
-							
+						{% endif %}
 						</div>
 						<div class="col-12 d-flex flex-column align-items-center justify-content-center pt-5">
 							<span class="w-100 small text-white text-center">Je suis un professionnel ou gérant de l' entreprise, et je veux  être visible par tout. Mais je ne me suis pas encore inscrit.</span>
@@ -318,7 +316,7 @@
 			
 			<!--Begin section  of the list ads by artisan-->
 			<section style="background-color: rgb(119, 119, 119);">
-				<div Class="row bg-white pt-4">
+				<div Class="row bg-white pt-5">
 					<div class="col-12 d-flex flex-column text-center">
 						<span class="h6"> Nos derniés vidéo des chatiers réalissé</span>
 						<span class="small tetx-secondary">Ces travaux représentent leur experience professionnel. Et si c'était vous ?</span>
@@ -329,52 +327,33 @@
 				<div class="container">
 					<div class="row py-5 text-white">
 						<div class="col-12 h-100 my-2">
-							
+						{% if videos|length > 0 %}
 							<!-- Swiper -->
 							<div class="swiper-container gallery-top-video">
 								<div class="swiper-wrapper swiper-container-gallery">
-								    <div  class="swiper-slide swiper-slide-gallery" style="background-image:url(/assets/img/photos/painter/paint-header.jfif)">
-											
+								    {% for video in videos %}
+									<div  class="swiper-slide swiper-slide-gallery">
 										<div class="embed-responsive embed-responsive-16by9">
-										  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+										  <iframe class="embed-responsive-item" src="{{video.getName}}" allowfullscreen></iframe>
 										</div>
-										
-										<div class="w-50 text-center">
-											<a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page') }}">Demander un devis</a>
-										</div>
-								    </div >
-									<div class="swiper-slide swiper-slide-gallery" style="background-image:url(/assets/img/photos/decoration/decoration-3.jpg)">
-										<div class="w-100 text-center">
-											<a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page') }}">Demander un devis</a>
-										</div>
-									</div>
-									<div class="swiper-slide swiper-slide-gallery" style="background-image:url(/assets/img/photos/jardin/garden-2.jpg)">
-										<div class="w-100 text-center">
-											<a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page') }}">Demander un devis</a>
-										</div>
-									</div>
+									</div >
+									{% endfor %}
 								</div>
 							</div>
 							<div class="swiper-container gallery-thumbs-video">
 								<div class="swiper-wrapper">
-									<div class="swiper-slide swiper-slide-gallery" style="background-image:url(/assets/img/photos/painter/paint-header.jfif)">
-										<div class="w-100 text-dark text-center" style="font-weight: 700;">
-											Nom de l'article ici
+									{% for video in videos %}
+									<div class="swiper-slide  bg-warning swiper-slide-gallery">
+										<div class="w-100 text-white text-center" style="font-weight: 700;">
+											{{ video.getArticleTitle().getArticleTitle() }}
 										</div>
 									</div>
-									<div class="swiper-slide swiper-slide-gallery" style="background-image:url(/assets/img/photos/decoration/decoration-3.jpg)">
-										<div class="w-100 text-dark text-center" style="font-weight: 700;">
-											Nom de l'article ici
-										</div>
-									</div>
-									<div class="swiper-slide swiper-slide-gallery" style="background-image:url(/assets/img/photos/jardin/garden-2.jpg)">
-										<div class="w-100 text-dark text-center" style="font-weight: 700;">
-											Nom de l'article ici
-										</div>
-									</div>
+									{% endfor %}
 								</div>
 							</div>
-							
+							{% else %}
+							Ce pros n'a pas encore ajouté des videos de chantier realisé!
+							{% endif %}
 						</div>
 					</div>
 				</div>
@@ -395,14 +374,24 @@
 					<div class="row py-5">
 						<div class="col-12 h-100 my-2 text-center">
 							<div class="container py-1 bg-dark" style="box-shadow: 5px 5px 5px black;">
-								<form>
-								  <div class="input-group d-flex flex-row align-items-center justify-content-center">
-									<input type="text" class="form-control" placeholder="Quels métier souhaitez-vous réaliser">
-									<div class="input-group-append bg-warning">
-									  <a class="btn btn-warning border-0 font-weight-bold">Demander un devis</a>
-									</div>
-								  </div>
+								<!--Begin form ask devis -->
+								<form action="{{ path('post_ask_devis_page') }}" method="POST">
+									<div class="d-flex flex-column flex-sm-row align-items-center justify-content-center">
+										<div class="form-group p-0 m-0 w-100">
+
+											<input type="text" id="show-input-list-search" class="form-control text-center" placeholder="Quel travaux souhaitez vous realiser ?">
+
+										</div>
+
+										<div id="group-form-spcial-input-hidden">                                                                                                                                                           
+                                 
+										</div>
+										<div class="bg-warning  btn-ask-devis w-auto">
+										<button type="submit" class="btn btn-warning border-0 text-nowrap">Demander un devis</button>
+										</div>
+									</div>  
 								</form>
+								<!--End form ask devis -->
 							</div>
 						</div>
 					</div>
@@ -422,7 +411,22 @@
 				<div class="container">
 					<div class="row py-5">
 						<div class="col-12 h-100 my-2 text-center small text-secondary">
+							{% if evaluations|length > 0 %}
+								{% for eval in evaluations %}
+								<p class=" border border-bottom-white"> 
+								<h6 class=""> {{ eval.getHaveStart() }} </h6>
+								{{ eval.getMotif() }} <br>
+								{{ eval.getDateCrea() | date('d/m/y H:m:s') }}
+								</p>
+								<p class=" border border-bottom-white"> 
+								<h6 class=""> {{ eval.getHaveStart() }} </h6>
+								{{ eval.getMotif() }} <br>
+								{{ eval.getDateCrea() | date('d/m/y H:m:s') }}
+								</p>
+								{% endfor %}
+							{% else %}
 							Ce professionnel n’a pas encore indiqué posséder d'évaluation.
+							{% endif %}
 						</div>
 					</div>
 				</div>
@@ -437,7 +441,18 @@
 						<h5 class="text-uppercase">LABELS QUALITÉ :</h5>
 					</div>
 					<div class="col-12 lg-8 text-center small text-secondary">
+						<div class="row">
+						{% if labels|length > 0 %}
+							{% for lab in labels %}
+							<div class="col-12 col-md-4 col-lg-3 text-center">
+								<img class="" src="{{ absolute_url('/uploads/profil/' ~ lab.getName()) }}" style="width: 128px; height: 128px;"></img>
+								<p class=""> {{ lab.getTitle() }} <p>
+							</div>
+							{% endfor %}
+						{% else %}
 						Ce professionnel n’a pas encore indiqué posséder de labels qualités.
+						{% endif %}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -458,6 +473,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+<!-- Auto-complete -->
+<script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
 <!-- MESSAGE NTIFICATION -->
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
@@ -472,7 +489,7 @@
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
-<script src="{{ absolute_url('/assets/pdf-thumbnail/pdfThumbnails.js') }}"></script>
+<script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 

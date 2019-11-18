@@ -17,13 +17,25 @@
     <link href="{{ absolute_url('/assets/form-multistep/form-step.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/menu/menu-large.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/menu/menu-mobile.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+    <link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+    <style>
+    /* Set the size of the div element that contains the map */
+    #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+    }
+    </style>
     
    {% endblock %}
 
     {% block body %}
     
-    <div class="page-header page-header-image-gallery">
+    <div class="page-header page-header-image-Particulier">
         <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
         </div>
 
@@ -85,7 +97,7 @@
                                                 {% for pro in pros %}                                           
                                                     <div class="col-12 col-sm-6 col-lg-4 py-4">
                                                         <div class="img-new-pro-container d-flex flex-column align-items-center justify-content-center bg-white rounded">
-                                                            <div class="img-new-pro-content rounded-top" style="background-image: url(/assets/img/photos/{{pro.getUserCategoryActivity().getImg()}}); width: 100%; height: 155px;">
+                                                            <div class="img-new-pro-content rounded-top" style="background-image: url(/uploads/images/{{pro.getUserCategoryActivity().getImg()}}); width: 100%; height: 155px;">
                                                                 <div class="w-100">
                                                                     <a class="btn-warning float-left m-1 p-2 small text-white">{{ pro.getUserCategoryActivity().getCategTitle() }}</a>
                                                                     <a class="btn btn-danger btn-pro-emotion-heart rounded-circle float-right m-1">
@@ -95,7 +107,7 @@
                                                             </div>
                                                             <div class="img-pro-desc d-flex flex-row align-items-center justify-content-center  text-center py-2">
                                                                 <div class="border border-secondary rounded-circle">
-                                                                    <img class="pro-logo rounded-circle" src="{{ absolute_url('/assets/img/photos/' ~ pro.getLogo()) }} " style="width: 64px; height: auto;"></img>
+                                                                    <img class="pro-logo rounded-circle" src="{{ absolute_url('/uploads/logo/' ~ pro.getLogo()) }} " style="width: 64px; height: auto;"></img>
                                                                 </div>
                                                                 <div class="d-flex flex-column align-items-center justify-content-center text-left">
                                                                     <span class="d-inline text-center">
@@ -162,7 +174,9 @@
     <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
     <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
+    <script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBHd-0RBeiq5jJE6QffOxcXa7cI7H5UOY&callback=initMap"
+    type="text/javascript"></script>
     <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
     <script src="{{ absolute_url('/assets/js/particular.js') }}"></script>
     <script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>

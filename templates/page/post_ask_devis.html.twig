@@ -17,7 +17,10 @@
 		<link href="{{ absolute_url('/assets/form-multistep/form-step.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/menu/menu-large.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/menu/menu-mobile.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
     
 	{% endblock %}
@@ -39,11 +42,11 @@
 								  <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
 								</a>
 
-								<ul class="navbar-nav mt-2 mt-lg-0">
-									<li class="nav-item active">
+								<ul class="navbar-nav mt-2 d-flex flex-column flex-sm-row justify-content-center mt-lg-0">
+									<li class="nav-item active m-1">
 									  <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
 									</li>
-									<li class="nav-item">
+									<li class="nav-item active m-1">
 									  <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
 									</li>
 								</ul>
@@ -65,128 +68,119 @@
 					</nav>
 					<!-- navbar menu end here -->
 
-					  <!-- ############################# navbar here large -->
-
-					<div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
-					  <div class="container">
-						<button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
-						<div class="navbar-collapse collapse">
-						  <ul class="nav navbar-nav">
-							</li>
-							<li class="nav-item"><a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">types des travaux</a>
-								<ul class="dropdown-menu megamenu">
-									<div class="row">
-										<li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">installer</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-
-												<div class="col-4 p-0">
-													<li class="dropdown-header">categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">voir tous les articles >></a></li>
-												</div>
-
-											</ul>
+					<!-- ############################# NAVBAR HERE LARGE -->
+					<!-- BEGIN MOBILE MENU -->
+					{% include "./page/menu/menu-mobile.html.twig" %}
+					<!-- END MOBILE MENU -->	
+                
+					<!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
+			
+					<div class="navbar-mega large-menu d-md-flex justify-content-center">
+						<div class="dropdown-mega">
+							<a class="dropbtn"> Demander un devis
+							<i class="fa fa-caret-down"></i>
+							</a>
+							<div class="dropdown-content">
+								<ul class=" px-4">
+									{% if categories != null %}
+										{% for categ in categories %}
+											<li class="column-list text-left px-0" style="line-height: 0;">
+											<a href="{{ path('post_ask_devis_page', {id: categ.getId()}) }}" class="d-flex align-items-center">
+											<span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+											<span class="text-warning">{{ categ.getCategTitle() }}</span>
+											</a>
 										</li>
-										<li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">renover</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-
-												<div class="col-4 p-0">
-													<li class="dropdown-header">categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">voir tous les articles >></a></li>
-												</div>
-
-											</ul>
-									  </li>
-									  <li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">amenager son interieur</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-
-												<div class="col-4 p-0">
-													<li class="dropdown-header">categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">voir tous les articles >></a></li>
-												</div>
-
-											</ul>
-									  </li>
-									  <li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">amenager son exterieur</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-
-												<div class="col-4 p-0">
-													<li class="dropdown-header">categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">voir tous les articles >></a></li>
-												</div>
-
-											</ul>
-									  </li>
-									  <li class="col-12 col-sm-4 text-center pb-4">
-											<ul><li class="h6 text-warning border-bottom border-warning">construire</li></ul>
-											<ul class="row text-centert" style=" list-style-type: none;">
-
-												<div class="col-4 p-0">
-													<li class="dropdown-header">categorie-1</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 1}) }}">article-1</a>
-													</li>
-													<li><a href="{{ path('post_ask_devis_page', {'article': 2}) }}">article-2</a>
-													</li>
-													<li class="divider"></li>
-												</div>
-										
-												<div class="col-12">
-													<li><a href="{{ path('view_all_tavaux_page') }}" class="text-warning pt-2">voir tous les articles >></a></li>
-												</div>
-
-											</ul>
-									  </li>
-									</div>
+										{% endfor %}
+									<li class="text-center"  style="line-height: 0;">
+									<a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+									</li>
+									{% endif %}
 								</ul>
-							</li>
-							<li class="nav-item"><a href="{{ path('nos_tarif_page') }}" class="nav-link">guide prix</a>
-							</li>
-							<li class="nav-item"><a href="{{ path('how_to_step_page') }}" class="nav-link">comment ça marche</a>
-							</li>
-							<li class="nav-item"><a href="{{ path('site_create_page') }}" class="nav-link">créer mon site internet</a>
-							</li>
-							<li class="nav-item"><a href="{{ path('particulier_dashbord') }}" class="nav-link particular-dashbord-access">gérer mon espace particulier</a>
-							</li>
-						  </ul>
+
+								{# <div class="row-mega">
+									<div class="column-12">
+									{% if popularDevis != null %}
+										<div class="w-100 text-center">
+											<h3> Les  plus populaires </h3>
+										</div>
+										<section class="sliderComplete">
+											<!-- Wrapper -->
+											<section class="wrapper">
+												<!-- ".slider" has a width greater than 100% to give way to all albums to align.  -->
+												<ul class="slider">
+                                           
+													{% for devPopular in popularDevis %}
+													<li class="column-list text-center">
+														<a href="#" class="d-block mb-1 p-0">
+															<img class="img-fluid img-thumbnail" src="{{ absolute_url('/uploads/images/' ~ devPopular.getImg()) }}" />
+														</a>
+														<p><a href="{{ path('view_art_cat_galery_page', {id: devPopular.getArticleCategId().getId()}) }}">{{ devPopular.getArticleTitle() }}</a></p>
+														<p><a href="{{ path('post_ask_devis_page', {id: devPopular.getArticleCategId().getId()}) }}" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
+													</li>
+													{% endfor %}
+                                           
+                                            
+												</ul>
+											</section>
+											<!-- End wrapper -->
+
+											<button title="before" class="close button-slid bg-warning" style="height: 50%;">
+												<svg version="1.1" id="left" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+													viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
+												<g id="chevron-right">
+													<polygon fill="#38373A" points="13,15 25,27 27.8,24.2 18.6,15 27.8,5.8 25,3 	"/>
+												</g>
+												</svg>
+											</button>
+
+											<!-- 
+											".open" is on display:block; to be visible.
+											-->
+											<button title="after" class="open button-slid bg-warning" style="height: 50%;">
+												<svg version="1.1" id="right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+													viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
+												<g id="chevron-right">
+													<polygon fill="#38373A" points="15.8,3 13,5.8 22.2,15 13,24.2 15.8,27 27.8,15 	"/>
+												</g>
+												</svg>
+											</button>
+										</section>
+										<!-- End sliderComplete -->
+										{% endif %}
+									</div>
+								</div> #}
+
+							</div>
 						</div>
-					  </div>
+						<!-- END TYPE TRAVAUX -->
+						<div class="dropdown-mega">
+							<a class="dropbtn">Guides des prix
+							<i class="fa fa-caret-down"></i>
+							</a>
+							<div class="dropdown-content">
+								<ul class=" px-4">
+									{% if categories != null %}
+										{% for categ in categories %}
+											<li class="column-list text-left px-0" style="line-height: 0;">
+											<a href="{{ path('category_sous_category_page', {categId: categ.getId()}) }}" class="d-flex align-items-center">
+											<span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+											<span class="text-warning">{{ categ.getCategTitle() }}</span>
+											</a>
+										</li>
+										{% endfor %}
+									{# <li class="text-center"  style="line-height: 0;">
+									<a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+									</li> #}
+									{% endif %}
+								</ul>
+							</div>
+						</div>
+						<a href="{{ path('how_to_step_page') }}">Comment ça marche ?</a>
+						<a href="{{ path('space_find_pro_page') }}">Trouvez un pros</a>
 					</div>
-					<!-- ############################# end navbar here large -->
+			
+					<!-- END MENU DISPALY WHEN  WHEN LARGE SCREEN -->
+					
 					 <!-- progress barr slid scroll -->
 						<div class="progress-container fixed-top">
 							<div class="progress-bar" id="myBar"></div>
@@ -245,12 +239,12 @@
 									<div class="setup-content" id="step-1">
 						                <!-- First Form slide content -->
 										<div class="row d-md-flex justify-md-content-center form-slid-ontainer">
-											<div class="d-none d-md-block col-md-5">
-												<div class="w-100 py-4 rounded" style="background-image: url(./assets/img/photos/register-cleaning-company.jpg); background-position: center center; background-size: cover; height: 200px;background-color: darkslategrey; background-blend-mode: overlay;">
+											<div class="d-none d-md-block d-md-flex align-items-md-center col-md-5">
+												<div class="w-100 py-4 rounded" style="background-image: url(/uploads/images/{{category.getImg()}}); background-position: center center; background-size: cover; height: 200px;background-color: darkslategrey; background-blend-mode: overlay;">
 												</div>
 											</div>
 											<div class="d-none col-md-7 d-md-flex align-items-md-center border-top border-bottom border-secondary">
-												<p class="small text-warning">
+												<p class="small text-warning" style="font-size: 0.8em !important;">
 													{{ category.getDescription() }}
 												</p>
 											</div>
@@ -284,6 +278,18 @@
 															<option selected="selected" value="{{ article is defined ? article.id : 'NaN' }}">{{ article is defined ? article.getarticletitle() : '' }}</option>
 														{% endif %}
 															
+													</select>
+												</div>
+												<div class="form-group pb-2 my-2">
+													<select class="form-control form-field appartement_type" name="appartement_type">
+
+														<option></option>
+														<option value="Maison Individuelle"> Maison Individuelle </option>
+														<option value="Appartement"> Appartement </option>
+														<option value="Bureau"> Bureau </option>
+														<option value="Commerce"> Commerce </option>
+														<option value="Immeuble"> Immeuble </option>										
+														
 													</select>
 												</div>
 
@@ -617,7 +623,7 @@
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
-<script src="https://www.google.com/recaptcha/api.js?render=6lcr-qsuaaaaaprcqd5yk1idiw9xbtzp6ksackqm"></script>
+<script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/list-city-ajax.js') }}"></script>
 <script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>

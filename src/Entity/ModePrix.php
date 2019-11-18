@@ -27,10 +27,10 @@ class ModePrix
 
     
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category")      
-     * @ORM\JoinColumn(name="prix_category_id_id", nullable=true, referencedColumnName="id",onDelete="SET NULL")
+     * @ORM\ManyToOne(targetEntity="App\Entity\SousCategory")      
+     * @ORM\JoinColumn(name="prix_sous_category_id_id", nullable=true, referencedColumnName="id",onDelete="SET NULL")
      */
-    private $prixCategoryId;
+    private $prixSousCategoryId;
 
     
 
@@ -41,7 +41,7 @@ class ModePrix
 
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", length=255, nullable=true)
      */
     private $prixDescription;
     
@@ -96,14 +96,14 @@ class ModePrix
 
 
     
-    public function getPrixCategoryId(): ?Category
+    public function getPrixSousCategoryId(): ?SousCategory
     {
-        return $this->prixCategoryId;
+        return $this->prixSousCategoryId;
     }
 
-    public function setPrixCategoryId(?Category $prixCategoryId): self
+    public function setPrixSousCategoryId(?SousCategory $prixSousCategoryId): self
     {
-        $this->prixCategoryId = $prixCategoryId;
+        $this->prixSousCategoryId = $prixSousCategoryId;
 
         return $this;
     }

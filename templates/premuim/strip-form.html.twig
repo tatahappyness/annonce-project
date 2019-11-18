@@ -26,11 +26,12 @@
                 <!--Begin section  of the form Login-->
                 <section class="">
                     <div class="container border-0">
-                        <div class="row d-flex justify-content-center bg-white rounded" style="margin: 10%; padding: 5%; box-sizing: border-box; box-shadow: 0 1px 8px black;">
-                            <div class="col-12 animated fadeIn infinite rounded col-md-8 alert-info" style="-webkit-animation-duration: 3s !important; animation-duration: 3s !important;">
-                            <h4 class="text-info">Vous aurez gagner 1 ans d'abonnement!</h4>
+                        <div class="row d-flex justify-content-center bg-white rounded" style="margin: 10%; box-sizing: border-box; box-shadow: 0 1px 8px black;">
+                            <div class="card-header bg-warning col-12 text-center rounded col-md-8" style="padding: 2%; -webkit-animation-duration: 3s !important; animation-duration: 3s !important;">
+                                <img class="" src="{{ absolute_url('/uploads/images/card-payement.png') }}">
+                                <h4 class="text-info animated fadeIn infinite">Vous allez gagner 1 ans d'abonnement !</h4>
                             </div>
-                            <div class="col-12 col-md-8 bg-lighten rounded">
+                            <div class="col-12 col-md-8 bg-lighten p-4 rounded">
 						
                                 <form action="{{path('pro_post_payements')}}" method="post" id="payment-form">
                                     <div class="form-group mt-3">
@@ -55,6 +56,15 @@
                                         <!-- Used to display form errors. -->
                                         <div id="card-errors" class="alert-danger text-danger px-2" role="alert"></div>
                                     </div>
+                                    <div class="custom-control small my-4 custom-checkbox">
+                                        <input required type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <label id="text" class="custom-control-label" for="customCheck1">
+                                               J'accepte les 
+                                               <a href="#" class="text-warning" style="text-decoration: underline;">
+                                                Conditions Générales de vente 
+                                               </a> et renonce expressément à l'exercice de mon droit de rêtractation.
+                                            </label>
+                                        </div>
                                     <button class="btn btn-warning text-uppercase font-weight-bold w-100">Payer &nbsp;&nbsp; {{ offer.getOfferPrice()    | number_format(1, '.', ',') ~ ' € ' | upper }} </button>
                                 </form>
 

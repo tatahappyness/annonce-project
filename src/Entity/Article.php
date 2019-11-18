@@ -25,6 +25,12 @@ class Article
     private $articleCategId;
 
     /**
+    * @ORM\ManyToOne(targetEntity="App\Entity\SousCategory")
+    * @ORM\JoinColumn(name="article_sous_categ_id_id", referencedColumnName="id",onDelete="SET NULL", nullable=true)
+    */
+    private $articleSousCategId;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $articleTitle;
@@ -63,6 +69,18 @@ class Article
     public function setArticleCategId(?Category $articleCategId): self
     {
         $this->articleCategId = $articleCategId;
+
+        return $this;
+    }
+
+    public function getArticleSousCategId(): ?SousCategory
+    {
+        return $this->articleSousCategId;
+    }
+
+    public function setArticleSousCategId(?SousCategory $articleSousCategId): self
+    {
+        $this->articleCategId = $articleSousCategId;
 
         return $this;
     }

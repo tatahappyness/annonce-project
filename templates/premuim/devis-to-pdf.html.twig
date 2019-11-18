@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Demande devis</title>
+    </head>
+    <body>
+
+        <!-- My devis receved section Detail-->
+        <div style="box-shadow: 0px 0px 4px; margin-top: 1.5rem!important; width: 50%!important; border: 2px solid orange;">
+            <div style="margin-top: 1.5rem!important; width: 100%!important; ">
+                <small style="font-size: 80%; font-weight: 400;">www.orange-travaux.com</small>
+                <div style="float: right;">
+
+                    {% if isMail is defined and isMail == true %}
+                    <img style="height: 30px;" src="{{ img }}">
+                    {% else %}
+                    <img style="height: 30px;" src="../../public/assets/img/logo.png">
+                    {% endif %}
+                
+                </div>                
+                <div style="margin-right: -15px; margin-left: -15px; margin-top: 2em;">
+                    <div style="border: 1px solid #dee2e6!important; border-color: #6c757d!important; text-align: center!important; padding-bottom: .5rem!important; padding-top: .5rem!important; margin-left: .5rem!important; margin-right: .5rem!important;">
+                        <h4 style="margin-bottom: .5rem; font-weight: 500; line-height: 1.2; margin-top: 0; ">
+                            DEMANDE DEVIS
+                        </h4>
+                    </div>
+                    <div style="text-align: center!important; position: relative; padding-right: 15px; padding-left: 15px;">
+                        <p style="font-weight: 700!important; text-transform: capitalize!important; text-align: center!important; margin-top: 0; margin-bottom: 1rem; line-height: 1.61em; font-weight: 300; font-size: 1.2em;">Bonjour madame/monsieur,</p>
+                        <p style="margin-top: 0; margin-bottom: 1rem; line-height: 1.61em; font-weight: 300; font-size: 1.2em; text-align: center!important;">
+                        Monsieur <span style="text-transform: uppercase!important;"> {{ devis.getUserName() }} </span> disponsant du statatut de Particulier Propriétaire est à la recherche d'un professionnel
+                        pour la réalisation de prestation ci-dessous:
+                        </p>
+                    </div>
+                    <div style="position: relative; padding-right: 15px; padding-left: 15px; border: 1px solid #dee2e6!important; border-color: #ffc107!important;">
+                        <p style="font-size: 1.5em; line-height: 1.45em;  margin-top: 30px;  margin-bottom: 15px; font-weight: 700!important; text-align: center!important; color: #ffc107!important;">
+                            {{ devis.getNatureProject().getArticleCategId().getCategTitle() }}
+                        </p>
+                    </div>
+                  
+                    <table style="width: 100%;">
+                        <tr style=" text-align: center">
+                            
+                            <td>
+                                <p>Date de dépôt:</p>
+                                <p>Ville ou département:</p>
+                                <p>Type:</p>
+                                <p>Categorie:</p>
+                                <p>Nature:</p>
+                                <p>Email:</p>
+                                <p>Téléphone:</p>
+                            </td>
+                            <td style="">
+                                <p>{{ devis.getDateCrea() | date('d/m/y') }}</p>
+                                <p>{{ devis.getCity().getVilleNomReel() }}</p>
+                                <p>{{ devis.getTypeProject().getTitle() }}</p>
+                                <p>{{ devis.getNatureProject().getArticleCategId().getCategTitle() }}</p>
+                                <p>{{ devis.getNatureProject().getArticleTitle() }}</p>
+                                <p>
+                                {% if isAbonned == true %}
+                                    {{ devis.getEmail() }}
+                                {% else %}
+                                    XXXX
+                                {% endif %}
+                                </p>
+                                <p>
+                                {% if isAbonned == true %}
+                                    {{ devis.getPhoneNumber() }}
+                                {% else %}
+                                    XXXX
+                                {% endif %}
+                                </p>
+                            </td>
+                            
+                        </tr> 
+                    </table>
+                         
+                    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 15px; text-align: center">
+                        <p style="font-weight: 700!important; line-height: 1.61em; font-weight: 300; font-size: 1.2em;">Description de projet :</p>
+                        <p>{{ devis.getDetailProject() }}</p>
+                    </div>
+                    <div style="position: relative; padding-right: 15px; padding-left: 15px; width: 100%!important; text-align: center!important;">
+                    > Veuiller envoyer votre proposition de tarif à l'adresse électronique suivante: 
+                        <p style="line-height: 1.61em; font-weight: 300; font-size: 1.2em; font-weight: 700!important; text-align: left!important; "> <li style="color: #ffc107!important; font-weight: 700!important;">Email: {{ isAbonned == true ?  devis.getEmail() : 'XXXXXX'}} </li>
+                            ou <br> 
+                        <li style="color: #ffc107!important; font-weight: 700!important;"> Contacter à son numéro: {{ isAbonned == true ? devis.getPhoneNumber() : 'XXXXXX'}}</li>
+                        </p>
+                    </div>
+                    <div style="text-align: center;">
+                        <a href="{{ url('pro_devis_receved_lists') }}" style="width: 50%; height: 25%; border: 4px solid orange; background: orange; color: white;">JE VEUX VOIR</a>
+                    </div>
+                    <div style="position: relative; padding-right: 15px; padding-left: 15px; border-left: 6px solid #343a40 !important;">
+                        Dans l'attente de votre devis, recevez, Monsieur/Madame, nos salutations les meilleures.
+                    </div>
+                    <div style="position: relative; padding-right: 15px; padding-left: 15px;">
+                        - <small style="font-size: 80%; font-weight: 400; color: #6c757d!important;">Vous pouvez nous contacter de préférente suivante cette heure de la journée: 09:00</small>
+                    </div>                                                                                                                                                                           
+                </div>
+
+            </div>
+        </div>
+           
+    </body>
+</html>

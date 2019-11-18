@@ -111,6 +111,7 @@
           // function for rendering autocomplete suggestions
           var render = function (item, currentValue) {
               var itemElement = doc.createElement("div");
+              itemElement.className = 'option-index';
               itemElement.textContent = item.label || "";
               return itemElement;
           };

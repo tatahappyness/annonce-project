@@ -2,27 +2,61 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <link rel="apple-touch-icon" sizes="76x76" href="apple-icon.png">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {# <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> #}
-
+        <meta name="application-name" content="Orange travaux">
+        <meta name="keywords" content="devis artisans chantier locaux travaux France">
+        <meta name="description" content="Pour la réalisation de vos travaux d’installation, de construction, de rénovation, de divers aménagements, obtenez simplement et gratuitement par internet des devis à bon prix d’artisans locaux de qualité où que vous soyez en France.">
+        <link rel="icon" type="image/png" href="{{ absolute_url('/uploads/icons/travaux-icon.png') }}" />
         <title>{% block title %}Orage Travaux!{% endblock %}</title>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        
         {% block stylesheets %}
 
         {% endblock %}
         
+        <style>
+            /* if it's not present, don't show loader */
+            .no-js #loader { display: none;  }
+            .js #loader { display: block; position: absolute; left: 100px; top: 0; }
+            .se-pre-con {
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                background: url(/loaders/pros-hero.gif) center no-repeat #fff;
+            }
+        </style>
+
     </head>
     <body class="">
+
+        <!-- Paste this code after body tag -->
+        <div class="se-pre-con"></div>
+        <!-- Ends -->
        
         {% block body %}
 
         {% endblock %}
+    
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBHd-0RBeiq5jJE6QffOxcXa7cI7H5UOY&callback=initMap"
+    type="text/javascript"></script>
 
-  
     {% block javascripts %}
 
     {% endblock %}
-
+        <script>
+          // Wait for window load
+            window.onload = function () {
+                // Animate loader off screen
+                jQuery(".se-pre-con").fadeOut('slow');
+   
+            };
+           
+        </script>
+       
     </body>
 </html>

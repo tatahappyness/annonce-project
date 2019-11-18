@@ -13,10 +13,10 @@
                                 </a>
                                 
                                 <ul class="navbar-nav mt-2 mt-lg-0 d-flex flex-column flex-sm-row">
-                                    <li class="nav-item bg-gray">
+                                    <li class="nav-item active m-1">
                                     <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
                                     </li>
-                                    <li class="nav-item bg-gray">
+                                    <li class="nav-item active m-1">
                                     <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
                                     </li>
                                 </ul>
@@ -126,25 +126,21 @@
                         <i class="fa fa-caret-down"></i>
                         </a>
                         <div class="dropdown-content">
-                            <div class="row-mega px-4">
-                                <div class="column">
-                                <h3> <a href="{{ path('guide_price_page', {categId: 1}) }}"> Category 1</a> </h3>
-                                <a href="{{ path('guide_price_page', {categId: 1, sousCategId: 1}) }}">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
-                                <a class="mm-view-more" href="#">Voir + </a>
-                                </div>
-                                <div class="column">
-                                <h3> <a href="#"> Category 2</a> </h3>
-                                <a href="#">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
-                                <a class="mm-view-more" href="#">Voir + </a>
-                                </div>
-                                <div class="column">
-                                <a class="mm-view-more" href="#">voir autre +</a>
-                                </div>
-                            </div>
+                            <ul class=" px-4">
+                                {% if categories != null %}
+                                    {% for categ in categories %}
+                                        <li class="column-list text-left px-0" style="line-height: 0;">
+                                        <a href="{{ path('category_sous_category_page', {categId: categ.getId()}) }}" class="d-flex align-items-center">
+                                        <span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+                                        <span class="text-warning">{{ categ.getCategTitle() }}</span>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                {# <li class="text-center"  style="line-height: 0;">
+                                <a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+                                </li> #}
+                                {% endif %}
+                            </ul>
                         </div>
                     </div>
                     <a href="{{ path('how_to_step_page') }}">Comment ça marche ?</a>
@@ -162,7 +158,7 @@
         </div>
     </div>
     <!-- End Row for Menu header -->
-    
+
 		
     <!-- Begin for row content header parallax -->
     <div class="container">
@@ -182,11 +178,11 @@
             <div class="col-12 col-md-10 d-flex flex-column justify-content-center align-items-end">
 				
                 <div class="w-100 bg-dark" style="box-shadow: -14px 5px 5px black; z-index: 1;">
-                    <form action="{{ path('post_ask_devis_page') }}" method="POST">
+                    <form id="form-ask-devis-home" action="{{ path('post_ask_devis_page') }}" method="POST">
                         <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center">
                             <div class="form-group p-0 m-0 w-100">
 
-                                <input type="text" id="show-input-list-search" class="form-control text-center" placeholder="Quel travaux souhaitez vous realiser ?">
+                                <input type="text" id="show-input-list-search" class="form-control input-ask-devis-home text-center" placeholder="Quel travaux souhaitez vous realiser ?">
 
                             </div>
 

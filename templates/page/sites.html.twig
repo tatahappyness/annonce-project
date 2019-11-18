@@ -37,11 +37,11 @@
                                 <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }} "></img>
                                 </a>
 							
-                                <ul class="navbar-nav mt-2 mt-lg-0">
-                                    <li class="nav-item active">
+                                <ul class="navbar-nav mt-2 d-flex flex-column flex-sm-row justify-content-center mt-lg-0">
+                                    <li class="nav-item active m-1">
                                     <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item active m-1">
                                     <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
                                     </li>
                                 </ul>
@@ -85,6 +85,8 @@
                     </div>
                     </div>
                     <!-- ############################# END NAVBAR HERE LARGE -->
+
+                    
                     <!-- Progress barr slid scroll -->
                         <div class="progress-container fixed-top">
                             <div class="progress-bar" id="myBar"></div>
@@ -213,7 +215,7 @@
                         </div>
                         <div id="form-container-site" class="col-12 col-lg-8">
                             <h4 class="text-white text-center d-block mb-3">Créez votre site dès maintenant en quelques clics !<h4>
-                            <form id="" class="d-block bg-white p-4 rounded">
+                            <form id="form-create-site" class="d-block bg-white p-4 rounded">
                                         
                                 <div class="form-group mb-3">
                                     <label class="text-secondary">Prénoms</label>
@@ -223,24 +225,24 @@
                                 <div class="form-group mb-3">
                                     <label class="text-secondary">Nom</label>
                                     <div id="uploads"></div>
-                                    <input required type="text" class="form-control" name="firstname" placeholder="votre nom ?">
+                                    <input required type="text" class="form-control" name="name" placeholder="votre nom ?">
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="text-secondary">E-mail</label>
                                     <div id="uploads"></div>
-                                    <input required type="email" class="form-control" name="firstname" placeholder="votre e-mail ?">
+                                    <input required type="email" class="form-control" name="email" placeholder="votre e-mail ?">
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="text-secondary">Téléphone</label>
                                     <div id="uploads"></div>
-                                    <input required type="tel" class="form-control" name="firstname" placeholder="votre téléphone ?">
+                                    <input required type="tel" class="form-control" name="phone" placeholder="votre téléphone ?">
                                 </div>
                                 <div class="form-group mb-3">
                                     <input required type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                                     <div class="g-recaptcha" data-sitekey="6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></div>
                                 </div>
                                 <div class="w-100 text-center"> 
-                                    <a class="btn btn-warning text-uppercase">je créer mon site</a>
+                                    <a class="btn btn-warning btn-create-site text-uppercase">je créer mon site</a>
                                 </div>
                             </form>
                         </div>
@@ -325,7 +327,7 @@
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/site.js') }}"></script>
 
 {% endblock %}

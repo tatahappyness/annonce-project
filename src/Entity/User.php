@@ -180,7 +180,7 @@ class User implements UserInterface
     private $companydescription;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $companyDateCrea;
     
@@ -588,12 +588,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCompanyDateCrea(): ?\DateTimeInterface
+    public function getCompanyDateCrea(): ?string
     {
         return $this->companyDateCrea;
     }
 
-    public function setCompanyDateCrea(?\DateTimeInterface $companyDateCrea): self
+    public function setCompanyDateCrea(?string $companyDateCrea): self
     {
         $this->companyDateCrea = $companyDateCrea;
 

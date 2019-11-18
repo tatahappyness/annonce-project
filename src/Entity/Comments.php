@@ -42,6 +42,11 @@ class Comments
      */
     private $dateCrea;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isPublish;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class Comments
     public function setDateCrea(?\DateTimeInterface $dateCrea): self
     {
         $this->dateCrea = $dateCrea;
+
+        return $this;
+    }
+
+    public function getIsPublish(): ?bool
+    {
+        return $this->isPublish;
+    }
+
+    public function setIsPublish(?bool $isPublish): self
+    {
+        $this->isPublish = $isPublish;
 
         return $this;
     }

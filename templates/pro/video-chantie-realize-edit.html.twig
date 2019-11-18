@@ -24,7 +24,7 @@
 
     {% block body %}
 
-    <div class="page-header page-header-image-gallery">
+    <div class="page-header page-header-image-gallery page-headers-pros">
         <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
         </div>
 		
@@ -71,39 +71,41 @@
                                 <!--BEGIN MY CORDONNE-->
                                 <div class="card text-center">
                                     <div class="card-header p-2 font-weight-bold bg-darkgray">
-                                        <h5 class="text-uppercase">Ajouter mes videos du chantier réalisée </h5>
+                                        <h6 class="text-uppercase">Ajouter mes videos du chantier réalisée </h6>
                                     </div>
                                     <div class="card-body">
                                         <div class="pt-2">
-                                        <form id="form-upload-images" enctype="multipart/form-data">
-
-                                                <div class="form-group p-0  w-100">
-                                                    <select id="videosNatureTitle" class="form-control videosNatureTitle" name="videosNatureTitle">
+                                        <form id="form-upload-video" action="{{ path('pro_video_realize_edit') }}" method="POST"> 
+                                            <div class="form-group p-0  w-100">
+                                                    <label class="text-warning">Nature de videos</label>
+                                                    <select id="videosNatureTitle" class="form-control videosNatureTitle" name="article_id">
                                                         <option></option>
-                                                        <option value="AL">art-1</option>
-                                                        <option value="WY">art-2</option>
-                                                        <option value="AL">art-3</option>
-                                                        <option value="WY">art-4</option>	
+                                                        {% if articles != null %}
+                                                            {% for art in articles %}
+                                                            <option value="{{ art.id }}">{{ art.getArticleTitle() }}</option>
+                                                            {% endfor %}
+                                                            {% else %}
+                                                                Aucun élément enrégistré!
+                                                        {% endif %}
                                                     </select>
                                                 </div>
-                                                <div class="form-group mb-1 border borber-secondary" style="height: 50px;">
-                                                    <label class="text-warning">Cliquez ici ! ou Glissez vos videos ici !</label></label>
-                                                    <input id="fileVideos" class="fileVideos" type="file" name="fileVideos" multiple>
+                                                <div class="form-group mb-1 w-100">
+                                                    <label class="text-warning">Ajoutez ici un lien de videos</label>
+                                                    <input id="fileVideos" class="fileVideos form-control w-100" type="url" name="url_video"  pattern="https?://.+" title="Include http://" placeholder="Entrer URL">
 													
                                                 </div>
-                                                <div class="w-100 border borber-secondary">
-                                                    <div id="uploads" class="p-0 d-flex flex-wrap" style="height: 80px;"></div>
-                                                </div>
-												
-                                                <div class="form-group mb-3">
+                                               <div class="form-group mb-3">
                                                     <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                                                     <div class="g-recaptcha" data-sitekey="6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></div>
+                                                </div>
+                                                <div class="w-100 text-center">
+                                                  <button type="submit" class="btn btn-warning ">Enregistrer</button>  
                                                 </div>
                                             </form>
                                         </div>
                                     </div> 
                                     <div class="card-footer text-muted pb-4">
-                                        <a href="{{path('pro_show_profil')}}" class="btn btn-warning text-decoration-none btn-retour-profile text-uppercase w-50"><< Retour</a>
+                                        <a href="{{path('pro_show_profil')}}" class="btn btn-secondary text-decoration-none btn-retour-profile text-uppercase w-50"><< Retour</a>
                                     </div>
                                 </div>
                                 <!-- END MY CORDONNE -->
@@ -188,7 +190,6 @@
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
 <script src="{{ absolute_url('/assets/file-upload/myfile.js') }}"></script>

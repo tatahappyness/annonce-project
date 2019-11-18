@@ -24,7 +24,7 @@
 
     {% block body %}
 
-    <div class="page-header page-header-image-gallery">
+    <div class="page-header page-header-image-gallery page-headers-pros">
         <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
         </div>
 		
@@ -75,30 +75,28 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="pt-2">
-                                        <form id="form-company" enctype="multipart/form-data">
+                                        <form id="form-company-edit">
 
                                                 <div class="form-group mb-3">
-                                                    <label class="">Titre de votre document</label>
-                                                <input type="text" id="document_title" class="form-control document_title" name="document_title"  placeholder="Titre de votre document">
+                                                    <label class="">Date de création de votre entreprise</label>
+                                                <input type="text" id="company_datecrea" class="form-control document_title" name="company_datecrea"  placeholder="EX: Janvier 2002">
                                                 </div>
-                                                <div class="form-group mb-1 border borber-secondary" style="height: 50px;">
-                                                    <label class="text-warning">Cliquez ici ! ou Glissez vos documents ici !</label></label>
-                                                    <input id="fileDocumentCompany" class="fileDocumentCompany" type="file" name="fileDocumentCompany" multiple>
-                                                </div>
-                                                <div class="w-100 border borber-secondary">
-                                                    <div id="uploads" class="p-0"></div>
-                                                </div>
-												
                                                 <div class="form-group mb-3">
+                                                    <label class="">Caracteristique de vote entreprise</label>
+                                                    <input type="text" id="company_caracter" class="form-control" name="company_caracter"  placeholder="Ex: Entreprise Individuel">
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label class=""> Description de votre entreprise </label>
+                                                    <textarea  id="company_description" class="form-control message" name="company_description"  placeholder="Ecrivez quelques description de votre entreprise... " style="max-height: 150px !important; height: 110px !important; border-radius: 32px; font-size: 0.8em; border-radius: 4px; border: 1px solid silver !important;"></textarea>
+                                                </div>
+												<div class="form-group mb-3">
                                                     <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                                                     <div class="g-recaptcha" data-sitekey="6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></div>
                                                 </div>
+                                                <a class="btn btn-warning text-decoration-none btn-save-company-infos text-uppercase w-50">Enregistrer</a>
                                             </form>
                                         </div>
                                     </div> 
-                                    <div class="card-footer text-muted pb-4">
-                                        <a href="{{path('pro_show_profil')}}" class="btn btn-warning text-decoration-none btn-retour-profile text-uppercase w-50"><< Retour</a>
-                                    </div>
                                 </div>
                                 <!-- END MY COMPANY EDIT -->
 							

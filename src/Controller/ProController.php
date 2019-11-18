@@ -39,6 +39,7 @@ use App\Repository\CategoryRepository;
 use App\Repository\EvaluationsRepository; 
 use App\Repository\CitiesRepository;
 use App\Repository\EmojiRepository;
+use App\Repository\VideosRepository;
 use App\Repository\DevisAcceptRepository;
 use App\Repository\DevisValidRepository;
 use App\Repository\DevisFinishRepository;
@@ -66,7 +67,8 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
 * @Route("/pro")
@@ -105,8 +107,24 @@ class ProController extends AbstractController
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : [null];
+
+        //Get DISTANCE AND CALCULATE BY KM USING LAT AND LONG
+        foreach ($postsAds as $key => $post) {
+
+            $cityArray1['lat'] = $post->getCity()->getVilleLatitudeDeg();
+            $cityArray1['lng'] = $post->getCity()->getVilleLongitudeDeg();
+            $cityArray2['lat'] =  ($security->getUser()->getLat() !== null) ? $security->getUser()->getLat() : $security->getUser()->getUserCity()->getVilleLatitudeDeg();
+            $cityArray2['lng'] = ($security->getUser()->getLog() !== null) ? $security->getUser()->getLog() : $security->getUser()->getUserCity()->getVilleLongitudeDeg();
+
+            $distances[$post->getId()] =  $this->getDistance($cityArray1, $cityArray2, 'Km');
+
+        }
+        
+        //dump($distances);die;
+
         return $this->render('pro/dashbord.html.twig', [
             'numberDevis' => $nbdevis,
+            'distances'=> $distances,
             'postAds'=> $postsAds,
              'nbProjectDispo'=> count($postsAds),
              'user'=> $security->getUser(),
@@ -136,7 +154,7 @@ class ProController extends AbstractController
                             4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
                             );          
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData);
-        $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
+        $postsAds = count( $postsAdsArray ) > 0 ? $postsAdsArray : null;
         //dump($postsAds);die;
 
         if($postsAds !== null && !is_null($request->query->get('switch_periodity'))) {
@@ -170,13 +188,40 @@ class ProController extends AbstractController
             return new JsonResponse($arrayPostAds, 200);
         }
 
+        //Get DISTANCE AND CALCULATE BY KM USING LAT AND LONG
+        foreach ($postsAds as $key => $post) {
+
+            $cityArray1['lat'] = $post->getCity()->getVilleLatitudeDeg();
+            $cityArray1['lng'] = $post->getCity()->getVilleLongitudeDeg();
+            $cityArray2['lat'] =  ($security->getUser()->getLat() !== null) ? $security->getUser()->getLat() : $security->getUser()->getUserCity()->getVilleLatitudeDeg();
+            $cityArray2['lng'] = ($security->getUser()->getLog() !== null) ? $security->getUser()->getLog() : $security->getUser()->getUserCity()->getVilleLongitudeDeg();
+
+            $distances[$post->getId()] =  $this->getDistance($cityArray1, $cityArray2, 'Km');
+
+        }
+        
+        //dump($distances);die;
+       
         return $this->render('pro/projects-dispos.html.twig', [
             'postAds' => $postsAds, 
+            'distances'=> $distances,
             'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
             'user'=> $security->getUser(),
         ]);
 
     }
+
+    /**
+    * @Route("/get-lat-log-ajax", name="pro_lat_log")
+    */
+    public function geolocation(Security $security)
+    {
+        $LocationArray = ['lat'=> $security->getUser()->getLat(), 'log'=> $security->getUser()->getLog()];
+
+        return new JsonResponse($LocationArray, 200);
+
+    }
+
 
     /**
     * @Route("/show-one-detail-ads-project/{id}", name="pro_one_detail_ads_projects")
@@ -203,14 +248,16 @@ class ProController extends AbstractController
                     'isAbonned'=> true,  
                     'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
                     'user'=> $security->getUser(),
+                    'service'=> $myservice,
                 ]);
             }
         }
-
+        
         return $this->render('premuim/info-ads-premuim.html.twig', [
             'post' => $post, 'isAbonned'=> false, 
             'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
             'user'=> $security->getUser(),
+            'service'=> $myservice,
         ]);
     }
 
@@ -301,9 +348,9 @@ class ProController extends AbstractController
     }
 
     /**
-    * @Route("/devis-receved-detail/{id}", name="pro_devis_receved_detail")
+    * @Route("/devis-receved-detail/{id}/{download}", name="pro_devis_receved_detail")
     */
-    public function devisRecevedDetail($id = null, Security $security, CustomerRepository $customRep, AbonnementRepository $abonnementRep, ServicesRepository $serviceRep, DevisRepository $devisRep)
+    public function devisRecevedDetail($id = null, $download = null, Security $security, CustomerRepository $customRep, AbonnementRepository $abonnementRep, ServicesRepository $serviceRep, DevisRepository $devisRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -328,7 +375,7 @@ class ProController extends AbstractController
         $customer = $customRep->findByUser($security->getUser());
         $devis = $devisRep->findById((int) $id);
         
-        if ($id !== null && !is_null($devis) && !is_null($customer)) {
+        if ($id !== null && $download == null && !is_null($devis) && !is_null($customer)) {
 
             $myservice = $serviceRep->findByUserAndCategoryId(array(1=> $security->getUser(), 2=> $devis->getNatureProject()->getArticleCategId()));
             $arrayCriticals = array(1=>  $customer, 2=> $myservice); // prepare query to get abonnement here!
@@ -344,6 +391,44 @@ class ProController extends AbstractController
                 ]);
             }
         }
+
+        /// DOWNLOAD DEVIS HERE TO PDF
+        if($id !== null && $download !== null) {
+            //die($id);
+            $devis = $devisRep->findById((int) $id);
+
+            // Configure Dompdf according to your needs
+            $pdfOptions = new Options();
+            $pdfOptions->set('defaultFont', 'Arial');
+           
+            $dompdf = new Dompdf($pdfOptions);
+                   
+            //Retrieve the HTML generated in our twig file
+            $html = $this->renderView('premuim/devis-to-pdf.html.twig', [
+               'devis' => $devis, 'isAbonned'=> true, 
+                ]);
+
+            // Load HTML to Dompdf
+            $dompdf->loadHtml($html);
+        
+            //  (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+            $dompdf->setPaper('A4', 'portrait');
+
+            // Render the HTML as PDF
+            $dompdf->render();
+
+            // Output the generated PDF to Browser (inline view)
+            $dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
+            ]);
+
+            //dump("ok");die;
+
+        
+          
+            
+        }// AEND GENERATE PDF
+
         if ($devis == null) {
             return  $this->redirectToroute('pro_devis_receved_lists');
         }
@@ -355,6 +440,7 @@ class ProController extends AbstractController
             'user'=> $security->getUser(),
         ]);
     }
+
     
     /**
     * @Route("/do-accept-project", name="pro_do_accept_devis")
@@ -525,7 +611,7 @@ class ProController extends AbstractController
     /**
     * @Route("/show-my-profil", name="pro_show_profil")
     */
-    public function profil(Security $security, DocummentRepository $docummentRep, LabelsRepository $labelRep, EvaluationsRepository $evaluationRep, ImagesRepository $imageRep, CustomerRepository $customRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep)
+    public function profil(Security $security, VideosRepository $videoRep, DocummentRepository $docummentRep, LabelsRepository $labelRep, EvaluationsRepository $evaluationRep, ImagesRepository $imageRep, CustomerRepository $customRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -564,6 +650,9 @@ class ProController extends AbstractController
         $image = $imageRep->findByUserId(array(1=> $security->getUser()));
         $images = count($image) > 0 ? $image : null;
 
+        //get Videos realize
+        $videos = $videoRep->findByUserId(array(1=> $security->getUser()));
+        $videos = count($videos) > 0 ? $videos : [];
 
         return $this->render('pro/profil.html.twig', [
             'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
@@ -573,6 +662,7 @@ class ProController extends AbstractController
             'documents'=> $documents,
             'images'=> $images,
             'labels'=> $labels,
+            'videos'=>  $videos,
         ]);
     }
 
@@ -684,7 +774,23 @@ class ProController extends AbstractController
            
             if (!is_null($request->request->get('company_caracter')) && !is_null($request->request->get('company_datecrea')) && !is_null($request->request->get('company_description')) ) {
 
-                
+                $user = $security->getUser();
+                $user
+                    ->setCompanyCarater($request->request->get('company_caracter'))
+                    ->setCompanyDateCrea($request->request->get('company_datecrea'))
+                    ->setCompanyDescription($request->request->get('company_description'));
+                    
+                    $entityManager = $this->getDoctrine()->getManager();
+
+                try {
+    
+                    $entityManager->merge($user);
+                    $entityManager->flush();
+                    return new JsonResponse(['code'=> 200, "infos" => 'Enregistrement effectuée!'], 200);
+                } 
+                catch (\Exception $e) {
+                    return new JsonResponse(['code'=> 500, 'infos' => $e->getMessage()], 500);
+                }                
             
             }
 
@@ -773,13 +879,72 @@ class ProController extends AbstractController
     /**
     * @Route("/geolocation-map-edit", name="pro_geolocation_map_edit")
     */
-    public function editGeolocationMap(Request $request, Security $security, CustomerRepository $customRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function editGeolocationMap(Request $request, Security $security, CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
+        if($_POST){
+
+            $lat = $request->request->get('latitude');
+            $long = $request->request->get('longitude');
+            //dump( $url . ' ' . $articleId); 
+            if($lat !== null &&   $long!== null) {	
+                //dump($request->getMethod());die;
+                //dump( $articleId . ' ' . $url);die;
+
+                try {
+
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->beginTransaction();
+
+                    $user = $security->getUser();
+                    $user
+                        ->setLat($lat)
+                        ->setLog($long);
+
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                    $entityManager->commit();
+                
+                    // return new JsonResponse(array('code'=> 200, 'infos'=> 'Enrégistrement effectué!'), 200);
+                    return $this->redirectToRoute('pro_dashbord');
+
+                    } catch (\Throwable $th) {
+                        return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+                    }
+            }            
+
+        } // END POST GEO
+
+        $services = $serviceRep->findByUser($security->getUser());
+
+        $array = Array();
+        foreach ($services as $key => $value) {
+        $array[] = $value->getCategoryId();
+        }
+
+        $categoryId =  $array;
+        $arrayData1 = array( 1=>  ($categoryId), 
+                            2=> $security->getUser()->getZipCode(), 
+                            3=> $security->getUser()->getUserCity(),
+                            4=>  ($categoryId)
+                            );
+
+        $devis = $devisRep->findByZipCodeAndCity($arrayData1);
+        $nbdevis = count($devis);
+
+        $arrayData2 = array(1=>  ($categoryId), 
+                            2=> ($categoryId), 3=> $security->getUser()->getUserCity(),
+                            4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
+                            );
+        $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
+        $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
+
         return $this->render('pro/my-geolocation-map-edit.html.twig', [
             'user'=> $security->getUser(),
+            'numberDevis' => $nbdevis,
+            'nbProjectDispo'=> count($postsAds),
         ]);
     }
 
@@ -930,48 +1095,83 @@ class ProController extends AbstractController
     /**
     * @Route("/video-chantier-realize-edit", name="pro_video_realize_edit")
     */
-    public function editVideosRealize(Request $request, Security $security, CustomerRepository $customRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function editVideosRealize(Request $request, Security $security, PostRepository $postRep, ServicesRepository $serviceRep, ArticleRepository $articleRep, CustomerRepository $customRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
-        //UPLOAD VIDEOS 
-        // do var_dump($request->files->all()); if you need to know if the file is being uploaded.
-        $file = $request->files->get('fileVideos');
-        $articleId = $request->query->get('videosNatureTitle');
-
-        $output_dir = $this->getParameter('videos_directory');
-
-        $array_extensions = ['mp4', 'ogg'];
-        $arr_file_types = ['video/mp4', 'video/ogg'];
-
-        if(!is_null($file))
-        {	
-          
-            if (!(in_array($file->getClientOriginalExtension(), $array_extensions))) {
-                return new JsonResponse(array('code'=> 401, 'infos'=> 'Type de fichier n\'est pas autorisé'), 200);
-            }
-
-                // Convert to base64 
-                // $video_base64 = base64_encode(file_get_contents($file) );
-                // $image = 'data:image/'.$file->getClientOriginalExtension().';base64,'.$image_base64;
+        //var_dump($request->request->all()); //if you need to know if the file is being uploaded.
+       
+        if($_POST) {
+           
+           $url = $request->request->get('url_video');
+            $articleId = $request->request->get('article_id');
+            //dump( $url . ' ' . $articleId); 
+            if($articleId !== null &&   $url!== null) {	
+                //dump($request->getMethod());die;
+                //dump( $articleId . ' ' . $url);die;
 
                 try {
-                    
-                    // generate a random name for the file but keep the extension
-                    $filename = uniqid().".".$file->getClientOriginalExtension();
-                    $file->move( $output_dir, $filename); // move the file to a path
-              
-                    return new JsonResponse(array('code'=> 200, 'infos'=>  $filename), 200);
 
-                } catch (\Throwable $th) {
-                    return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
-                }
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->beginTransaction();
+
+                    $video = new Videos();
+                    $video
+                        ->setArticleTitle($articleRep->findById((int) $articleId))
+                        ->setUserId($security->getUser())
+                        ->setName($url)
+                        ->setDateCrea(new \DateTime('now'));
+
+                        $entityManager->persist($video);
+                        $entityManager->flush();
+                        $entityManager->commit();
+                
+                    // return new JsonResponse(array('code'=> 200, 'infos'=> 'Enrégistrement effectué!'), 200);
+                    return $this->redirectToRoute('pro_show_profil');
+
+                    } catch (\Throwable $th) {
+                        return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+                    }
             }
 
+        } //END POST HERE
+
+        $services = $serviceRep->findByUser($security->getUser());
+
+        $array = Array();
+        foreach ($services as $key => $value) {
+        $array[] = $value->getCategoryId();
+        }
+
+        $categoryId =  $array;
+        $arrayData1 = array( 1=>  ($categoryId), 
+                            2=> $security->getUser()->getZipCode(), 
+                            3=> $security->getUser()->getUserCity(),
+                            4=>  ($categoryId)
+                            );
+
+        $devis = $devisRep->findByZipCodeAndCity($arrayData1);
+        $nbdevis = count($devis);
+
+        $arrayData2 = array(1=>  ($categoryId), 
+                            2=> ($categoryId), 3=> $security->getUser()->getUserCity(),
+                            4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
+                            );
+        $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
+        $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
+    
+        //get article()
+       $article = $articleRep->findByCategoryArray(array(1=> $categoryId));
+
         return $this->render('pro/video-chantie-realize-edit.html.twig', [
+            'numberDevis' => $nbdevis,
+            'postAds'=> $postsAds,
+            'nbProjectDispo'=> count($postsAds),
             'user'=> $security->getUser(),
+            'articles'=> $article,
         ]);
+
     }
 
     /**
@@ -1113,6 +1313,12 @@ class ProController extends AbstractController
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
+        return $this->render('premuim/felicitation-page.html.twig', [
+            'info' => 'Payement effectué!, Vous êtes abonné maintenant, Merci!!',
+        ]);
+        
+        die;
+
         if ($_POST) {
             
             if (!is_null($request->request->get('stripeToken'))) {
@@ -1120,7 +1326,9 @@ class ProController extends AbstractController
                 // Set your secret key: remember to change this to your live secret key in production
                 // See your keys here: https://dashboard.stripe.com/account/apikeys
 
-                \Stripe\Stripe::setApiKey('sk_test_vKh2QpGMT8Dv89CiAzpS8wbl00vsdGEYkc');
+                \Stripe\Stripe::setApiKey('sk_test_mRbQTD6K8LLIXCTLJbdNIMvJ00cHp20qyH');
+                // \Stripe\Stripe::setApiKey('sk_test_vKh2QpGMT8Dv89CiAzpS8wbl00vsdGEYkc');
+
                 //Token is created using Checkout or Elements!
                 //Get the payment token ID submitted by the form:
                 $token = $request->request->get('stripeToken');
@@ -1128,39 +1336,41 @@ class ProController extends AbstractController
                 $service = $serviceRep->findById((int) $request->request->get('service_id'));
                 //dump( $service);die;
                 $custom = $customRep->findById($security->getUser()->getId());
-                $custId = $custom->getCustomerId();
-                $email = $custom->getEmail();
-                if (is_null($custId)) {
+               
+                if (is_null($custom)) {
                     //Create new customer
                     $customer = \Stripe\Customer::create([
                         'email' => $request->request->get('email'),
                         'source' => $token,
-                        'name' => $request->request->get('name')
+                        'name' =>  $service->getCategoryId()->getCategTitle()
                     ]);
                     $custId = $customer->id;
                     $email = $request->request->get('email');
                     $newCustom = new Customer();
+                    $em =  $this->getDoctrine()->getManager();
+                    $em->beginTransaction();
                     $newCustom
-                        ->setUserId($security->getUser()->getId())
+                        ->setUserId($security->getUser())
                         ->setCustomerId($custId)
                         ->setEmail($email)
                         ->setName($request->request->get('name'))
                         ->setDateCrea(new \DateTime('now'));
 
-                    $em =  $this->getDoctrine()->getManager();
-                    $em->beginTransaction();
                     $em->persist($newCustom);
                     $em->flush();
-                    
-                    $custom = $customRep->findById($security->getUser()->getId());
+                    $em->commit();
+                    $custom = $customRep->findByUser($security->getUser());
                     $custId = $custom->getCustomerId();
                     $email = $custom->getEmail();
-                    $em->commit();
+                   
                     
                 }
                 //dump($customer);die;
-                if (!is_null($custId)) {
+                if (!is_null($custom)) {
                     //Do pay amount
+                    $custId = $custom->getCustomerId();
+                    $email = $custom->getEmail();
+
                     $charge = \Stripe\Charge::create([
                         'customer' => $custId,
                         'amount' => (float) $request->request->get('montant_paye'),
@@ -1218,7 +1428,8 @@ class ProController extends AbstractController
                         $em->merge($service);
                         $em->flush();
                         $em->commit();
-                        return new JsonResponse(['code'=>200, 'info'=> 'Payement effectué!, Vous êtes abonné maintenant, Merci!!'], 200);
+                       
+                        /// ETO IZY
 
                     } catch (\Throwable $th) {
                         return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
@@ -1231,7 +1442,7 @@ class ProController extends AbstractController
             }
         }
         //$offer = $offerRep->findAllArray();
-        $offer = $offerRep->findById(1);
+        $offer = $offerRep->findByCategoryId($serviceRep->findById((int) $id)->getCategoryId());
         return $this->render('premuim/strip-form.html.twig', [
             'serviceId' => $id, 'offer'=> $offer
         ]);   
@@ -1416,5 +1627,35 @@ class ProController extends AbstractController
        
         return count($devis);
     }
+
+    //GET DISTANCE BETWEEN TWO ZIP CODE OR LAT AND LONG
+    // This function returns Longitude & Latitude from zip code.
+    function getDistance($first_lat, $next_lat, $unit)
+    {
+        $lat1 = $first_lat['lat'];
+        $lon1 = $first_lat['lng'];
+        $lat2 = $next_lat['lat'];
+        $lon2 = $next_lat['lng']; 
+        $theta=$lon1-$lon2;
+        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +
+        cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+        cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $unit = strtoupper($unit);
+
+        if ($unit == "K"){
+            return ($miles * 1.609344)." ".$unit;
+        }
+        else if ($unit =="N"){
+            return ($miles * 0.8684)." ".$unit;
+        }
+        else{
+            return round($miles)." ".$unit;
+        }
+
+    } //End function get distance 
+
 
 }

@@ -16,13 +16,17 @@
 		<link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/menu/menu-large.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/menu/menu-mobile.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
     
 	{% endblock %}
 
 	{% block body %}
 	
-	<div class="page-header" style="min-height: 35vh !important;">
+	<div class="page-header" style="min-height: 65vh !important;">
 		<div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/head-1.jpg'); background-attachment: fixed;">
 		</div>
 		<div class="row">
@@ -36,11 +40,11 @@
 								  <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
 								</a>
 							
-								<ul class="navbar-nav mt-2 mt-lg-0">
-									<li class="nav-item active">
+								<ul class="navbar-nav mt-2 d-flex flex-column flex-sm-row justify-content-center mt-lg-0">
+									<li class="nav-item m-1 active">
 									  <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
 									</li>
-									<li class="nav-item">
+									<li class="nav-item m-1 active">
 									  <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
 									</li>
 								</ul>
@@ -48,7 +52,7 @@
 							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
 								<span class="mr-1">
 									<button class="btn btn-round rounded bg-gray show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap" type="button">
-										<i class="">🔒</i> Se connecter
+										<i class="">🔒</i><label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
 									</button>
 								</span>
 								<span class="">
@@ -62,282 +66,65 @@
 					</nav>
 					<!-- Navbar menu end here -->
 					  
-					  <!-- ############################# NAVBAR HERE LARGE -->
-						
-					<div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
-					  <div class="container">
-						<button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
-						<div class="navbar-collapse collapse">
-						  <ul class="nav navbar-nav">
-							</li>
-							<li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">INSTALLER</a>
-							  <ul class="dropdown-menu megamenu">
-							  <div class="row">
-							  <li class="col-12 col-sm-7 text-center">
-								<ul class="row" style=" list-style-type: none;">
-
-									<div class="col-12 col-md-4 col-lg-3 p-0">
-									  <li class="dropdown-header">Categorie-1</li>
-									  <li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-									  </li>
-									  <li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-									  </li>
-									  <li class="divider"></li>
-									</div>
-								
-									<div class="col-12 col-md-4 col-lg-3 p-0">
-									  <li class="dropdown-header">Categorie-2</li>
-									  <li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-									  </li>
-									  <li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-									  </li>
-									  <li class="divider"></li>
-									</div>
-
+					<!-- ############################# NAVBAR HERE LARGE -->
+					<!-- BEGIN MOBILE MENU -->
+					{% include "./page/menu/menu-mobile.html.twig" %}
+					<!-- END MOBILE MENU -->	
+                
+					<!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
+			
+					<div class="navbar-mega large-menu d-md-flex justify-content-center">
+						<div class="dropdown-mega">
+							<a class="dropbtn"> Demander un devis
+							<i class="fa fa-caret-down"></i>
+							</a>
+							<div class="dropdown-content">
+								<ul class=" px-4">
+									{% if categories != null %}
+										{% for categ in categories %}
+											<li class="column-list text-left px-0" style="line-height: 0;">
+											<a href="{{ path('post_ask_devis_page', {id: categ.getId()}) }}" class="d-flex align-items-center">
+											<span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+											<span class="text-warning">{{ categ.getCategTitle() }}</span>
+											</a>
+										</li>
+										{% endfor %}
+									<li class="text-center"  style="line-height: 0;">
+									<a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+									</li>
+									{% endif %}
 								</ul>
-							  </li>
-
-							  <li class=" col-12 col-sm-5 dropdown-item">
-								<div class="row">
-									<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-									<div class="col-12 col-md-6">
-										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-											<a href="#" class="thumbnail">
-											  <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
+							</div>
+						</div>
+						<!-- END TYPE TRAVAUX -->
+						<div class="dropdown-mega">
+							<a class="dropbtn">Guides des prix
+							<i class="fa fa-caret-down"></i>
+							</a>
+							<div class="dropdown-content">
+								<ul class=" px-4">
+									{% if categories != null %}
+										{% for categ in categories %}
+											<li class="column-list text-left px-0" style="line-height: 0;">
+											<a href="{{ path('category_sous_category_page', {categId: categ.getId()}) }}" class="d-flex align-items-center">
+											<span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+											<span class="text-warning">{{ categ.getCategTitle() }}</span>
 											</a>
-											<a href="#" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-										</div>
-									</div>
-									<div class="col-12 col-md-6">
-										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-											<a href="#" class="thumbnail">
-											  <img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-											</a>
-											<a href="#" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-										</div>
-									</div>
-
-								</div>
-							  </li>
-
-							  </div>
-							  </ul>
-						  </li>
-						  <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">RENOVER </a>
-							<ul class="dropdown-menu megamenu">
-							  <div class="row">
-							  <li class="col-12 col-sm-7 text-center">
-								<ul class="row" style=" list-style-type: none;">
-
-									<div class="col-12 col-md-4 col-lg-3 p-0">
-										<li class="dropdown-header">Categorie-1</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
 										</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-										</li>
-										<li class="divider"></li>
-									</div>
-								
-									<div class="col-12 col-md-4 col-lg-3 p-0">
-										<li class="dropdown-header">Categorie-2</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-										</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-										</li>
-										<li class="divider"></li>
-									</div>
-
+										{% endfor %}
+									{# <li class="text-center"  style="line-height: 0;">
+									<a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+									</li> #}
+									{% endif %}
 								</ul>
-							  </li>
-							  <li class=" col-12 col-sm-5 dropdown-item">
-								<div class="row">
-									<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-									<div class="col-12 col-md-6">
-										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-											<a href="#" class="thumbnail">
-											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-											</a>
-											<a href="#" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-										</div>
-									</div>
-									<div class="col-12 col-md-6">
-										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-											<a href="#" class="thumbnail">
-											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-											</a>
-											<a href="#" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-										</div>
-									</div>
-
-								</div>
-							  </li>
-							  </div>
-							  </ul>
-						  </li>
-						 <li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Aménager son intérieur</a>
-							<ul class="dropdown-menu megamenu">
-							  <div class="row">
-							  <li class="col-12 col-sm-7 text-center">
-								<ul class="row" style=" list-style-type: none;">
-
-									<div class="col-12 col-md-4 col-lg-3 p-0">
-										<li class="dropdown-header">Categorie-1</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-										</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-										</li>
-										<li class="divider"></li>
-									</div>
-								
-									<div class="col-12 col-md-4 col-lg-3 p-0">
-										<li class="dropdown-header">Categorie-2</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-										</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-										</li>
-										<li class="divider"></li>
-									</div>
-
-								</ul>
-							  </li>
-							  <li class=" col-12 col-sm-5 dropdown-item">
-								<div class="row">
-									<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-									<div class="col-12 col-md-6">
-										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-											<a href="#" class="thumbnail">
-											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-											</a>
-											<a href="#" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-										</div>
-									</div>
-									<div class="col-12 col-md-6">
-										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-											<a href="#" class="thumbnail">
-											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-											</a>
-											<a href="#" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-										</div>
-									</div>
-
-								</div>
-							  </li>
-							  </div>
-							  </ul>
-							</li>
-							<li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Aménager son extérieur</a>
-							<ul class="dropdown-menu megamenu">
-							  <div class="row">
-							  <li class="col-12 col-sm-7 text-center">
-								<ul class="row" style=" list-style-type: none;">
-
-									<div class="col-12 col-md-4 col-lg-3 p-0">
-										<li class="dropdown-header">Categorie-1</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-										</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-										</li>
-										<li class="divider"></li>
-									</div>
-								
-									<div class="col-12 col-md-4 col-lg-3 p-0">
-										<li class="dropdown-header">Categorie-2</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-										</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-										</li>
-										<li class="divider"></li>
-									</div>
-
-								</ul>
-							  </li>
-							  <li class=" col-12 col-sm-5 dropdown-item">
-								<div class="row">
-									<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-									<div class="col-12 col-md-6">
-										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-											<a href="#" class="thumbnail">
-											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-											</a>
-											<a href="#" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-										</div>
-									</div>
-									<div class="col-12 col-md-6">
-										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-											<a href="#" class="thumbnail">
-											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-											</a>
-											<a href="#" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-										</div>
-									</div>
-
-								</div>
-							  </li>
-							  </div>
-							 </ul>
-							</li>
-							<li class="dropdown menu-large nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Construire </a>
-							<ul class="dropdown-menu megamenu">
-							  <div class="row">
-							  <li class="col-12 col-sm-7 text-center">
-								<ul class="row" style=" list-style-type: none;">
-
-									<div class="col-12 col-md-4 col-lg-3 p-0">
-										<li class="dropdown-header">Categorie-1</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-										</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-										</li>
-										<li class="divider"></li>
-									</div>
-								
-									<div class="col-12 col-md-4 col-lg-3 p-0">
-										<li class="dropdown-header">Categorie-2</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-1</a>
-										</li>
-										<li><a href="{{ path('post_ask_devis_page') }}">Article-2</a>
-										</li>
-										<li class="divider"></li>
-									</div>
-
-								</ul>
-							  </li>
-							  <li class=" col-12 col-sm-5 dropdown-item">
-								<div class="row">
-									<div class="col-12 text-white pb-2 text-center">Les  plus populaires</div>
-
-									<div class="col-12 col-md-6">
-										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-											<a href="#" class="thumbnail">
-											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-											</a>
-											<a href="#" class="text-decoration-none text-warning">Nom de l'article-1 ici</a>
-										</div>
-									</div>
-									<div class="col-12 col-md-6">
-										<div class="card d-flex flex-column align-content-center" style="width: 150; height: 120;">
-											<a href="#" class="thumbnail">
-											<img src="{{ absolute_url('/assets/img/photos/head-1.jpg') }}">
-											</a>
-											<a href="#" class="text-decoration-none  text-warning">Nom de l'article-2 ici</a>
-										</div>
-									</div>
-									
-								</div>
-							  </li>
-							  </div>
-							  </ul>
-							</li>
-							<li class="nav-item"><a href="{{ path('space_find_pro_page') }}" class="nav-link">Trouver un pro</a></li>
-						  </ul>
-						</div>	
-					  </div> 
+							</div>
+						</div>
+						<a href="{{ path('how_to_step_page') }}">Comment ça marche ?</a>
+						<a href="{{ path('space_find_pro_page') }}">Trouvez un pros</a>
 					</div>
-					<!-- ############################# END NAVBAR HERE LARGE -->	
+			
+					<!-- END MENU DISPALY WHEN  WHEN LARGE SCREEN -->
+					  
 					 <!-- Progress barr slid scroll -->
 					<div class="progress-container fixed-top">
 						<div class="progress-bar" id="myBar"></div>
@@ -447,7 +234,7 @@
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
+<script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 
 {% endblock %}

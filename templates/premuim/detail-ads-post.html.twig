@@ -10,26 +10,26 @@
                     <div class="col-12 bg-white text-secondary pb-2">
                         <p class=""><h6 class>Contact</h6></p>
                         <hr class="bg-darkgray" style="height: 1px;" />
-							
-                        <div class="d-inline m-2 alert w-50 alert-info float-right">
-                            <span class="">
-                                <span class="d-block animate">
-                                <p class="text-success font-weight-bold">
-                                > Profitez! la meilleur pack d'offre à 350€/an d'abonement!<br>
-                                    > Bouster votre visibilité patout!
-                                </p>    
+                            {% if isAbonned == false %}
+                            <div class="d-inline m-2 alert w-50 alert-success float-right">
+                                <span class="">
+                                    <span class="d-block animate">
+                                    <p class="text-white font-weight-bold animated fadeIn infinite">
+                                    > Profitez! la meilleur pack d'offre à 350€/an d'abonement!<br>
+                                        > Bouster votre visibilité patout!
+                                    </p>    
+                                    </span>
+                                    <a href="{{ path('pro_post_payements', {id: service.getId()}) }}" class="btn btn-danger text-decoration-none text-white">JE VEUX PROFITER</a>
                                 </span>
-                                <a href="{{ path('pro_post_payements') }}" class="btn btn-danger text-decoration-none text-white">JE VEUX PROFITER</a>
-                            </span>
-                        </div>
-							
+                            </div>
+							{% endif %}
                         <p class="">Prénom: {{ post.getPostUserId().getName() }}</p>
                         <p class="">Nom:{{ post.getPostUserId().getFirstName() }}</p>
                         <p class="">
-                            Téléphone: {% if isAbonned == true %} {{ post.getPhone() }} {% else %} XXXXXX {% endif %}
+                            Téléphone: <span class="text-warning"> {% if isAbonned == true %} {{ post.getPhone() }} {% else %} XXXXXX {% endif %} </span>
                         </p>
                         <p class="">
-                            E-mail: {% if isAbonned == true %} {{ post.getEmail() }} {% else %} XXXXXX {% endif %}
+                            E-mail: <span class="text-warning"> {% if isAbonned == true %} {{ post.getEmail() }} {% else %} XXXXXX {% endif %} </span>
                         </p>
                         <p class="">Ville: {{ post.getCity().getVilleNomReel() }}</p>
                         <p class="">Code postal: {{ post.getPostZipcode() }}</p>
@@ -50,11 +50,15 @@
                         <p class="">Début du projet: Immédiat</p>
                     </div>
                     <div class="col-12 col-md-10 text-center bg-white pb-2">
-                        Je vais écrire directement au chantier, afin qu' il soit aucourant
-                        et il puisse m'évaluer aussi.
+                        <p class="font-weight-bold">Description de projet :</p>
+                       <p class="small"> {{ post.getPostAdsTravauxDescription() }} </p>
                     </div>
                     <div class="col-12 col-md-10 text-center bg-white">
+                        {% if isAbonned == true %}
                         <a class="btn btn-outline-warning btn-show-message-container text-warning w-50">Répondre au chantier</a>
+                        {% else %}
+                        <a href="{{ path('pro_post_payements', {id: service.getId()}) }}" class="btn btn-danger text-decoration-none text-white">JE VEUX PROFITER</a>
+                        {% endif %}
                     </div>
                 </div>
 					               	

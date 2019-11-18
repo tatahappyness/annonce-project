@@ -22,19 +22,43 @@ class ModePrixRepository extends ServiceEntityRepository
     // /**
     //  * @return Videos[] Returns an array of Videos objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findBySousCategoryId($value, $offset = 0, $limit = 10) 
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
+        if($offset > 0) {
+            $limit = $offset * $limit;
+        }
+
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.prixSousCategoryId = :val')
             ->setParameter('val', $value)
-            ->orderBy('v.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('s.id', 'ASC')
+            ->setFirstResult( $offset )
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+    public function findAllArray(): ?Array
+    {
+        return $this->findAll();
+    }
+
+    public function findOneByArray(array $criteria, array $orderBy = null): ?ModePrix
+    {
+        return $this->findOneBy($criteria, $orderBy);
+    }
+    
+    public function findById($id, $lockMode = null, $lockVersion = null): ?ModePrix
+    {
+        return $this->find($id);
+    }
+
+    public function findByArray(array $criteria, array $orderBy = null, $limit = null, $offset = null): ?Array
+    {
+        return $this->findBy($criteria, $orderBy = null, $limit = null, $offset = null);
+    }
 
     /*
     public function findOneBySomeField($value): ?Videos

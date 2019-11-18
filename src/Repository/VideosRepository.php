@@ -22,19 +22,17 @@ class VideosRepository extends ServiceEntityRepository
     // /**
     //  * @return Videos[] Returns an array of Videos objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findByUserId($value)
     {
         return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('v.userId = ?1')
+            ->setParameters($value)
             ->orderBy('v.id', 'ASC')
-            ->setMaxResults(10)
+            //->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Videos

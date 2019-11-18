@@ -36,5 +36,7 @@ jQuery.ajax({
 function inputCreate(id) {
     var parentDiv = document.getElementById('group-form-spcial-input-hidden');
     parentDiv.innerHTML = '<input type="hidden" name="metier_ask_devis" value="' + id +'">';
+    document.getElementById('group-form-spcial-input-hidden');
+
 }
 //END FORM FRONT SEARCH Category

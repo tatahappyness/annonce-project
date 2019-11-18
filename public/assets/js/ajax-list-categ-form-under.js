@@ -21,7 +21,7 @@ jQuery.ajax({
             },
             onSelect: function(item) {
                 input.value = item.label;
-                inputCreate(item.value);
+                inputCreate2(item.value);
             }
 
         });
@@ -34,9 +34,12 @@ jQuery.ajax({
         });
 
 //Function to create element input
-function inputCreate(id) {
+function inputCreate2(id) {
     var parentDiv = document.getElementById('form-hidden-under-find');
     //console.log(parentDiv);
     parentDiv.innerHTML = '<input type="hidden" name="metier_ask_devis" value="' + id +'">';
+    var form_dev = document.getElementById('form-ask-devis-pros-under');
+    //submit the form post devis from home
+    form_dev.submit();
 }
 //END AJAX FOR FORM UNDER IN SPACE FIND PROS

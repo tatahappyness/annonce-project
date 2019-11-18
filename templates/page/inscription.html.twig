@@ -16,7 +16,10 @@
 		<link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/menu/menu-large.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/menu/menu-mobile.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
 
 		<style>
@@ -57,11 +60,11 @@
 								  <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
 								</a>
 							
-								<ul class="navbar-nav mt-2 mt-lg-0">
-									<li class="nav-item active">
+								<ul class="navbar-nav mt-2 d-flex flex-column flex-sm-row justify-content-center mt-lg-0">
+									<li class="nav-item active m-1">
 									  <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
 									</li>
-									<li class="nav-item">
+									<li class="nav-item active m-1">
 									  <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
 									</li>
 								</ul>
@@ -69,7 +72,7 @@
 							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
 								<span class="mr-1">
 									<button class="btn btn-round show-form-pro-mouseclick-11 bg-gray font-weight-bold text-warning border-warning text-nowrap" type="button">
-										<i class="">🔒</i> Se connecter
+										<i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
 									</button>
 								</span>
 								<span class="">
@@ -83,19 +86,117 @@
 					</nav>
 					<!-- Navbar menu end here -->
 					  
-					  <!-- ############################# NAVBAR HERE LARGE -->
-						
-					<div class=" navbar bg-darkgray navbar-expand-md fix-top py-0 navbar-menu">
-					  <div class="container">
-						<button type="button" class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</button>
-						<div class="navbar-collapse collapse">
-							<ul class="nav navbar-nav">
-								<li class="nav-item"><a href="{{ path('find_chantier_page') }}" class="nav-link">Trouver un chantier</a></li>
-							</ul>
+					<!-- ############################# NAVBAR HERE LARGE -->
+					<!-- BEGIN MOBILE MENU -->
+					{% include "./page/menu/menu-mobile.html.twig" %}
+					<!-- END MOBILE MENU -->	
+                
+					<!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
+			
+					<div class="navbar-mega large-menu d-md-flex justify-content-center">
+						<div class="dropdown-mega">
+							<a class="dropbtn"> Demander un devis
+							<i class="fa fa-caret-down"></i>
+							</a>
+							<div class="dropdown-content">
+								<ul class=" px-4">
+									{% if categories != null %}
+										{% for categ in categories %}
+											<li class="column-list text-left px-0" style="line-height: 0;">
+											<a href="{{ path('post_ask_devis_page', {id: categ.getId()}) }}" class="d-flex align-items-center">
+											<span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+											<span class="text-warning">{{ categ.getCategTitle() }}</span>
+											</a>
+										</li>
+										{% endfor %}
+									<li class="text-center"  style="line-height: 0;">
+									<a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+									</li>
+									{% endif %}
+								</ul>
+								{# <div class="row-mega">
+									<div class="column-12">
+									{% if popularDevis != null %}
+										<div class="w-100 text-center">
+											<h3> Les  plus populaires </h3>
+										</div>
+										<section class="sliderComplete">
+											<!-- Wrapper -->
+											<section class="wrapper">
+												<!-- ".slider" has a width greater than 100% to give way to all albums to align.  -->
+												<ul class="slider">
+                                           
+													{% for devPopular in popularDevis %}
+													<li class="column-list text-center">
+														<a href="#" class="d-block mb-1 p-0">
+															<img class="img-fluid img-thumbnail" src="{{ absolute_url('/uploads/images/' ~ devPopular.getImg()) }}" />
+														</a>
+														<p><a href="{{ path('view_art_cat_galery_page', {id: devPopular.getArticleCategId().getId()}) }}">{{ devPopular.getArticleTitle() }}</a></p>
+														<p><a href="{{ path('post_ask_devis_page', {id: devPopular.getArticleCategId().getId()}) }}" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
+													</li>
+													{% endfor %}
+                                           
+                                            
+												</ul>
+											</section>
+											<!-- End wrapper -->
+
+											<button title="before" class="close button-slid bg-warning" style="height: 50%;">
+												<svg version="1.1" id="left" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+													viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
+												<g id="chevron-right">
+													<polygon fill="#38373A" points="13,15 25,27 27.8,24.2 18.6,15 27.8,5.8 25,3 	"/>
+												</g>
+												</svg>
+											</button>
+
+											<!-- 
+											".open" is on display:block; to be visible.
+											-->
+											<button title="after" class="open button-slid bg-warning" style="height: 50%;">
+												<svg version="1.1" id="right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+													viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
+												<g id="chevron-right">
+													<polygon fill="#38373A" points="15.8,3 13,5.8 22.2,15 13,24.2 15.8,27 27.8,15 	"/>
+												</g>
+												</svg>
+											</button>
+										</section>
+										<!-- End sliderComplete -->
+										{% endif %}
+									</div>
+								</div> #}
+							</div>
 						</div>
-					  </div>
+						<!-- END TYPE TRAVAUX -->
+						<div class="dropdown-mega">
+							<a class="dropbtn">Guides des prix
+							<i class="fa fa-caret-down"></i>
+							</a>
+							<div class="dropdown-content">
+								<ul class=" px-4">
+									{% if categories != null %}
+										{% for categ in categories %}
+											<li class="column-list text-left px-0" style="line-height: 0;">
+											<a href="{{ path('category_sous_category_page', {categId: categ.getId()}) }}" class="d-flex align-items-center">
+											<span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+											<span class="text-warning">{{ categ.getCategTitle() }}</span>
+											</a>
+										</li>
+										{% endfor %}
+									{# <li class="text-center"  style="line-height: 0;">
+									<a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+									</li> #}
+									{% endif %}
+								</ul>
+							</div>
+						</div>
+						<a href="{{ path('how_to_step_page') }}">Comment ça marche ?</a>
+						<a href="{{ path('space_find_pro_page') }}">Trouvez un pros</a>
 					</div>
-					<!-- ############################# END NAVBAR HERE LARGE -->
+			
+					<!-- END MENU DISPALY WHEN  WHEN LARGE SCREEN -->
+					
 					 <!-- Progress barr slid scroll -->
 						<div class="progress-container fixed-top">
 							<div class="progress-bar" id="myBar"></div>
@@ -376,10 +477,8 @@
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
+<script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
-{# <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD91TOiMsHsu3BMnIOVU-Uubr6dwAok8zg&libraries=places"></script> #}
-{# <script src="{{ absolute_url('/assets/geo-adresse/jquery.geocomplete.min.js') }}"></script> #}
 <script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/list-city-ajax.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/inscription.js') }}"></script>

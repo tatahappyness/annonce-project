@@ -65,6 +65,17 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    
+    
+    public function findAllProfessionalsIstrue()
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.isProfessional = ?1')
+            ->setParameters(array(1=> true))
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 	
 	//SELECT * FROM `user` WHERE `user`.`roles` = '["ROLE_USER_PROFESSIONAL"]'
 

@@ -29,7 +29,13 @@
 			  <span>Client</span></a>
 		  </li>
 		  
-		  
+		  <!-- Nav Item - Modes d’envoi d’email -->
+		  <li class="nav-item nav_client">
+			<a class="nav-link" href="{{ path('comments_index') }}">
+			  <i class="fas fa-fw fa-user-friends"></i>
+			  <span>Publish</span></a>
+		  </li>
+		  		
 		  
 		  <!-- Nav Item - Demande devis -->
 		  <li class="nav-item nav_dem_devis">
@@ -93,7 +99,7 @@
 				<a class="collapse-item"  href="{{ path('type_index') }}">Types</a>		
 				<a class="collapse-item"  href="{{ path('category_index') }}">Categories</a>	
 				<a class="collapse-item"   href="{{ path('sous_category_index') }}">Sous Categorie</a>			
-				<a class="collapse-item"  href="{{ path('article_index') }}">Article</a>
+				<a class="collapse-item"  href="{{ path('article_index') }}">Article</a>				
 				<a class="collapse-item"  href="{{ path('mode_prix_index') }}">Mode Prix</a> 
 			  </div>
 			</div>

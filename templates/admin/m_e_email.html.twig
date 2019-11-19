@@ -205,17 +205,16 @@
 								  </div>
 								  <div class="col-sm-12 mb-3 mb-sm-0">                          
 									<input type="email" class="form-control form-control-email-seul-perso" id="email_one_personne" placeholder="Adresse email" style="display: none;">
-									{% if list_serv != null %}							
-										<select id="select_email" name="x_2" onChange="Lien()" class="form-control" >
+									{% if listMails|length > 0 %}							
+										<select id="select_email" name="x_2"  class="form-control" >
 											<option class="col-lg-12 ">--- Selectioner ---</option>
-											{% for x in list_serv %}
-												<option class="col-lg-12 ">{{ x.getUserId().getEmail() }}</option>
+											{% for x in listMails %}												
+												<option value="{{ x.getUserId().getId() }}/{{ x.getCategoryId().getId() }}" class="col-lg-12 ">{{ x.getUserId().getEmail() }}</option>
 											{% endfor %}
 										</select>
 										{% else %}
 										<li class="text-center"> AUCUN RESULTAT!<li>                                     
 									{% endif %}	
-
 
 								  </div>                                                  
 								</div>
@@ -411,18 +410,31 @@
 		$('.nav-item').removeClass('active');
 		$('.nav_m_e_email').addClass('active');
 		
-			function Lien() {
-				i = document.x_1.x_2.selectedIndex;
-				if (i == 0) return;
-				selected = document.x_1.x_2.options[i].value;
-				
-				x = $('.form-control-email-seul-perso').val(selected);
-				alert(selected);
-				$('.select_my_email').text(selected);
-				//parent.location.href = url;
+	
+			$('#select_email').change(function(){				
+				Lien($(this).val(), this );
+				alert( $(this).val()  )
+			});
 
+
+			function Lien(all, i) {
+				
+				alert(iduser +" "+ idcategory);
+
+				//i = document.x_1.x_2.selectedIndex;
+				//if (i == 0) return;
+				
+				//email = document.x_1.x_2.options[i].text;
+				email = $(i).text();
+
+				x = $('.form-control-email-seul-perso').val(selected);
+				
+				$('.select_my_email').text(email);
+				//parent.location.href = url;
+				
+				
 				document.getElementById("valider_email").innerHTML = `
-					<a class="col nav-link btn btn-success" href="{{ path('setEmailDebloque' , {id: "`selected`"} ) }}">						
+					<a class="col nav-link btn btn-success" href="/admin/setUpdateServiceActived/`+all+`">
 						VALIDER						
 					</a>
 					`;

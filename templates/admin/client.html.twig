@@ -122,8 +122,8 @@
 
  <!-- Content Column -->                    
 
-		{% if list_part != null %}							
-			{% for lst in list_part %}
+		{% if list_cust != null %}							
+			{% for lst in list_cust %}
 			<!-- Modal comfirmer mode  normalement -->
 			<div class="modal fade" id="myModal_sup_client_{{ lst.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
@@ -138,18 +138,11 @@
 
 						<div class="card-body">
 							<div class="text-center">
-								{{ lst.firstname() }}</br>
-												
-								{% if lst.getUserCategoryActivity().getCategTitle() != null %}	
-									{{ lst.getUserCategoryActivity().getCategTitle() }} </br>
-								
-								{% else %}
-									<td></td>                               
-								{% endif %}	
-								
-								{{ lst.getEmail() }}<br>
-								{{ lst.getMobile() }}															
-							</div>						
+								{{ lst.name }}</br>																
+								{{ lst.customerId }}</br>																
+								{{ lst.email }}<br>								
+								{{ lst.dateCrea | date('d/m/y H:m:s') }}<br>								
+							</div>
 						</div>												
 						  
 						<div class="modal-footer">
@@ -185,56 +178,43 @@
                             <thead class="bg-warning text-dark">
                             <tr>							
                                 <th>#</th>				
+                                <th>Nom</th>				                                
+                                <th>Identifiant</th>
                                 <th>Email</th>
-                                <th>Nom</th>				
-                                <th>Mobile</th>
-                                <th>Business catégorie</th>
-                                <th>Profile</th>     
+                                <th>Date de création</th>			                                
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>  
 								<th>#</th>				
-                                <th>Email</th>
-                                <th>Nom</th>				
-                                <th>Mobile</th>
-                                <th>Business catégorie</th>
-                                <th>Profile</th>
+                                <th>Nom</th>				                                
+                                <th>Identifiant</th>
+								<th>Email</th>
+                                <th>Date de création</th>		                                
                                 <th>Action</th>
                             </tr>
                             </tfoot>
                             <tbody>
 							
-					  {% if list_part != null %}							
-                                {% for lst in list_part %}
-							
-                            <tr>
-                                <td>{{ lst.getId() }}</td>
-                                <td>{{ lst.getEmail() }}</td>
-                                <td>{{ lst.firstname() }}</td>
-                                <td>{{ lst.getMobile() }}</td>
-								
+					  {% if list_cust|length > 0 %}
+                            {% for lst in list_cust %}								
+								<tr>								
+									<td>{{ lst.id }}</td>
+									<td>{{ lst.name }}</td>
+									<td>{{ lst.customerId }}</td>
+									<td>{{ lst.email }}</td>
+									<td>{{ lst.dateCrea | date('d/m/y H:m:s') }}</td>	
 									
-								{% if lst.getUserCategoryActivity().getCategTitle() != null %}	
-									<td> {{ lst.getUserCategoryActivity().getCategTitle() }}</td>
-								
+									<td>								
+										<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_client_{{ lst.getId() }}" type="button" title="Supprimer"><i class="fa fa-times"></i>
+										</button>
+									</td>
+								</tr>
+									{% endfor %}
 								{% else %}
-									<td></td>                               
-								{% endif %}	
-								
-								
-                                <td>{{ lst.getEnabled() }}</td>
-                                <td>								
-									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_client_{{ lst.getId() }}" type="button" title="Supprimer"><i class="fa fa-times"></i>
-									</button>
-								</td>
-                            </tr>
-								{% endfor %}
-							{% else %}
-								<li class="text-center"> AUCUN RESULTAT!<li>                                     
-							{% endif %}	
-							
+									<li class="text-center"> AUCUN RESULTAT!<li>                                     
+								{% endif %}								
                             </tbody>
                         </table>
                         </div>

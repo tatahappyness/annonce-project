@@ -1,0 +1,230 @@
+
+{% extends  'base.html.twig' %}
+
+{% block stylesheets %}
+
+  <title>Orange-Travaux ( Admin )</title>
+
+  <!-- Custom fonts for this template-->
+    <link href="{{ absolute_url('/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+	<!-- Custom styles for this template-->
+    <link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
+
+	
+	<link href="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+	
+  <style>
+      .card-header {
+          background-color: #fcd42f4a;
+      }
+      #wrapper{
+       background-color:#ececec;
+      }
+    </style>
+    
+{% endblock %}
+
+{% block body %}
+
+
+<body id="page-top">
+
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+	<!--Begin nav_bar api_admin space -->
+	{% include "./admin/api_admin/nav_bar.html.twig" %}
+	<!--End nav_bar api_admin space -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+	</br>
+      <!-- Main Content -->
+      <div id="content">
+	  
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+		  <!-- Divider -->
+		  <hr class="sidebar-divider">
+
+          <!-- Content Row -->
+          <div class="row">
+
+		<!-- Content Column -->                  
+
+    
+			
+		<!-- Modal suppression Catégorie -->
+			<div class="modal fade" id="myModal_sup_publish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+								Confirmer la suppression: [Publish]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">
+							<div id="load_modal_delete_myModal_sup_publish"></div>							
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal suppression Catégorie-->
+
+
+	
+
+	
+            <!-- DataTales Example -->
+            <div class="col-10 mb-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Listes des Mails de demande de devis</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Professionnel</th>
+                <th>Particulier</th>
+                <th>Date de Création</th>
+                <th>Publish</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+                <td>{{ comment.id }}</td>
+                <td>{{ comment.description }}</td>
+                <td>{{ comment.isPro ? 'Yes' : 'No' }}</td>
+                <td>{{ comment.isParticular ? 'Yes' : 'No' }}</td>
+                <td>{{ comment.dateCrea ? comment.dateCrea|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ comment.isPublish ? 'Yes' : 'No' }}</td>
+                <td>                                        
+                    <div class="btn col-lg-12 btn-danger" data-toggle="modal" data-target="#myModal_sup_publish"  title="Supprimer le service">
+                        SUPPRIMER
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+ </div>
+                    </div>
+                </div>
+            </div>
+
+          </div>
+
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+	{% endblock %}
+	
+
+
+
+
+	{% block javascripts %}
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
+
+
+
+  <!-- Page level plugins -->
+  <script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/datatables/datatables-demo.js') }}"></script>
+
+
+
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+
+
+<script src="{{ absolute_url('/assets/js/admin.js') }}"></script>
+
+  <!-- Page level plugins -->
+  <script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/datatables/datatables-demo.js') }}"></script>
+
+
+	
+	<script>
+
+		function show_modal_delete_service($id){
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_delete_myModal_sup_publish").innerHTML = xhttp.responseText;
+                    }
+                 };
+
+                 xhttp.open("GET", "../comments/"+$id , true);
+                 xhttp.send();
+		}
+    </script>
+	
+{% endblock %}

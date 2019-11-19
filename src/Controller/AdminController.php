@@ -25,6 +25,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\PostRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\TypeRepository;
+
 use App\Repository\SousCategoryRepository;
 use App\Repository\ModePrixRepository;
 use App\Repository\OptionEmailRepository;
@@ -283,16 +284,35 @@ class AdminController extends AbstractController
 
     }
 
+    
     /**
-    * @Route("/setUpdateServiceActived", name="setUpdateServiceActived")
+    * @Route("/setUpdateServiceActived/{userId}/{categoryId}", name="setUpdateServiceActived")
     */
-    public function setUpdateServiceActived(ServicesRepository $serviceRep, OptionEmailRepository $optionEmail_rep)
-    {
-        
-        
+    public function setUpdateServiceActived( $userId = null, $categoryId = null , CategoryRepository $cat_rep, UserRepository $user_rep, ServicesRepository $serviceRep, OptionEmailRepository $optionEmail_rep)
+    {                
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+          
+        
+        
+        if ($userId !== null && $categoryId !== null   ) {
 
+            $serviceRep->updateServiceActivedByUserIdAndCategoryId( $userId , $categoryId );
+
+        /*
+            $em =  $this->getDoctrine()->getManager();
+            $em->beginTransaction();
+    
+            $user = $user_rep->findById((int) $userId);
+            $category = $cat_rep->findById((int) $categoryId);
+
+            $serv = $serviceRep->findAll();
+
+
+            $em->commit();
+            */
+            return $this->redirectToRoute('m_e_email');
+        }
 		       
         $serv = $serviceRep->updateServiceActived();
         $option_email_get = $optionEmail_rep->updateNormale();
@@ -301,6 +321,7 @@ class AdminController extends AbstractController
 
     }
 
+    
     
     /**
     * @Route("/setUpdateServiceDisable", name="setUpdateServiceDisable")
@@ -380,8 +401,8 @@ class AdminController extends AbstractController
     {
 		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 		
-		//findRolesPro
- 		$count_pro = $pro_user_rep->findRolesPro();
+		//findAllProfessionalsIstrue
+ 		$count_pro = $pro_user_rep->findAllProfessionalsIstrue();
 		
         //return count($count_pro);
 		
@@ -423,7 +444,7 @@ class AdminController extends AbstractController
     /**
     * @Route("/delete_part/{id}", name="delete_part")
     */
-    public function delete_part($id = null, UserRepository $user_rep)
+    public function delete_part($id = null, CustomerRepository $client_rep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -433,8 +454,8 @@ class AdminController extends AbstractController
             $em =  $this->getDoctrine()->getManager();
             try {
                 $em->beginTransaction();
-                $prof = $user_rep->findById((int) $id);
-                $em->remove($prof);
+                $cli = $client_rep->findById((int) $id);
+                $em->remove($cli);
                 $em->flush();
                 $em->commit();
            } catch (\Throwable $th) {
@@ -448,7 +469,7 @@ class AdminController extends AbstractController
     /**
     * @Route("/m_e_email", name="m_e_email")
     */
-    public function m_e_email(UserRepository $pro_user_rep, OptionEmailRepository $option_email_rep, ConfigsiteRepository $configsiteRepository, ServicesRepository $serviceRep )
+    public function m_e_email(UserRepository $pro_user_rep, ServicesRepository $service_rep, OptionEmailRepository $option_email_rep, ConfigsiteRepository $configsiteRepository, ServicesRepository $serviceRep )
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');        
         		
@@ -456,13 +477,25 @@ class AdminController extends AbstractController
         
         $count_option_service = $serviceRep->findAll();
         $count_option_email = $option_email_rep->findAll();
+
+        
+        $count_service = $service_rep->findAll();
+        $count_service = count($count_service) > 0 ? $count_service : [] ;
+        
+        if (count($count_service) > 0) {
+            foreach ($count_service as $key => $value) {
+                $listMails[ $value->getUserId()->getId() ] = $value ;
+            }
+            
+        } 
                   
 		return $this->render('admin/m_e_email.html.twig', [
             'configsites' => $configsiteRepository->findAll(),
             'page_head_title' => 'MODES D’ENVOI D’EMAIL',            
             'list_serv' => $count_option_service,
             'list_pros' => $count_pro,
-            'option_email' => $count_option_email
+            'option_email' => $count_option_email,
+            'listMails' => $listMails
         ]);
     }
 
@@ -603,19 +636,21 @@ class AdminController extends AbstractController
     /**
     * @Route("/client", name="client")
     */
-    public function client(UserRepository $part_user_rep , ConfigsiteRepository $configsiteRepository)
+    public function client(CustomerRepository $custRepository, ConfigsiteRepository $configsiteRepository)
     {
 		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
-		
- 		$count_part = $part_user_rep->findRolesPart();
-		
         
-		
+        $count_cust = $custRepository->findAll();
+
+        
+        $count_cust = count($count_cust) >  0 ? $count_cust : [] ;
+                 
+        
 		return $this->render('admin/client.html.twig', [
 			'page_head_title' => 'CLIENT',
             'configsites' => $configsiteRepository->findAll(),
-			 'numberUserPart' => count($count_part),
-			 'list_part' => $count_part
+			'numbercust' => count($count_cust),
+			'list_cust' => $count_cust
         ]);
 
     }
@@ -694,13 +729,14 @@ class AdminController extends AbstractController
 		//   findRolesAbon
 		
 		
- 		$count_service = $service_rep->findAll();
-		
+        $count_service = $service_rep->findAll();
+        $count_service = count($count_service) > 0 ? $count_service : [] ;
+        
 		return $this->render('admin/service.html.twig', [
 			'page_head_title' => 'SERVICE',
             'configsites' => $configsiteRepository->findAll(),
             'numberService' => count($count_service),
-			 'list_services' => $count_service
+            'list_services' => $count_service            
         ]);
 		
     }
@@ -740,9 +776,8 @@ class AdminController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
         if ($id !== null) {
-           
-            
-                $set_id_actived = $serviceRep->updateSetIdService_Disable($id);
+
+            $set_id_actived = $serviceRep->updateSetIdService_Disable($id);
             
         }
         
@@ -783,11 +818,8 @@ class AdminController extends AbstractController
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
-        if ($id !== null) {
-           
-            
-                $set_id_actived = $serviceRep->updateSetIdService_Disable($id);
-            
+        if ($id !== null) {                    
+            $set_id_actived = $serviceRep->updateSetIdService_Disable($id);            
         }
         
         return $this->redirectToRoute('m_e_email');

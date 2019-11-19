@@ -42,6 +42,7 @@ security:
         # - { path: ^/admin, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/admin, role: ROLE_ADMIN }
         - { path: ^/article, role: ROLE_ADMIN }
+        - { path: ^/comments, role: ROLE_ADMIN }
         - { path: ^/category, role: ROLE_ADMIN }
         - { path: ^/configsite, role: ROLE_ADMIN }
         - { path: ^/devis, role: ROLE_ADMIN }

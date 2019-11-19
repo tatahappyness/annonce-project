@@ -80,6 +80,20 @@ class ServicesRepository extends ServiceEntityRepository
         $stmt = $conn->prepare($sql);
         $stmt->execute();    
     }
+
+    public function updateServiceActivedByUserIdAndCategoryId($userId, $categoryId)
+    {
+        
+        
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "UPDATE `services` SET `services`.`is_actived`= 1 WHERE  `services`.`user_id_id` = $userId and  `services`.`category_id_id` = $categoryId ";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();    
+
+        
+    }
     
     public function updateService_one_Actived($value) 
     {

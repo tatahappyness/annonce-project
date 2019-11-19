@@ -27,8 +27,54 @@ class ArticleController extends AbstractController
             'configsites' => $configsiteRepository->findAll(),
             'page_head_title' => 'OBJET DEVIS [Article]',
             'articles' => $articleRepository->findAll(),
+            
         ]);
     }
+
+    /**
+     * @Route("/ispopular", name="ispopular", methods={"GET"})
+     */
+    public function ispopular(Request $req, ArticleRepository $articleRepository,  ConfigsiteRepository $configsiteRepository ): Response
+    {                
+        $entityManager = $this->getDoctrine()->getManager();
+                                                   
+        if ( $req->query->get('active') == 'true' ) {             
+                
+            try {
+
+                $entityManager->beginTransaction();
+
+                $article = $articleRepository->findById( (int) $req->query->get('id') );                
+                $article->setIsPopular(true);
+
+                $entityManager->merge($article);
+                $entityManager->flush();                       
+                $entityManager->commit();
+
+                return new Response('Popularité activé');
+            } catch (\Throwable $th) {
+                return new Response('Erreur serveur');
+            }
+        }
+            
+        try {
+
+            $entityManager->beginTransaction();
+
+            $article = $articleRepository->findById( (int) $req->query->get('id') );            
+            $article->setIsPopular(false);
+
+            $entityManager->merge($article);
+            $entityManager->flush();
+            $entityManager->commit();
+
+            
+            return new Response('Popularité desactivé');
+        } catch (\Throwable $th) {
+            return new Response('Erreur serveur');
+        }
+    }
+
 
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})

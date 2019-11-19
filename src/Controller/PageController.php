@@ -106,6 +106,7 @@ class PageController extends AbstractController
         
     }
 
+
     /**
     * @Route("/list-cagory-ajax", name="list_ategory_ajax")
     */
@@ -736,6 +737,11 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
 
+        //Get comments list by particulars
+        $comments = $commentRep->findAllCommentsByPros(6);
+        $comments = count( $comments) > 0 ? $comments : null;
+        //dump( $comments);die;
+
         //get all city
         // $cities =  $cityRep->findAllArray();
         // $cities = count($cities) > 0 ? $cities : null;
@@ -746,6 +752,8 @@ class PageController extends AbstractController
             'categories'=> $categories,
             // 'cities'=> $cities,
             'configsite'=> $configsite,
+            'comments'=> $comments,
+            'guidesPrice'=> 1,
         ]);
             
     }
@@ -1233,13 +1241,21 @@ class PageController extends AbstractController
                     }
     
                 }
+
+        //Get comments list by particulars
+        $comments = $commentRep->findAllCommentsByParticular();
+        $comments = count( $comments) > 0 ? $comments : null;
+        //dump( $comments);die;
+
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/temoingnage-particulier.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
-            'configsite'=> $configsite,
+            'configsite'=> $configsite, 
+            'comments'=> $comments,
+            'guidesPrice'=> 1,
         ]);
         
     }
@@ -1263,6 +1279,12 @@ class PageController extends AbstractController
                     }
     
                 }
+
+        //Get comments list by particulars
+        $comments = $commentRep->findAllCommentsByPros();
+        $comments = count( $comments) > 0 ? $comments : null;
+        //dump( $comments);die;
+
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
 
@@ -1270,6 +1292,8 @@ class PageController extends AbstractController
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             'configsite'=> $configsite,
+            'comments'=> $comments,
+            'guidesPrice'=> 1,
         ]);
         
     }

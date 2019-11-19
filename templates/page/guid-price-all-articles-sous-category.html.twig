@@ -281,7 +281,7 @@
                                         <div class="row mt-5">
                                             <div class="col-12 text-center">
                                                 <h6 class="text-warning">{{sousCateg.getSousCategTitle()}}</h6>
-                                                <p class="text-center"><img class="" src="{{absolute_url('/uploads/images/' ~ sousCateg.getImg())}}"></p>
+                                                <p class="text-center"><img class="img" src="{{absolute_url('/uploads/images/' ~ sousCateg.getImg())}}"></p>
                                                 <p>
                                                    {{ sousCateg.getSousCategIntro() }}
                                                 </p>
@@ -303,7 +303,7 @@
                                                         <h6 class=""> {{ mod.getPrixTitle() }} <h6>
                                                         </div>
                                                         <p class=""> {{ mod.getPrixDescription() }} </p>
-                                                        <p class="text-center"><img class="text-center" src="{{absolute_url('/uploads/images/' ~ mod.getPrixImage())}}" style="width: 100%; height: 50%;"></p>
+                                                        <p class="text-center"><img class="text-center img" src="{{absolute_url('/uploads/images/' ~ mod.getPrixImage())}}" style="width: 100%; height: 50%;"></p>
                                                     </div>
                                                     {% endif %}
                                                 {% endfor %}

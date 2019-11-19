@@ -229,18 +229,18 @@ class AdminController extends AbstractController
     }
 
 
-    /**
-    * @Route("/login_admin", name="admin_login")
-    */
-    public function login_admin()
-    {
-		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+    // /**
+    // * @Route("/login_admin", name="admin_login")
+    // */
+    // public function login_admin()
+    // {
+	// 	$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 		
-        return $this->render('admin/login_admin.html.twig', [
-            'controller_name' => 'HomeController',
-            'prenom' => 'Lion'
-        ]);
-    }
+    //     return $this->render('admin/login_admin.html.twig', [
+    //         'controller_name' => 'HomeController',
+    //         'prenom' => 'Lion'
+    //     ]);
+    // }
 
 
     /**

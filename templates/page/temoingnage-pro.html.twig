@@ -1,0 +1,349 @@
+{% extends  'base.html.twig' %}
+
+        {% block stylesheets %}
+
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />-->
+        <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+        <!-- CSS Files -->
+        <link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/menu/menu-large.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/menu/menu-mobile.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+    
+    {% endblock %}
+
+        {% block body %}
+	
+    <div class="page-header" style="min-height: 85vh !important;">
+        <div class="page-header-image animated pulse delay-5s" data-parallax="true" style="background-image: url('/uploads/themes/pros-talk-us.jpg'); background-position: 0 50px !important;">
+        </div>
+        <div class="row">
+            <div class="col-12 p-0">
+                <div class="contenair-header-menu">
+					
+                    <nav class="navbar navbar-expand bg-gray py-0 navbar-head">
+                    <div class="container border-0">
+                        <div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+                            <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
+                                <a class="text-decoration-none" href="{{ path('home_page') }}">
+                                <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }} "></img>
+                                </a>
+							
+                                <ul class="navbar-nav d-flex flex-column flex-sm-row justify-content-center mt-2 mt-lg-0">
+                                    <li class="nav-item m-1 active">
+                                    <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
+                                    </li>
+                                    <li class="nav-item m-1 active">
+                                    <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+                                <span class="mr-1">
+                                    <button class="btn btn-round show-form-pro-mouseclick-11 bg-gray font-weight-bold text-warning border-warning text-nowrap" type="button">
+                                        <i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
+                                    </button>
+                                </span>
+                                <span class="">
+                                    <a href="{{ path('inscription_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
+                                        <i class="">👷🏾</i>  Inscription gratuite
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    </nav>
+                    <!-- Navbar menu end here -->
+					  
+                    <!-- ############################# NAVBAR HERE LARGE -->
+                    <!-- BEGIN MOBILE MENU -->
+                    {% include "./page/menu/menu-mobile.html.twig" %}
+                    <!-- END MOBILE MENU -->	
+                
+                    <!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
+			
+                    <div class="navbar-mega large-menu d-md-flex justify-content-center">
+                        <div class="dropdown-mega">
+                            <a class="dropbtn"> Demander un devis
+                            <i class="fa fa-caret-down"></i>
+                            </a>
+                            <div class="dropdown-content">
+                                <ul class=" px-4">
+                                    {% if categories != null %}
+                                        {% for categ in categories %}
+                                            <li class="column-list text-left px-0" style="line-height: 0;">
+                                            <a href="{{ path('post_ask_devis_page', {id: categ.getId()}) }}" class="d-flex align-items-center">
+                                            <span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+                                            <span class="text-warning">{{ categ.getCategTitle() }}</span>
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    <li class="text-center"  style="line-height: 0;">
+                                    <a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+								
+                                {# <div class="row-mega">
+                                    <div class="column-12">
+                                    {% if popularDevis != null %}
+                                        <div class="w-100 text-center">
+                                            <h3> Les  plus populaires </h3>
+                                        </div>
+                                        <section class="sliderComplete">
+                                            <!-- Wrapper -->
+                                            <section class="wrapper">
+                                                <!-- ".slider" has a width greater than 100% to give way to all albums to align.  -->
+                                                <ul class="slider">
+                                           
+                                                    {% for devPopular in popularDevis %}
+                                                    <li class="column-list text-center">
+                                                        <a href="#" class="d-block mb-1 p-0">
+                                                            <img class="img-fluid img-thumbnail" src="{{ absolute_url('/uploads/images/' ~ devPopular.getImg()) }}" />
+                                                        </a>
+                                                        <p><a href="{{ path('view_art_cat_galery_page', {id: devPopular.getArticleCategId().getId()}) }}">{{ devPopular.getArticleTitle() }}</a></p>
+                                                        <p><a href="{{ path('post_ask_devis_page', {id: devPopular.getArticleCategId().getId()}) }}" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
+                                                    </li>
+                                                    {% endfor %}
+                                           
+                                            
+                                                </ul>
+                                            </section>
+                                            <!-- End wrapper -->
+
+                                            <button title="before" class="close button-slid bg-warning" style="height: 50%;">
+                                                <svg version="1.1" id="left" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                    viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
+                                                <g id="chevron-right">
+                                                    <polygon fill="#38373A" points="13,15 25,27 27.8,24.2 18.6,15 27.8,5.8 25,3 	"/>
+                                                </g>
+                                                </svg>
+                                            </button>
+
+                                            <!-- 
+                                            ".open" is on display:block; to be visible.
+                                            -->
+                                            <button title="after" class="open button-slid bg-warning" style="height: 50%;">
+                                                <svg version="1.1" id="right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                    viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
+                                                <g id="chevron-right">
+                                                    <polygon fill="#38373A" points="15.8,3 13,5.8 22.2,15 13,24.2 15.8,27 27.8,15 	"/>
+                                                </g>
+                                                </svg>
+                                            </button>
+                                        </section>
+                                        <!-- End sliderComplete -->
+                                        {% endif %}
+                                    </div>
+                                </div> #}
+
+                            </div>
+                        </div>
+                        <!-- END TYPE TRAVAUX -->
+                        <div class="dropdown-mega">
+                            <a class="dropbtn">Guides des prix
+                            <i class="fa fa-caret-down"></i>
+                            </a>
+                            <div class="dropdown-content">
+                                <ul class=" px-4">
+                                    {% if categories != null %}
+                                        {% for categ in categories %}
+                                            <li class="column-list text-left px-0" style="line-height: 0;">
+                                            <a href="{{ path('category_sous_category_page', {categId: categ.getId()}) }}" class="d-flex align-items-center">
+                                            <span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
+                                            <span class="text-warning">{{ categ.getCategTitle() }}</span>
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    {# <li class="text-center"  style="line-height: 0;">
+                                    <a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
+                                    </li> #}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="{{ path('how_to_step_page') }}">Comment ça marche ?</a>
+                        <a href="{{ path('space_find_pro_page') }}">Trouvez un pros</a>
+                    </div>
+			
+                    <!-- END MENU DISPALY WHEN  WHEN LARGE SCREEN -->
+					 
+                    <!-- Progress barr slid scroll -->
+                        <div class="progress-container fixed-top">
+                            <div class="progress-bar" id="myBar"></div>
+                        </div> 
+					  
+                </div>
+            </div>
+        </div>
+        <!-- End Row for Menu header -->
+		
+        <!-- Begin for row content header parallax -->
+        <div class="row d-flex justify-content-center font-weight-light">
+            <!-- ############# Begin slide beside -->
+            <div class="col-12 col-md-8" style="padding-top: 1em;">
+                <div class="container border-0" style="margin-top: 4em;">
+                    <div class="w-100 d-flex flex-column pb-4 justify-content-center">
+                        <div class="h4 animated slideInUp delay-5s text-white text-center text-uppercase">
+                            Nos professionnels parlent de nous!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ############# End slide beside -->
+        </div>
+    </div>
+    <!--END HEADER-->
+	
+
+    <div class="jumbotron bg-transparent">
+        <main class="section-1 section-main" style="background-attachment: fixed;">
+            <!--Begin section  of the list ads by artisan-->
+            <section class="bg-gray">
+                <div Class="row bg-white">
+                    <div class="col-12 pr-5">
+                            <a href="{{ path('find_chantier_page') }}" class="btn btn-warning float-right text-decoration-none border-0 text-center text-nowrap">Je suis un professionnel</a>
+                    </div>
+                    <div class="col-12 d-flex flex-column text-center">
+                        <span class="h6">LES PARTICULIERS PARLENT DE NOUS</span>
+                        <span class="small">Chaque mois, plus de 15 000 personnes nous confient les travaux de leur maison en demandant des devis à notre réseau d'experts. En ferez-vous partie ?</span>
+                    </div>
+                    <!--Triangle in find artisant section-->
+                    <div class="triangle triangle-pro-space pt-4" style="width: 100%; height: 4px; background: white; box-shadow: 0px 0px 0px 0px !important"> </div>
+                </div>
+                <div class="container">
+                    <div class="row py-5">
+                        
+                            {% if comments != null %}
+                                {% for comment in comments %}
+                                <div class="col-12 col-sm-6 col-lg-4 pt-4">
+                                    <div class="card">
+                                        <div class="card-header text-right">
+                                            <span class="pro-icon mb-3">
+                                                <span class="icon-message-pro">
+                                                    <object type="image/svg+xml" data="{{absolute_url('/assets/icon/message_512.svg')}}" class="icon-message-pro icon-bike">
+                                                        Bike
+                                                    </object>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="message-content h-auto py-2 px-4">
+                                            <div class=""></div>
+                                            <div>{{ comment.getDescription() }}</div>
+                                        </div>
+                                        <div class="card-footer d-flex flex-row align-items-center">
+                                            <span class="pro-icon mb-3">
+                                                <span class="icon-message-pro">
+                                                    <object type="image/svg+xml" data="{{ absolute_url('/assets/icon/user_icon-64.svg') }}" class="icon-message-pro icon-bike">
+                                                        Bike
+                                                    </object>
+                                                </span>
+                                            </span>
+                                            <span class="ml-2 text-secondary">{{ comment.getUserId().getFirstname() }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            {% endif %}
+
+                        </div>
+                        <div class="col-12 d-flex justify-content-center pt-4">
+                            <a class="btn btn-warning btn-more-all-chantier ld ld-ext-right" href="{{ path('view_all_tavaux_page') }}"> <i class="ld ld-ring ld-spin"></i> << Retour</a>
+                        </div>	
+                    </div>
+                </div>
+            </section>
+            <!--End section  of the list ads by artisan-->
+			
+            <!--Begin section the Presse Talk US -->
+            <section id="" class="bg-transparent">
+            <div class="container  bg-white">
+                <div class="row d-flex justify-content-center py-5">
+                    <div class="col-12 text-center">
+                        <h5 class="text-uppercase">Restez connecté</h5>
+                        <div class="text-secondary"><p class=" subtitle ">
+                            Pour être certain de ne rater aucun chantier, téléchargez l’application mobile pour suivre les projets lorsque vous êtes en déplacement.
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 lg-8 text-center">
+                        <img class="" src="{{ absolute_url('/assets/img/photos/app-mobile.png') }}"></img>
+                    </div>
+                    <div class="col-12 col-sm-6 lg-4 d-flex flex-column justify-content-center text-secondary">
+                        <a class="btn btn-outline-secondary d-flex flex-row text-center align-items-center">
+                            <span class="pro-icon mb-3">
+                                <span class="icon-message-pro">
+                                    <object type="image/svg+xml" data="{{ absolute_url('/assets/icon/apple_icon-icons.com_62745.svg') }}" class="icon-message-pro icon-bike">
+                                        apple
+                                    </object>
+                                </span>
+                            </span>
+                            <span class="">
+                                <span class="text-center ">Disponible sur </span><br>
+                                <span class="font-weight-capitalize">App Store</span>
+                            </span>
+                        </a>
+                        <a class="btn btn-outline-secondary d-flex flex-row align-items-center">
+                            <span class="pro-icon mb-3">
+                                <span class="icon-message-pro">
+                                    <object type="image/svg+xml" data="{{ absolute_url('/assets/icon/Google_Play_icon-icons.com_66988.svg') }}" class="icon-message-pro icon-bike">
+                                        play
+                                    </object>
+                                </span>
+                            </span>
+                            <span class="text-center ">
+                                <span class="">Disponible sur </span><br>
+                                <span class="font-weight-capitalize">Google Play</span>				
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            </section>
+            <!--End section the Presse Talk US  -->
+				
+        </main>
+			
+        <!-- Begin footer page -->
+        {% include "./page/footer/footer.html.twig" %}
+        <!-- END footer page -->
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+<!-- MESSAGE NTIFICATION -->
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<!--Local-->
+<script src="{{ absolute_url('/assets/loadbar/js/loading-bar.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/jquery.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/now-ui-kit.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+
+{% endblock %}

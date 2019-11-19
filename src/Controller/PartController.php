@@ -27,6 +27,7 @@ use App\Repository\DevisFinishRepository;
 use App\Repository\ReponsePostAdsRepository;
 use App\Repository\EvaluationsRepository;
 use App\Repository\CommentsRepository;
+use App\Repository\ConfigsiteRepository;
 use App\Repository\EmojiRepository;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -258,7 +259,7 @@ class PartController extends AbstractController
     /**
     * @Route("/post-ads-project", name="particulier_post_ads")
     */
-    public function adsProjectPostule(Request $request, Security $security, UserRepository $userRep, ArticleRepository $artRep, CategoryRepository $categoryRep, TypeRepository $typeRep, CitiesRepository $cityRep, ArticleRepository $articleRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
+    public function adsProjectPostule(Request $request, Security $security, AbonnementRepository $abonnementRep, CustomerRepository $customRep, ServicesRepository $serviceRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, ArticleRepository $artRep, CategoryRepository $categoryRep, TypeRepository $typeRep, CitiesRepository $cityRep, ArticleRepository $articleRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -274,9 +275,10 @@ class PartController extends AbstractController
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->beginTransaction();
+                $category = $categoryRep->findById((int) $request->request->get('post_category'));
                 $post
                     ->setPostUserId($security->getUser())
-                    ->setCategoryId($categoryRep->findById((int) $request->request->get('post_category')))
+                    ->setCategoryId($category)
                     ->setArticleId($articleRep->findById((int) $request->request->get('post_nature')))
                     ->setTypeId($typeRep->findById((int) $request->request->get('post_type')))
                     ->setPostAdsTravauxDescription($request->request->get('post_description'))
@@ -287,9 +289,11 @@ class PartController extends AbstractController
                     ->setPostAdsStartDate($request->request->get('post_begin_project'))
                     ->setPostAdsDateCrea(new \DateTime('now'));
 
-                $entityManager->persist($post);
-                $entityManager->flush();
+                //$entityManager->persist($post);
+                //$entityManager->flush();
                 $entityManager->commit();
+
+                $this->sendMail($post,  $category, $configsiteRep, $serviceRep, $customRep, $abonnementRep);
 
                 return new JsonResponse(array('code'=> 200, 'info'=> 'Vous avez postulé un projet!'), 200);
 
@@ -994,6 +998,75 @@ class PartController extends AbstractController
         ]);
 
     }
+
+    //Function to send mail to each professional
+    public function sendMail($post = null, $category  =null, $configsiteRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep)
+    {
+
+        $myservices = $serviceRep->findByCategoryId($category);
+
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+        //dump($myservices);die;
+        if(count($myservices) > 0) {
+
+            foreach ($myservices as $key => $myservice) {
+                $customer = $customRep->findByUser($myservice->getUserId());
+                $arrayCriticals = array(1=>  $customer, 2=> $myservice); // prepare query to get abonnement here!
+                if ($customer !== null && $myservice->getIsActived() == true && $abonnementRep->isPremiumAndDateExpireValid($arrayCriticals) == true) 
+                {
+                    // $devis = $devisRep->findById(6);
+
+                        $transport = new \Swift_SmtpTransport();
+                            $transport
+                            ->setHost('smtp.gmail.com')
+                            ->setEncryption('ssl')
+                            ->setPort(465)  
+                            ->setAuthMode('login')
+                            ->setUsername($configsite->getEmail())
+                            ->setPassword('bnzkglnpuhzlxlgp');
+            
+                        // // Create the Mailer using your created Transport
+                        $mailer = new \Swift_Mailer($transport);
+
+                        $mailer->SMTPOptions = array(
+                            'ssl' => array(
+                                'verify_peer' => false,
+                                'verify_peer_name' => false,
+                                'allow_self_signed' => true
+                            )
+                        );
+
+                        $message = (new \Swift_Message('OFFRE DE NOUVEAU CHANTIER'))
+                        ->setFrom($configsite->getEmail())
+                        ->setTo($myservice->getUserId()->getEmail());
+                        // ->setBody('<p>Merci mon Dieu!!</p>', 'text/html', 'utf-8');
+     
+                        $img = $message->embed(\Swift_Image::fromPath('assets/img/logo.png'));
+
+                        $message->setBody(
+                            $this->renderView(
+                                // templates/emails/registration.html.twig
+                                'premuim/send-email-ads.html.twig',
+                                ['post' => $post, 'img' => $img, 'isAbonned'=> false, 'isMail'=> true]
+                            ),
+                            'text/html', 'utf-8'
+                        );
+
+                    $result =  $mailer->send($message);  //die('stop');
+                   
+                    //dump($result);die;
+
+                }
+            }
+            return true;
+
+        }//END IF TEST SERVICE COUNT HERE
+
+        return true;
+
+    }
+
 
     //function to get list accept, valid, finish of the devis
     public function countDevis($security = null, $devisRep = null) : ?int

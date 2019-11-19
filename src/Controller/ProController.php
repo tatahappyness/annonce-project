@@ -106,17 +106,21 @@ class ProController extends AbstractController
                             4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
-        $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : [null];
+        $postsAds = count( $postsAdsArray ) > 0 ? $postsAdsArray : [];
 
-        //Get DISTANCE AND CALCULATE BY KM USING LAT AND LONG
-        foreach ($postsAds as $key => $post) {
+        if(count($postsAds) > 0) {
 
-            $cityArray1['lat'] = $post->getCity()->getVilleLatitudeDeg();
-            $cityArray1['lng'] = $post->getCity()->getVilleLongitudeDeg();
-            $cityArray2['lat'] =  ($security->getUser()->getLat() !== null) ? $security->getUser()->getLat() : $security->getUser()->getUserCity()->getVilleLatitudeDeg();
-            $cityArray2['lng'] = ($security->getUser()->getLog() !== null) ? $security->getUser()->getLog() : $security->getUser()->getUserCity()->getVilleLongitudeDeg();
+            //Get DISTANCE AND CALCULATE BY KM USING LAT AND LONG
+            foreach ($postsAds as $key => $post) {
 
-            $distances[$post->getId()] =  $this->getDistance($cityArray1, $cityArray2, 'Km');
+                $cityArray1['lat'] = $post->getCity()->getVilleLatitudeDeg();
+                $cityArray1['lng'] = $post->getCity()->getVilleLongitudeDeg();
+                $cityArray2['lat'] =  ($security->getUser()->getLat() !== null) ? $security->getUser()->getLat() : $security->getUser()->getUserCity()->getVilleLatitudeDeg();
+                $cityArray2['lng'] = ($security->getUser()->getLog() !== null) ? $security->getUser()->getLog() : $security->getUser()->getUserCity()->getVilleLongitudeDeg();
+
+                $distances[$post->getId()] =  $this->getDistance($cityArray1, $cityArray2, 'Km');
+
+            }
 
         }
         

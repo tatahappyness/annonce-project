@@ -1,6 +1,12 @@
 //PAGE LOADER
 $(document).ready(function() {
 	
+	$('form, .form-container-devis').addClass('animated slideInRight delay-2s');
+	$('.card, .img-new-pro-container, .img-container-popular').addClass('animated fadeInUp delay-1s');
+	$('h6, h4, h2, a, button, input, select, .icon').addClass('animated pulse delay-1s');
+	$('.logo').addClass('animated fadeInLeft delay-1s');
+	$('.free-img, .img, .pro-icon').addClass('animated fadeInUp delay-1s');
+
 	  //how form connexion user login
 	   $('#my-form-particular-register').modal("hide");
 	   $('#my-form-register').modal("show");
@@ -97,13 +103,27 @@ $(document).ready(function() {
       watchSlidesProgress: true,
     });
     var galleryTop = new Swiper('.gallery-top-video', {
-      spaceBetween: 10,
-      loop:true,
-      loopedSlides: 5, //looped slides should be the same
-      thumbs: {
-        swiper: galleryThumbs,
-      },
-    });
+		spaceBetween: 10,
+		loop:true,
+		loopedSlides: 5, //looped slides should be the same
+		thumbs: {
+			swiper: galleryThumbs,
+		},
+	});
+	
+	//Swipper sites galery 3D
+	var mySwiper = new Swiper('.swiper-container-sites',{
+		slidesPerView:3,
+		loop:true,
+		//Enable 3D Flow
+		tdFlow: {
+			rotate : 30,
+			stretch :10,
+			depth: 150,
+			modifier : 1,
+			shadows:true
+		}
+	});
 	
 	
 	//Show btn popular devis
@@ -163,12 +183,33 @@ $(document).ready(function() {
 	
 }); // END DoCUMENT READY
 
-//page loading before
- window.onload = function () {
-	
-   
-  };
-  
+
+//PAGE SCROLL DOWN UP DETECTED
+// Initial state
+var scrollPos = 0;
+// adding scroll event
+window.addEventListener('scroll', function(){
+	// detects new state and compares it with the new one
+	if ((document.body.getBoundingClientRect()).top > scrollPos) {
+
+		$('.card, .img-new-pro-container, .img-container-popular').toggleClass('animated fadeInUp delay-1s');
+		$('h6, h4, h2, h5, h1, a, button, input, select, .icon').toggleClass('animated pulse delay-1s');
+		$('.logo').toggleClass('animated fadeInLeft delay-1s');
+		$('.free-img, .img, .pro-icon').toggleClass('animated fadeInUp delay-1s');
+	}
+	else {
+		
+		$('.card, .img-new-pro-container, .img-container-popular').addClass('animated fadeInUp delay-1s');
+		$('h6, h4, h2, a, button, input, select, .icon').addClass('animated pulse delay-1s');
+		$('.logo').addClass('animated fadeInLeft delay-1s');
+		$('.free-img, .img, .pro-icon').addClass('animated fadeInUp delay-1s');
+		// saves the new position for iteration.
+		scrollPos = (document.body.getBoundingClientRect()).top;
+	}
+
+});
+
+ 
 // When the user scrolls the page, execute myFunction 
 window.onscroll = function() {myFunction()};
 

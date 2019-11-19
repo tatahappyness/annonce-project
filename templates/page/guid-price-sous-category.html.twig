@@ -284,7 +284,7 @@
                                             </p>
                                         </div>
                                         <div class="col-md-4 d-none d-md-flex align-items-md-center d-md-block text-center">
-                                            <img class="rounded" src="{{ categ.getImg() != null ? absolute_url('/uploads/images/' ~ categ.getImg()) : '' }}" style="box-shadow: -10px 8px 60px lightgrey;">
+                                            <img class="rounded img" src="{{ categ.getImg() != null ? absolute_url('/uploads/images/' ~ categ.getImg()) : '' }}" style="box-shadow: -10px 8px 60px lightgrey;">
                                         </div>
 
                                         {% if sousCategories|length > 0 %}
@@ -294,7 +294,7 @@
                                                     <div class="img-title popular-title-img-1 font-weight-bold text-center">
                                                         <a href="{{ path('category_sous_category_guide_price_page', {sousCategId: sousCateg.getId()}) }}" class="text-decoration-none price-pose font-weight-bold"> > {{ sousCateg.getSousCategTitle() }} </a>
                                                     </div>
-                                                    <div class="img-container-popular popular-container-img-1 d-flex flex-column align-items-center" style="background-image: url(/uploads/images/{{ sousCateg.getImg() }});">
+                                                    <div class="img-container-popular img popular-container-img-1 d-flex flex-column align-items-center" style="background-image: url(/uploads/images/{{ sousCateg.getImg() }});">
                                                         <div class="bg-transparent w-100" style="">
                                                             <a href="{{ path('category_sous_category_guide_price_page', {sousCategId: sousCateg.getId()}) }}" class="btn btn-warning text-decoration-none rounded-circle float-right m-1 p-0" alt="voir détail...">
                                                                 <span class="lnr lnr-eye icon-popular-ask-eyes"></span>

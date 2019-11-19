@@ -325,33 +325,39 @@
 								<h5 class="text-uppercase">Ce que les professionnels disent de nous</h5>
 								<div class="text-secondary">Chaque mois, près de 500 professionnels rejoignent notre réseau partout. Pourquoi pas vous ?</div>
 							</div>
-							<div class="col-12 col-sm-6 col-lg-4 pt-4">
-								<div class="card">
-									<div class="card-header text-center	 ">
-										<span class="pro-icon mb-3">
-											<span class="icon-message-pro">
-												<object type="image/svg+xml" data="{{ absolute_url('/assets/icon/message_512.svg') }}" class="icon-message-pro icon-bike">
-													Bike
-												</object>
+
+							{% if comments != null %}
+								{% for comment in comments %}
+								<div class="col-12 col-sm-6 col-lg-4 pt-4">
+									<div class="card">
+										<div class="card-header text-right">
+											<span class="pro-icon mb-3">
+												<span class="icon-message-pro">
+													<object type="image/svg+xml" data="{{absolute_url('/assets/icon/message_512.svg')}}" class="icon-message-pro icon-bike">
+														Bike
+													</object>
+												</span>
 											</span>
-										</span>
-									</div>
-									<div class="message-content h-auto py-2 px-4">
-										<div class=""></div>
-										<div>"J'ai découvert l'efficacité de votre site. Très rapidement 4 artisans ou entreprises se sont manifestés. Après avoir reçu 3 devis, j'ai traité avec l'artisan qui me paraissait le plus avantageux. Veuillez accepter mes remerciements 💨🌀🏡💥"</div>
-									</div>
-									<div class="card-footer d-flex flex-row align-items-center ">
-										<span class="pro-icon mb-3">
-											<span class="icon-message-pro">
-												<object type="image/svg+xml" data="{{ absolute_url('/assets/icon/user_icon-64.svg') }}" class="icon-message-pro icon-bike">
-													Bike
-												</object>
+										</div>
+										<div class="message-content h-auto py-2 px-4">
+											<div class=""></div>
+											<div>{{ comment.getDescription() }}</div>
+										</div>
+										<div class="card-footer d-flex flex-row align-items-center">
+											<span class="pro-icon mb-3">
+												<span class="icon-message-pro">
+													<object type="image/svg+xml" data="{{ absolute_url('/assets/icon/user_icon-64.svg') }}" class="icon-message-pro icon-bike">
+														Bike
+													</object>
+												</span>
 											</span>
-										</span>
-										<span class="ml-2 text-secondary">Jean-Noël S.</span>
+											<span class="ml-2 text-secondary">{{ comment.getUserId().getFirstname() }}</span>
+										</div>
 									</div>
 								</div>
-							</div>
+							{% endfor %}
+							{% endif %}
+
 							<div class="col-12 d-flex justify-content-center">
 								<a class="btn btn-warning btn-particular-talk" href="{{ path('comments_pro_page') }} ">Consulter tous les témoignages >></a>
 							</div>
@@ -375,7 +381,7 @@
 							</div>
 						</div>
 						<div class="col-12 d-flex justify-content-center">
-							<a class="btn btn-warning btn-show-cat-popular-all" href="{{ path('prince_talk_page') }}">Voir toutes nos références >></a>
+							{# <a class="btn btn-warning btn-show-cat-popular-all" href="{{ path('prince_talk_page') }}">Voir toutes nos références >></a> #}
 						</div>						
 					</div>
 				</div>

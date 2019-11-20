@@ -29,14 +29,20 @@
         height: 400px;  /* The height is 400 pixels */
         width: 100%;  /* The width is the width of the web page */
     }
+     
+    .page-header-image-gallery {
+        min-height: 95vh !important;
+    }
+       
+
     </style>
     
    {% endblock %}
 
     {% block body %}
     
-    <div class="page-header page-header-image-Particulier">
-        <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
+    <div class="page-header page-header-image-gallery">
+        <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/uploads/themes/pros-talk-us.jpg'); background-position: 0 50px !important;">
         </div>
 
         <!--Begin header-menu particulier space-->
@@ -47,9 +53,9 @@
         <div class="row d-flex justify-content-center font-weight-light">
             <!-- ############# Begin slide beside -->
             <div class="col-12 col-md-8" style="padding-top: 1em;">
-                <div class="container border-0">
+                <div class="container particular-face border-0">
                     <div class="w-100 d-flex flex-column pb-4 justify-content-center">
-                        <div class="h4 text-white text-uppercase">
+                        <div class="h2 title-part text-white text-uppercase" style=" text-shadow: 0.8em 0.8em 0.8  em rgba(2,2,0,0.2) !important;">
                             Bienvenue dans l'espace particulier
                         </div>
                     </div>

@@ -1,11 +1,11 @@
 //PAGE LOADER
 $(document).ready(function() {
 	
-	$('form, .form-container-devis').addClass('animated slideInRight delay-2s');
+	$('form, .form-container-devis').addClass('animated slideInRight delay-1s');
 	$('.card, .img-new-pro-container, .img-container-popular').addClass('animated fadeInUp delay-1s');
 	$('h6, h4, h2, a, button, input, select, .icon').addClass('animated pulse delay-1s');
 	$('.logo').addClass('animated fadeInLeft delay-1s');
-	$('.free-img, .img, .pro-icon').addClass('animated fadeInUp delay-1s');
+	$('.free-img, .img, .pro-icon, .title-part').addClass('animated fadeInUp delay-1s');
 
 	  //how form connexion user login
 	   $('#my-form-particular-register').modal("hide");
@@ -192,17 +192,17 @@ window.addEventListener('scroll', function(){
 	// detects new state and compares it with the new one
 	if ((document.body.getBoundingClientRect()).top > scrollPos) {
 
-		$('.card, .img-new-pro-container, .img-container-popular').toggleClass('animated fadeInUp delay-1s');
+		$('.img-new-pro-container, .img-container-popular').toggleClass('animated fadeInUp delay-1s');
 		$('h6, h4, h2, h5, h1, a, button, input, select, .icon').toggleClass('animated pulse delay-1s');
 		$('.logo').toggleClass('animated fadeInLeft delay-1s');
-		$('.free-img, .img, .pro-icon').toggleClass('animated fadeInUp delay-1s');
+		$('.free-img, .img, .pro-icon, .title-part').toggleClass('animated fadeInUp delay-1s');
 	}
 	else {
 		
-		$('.card, .img-new-pro-container, .img-container-popular').addClass('animated fadeInUp delay-1s');
+		$('.img-new-pro-container, .img-container-popular').addClass('animated fadeInUp delay-1s');
 		$('h6, h4, h2, a, button, input, select, .icon').addClass('animated pulse delay-1s');
 		$('.logo').addClass('animated fadeInLeft delay-1s');
-		$('.free-img, .img, .pro-icon').addClass('animated fadeInUp delay-1s');
+		$('.free-img, .img, .pro-icon, .title-part').addClass('animated fadeInUp delay-1s');
 		// saves the new position for iteration.
 		scrollPos = (document.body.getBoundingClientRect()).top;
 	}

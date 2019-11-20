@@ -68,18 +68,28 @@ class PageController extends AbstractController
         //array(1=> true, 2=> $activity, 3=> $city, 4=> $activity)
         $newPros = $userRep->findAllProfessionals();
         $newPros = count( $newPros) > 0 ? $newPros : null;
-      //Get top devis more asked
-        $devisPopulars = $devisRep->findTopPopularDevis();
-        $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-        $popularDevis = array();
-        if($devisPopulars !== null) {
 
-            foreach ($devisPopulars as $key => $value) {
-               $popularDevis[] =  $artRep->findById($value['article_id']);
+      //BEGIN GET TOP DEVIS MORE ASKED
+      $popularDevis = $artRep->findPopularDevisMoreAsk(array(1=> true));
+      $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+       if (count($popularDevis) <= 0) {
+
+            $popularDevis = array();
+            $devisPopulars = $devisRep->findTopPopularDevis();
+            $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+
+            if($devisPopulars !== null) {
+
+                foreach ($devisPopulars as $key => $value) {
+                $popularDevis[] =  $artRep->findById($value['article_id']);
+                }
+
             }
 
-        }
+       }
         //dump($popularDevis);die;
+        //END GET POPULA DEVIS
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();

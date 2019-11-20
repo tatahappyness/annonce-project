@@ -78,17 +78,29 @@ class PartController extends AbstractController
 
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
-        //Get top devis more asked
-        $devisPopulars = $devisRep->findTopPopularDevis();
-        $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-        $popularDevis = array();
-        if($devisPopulars !== null) {
+        
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $artRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
 
-            foreach ($devisPopulars as $key => $value) {
-            $popularDevis[] =  $artRep->findById($value['article_id']);
-            }
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+
+                if($devisPopulars !== null) {
+
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    }
+
+                }
 
         }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
+
 
         return $this->render('part/dashbord.html.twig', [
             'pros' => $pros,
@@ -271,8 +283,9 @@ class PartController extends AbstractController
           
             try { 
                   
+                //dump($request->request->get('city'));die;
                 $post = new Post();
-
+                
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->beginTransaction();
                 $category = $categoryRep->findById((int) $request->request->get('post_category'));
@@ -289,11 +302,13 @@ class PartController extends AbstractController
                     ->setPostAdsStartDate($request->request->get('post_begin_project'))
                     ->setPostAdsDateCrea(new \DateTime('now'));
 
-                //$entityManager->persist($post);
-                //$entityManager->flush();
-                $entityManager->commit();
+                if ($this->sendMail($post,  $category, $configsiteRep, $serviceRep, $customRep, $abonnementRep)) {
 
-                $this->sendMail($post,  $category, $configsiteRep, $serviceRep, $customRep, $abonnementRep);
+                    //$entityManager->persist($post);
+                    //$entityManager->flush();
+                   
+                }
+                $entityManager->commit();
 
                 return new JsonResponse(array('code'=> 200, 'info'=> 'Vous avez postulé un projet!'), 200);
 
@@ -1050,7 +1065,7 @@ class PartController extends AbstractController
                                 'premuim/send-email-ads.html.twig',
                                 ['post' => $post, 'img' => $img, 'isAbonned'=> false, 'isMail'=> true]
                             ),
-                            'text/html', 'utf-8'
+                            'text/html'
                         );
 
                     $result =  $mailer->send($message);  //die('stop');

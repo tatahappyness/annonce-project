@@ -22,13 +22,20 @@
     <link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
     <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+    <style>
+        .page-header-image-gallery {
+            min-height: 100vh !important;
+        }
+        
+    </style>  
     
 {% endblock %}
 
     {% block body %}
     
     <div class="page-header page-header-image-gallery">
-        <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
+        <div id="page-particulier-fond-change" class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/uploads/themes/pros-talk-us.jpg'); background-position: 0 50px !important;">
         </div>
 
         <!--Begin header-menu particulier space-->
@@ -39,9 +46,9 @@
         <div class="row d-flex justify-content-center font-weight-light">
             <!-- ############# Begin slide beside -->
             <div class="col-12 col-md-8" style="padding-top: 1em;">
-                <div class="container border-0">
+                <div class="container particular-face border-0">
                     <div class="w-100 d-flex flex-column pb-4 justify-content-center">
-                        <div class="h4 text-white text-uppercase">
+                        <div class="h2 title-part text-white text-uppercase">
                             Bienvenue dans l'espace particulier
                         </div>
                     </div>

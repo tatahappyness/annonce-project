@@ -21,7 +21,7 @@
 
     <style>
     /* Set the size of the div element that contains the map */
-    #map2 {
+    #map1, #map2 {
         height: 400px;  /* The height is 400 pixels */
         width: 100%;  /* The width is the width of the web page */
     }
@@ -109,7 +109,7 @@
                                 <!-- END MY CORDONNE -->
 
                                 <!--BEGIN MY MAP EDIT-->
-                                <div class="card text-center">
+                                {# <div class="card text-center">
                                     <div class="card-header p-2 font-weight-bold bg-darkgray">
                                         <h5 class="text-uppercase">Ma zone géografique</h5>
                                     </div>
@@ -117,7 +117,7 @@
 										
                                         <!-- Modal body -->
                                         <div class="pt-2">
-                                           <div id="map2"></div>
+                                           <div id="map3"></div>
                                         </div>
                                         <!-- Modal footer -->
 										
@@ -125,7 +125,7 @@
                                     <!-- <div class="card-footer text-muted pb-4"> -->
 									 
                                     <!-- </div> -->
-                                </div>
+                                </div> #}
                                 <!-- END MY MAP EDIT -->
 
                             </div>
@@ -209,8 +209,6 @@
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBHd-0RBeiq5jJE6QffOxcXa7cI7H5UOY&callback=initMap"
-type="text/javascript"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
 <script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>

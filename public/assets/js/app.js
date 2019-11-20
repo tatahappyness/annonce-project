@@ -284,8 +284,8 @@ jQuery('.btn-new-letter-send').click(function() {
 
 
 //reCapchat
-	// grecaptcha.ready(function() {
-    //   grecaptcha.execute('6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm', {action: 'homepage'}).then(function(token) {
-    //       console.log(token);
-    //   });
-	// });
+	grecaptcha.ready(function() {
+      grecaptcha.execute('6Leez8MUAAAAAPSJV-XSed3I8osrCw4yCpSbA4F7', {action: 'homepage'}).then(function(token) {
+          console.log(token);
+      });
+	});

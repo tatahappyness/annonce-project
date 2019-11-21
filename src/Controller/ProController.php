@@ -408,12 +408,12 @@ class ProController extends AbstractController
             $dompdf = new Dompdf($pdfOptions);
                    
             //Retrieve the HTML generated in our twig file
-            $html = $this->renderView('premuim/devis-to-pdf.html.twig', [
-               'devis' => $devis, 'isAbonned'=> true, 
+            $html = $this->renderView('premuim/pdf-devis.html.twig', [
+               'devis' => $devis, 'isAbonned'=> true, 'isMail'=> false
                 ]);
 
             // Load HTML to Dompdf
-            $dompdf->loadHtml($html);
+            $dompdf->loadHtml($html, 'UTF-8');
         
             //  (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
             $dompdf->setPaper('A4', 'portrait');

@@ -842,7 +842,7 @@ hr {
 		min-height: 85vh;
 	}
 	.content-parallax-forms {
-		padding-top: 15rem !important;
+		padding-top: 15rem;
 	}
 }
 
@@ -879,7 +879,7 @@ hr {
  /* // Medium devices (tablets, less than 992px) */
 @media all and (min-width: 992px) { 
 	.content-parallax-forms {
-		padding-top: 5rem;
+		padding-top: 5rem !important;
 	}
 
  }

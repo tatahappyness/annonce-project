@@ -5,7 +5,7 @@ $(document).ready(function() {
 	$('.card, .img-new-pro-container, .img-container-popular').addClass('animated fadeInUp delay-1s');
 	$('h6, h4, h2, a, button, input, select, .icon').addClass('animated pulse delay-1s');
 	$('.logo').addClass('animated fadeInLeft delay-1s');
-	$('.free-img, .img, .pro-icon, .title-part').addClass('animated fadeInUp delay-1s');
+	$('.free-img, .img, .pro-icon, .title-part, .title-price').addClass('animated fadeInUp delay-1s');
 
 	  //how form connexion user login
 	   $('#my-form-particular-register').modal("hide");
@@ -195,14 +195,14 @@ window.addEventListener('scroll', function(){
 		$('.img-new-pro-container, .img-container-popular').toggleClass('animated fadeInUp delay-1s');
 		$('h6, h4, h2, h5, h1, a, button, input, select, .icon').toggleClass('animated pulse delay-1s');
 		$('.logo').toggleClass('animated fadeInLeft delay-1s');
-		$('.free-img, .img, .pro-icon, .title-part').toggleClass('animated fadeInUp delay-1s');
+		$('.free-img, .img, .pro-icon, .title-part, .title-price').toggleClass('animated fadeInUp delay-1s');
 	}
 	else {
 		
 		$('.img-new-pro-container, .img-container-popular').addClass('animated fadeInUp delay-1s');
 		$('h6, h4, h2, a, button, input, select, .icon').addClass('animated pulse delay-1s');
 		$('.logo').addClass('animated fadeInLeft delay-1s');
-		$('.free-img, .img, .pro-icon, .title-part').addClass('animated fadeInUp delay-1s');
+		$('.free-img, .img, .pro-icon, .title-part, .title-price').addClass('animated fadeInUp delay-1s');
 		// saves the new position for iteration.
 		scrollPos = (document.body.getBoundingClientRect()).top;
 	}

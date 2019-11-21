@@ -238,24 +238,35 @@ class PageController extends AbstractController
 
         //dump($categories);die;
 
-        //Get top devis more asked
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $artRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
+
                 if($devisPopulars !== null) {
-    
+
                     foreach ($devisPopulars as $key => $value) {
                     $popularDevis[] =  $artRep->findById($value['article_id']);
                     }
-    
+
                 }
+
+        }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
+        
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/guid-price-sous-category.html.twig', [
             'category'=>  $category,
             'categories'=> $categories,
-            'devisPopulars'=> $devisPopulars,
+            'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
             'sousCategories'=> $sousCategories,
             
@@ -296,26 +307,38 @@ class PageController extends AbstractController
         if($sousCategId !== null) {
             // get sous category by wildcard
             $sousCategory = $sousCategRep->findById((int) $sousCategId);
-            $modePrices = $modePriceRep->findBySousCategoryId($sousCategory);
+            //$modePrices = $modePriceRep->findBySousCategoryId($sousCategory);
+            $modePrices = $modePriceRep->findAllArray();
             $modePrices = count($modePrices) > 0 ? $modePrices : [];
         
         }
         //get sous Category
         $sousCategories = $sousCategRep->findAllArray();
-        $sousCategories = count( $sousCategories) > 0 ? $sousCategories :[];
+        $sousCategories = count( $sousCategories) > 0 ? $this->__unshift($sousCategories, $sousCategory) : [];
 
-        
-        //Get top devis more asked
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $artRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
+
                 if($devisPopulars !== null) {
-    
+
                     foreach ($devisPopulars as $key => $value) {
                     $popularDevis[] =  $artRep->findById($value['article_id']);
                     }
-    
+
                 }
+
+        }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
+        
+        
         //Get category for menu
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;

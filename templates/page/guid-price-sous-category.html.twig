@@ -25,6 +25,7 @@
         <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
 
         <style>
+           
             .js .menu-panel {
                 position: absolute !important;
                 {# left: -322px !important; #}
@@ -55,8 +56,8 @@
 
     {% block body %}
 	
-    <div class="page-header page-header-inscription">
-        <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
+    <div class="page-header">
+        <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/uploads/themes/gestion-patrimoine.jpeg'); background-position: center center !important;">
         </div>
         <div class="row">
             <div class="col-12 p-0">
@@ -125,7 +126,7 @@
                                     {% endif %}
                                 </ul>
 
-                                {# <div class="row-mega">
+                                <div class="row-mega">
                                     <div class="column-12">
                                     {% if popularDevis != null %}
                                         <div class="w-100 text-center">
@@ -176,7 +177,7 @@
                                         <!-- End sliderComplete -->
                                         {% endif %}
                                     </div>
-                                </div> #}
+                                </div>
 
                             </div>
                         </div>
@@ -222,10 +223,10 @@
         <!-- Begin for row content header parallax -->
         <div class="row d-flex justify-content-center font-weight-light" style="">
             <!-- ############# Begin slide beside -->
-            <div class="col-8" style="padding-top: 4em;">
+            <div class="col-8" style="padding-top: 15em;">
                 <div class="container border-0">
                     <div class="w-100 d-flex flex-column pb-4 justify-content-center">
-                        <div class="h4 text-text-white text-uppercase">
+                        <div class="h2 text-text-white title-price text-uppercase">
                             Guide des prix
                         </div>
                     </div>
@@ -244,7 +245,7 @@
             <!--Begin section  of the list ads by artisan-->
             {# <section class="bg-gray"> #}
 
-                <div id="container" class="container border-left-0 m-0 border-0">
+                <div id="container" class="container-container container-fluid border-left-0 m-0 border-0">
 		
                     <!-- Begin menu-panel -->
                     <div class="menu-panel">
@@ -279,7 +280,7 @@
 
                                         <div class="col-12 col-md-8 text-left">
                                             <h3 class="text-center">{{ categ.getCategTitle() }}</h3>
-                                            <p class="text-secondary small" style="font-size: 0.7em !important;">
+                                            <p class="text-secondary small" style="padding: 5px 2%; border-left: 4px solid orange; font-size: 1em !important;">
                                                 {{ categ.getDescription() }}
                                             </p>
                                         </div>
@@ -291,7 +292,7 @@
                                             {% for sousCateg in sousCategories %}
                                                 {% if categ.getId() == sousCateg.getCatSousCategoryId().getId() %}
                                                 <div class="col-12 col-sm-6 col-lg-4 py-4">
-                                                    <div class="img-title popular-title-img-1 font-weight-bold text-center">
+                                                    <div class="img-title popular-title-img-1 my-2 font-weight-bold text-center">
                                                         <a href="{{ path('category_sous_category_guide_price_page', {sousCategId: sousCateg.getId()}) }}" class="text-decoration-none price-pose font-weight-bold"> > {{ sousCateg.getSousCategTitle() }} </a>
                                                     </div>
                                                     <div class="img-container-popular img popular-container-img-1 d-flex flex-column align-items-center" style="background-image: url(/uploads/images/{{ sousCateg.getImg() }});">

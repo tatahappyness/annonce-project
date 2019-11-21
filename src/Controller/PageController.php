@@ -227,13 +227,16 @@ class PageController extends AbstractController
         if($categId !== null) {
             // get sous category by wildcard
             $category = $categoryRep->findById((int) $categId);
-            $sousCategories = $sousCategRep->findByCategoryId($category);
+            //$sousCategories = $sousCategRep->findByCategoryId($category);
+            $sousCategories = $sousCategRep->findAllArray();
             $sousCategories = count($sousCategories) > 0 ? $sousCategories : [];
         
         }
-        //get Category
+        //get Category all
         $categories = $categoryRep->findAllArray();
-        $categories = count( $categories) > 0 ? $categories :[];
+        $categories = count( $categories) > 0 ?  $this->__unshift($categories, $category) : [];
+
+        //dump($categories);die;
 
         //Get top devis more asked
                 $devisPopulars = $devisRep->findTopPopularDevis();
@@ -250,6 +253,7 @@ class PageController extends AbstractController
         $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/guid-price-sous-category.html.twig', [
+            'category'=>  $category,
             'categories'=> $categories,
             'devisPopulars'=> $devisPopulars,
             'configsite'=> $configsite,
@@ -1404,6 +1408,14 @@ class PageController extends AbstractController
 
         return true;
 
+    }
+
+    //ORDER VALUE IN ARRAY
+    function __unshift(&$array, $value){
+        $key = array_search($value, $array);
+        if($key) unset($array[$key]);
+        array_unshift($array, $value);  
+        return $array;
     }
 
     //GET DISTANCE BETWEEN TWO ZIP CODE OR LAT AND LONG

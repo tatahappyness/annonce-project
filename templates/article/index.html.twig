@@ -10,13 +10,14 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 	<!-- Custom styles for this template-->
-    <link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
+    
+	<link href="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+	<link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
 
     
 	<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
     <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
     
-	<link href="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 	
     <style>
       .card-header {
@@ -28,6 +29,64 @@
       .custom-control-input:checked~.custom-control-label::before {
         background-color: #1cc88a;
       }
+      
+	    
+		@media screen  and  (max-width: 680px){
+			
+			#sidebarToggleTop{
+				display: block;
+			}
+			
+			.row_menu {
+				display: block;
+				position: relative;    
+				visibility: visible;
+			}
+			
+			.icon_menu {
+				font-size: 3em;
+			}
+			.menu_nav {
+				display: none;	
+				color: #fff;					
+				background-color: RGBa(29, 197, 151, 0.97);	
+				
+				
+				text-align: center;
+				padding: 12px 0;
+			}
+			.card-body {
+				font-size: 95%;
+			}
+			
+			div {
+				font-size: 95%;
+			}
+			
+			.img_logo{
+				height: 15px;			
+			}
+			
+			.head_title{
+				font-size: 15px;			
+			}
+			
+		}
+		
+		@media screen  and  (min-width: 680px){
+			.row_menu {
+				display: none;
+			}
+			
+			#sidebarToggleTop{
+				display: none;
+			}
+			
+			.sticky-footer {
+				display: none;
+			}
+		}
+	  
     </style>
     
 {% endblock %}
@@ -56,8 +115,7 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-			<!-- Divider -->
-				<h3 class="chg_title_objet">Préstation</h3>
+			<!-- Divider -->            
 			<hr class="sidebar-divider">
 				
 				<div class="row" style="justify-content: space-evenly">				
@@ -135,6 +193,50 @@
 			</div><!-- End /.modal afficher type -->
 
 
+
+		<!-- Modal suppression Catégorie -->
+			<div class="modal fade" id="myModal_sup_article" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+								Confirmer la suppression: [Article]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">         																																		
+							<div id="load_model_article_supprimer">         																																									
+							</div>	
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal suppression Catégorie-->
+
+
+      		<div class="modal fade" id="myModal_aff_image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content" style="width: 50rem;">
+						<div class="modal-body">						
+							<div id="load_modal_affiche_image"></div>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- End /.modal afficher type -->
+
+
+      		<div class="modal fade" id="myModal_aff_icone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content" style=" width: 15rem;">
+						<div class="modal-body">						
+							<div id="load_modal_affiche_icone"></div>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- End /.modal afficher type -->
+
+
+
             <!-- DataTales Example -->
             <div class="col mb-8">
                 <div class="card shadow mb-4">
@@ -147,177 +249,132 @@
                         </h6> 
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead class="bg-warning text-dark">
-                            <tr>
-                                <th>#</th>
-                                <th>Article</th>
-                                <th>Date de Création</th>
-                                <th>Image</th>
-                                <th>Icon</th>
-                                <th>Populaire</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>#</th>
-                                <th>Article</th>
-                                <th>Date de Création</th>
-                                <th>Image</th>
-                                <th>Icon</th>
-                                <th>Populaire</th>
-                                <th>Actions</th>
-                            </tr>
-                            </tfoot>
-        <tbody>
-          {% for article in articles %}
-            <tr>
-                <td>{{ article.id }}</td>
-                <td>{{ article.articleTitle }}</td>
-                
-                <td>{{ article.articleDateCrea ? article.articleDateCrea| date('d/m/y H:m:s') }}</td>
-                <td>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/images/') }}{{ article.img }}" alt="">
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/logo/') }}{{ article.icon }}" alt="">
-                        </div>
-                    </div>
-                </td>
-                <td class="text-center">                
-                    <div class="custom-control custom-switch">
-                        <input {{ article.ispopular == true ? "checked=true"  }} data-id="{{ article.id }}" type="checkbox" class="custom-control-input customSwitch" id="customSwitch{{ article.id }}">
-                        <label class="custom-control-label" for="customSwitch{{ article.id }}"></label>
-                    </div>                    
-                </td>
-                <td class="row">
-                    <button class="col-lg-4  btn btn-warning" onclick="show_modal_affiche_article({{ article.id }})" data-toggle="modal" data-target="#myModal_aff_cat"   type="button" title="Modifier"><i class="fa fa-eye"></i>                      
-                    </button>                    
-                    <a  class="col-lg-4" href="{{ path('article_edit', {'id': article.id}) }}">
-                      <button class=" btn btn-info"  type="button" title="Modifier"><i class="fa fa-edit"></i>
-                      </button>						
-                    </a>                    
-					{{ include('article/_delete_form.html.twig') }}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+                        <div class="table-responsive">									
+							<table class="table table-bordered display" id="" width="100%" cellspacing="0">
+								<thead class="bg-warning text-dark">
+								<tr>
+									<th>#</th>
+									<th>Article</th>
+									<th>Categorie</th>
+									<th>Sous Categorie</th>
+									<th>Date de Création</th>
+									<th>Image</th>
+									<th>Icon</th>
+									<th>Populaire</th>
+									<th>Actions</th>
+								</tr>
+								</thead>
+								<tfoot>
+								<tr>
+									<th>#</th>
+									<th>Article</th>
+									<th>Categorie</th>
+									<th>Sous Categorie</th>
+									<th>Date de Création</th>
+									<th>Image</th>
+									<th>Icon</th>
+									<th>Populaire</th>
+									<th>Actions</th>
+								</tr>
+								</tfoot>
+								<tbody>
+								{% for article in articles %}
+									<tr>
+										<td>{{ article.id }}</td>
+										<td>{{ article.articleTitle }}</td>
+										<td>
+											<button type="button" class="col btn btn-outline-secondary tooltip-viewport-bottom" title="" data-original-title=" {{ article.articleCategId.description }}  </br>  {{ article.articleCategId.CategDateCrea | date('d/m/y H:m:s') }}">{{ article.articleCategId.categTitle }}</button>							                                
+										</td>
+										<td>
+											<button type="button" class="col btn btn-outline-secondary tooltip-viewport-bottom" title="" data-original-title=" {{ article.articleSousCategId.description }} </br>  {{ article.articleSousCategId.sousCategDateCrea | date('d/m/y H:m:s') }}">{{ article.articleSousCategId.sousCategTitle }}</button>
+										</td>
+										
+										<td>{{ article.articleDateCrea ? article.articleDateCrea| date('d/m/y H:m:s') }}</td>
+										<td>
+											<div class="card-body" data-toggle="modal" data-target="#myModal_aff_image" onclick="show_modal_affiche_article_image({{ article.id  }})" >
+												<div class="text-center">
+													<img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/images/') }}{{ article.img }}" alt="">
+												</div>
+											</div>
+										</td>
+										<td>
+											<div class="card-body" data-toggle="modal" data-target="#myModal_aff_icone" onclick="show_modal_affiche_article_icone({{ article.id  }})">
+												<div class="text-center">
+													<img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/logo/') }}{{ article.icon }}" alt="">
+												</div>
+											</div>
+										</td>
+										<td class="text-center">                
+											<div class="custom-control custom-switch">
+												<input {{ article.ispopular == true ? "checked=true"  }} data-id="{{ article.id }}" type="checkbox" class="custom-control-input customSwitch" id="customSwitch{{ article.id }}">
+												<label class="custom-control-label" for="customSwitch{{ article.id }}"></label>
+											</div>                    
+										</td>
+										<td class="row" style="width: 180px;">
+											<button class=" btn btn-warning" onclick="show_modal_affiche_article({{ article.id }})" data-toggle="modal" data-target="#myModal_aff_cat"   type="button" title="Modifier"><i class="fa fa-eye"></i>                      
+											</button>                    
+											<a href="{{ path('article_edit', {'id': article.id}) }}">
+											<button class=" btn btn-info"  type="button" title="Modifier"><i class="fa fa-edit"></i>
+											</button>						
+											</a>          
+										
+											<button class="btn btn-danger"  data-toggle="modal" data-target="#myModal_sup_article"  onclick="show_modal_sup_article({{ article.id }})" title="Supprimer"><i class="fa fa-times"></i> </button>
+
+											
+										</td>
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="4">no records found</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+							</table>
 
     
+						</div>
+					</div>
+				</div>
+			</div>
     
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
 
+
+</br></br></br>
+		<footer class="" style="position: fixed;z-index: 1;bottom: 0;">
+				<div class="">								
+				  <!-- Scroll to Top Button-->
+				  <a href="/admin/">
+					  <div class="btn-circle btn-secondary" style="z-index: 2;display: inline;">
+						<i class="fas fa-home">Menu</i>
+					  </div>				  
+				  </a>
+				</div>
+			</footer>
 </body>
 	{% endblock %}
 
 	{% block javascripts %}
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="{{ absolute_url('/assets/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ absolute_url('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script src="{{ absolute_url('/assets/vendor/jquery/jquery.min.js') }}"></script>
+	<script src="{{ absolute_url('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="{{ absolute_url('/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="{{ absolute_url('/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
-
-
+	<!-- Custom scripts for all pages-->
+	<script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
 
     <!-- Page level plugins -->
-    <script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ absolute_url('/assets/vendor/datatables/datatables-demo.js') }}"></script>
-
-
+	<script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 	<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 	<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+	<script src="{{ absolute_url('/assets/js/admin/admin_article.js') }}"></script>
 
-	<script>
 	
-		$(function () { $('#myModal').modal('hide')});
-				
-		// Call the dataTables jQuery plugin
-		$(document).ready(function() {
-		  $('#dataTable_acticle').DataTable();
-		  $('#dataTable_type').DataTable();
-		  
-		});
-
-	</script>
-	
-	<script>
-	
-		$('.nav-item').removeClass('active');
-		$('.nav_objet_devis').addClass('active');
-		
-		
-		function show_modal_affiche_article($id){			
-                 var xhttp = new XMLHttpRequest();
-                 xhttp.onreadystatechange = function() {
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("load_modal_affiche_article").innerHTML = xhttp.responseText;
-                    }
-                 };
-
-                 xhttp.open("GET", "/admin/article/"+$id , true);
-                 xhttp.send();
-				 
-        }
-        
-        
-		function setPopular(id, pop){			
-
-                 var xhttp = new XMLHttpRequest();
-                 xhttp.onreadystatechange = function() {
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: xhttp.responseText,
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-
-                        location.reload(true);
-
-                    }
-                 };
-
-                 xhttp.open("GET", "/admin/article/ispopular?id=" + id + "&&active=" + pop);
-                 xhttp.send();
-				 
-		}
-
-
-
-	</script>
-        
-    <script>
-    $(function() {
-        $('.customSwitch').change(function() {
-
-            setPopular($(this).data('id') , $(this).prop('checked'));
-            //alert($(this).prop('checked') + ' ' + $(this).data('id') );
-
-        })
-    })
-    </script>	
 {% endblock %}

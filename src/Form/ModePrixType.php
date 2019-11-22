@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\ModePrix;
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\SousCategory;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,6 +33,29 @@ class ModePrixType extends AbstractType
                 'required'    => false
             ))         
 
+            ->add('prixSousCategoryId', EntityType::class, [
+                'class' => SousCategory::class, 'label' => 'Sous Categorie',
+                'attr' => ['class' => 'form-control col-lg-12'],
+                'mapped' => false,
+                'choice_label' => function (SousCategory $cat){
+                        return $cat->getSousCategTitle();
+                    }
+                ]
+                
+            )
+            
+            ->add('prixArticleId', EntityType::class, [
+                'class' => Article::class, 'label' => 'Article',
+                'mapped' => false,
+                'attr' => ['class' => 'form-control col-lg-12'],
+                'choice_label' => function (Article $cat){
+                    return $cat->getArticleTitle();
+                },
+                'choice_value' => function (Article $cat = null) {
+                    return $cat ? $cat->getId() : '';
+                    }
+                ]
+            )
             
             ->add('prixGlobale', TextType::class, array(
                 'label' => 'Prix globale',  
@@ -58,6 +82,7 @@ class ModePrixType extends AbstractType
                 'required'    => true
             ])
             
+              
 
            /* ->add('prixCategoryId', EntityType::class, [
                 'class' => Category::class, 'label' => 'Category',

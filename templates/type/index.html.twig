@@ -23,6 +23,65 @@
       #wrapper{
        background-color:#ececec;
       }
+
+      
+	    
+		@media screen  and  (max-width: 680px){
+			
+			#sidebarToggleTop{
+				display: block;
+			}
+			
+			.row_menu {
+				display: block;
+				position: relative;    
+				visibility: visible;
+			}
+			
+			.icon_menu {
+				font-size: 3em;
+			}
+			.menu_nav {
+				display: none;	
+				color: #fff;					
+				background-color: RGBa(29, 197, 151, 0.97);	
+				
+				
+				text-align: center;
+				padding: 12px 0;
+			}
+			.card-body {
+				font-size: 95%;
+			}
+			
+			div {
+				font-size: 95%;
+			}
+			
+			.img_logo{
+				height: 15px;			
+			}
+			
+			.head_title{
+				font-size: 15px;			
+			}
+			
+		}
+		
+		@media screen  and  (min-width: 680px){
+			.row_menu {
+				display: none;
+			}
+			
+			#sidebarToggleTop{
+				display: none;
+			}
+			
+			.sticky-footer {
+				display: none;
+			}
+		}
+	  
     </style>
     
 {% endblock %}
@@ -96,9 +155,7 @@
 								</div>
 							</div>
 						</a> 
-				
-				
-
+                        
 				</div>
 				
 			</br> 
@@ -116,7 +173,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered display" id="" width="100%" cellspacing="0">
                             <thead class="bg-warning text-dark">
                             <tr>			
 								<th>#</th>				                                
@@ -139,16 +196,17 @@
                                         <td>{{ type.id }}</td>
                                         <td>{{ type.title }}</td>
                                         <td>{{ type.dateCrea ? type.dateCrea|date('Y-m-d H:i:s') : '' }}</td>
-                                        <td>
+                                        <td class="row">
                                             <a href="{{ path('type_edit', {'id': type.id}) }}">
-                                                <button class="col-lg-12 btn btn-info" data-toggle="modal" onclick="show_modal_edit_type(7)" data-target="#myModal_edit_type" type="button" title="Modifier"><i class="fa fa-edit"></i> Modifier
+                                                <button class=" btn btn-info" data-toggle="modal" onclick="show_modal_edit_type(7)" data-target="#myModal_edit_type" type="button" title="Modifier"><i class="fa fa-edit"></i>
                                                 </button>
                                             </a>
 
                                             
-                                            <button type="button" class="col-lg-12 btn btn-danger" data-toggle="modal" data-target="#myModal_sup_type"  data-dismiss="modal">
-                                                <i class="fa fa-times"></i> Supprimer
+                                            <button type="button" class=" btn btn-danger" data-toggle="modal" data-target="#myModal_sup_type"  data-dismiss="modal" title="Supprimer">
+                                                <i class="fa fa-times"></i> 
                                             </button>
+
                                                                             
                                         </td>
 
@@ -221,22 +279,13 @@
 	<script>
 	
 		$(function () { $('#myModal').modal('hide')});
-		
-		
-		// Call the dataTables jQuery plugin
-		$(document).ready(function() {
-		  $('#dataTable_acticle').DataTable();
-		  $('#dataTable_type').DataTable();
-		  
-		});
+        $('.nav-item').removeClass('active');
+		$('.nav_objet_devis').addClass('active');		
 
-	</script>
-	
-	<script>
-	
-		$('.nav-item').removeClass('active');
-		$('.nav_objet_devis').addClass('active');
-		
+		$(document).ready(function() {
+			$('table.display').DataTable();
+		} );
+
 	</script>
 	
 {% endblock %}

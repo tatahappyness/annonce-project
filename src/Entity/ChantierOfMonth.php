@@ -65,12 +65,12 @@ class ChantierOfMonth
         return $this;
     }
 
-    public function getArticle(): ?Article
+    public function getArticleId(): ?Article
     {
         return $this->articleId;
     }
 
-    public function setArticle(?Article $articleId): self
+    public function setArticleId(?Article $articleId): self
     {
         $this->articleId = $articleId;
 

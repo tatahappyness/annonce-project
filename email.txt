@@ -10,3 +10,7 @@ base.html
 
 
 m_e_email.html.twig -- controleur = AdminController.php
+
+
+1200 MAX Width 
+min 768

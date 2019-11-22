@@ -10,6 +10,10 @@
 
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
+    
+	<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+  	<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+
   <!-- Custom styles for this template-->
     <link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
 
@@ -41,6 +45,63 @@
         cursor: pointer;
     }
 
+	    
+		@media screen  and  (max-width: 680px){
+			
+			#sidebarToggleTop{
+				display: block;
+			}
+			
+			.row_menu {
+				display: block;
+				position: relative;    
+				visibility: visible;
+			}
+			
+			.icon_menu {
+				font-size: 3em;
+			}
+			.menu_nav {
+				display: none;	
+				color: #fff;					
+				background-color: RGBa(29, 197, 151, 0.97);	
+				
+				
+				text-align: center;
+				padding: 12px 0;
+			}
+			.card-body {
+				font-size: 95%;
+			}
+			
+			div {
+				font-size: 95%;
+			}
+			
+			.img_logo{
+				height: 15px;			
+			}
+			
+			.head_title{
+				font-size: 15px;			
+			}
+			
+		}
+		
+		@media screen  and  (min-width: 680px){
+			.row_menu {
+				display: none;
+			}
+			
+			#sidebarToggleTop{
+				display: none;
+			}
+			
+			.sticky-footer {
+				display: none;
+			}
+		}
+	  
   </style>
   
 {% endblock %}
@@ -77,15 +138,15 @@
 						{% for lst in option_email %}
 							{% if lst.typekey() == 1 %}							
 								<h4 class="" >MODE ACTIVER: </h4>
-								<h3 class="btn-success" > [1] Normalement </h3>
+								<h3 class="btn-success" >	[1] Normalement </h3>
 							{% endif %}	
 							{% if lst.typekey()  == 2 %}							
 								<h4 class="" >MODE ACTIVER: </h4> 
-								<h3 class=" btn-secondary" >[2] Envoyer à une seule personne</h3>
+								<h3 class=" btn-secondary" >	[2] Envoyer à une seule personne</h3>
 								{% endif %}
 							{% if lst.typekey()  == 3 %}	
 								<h4 class="" >MODE ACTIVER: </h4>
-								<h3 class="btn-info " >[3] Envoyer les devis à plusieurs personnes</h3>                                
+								<h3 class="btn-info " >		[3] Envoyer les devis à plusieurs personnes</h3>                                
 							{% endif %}	
 
                     {% endfor %}
@@ -206,10 +267,10 @@
 								  <div class="col-sm-12 mb-3 mb-sm-0">                          
 									<input type="email" class="form-control form-control-email-seul-perso" id="email_one_personne" placeholder="Adresse email" style="display: none;">
 									{% if listMails|length > 0 %}							
-										<select id="select_email" name="x_2"  class="form-control" >
+										<select onChange="Lien()" id="select_email" name="x_2"  class="form-control" >
 											<option class="col-lg-12 ">--- Selectioner ---</option>
 											{% for x in listMails %}												
-												<option value="{{ x.getUserId().getId() }}/{{ x.getCategoryId().getId() }}" class="col-lg-12 ">{{ x.getUserId().getEmail() }}</option>
+												<option value="{{ x.getUserId().getId() }}" class="col-lg-12 ">{{ x.getUserId().getEmail() }}</option>
 											{% endfor %}
 										</select>
 										{% else %}
@@ -225,7 +286,7 @@
 							data-dismiss="modal">
 								NON
 							</button>
-							<button data-toggle="modal" data-target="#myModal_confirm_dev_personne" type="submit" class="confirmer_seul_pers btn btn-success" data-dismiss="modal">
+							<button data-toggle="modal" styme="display:none" data-target="#myModal_confirm_dev_personne" type="submit" class="confirmer_seul_pers btn btn-success" data-dismiss="modal">
 								CONTINUER
 							</button>
 							
@@ -244,8 +305,7 @@
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
 							</button>
 						</div>
-						<div class="modal-body">
-							Email: <h4 class="select_my_email"></h4>
+						<div class="modal-body">						
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"	data-dismiss="modal">
@@ -290,56 +350,55 @@
               <!-- form numero email logo -->
               <div class="card shadow mb-4">
                 <div class="card-header btn-info-1 py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Envoyer les devis à plusieurs personnes :</h6>
+                  	<h6 class="m-0 font-weight-bold text-primary">Envoyer les devis à plusieurs personnes :
+					</h6>
                 </div>
+				
                 <div class="card-body">
                   <div class="text-center">
                       <div class="table-responsive">
-						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<table class="table table-bordered display" id="" width="100%" cellspacing="0">
 							<thead class="bg-warning text-dark">
 							<tr>
+								<th></th>
 								<th>#</th>
 								<th>Client (Email)</th>
 								<th>Catégorie</th>
-												<th>Date de Création</th>
+								<th>Date de Création</th>
 								<th>Action</th>                  
 							</tr>
 							</thead>
 								<tfoot>
 								<tr>
+									<td></td>
 									<th>#</th>
 									<th>Client Email</th>
 									<th>Catégorie</th>
-													<th>Date de Création</th>
+									<th>Date de Création</th>
 									<th>Action</th>
 								</tr>
 								</tfoot>
 								<tbody>							
-									{% if list_serv != null %}							
-										{% for lst in list_serv %}
+								{% if list_serv|length > 0 %}							
+									{% for lst in list_serv %}
 									<tr>
+										<td>
+											<input  {{ lst.getIsActived == true ? "checked=true"  }} data-id="{{ lst.id  }}" type="checkbox" class="form-control customSwitch" id="customSwitch{{ lst.id  }}">
+										</td>
 										<td>{{ lst.getId() }}</td>
-										<td>{{ lst.getUserId().getEmail() }}
-										<button class="btn btn-info" data-toggle="modal" data-target="#myModal_info_service" onclick="show_modal_show_service({{ lst.getId() }})"  type="button" title="Plus de Détail"><i class="fa fa-eye"></i>
-										</button></br>
-									</td>
-									
-									<td>{{ lst.getCategoryId().getCategTitle() }}</td>                          
-									<td>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}</td>
-									<td class="text-center">
-									{% if lst.getIsActived() == 1 %}
-										<a class="col nav-link btn btn-success" href="{{ path('setEmailBoquer' , {id: lst.getId() } ) }}">
-											<div  data-toggle="modal" data-target="#myModal_bloquer_service" >BLOQUE</div>										
-										</a>
-									{% else %}
-										<a class="col nav-link btn btn-secondary" href="{{ path('setEmailDebloque' , {id: lst.getId() } ) }}">
-											<div   data-toggle="modal" data-target="#myModal_debloquer_service" >DEBLOQUE</div>
-										</a>
-									{% endif %}</br>
-									
-									<div class="btn col-lg-12 btn-danger" data-toggle="modal" data-target="#myModal_sup_service" onclick="show_modal_delete_service({{ lst.getId() }})" title="Supprimer le service">
-										SUPPRIMER
-									</div>
+										<td>
+											<button type="button" class="col btn btn-outline-secondary tooltip-viewport-bottom" title="" data-original-title=" {{ lst.userId.companyName() }} </br> {{ lst.getUserId().getMobile() }} </br>  {{ lst.getUserId().getCompanyDateCrea() }}">{{ lst.getUserId().getEmail() }}</button>
+										</td>
+										
+										<td>
+											<button type="button" class="col btn btn-outline-secondary tooltip-viewport-bottom" title="" data-original-title=" {{ lst.categoryId.description }}  </br>  {{ lst.categoryId().getCategDateCrea() | date('d/m/y H:m:s') }}">{{ lst.categoryId.categTitle }}</button>
+										</td>
+										<td>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}</td>
+										<td class="text-center">
+										
+										<div class="btn  btn-danger" data-toggle="modal" data-target="#myModal_sup_service" onclick="show_modal_delete_service({{ lst.getId() }})" title="Supprimer le service">
+											<i class="fa fa-times"></i>
+										</div>
 									</td>
 										
 									</tr>
@@ -361,10 +420,7 @@
           </div> 
           
           <!-- End Content Row 2 -->
-		  
-		  
-		  
-		  
+				  
         </div>
         <!-- /.container-fluid -->
 
@@ -382,6 +438,18 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
+
+</br></br></br>
+		<footer class="" style="position: fixed;z-index: 1;bottom: 0;">
+				<div class="">								
+				  <!-- Scroll to Top Button-->
+				  <a href="/admin/">
+					  <div class="btn-circle btn-secondary" style="z-index: 2;display: inline;">
+						<i class="fas fa-home">Menu</i>
+					  </div>				  
+				  </a>
+				</div>
+			</footer>
 </body>
 	{% endblock %}
 
@@ -401,25 +469,90 @@
   
 
   <!-- Page level plugins -->
+  
   <script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
   
+  
 
 	<script>
-	
+
+    $(function() {
+        $('.customSwitch').change(function() {
+
+            setPopular($(this).data('id') , $(this).prop('checked'));
+            //alert($(this).prop('checked') + ' ' + $(this).data('id') );
+
+        })
+    })
+
+
+		function setPopular(id, pop){
+
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: xhttp.responseText,
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+						
+                        //location.reload(true);
+						$('.envoyer_plus').click();
+                    }
+                 };
+
+                 xhttp.open("GET", "/admin/setModeEmail3?id=" + id + "&&active=" + pop);
+                 xhttp.send();
+				 
+		}
+		
 		$('.nav-item').removeClass('active');
 		$('.nav_m_e_email').addClass('active');
 		
 	
 			$('#select_email').change(function(){				
+				$('.form-control-email-seul-perso').val();
 				Lien($(this).val(), this );
-				alert( $(this).val()  )
+				//alert( $(this).val()  )
 			});
 
+			
+		$('.confirmer_seul_pers').click(function (){			
+			$x = $('.form-control-email-seul-perso').val();
+
+			if ($x != '' ) {
+				alert('not null form-control-email-seul-perso')
+			}else{
+				alert('nullable')
+			}			
+			
+		});
+		
+			function Lien() {
+				i = document.x_1.x_2.selectedIndex;
+				if (i == 0) return;
+
+				selected = document.x_1.x_2.options[i].value;				
+				x = $('.form-control-email-seul-perso').val(selected);
+							
+								
+				document.getElementById("valider_email").innerHTML = `
+					<a class="col nav-link btn btn-success" href="/admin/setUpdateServiceDisable/`+selected+`">						
+						VALIDER						
+					</a>					
+					`;
+				
+			}
+			
+			/*
 
 			function Lien(all, i) {
 				
-				alert(iduser +" "+ idcategory);
+				//alert(iduser +" "+ idcategory);
 
 				//i = document.x_1.x_2.selectedIndex;
 				//if (i == 0) return;
@@ -440,6 +573,8 @@
 					`;
 				
 			}
+
+			*/
 			
 
 		function edit_service_one_email($email){
@@ -467,17 +602,6 @@
 		});
 
 
-		$('.confirmer_seul_pers').click(function (){			
-			$x = $('.form-control-email-seul-perso').val();
-
-			if ($x != '' ) {
-				alert('not null')
-			}else{
-				alert('nullable')
-			}			
-			
-		});
-		
 
 		
 		$('.envoyer_normale').click(function (){
@@ -490,7 +614,6 @@
 		});
 		
 		
-		
 		$('.envoyer_one').click(function (){
 			
 			//$('.envoyer_one_row').removeAttr('style','display:none');
@@ -499,11 +622,7 @@
 			$('.envoyer_plus_row').attr('style','display:none');
 			
 		});
-		
-		
-		
-		
-		
+				
 		$('.envoyer_plus').click(function (){
 			
 			$('.envoyer_plus_row').removeAttr('style','display:none');
@@ -515,7 +634,20 @@
 		
 		
 		
-		
+		$(function () {
+			$('.tooltip-viewport-bottom').tooltip({
+				placement: 'bottom',html : true ,
+				viewport: {
+					selector: '.container-viewport',
+					padding: 10
+				}
+			})
+		});
+	
+		$(document).ready(function() {
+			$('table.display').DataTable();
+		} );
+	
 		
 	</script>
 	

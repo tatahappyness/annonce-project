@@ -41,6 +41,11 @@ class SousCategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            
+            $allDataForm = $request->request->get("sous_category1");                        
+            $cat = $allDataForm['catSousCategoryId'];
+            
+
             /** @var File $file */
             $file = $form['img']->getData();            
             
@@ -49,6 +54,13 @@ class SousCategoryController extends AbstractController
 
             if ( $file &&  $fileIcon ) {
                 
+                $category = $this->getDoctrine()
+                    ->getRepository(\App\Entity\Category::class)
+                    ->findById($cat);
+                $sousCategory->setCatSousCategoryId($category);
+
+
+
                 $output_dir = $this->getParameter('images_directory');      
                 $output_dir_icon = $this->getParameter('logo_directory');      
             
@@ -90,6 +102,30 @@ class SousCategoryController extends AbstractController
         ]);
     }
 
+    
+    /**
+     * @Route("/{id}/image", name="sous_category_show_image", methods={"GET"})
+     */
+    public function sous_category_show_image(SousCategory $sousCategory): Response
+    {
+        return $this->render('sous_category/show_category_image.html.twig', [
+            'page_head_title' => 'OBJET DEVIS [Categorie]',
+            'sous_category' => $sousCategory
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/icone", name="sous_category_show_icone", methods={"GET"})
+     */
+    public function sous_category_show_icone(SousCategory $sousCategory): Response
+    {
+        return $this->render('sous_category/show_category_icon.html.twig', [
+            'page_head_title' => 'OBJET DEVIS [Categorie]',
+            'sous_category' => $sousCategory
+        ]);
+    }
+
+
     /**
      * @Route("/{id}/edit", name="sous_category_edit", methods={"GET","POST"})
      */
@@ -100,6 +136,9 @@ class SousCategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
                         
+            $allDataForm = $request->request->get("sous_category1");                        
+            $cat = $allDataForm['catSousCategoryId'];
+            
             /** @var File $file */
             $file = $form['img']->getData();            
             
@@ -108,6 +147,11 @@ class SousCategoryController extends AbstractController
 
             if ( $file &&  $fileIcon ) {
                 
+                $category = $this->getDoctrine()
+                    ->getRepository(\App\Entity\Category::class)
+                    ->findById($cat);
+                $sousCategory->setCatSousCategoryId($category);
+
                 $output_dir = $this->getParameter('images_directory');      
                 $output_dir_icon = $this->getParameter('logo_directory');      
         

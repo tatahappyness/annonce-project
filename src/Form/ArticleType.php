@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\SousCategory;
 
 
 
@@ -35,6 +36,20 @@ class ArticleType extends AbstractType
                     }
                 ]
             )
+            
+            
+            ->add('articleSousCategId', EntityType::class, [
+                'class' => SousCategory::class, 'label' => 'Sous Categorie',
+                'attr' => ['class' => 'form-control col-lg-12'],
+                'mapped' => false,
+                'choice_label' => function (SousCategory $cat){
+                        return $cat->getSousCategTitle();
+                    }
+                ]
+                
+            )
+            
+
             ->add('img', FileType::class, [
                 'label' => 'Image',                
                 'attr' => ['class' => 'form-control btn-info col-lg-12'],                  
@@ -47,10 +62,6 @@ class ArticleType extends AbstractType
                 'attr' => ['class' => 'form-control btn-info col-lg-12'],
                 'required'    => true
             ])
-    
-    
-            
-
         ;
     }
 

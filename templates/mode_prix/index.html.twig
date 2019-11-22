@@ -25,6 +25,65 @@
       #wrapper{
        background-color:#ececec;
       }
+
+      
+		@media screen  and  (max-width: 680px){
+			
+			#sidebarToggleTop{
+				display: block;
+			}
+			
+			.row_menu {
+				display: block;
+				position: relative;    
+				visibility: visible;
+			}
+			
+			.icon_menu {
+				font-size: 3em;
+			}
+			.menu_nav {
+				display: none;	
+				color: #fff;					
+				background-color: RGBa(29, 197, 151, 0.97);	
+				
+				
+				text-align: center;
+				padding: 12px 0;
+			}
+			.card-body {
+				font-size: 95%;
+			}
+			
+			div {
+				font-size: 95%;
+			}
+			
+			.img_logo{
+				height: 15px;			
+			}
+			
+			.head_title{
+				font-size: 15px;			
+			}
+			
+		}
+		
+		@media screen  and  (min-width: 680px){
+			.row_menu {
+				display: none;
+			}
+			
+			#sidebarToggleTop{
+				display: none;
+			}
+			
+			.sticky-footer {
+				display: none;
+			}
+		}
+	  
+
     </style>
     
 {% endblock %}
@@ -54,7 +113,6 @@
         <div class="container-fluid">
 
 			<!-- Divider -->
-				<h3 class="chg_title_objet">Préstation</h3>
 			<hr class="sidebar-divider">
 				
 				<div class="row" style="justify-content: space-evenly">				
@@ -125,7 +183,6 @@
 							data-dismiss="modal">
 								OK
 							</button>
-							
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -138,20 +195,21 @@
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Listes des Mode Prix: 
                             <a href="{{ path('mode_prix_new') }}">
-                                <button data-toggle="modal" data-target="#myModal_add_type" class=" btn btn-primary" type="button" title="Ajouter nouveaux Type de Préstation"><i class="fa fa-plus"></i>
-                                    Ajouter Mode de Prix
+                                <button data-toggle="modal" data-target="#myModal_add_type" class=" btn btn-primary" type="button" title="Ajouter nouveaux mode de prix"><i class="fa fa-plus"></i>                                   
                                 </button>
                             </a>
                         </h6> 
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<table class="table table-bordered display" id="" width="100%" cellspacing="0">
                             <thead class="bg-warning text-dark">
                             <tr>
                                 <th>#</th>
                                 <th>Nom</th>
                                 <th>Déscription</th>
+                                <th>Article</th>
+                                <th>Sous Categorie</th>
                                 <th>Image</th>
                                 <th>Prix Globale</th>
                                 <th>Prix Moyen</th>
@@ -165,6 +223,8 @@
                                 <th>#</th>
                                 <th>Nom</th>
                                 <th>Déscription</th>
+                                <th>Article</th>
+                                <th>Sous Categorie</th>
                                 <th>Image</th>
                                 <th>Prix Globale</th>
                                 <th>Prix Moyen</th>
@@ -178,12 +238,18 @@
  {% for mode_prix in mode_prixes %}
             <tr>
                 <td>{{ mode_prix.id }}</td>
-                <td>{{ mode_prix.prixTitle }}</td>
+                <td style="width: 150px;">{{ mode_prix.prixTitle }}</td>
                 <td>{{ mode_prix.prixDescription }}</td>
                 <td>
+					<button type="button" class="col btn btn-outline-secondary tooltip-viewport-bottom" title="" data-original-title=" {{ mode_prix.prixArticleId.articleCategId.categTitle }}  </br> {{ mode_prix.prixArticleId.articleDateCrea | date('d/m/y H:m:s') }}">{{ mode_prix.prixArticleId.articleTitle }}</button>
+                </td>
+                <td>
+					<button type="button" class="col btn btn-outline-secondary tooltip-viewport-bottom" title="" data-original-title=" {{ mode_prix.prixSousCategoryId.description }} </br>  {{ mode_prix.prixSousCategoryId.sousCategDateCrea | date('d/m/y H:m:s') }}">{{ mode_prix.prixSousCategoryId.sousCategTitle }}</button>                
+                </td>
+                <td  style="width: 250px;">
                     <div class="card-body">
                         <div class="text-center">
-                            <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/images/') }}{{ mode_prix.prixImage }}" alt="">
+                            <img class="img-fluid img-fluid shadow" src="{{ absolute_url('/uploads/images/') }}{{ mode_prix.prixImage }}" alt="">
                         </div>
                     </div>
                 </td>
@@ -191,7 +257,7 @@
                 <td>{{ mode_prix.prixMoyen }}</td>
                 <td>{{ mode_prix.prixHautGamme }}</td>
                 <td>{{ mode_prix.prixDateCrea ? mode_prix.prixDateCrea|date('Y-m-d') : '' }}</td>
-                <td class="row">                
+                <td class="row" style="width: 130px" >                
                     <button class="btn btn-warning" onclick="show_modal_affiche_article({{ mode_prix.id }})" data-toggle="modal" data-target="#myModal_aff_cat"   type="button" title="Modifier"><i class="fa fa-eye"></i>
                     </button>
 
@@ -200,8 +266,8 @@
 						</button>						
 					</a>
 					
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_mode_prix"  data-dismiss="modal">
-                        <i class="fa fa-times"></i> supprimer
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_mode_prix" title="supprimer" data-dismiss="modal">
+                        <i class="fa fa-times"></i>
                     </button>
                                                                             
 
@@ -255,6 +321,19 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
+
+</br></br></br>
+		<footer class="" style="position: fixed;z-index: 1;bottom: 0;">
+				<div class="">								
+				  <!-- Scroll to Top Button-->
+				  <a href="/admin/">
+					  <div class="btn-circle btn-secondary" style="z-index: 2;display: inline;">
+						<i class="fas fa-home">Menu</i>
+					  </div>				  
+				  </a>
+				</div>
+			</footer>
+
 </body>
 	{% endblock %}
 
@@ -278,40 +357,43 @@
   <script src="{{ absolute_url('/assets/vendor/datatables/datatables-demo.js') }}"></script>
 
 
-
 	<script>
 	
 		$(function () { $('#myModal').modal('hide')});
-		
-		
-		// Call the dataTables jQuery plugin
-		$(document).ready(function() {
-		  $('#dataTable_acticle').DataTable();
-		  $('#dataTable_type').DataTable();
-		  
-		});
-
-	</script>
-	
-	<script>
-	
+					
 		$('.nav-item').removeClass('active');
-		$('.nav_objet_devis').addClass('active');
-		
+		$('.nav_objet_devis').addClass('active');		
 		
 		function show_modal_affiche_article($id){
 			
-                 var xhttp = new XMLHttpRequest();
-                 xhttp.onreadystatechange = function() {
-                     if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("load_modal_affiche_prix").innerHTML = xhttp.responseText;
-                    }
-                 };
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (xhttp.readyState == 4 && xhttp.status == 200) {
+				document.getElementById("load_modal_affiche_prix").innerHTML = xhttp.responseText;
+			}
+			};
 
-                 xhttp.open("GET", "/admin/mode/prix/"+$id , true);
-                 xhttp.send();
-                 				 
+			xhttp.open("GET", "/admin/mode/prix/"+$id , true);
+			xhttp.send();
+							
 		}
+
+        
+		$(function () {			
+			$('.tooltip-viewport-bottom').tooltip({
+				placement: 'bottom',html : true ,
+				viewport: {
+					selector: '.container-viewport',
+					padding: 10
+				}
+			})
+		})
+
+
+
+		$(document).ready(function() {
+			$('table.display').DataTable();
+		} );
 
 	</script>
 	

@@ -24,10 +24,57 @@ class CommentsController extends AbstractController
     {
         return $this->render('comments/index.html.twig', [
             'comments' => $commentsRepository->findAll(),
-            'page_head_title' => 'Publish',
+            'page_head_title' => 'Publication',
             'configsites' => $configsiteRepository->findAll()
         ]);
     }
+
+    
+    /**
+     * @Route("/ispopular", name="ispopular", methods={"GET"})
+     */
+    public function ispopular(Request $req, CommentsRepository $commentsRepository,  ConfigsiteRepository $configsiteRepository ): Response
+    {                
+        $entityManager = $this->getDoctrine()->getManager();
+                                                   
+        if ( $req->query->get('active') == 'true' ) {             
+                
+            try {
+
+                $entityManager->beginTransaction();
+
+                $comment = $commentsRepository->findById( (int) $req->query->get('id') );                
+                $comment->setIsPublish(true);
+
+                $entityManager->merge($comment);
+                $entityManager->flush();                       
+                $entityManager->commit();
+
+                return new Response('Publication activé');
+            } catch (\Throwable $th) {
+                return new Response('Erreur serveur');
+            }
+        }
+            
+        try {
+
+            $entityManager->beginTransaction();
+
+            $comment = $commentsRepository->findById( (int) $req->query->get('id') );            
+            $comment->setIsPublish(false);
+
+            $entityManager->merge($comment);
+            $entityManager->flush();
+            $entityManager->commit();
+
+            
+            return new Response('Popularité desactivé');
+        } catch (\Throwable $th) {
+            return new Response('Erreur serveur');
+        }
+    }
+
+
 
     /**
      * @Route("/new", name="comments_new", methods={"GET","POST"})

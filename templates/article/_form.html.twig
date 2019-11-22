@@ -7,9 +7,15 @@
         
         
         {{ form_row(form.articleCategId, {
-            label: 'Type de Category:'
+            label: 'Type de Categorie:'
         }) }}
         {{ form_row(form.articleCategId) }}
+        
+        
+        {{ form_row(form.articleSousCategId, {
+            label: 'Sous Categorie:'
+        }) }}
+        {{ form_row(form.articleSousCategId) }}
         <hr>
 
 
@@ -34,7 +40,10 @@
             </div>
         </div>
 
+        <br>        
+        
+        <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+        
         <hr>
         
-    <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

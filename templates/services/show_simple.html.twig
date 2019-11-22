@@ -3,7 +3,6 @@
 {% block title %}Services{% endblock %}
 
 {% block body %}
-    <h1>Services</h1>
 
     <table class="table">
         <tbody>
@@ -22,12 +21,12 @@
             </tr>
 
             <tr>
-                <th>Actived</th>
-                <td>{{ service.isActived ? 'Yes' : 'No' }}</td>
+                <th>Activation</th>
+                <td>{{ service.isActived ? 'Bloqué' : 'Non bloqué' }}</td>
             </tr>
             
             <tr>
-                <th>DateCrea</th>
+                <th>Date de création</th>
                 <td>{{ service.dateCrea ? service.dateCrea|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>

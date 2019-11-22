@@ -87,10 +87,15 @@ class ServicesRepository extends ServiceEntityRepository
         
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "UPDATE `services` SET `services`.`is_actived`= 1 WHERE  `services`.`user_id_id` = $userId and  `services`.`category_id_id` = $categoryId ";
+        $sql_0 = " UPDATE `services` SET `is_actived` = '0' ";
 
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();    
+        $sql_1 = "UPDATE `services` SET `services`.`is_actived`= 1 WHERE  `services`.`user_id_id` = $userId and  `services`.`category_id_id` = $categoryId ";
+
+        $stmt_0 = $conn->prepare($sql_0);
+        $stmt_1 = $conn->prepare($sql_1);
+        
+        $stmt_0->execute();    
+        $stmt_1->execute();    
 
         
     }
@@ -100,7 +105,7 @@ class ServicesRepository extends ServiceEntityRepository
 
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = " UPDATE `services` SET `is_actived` = '1' WHERE `services`.`id` = $value ";
+        $sql = " UPDATE `services` SET `is_actived` = '1' WHERE `services`.`user_id_id` = $value ";
 
         $stmt = $conn->prepare($sql);
         $stmt->execute();    

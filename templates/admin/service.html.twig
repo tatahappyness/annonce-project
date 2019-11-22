@@ -23,6 +23,66 @@
       #wrapper{
        background-color:#ececec;
       }
+
+      
+	    
+		@media screen  and  (max-width: 680px){
+			
+			#sidebarToggleTop{
+				display: block;
+			}
+			
+			.row_menu {
+				display: block;
+				position: relative;    
+				visibility: visible;
+			}
+			
+			.icon_menu {
+				font-size: 3em;
+			}
+			.menu_nav {
+				display: none;	
+				color: #fff;					
+				background-color: RGBa(29, 197, 151, 0.97);	
+				
+				
+				text-align: center;
+				padding: 12px 0;
+			}
+			.card-body {
+				font-size: 95%;
+			}
+			
+			div {
+				font-size: 95%;
+			}
+			
+			.img_logo{
+				height: 15px;			
+			}
+			
+			.head_title{
+				font-size: 15px;			
+			}
+			
+		}
+		
+		@media screen  and  (min-width: 680px){
+			.row_menu {
+				display: none;
+			}
+			
+			#sidebarToggleTop{
+				display: none;
+			}
+			
+			.sticky-footer {
+				display: none;
+			}
+		}
+	  
+	  
     </style>
     
 {% endblock %}
@@ -154,7 +214,7 @@
 	
 	
             <!-- DataTales Example -->
-            <div class="col-10 mb-8">
+            <div class="col-12 mb-12">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Listes des Mails de demande de devis</h6>
@@ -176,13 +236,13 @@
                                 <th>#</th>
                                 <th>Client Email</th>
                                 <th>Catégorie</th>
-								                <th>Date de Création</th>
+								<th>Date de Création</th>
                                 <th>Action</th>
                             </tr>
                             </tfoot>
                             <tbody>							
-							              {% if list_services != null %}							
-                                {% for lst in list_services %}
+								{% if list_services != null %}							
+									{% for lst in list_services %}
                             <tr>
                                 <td>{{ lst.getId() }}</td>
                                 <td>{{ lst.getUserId().getEmail() }}
@@ -190,21 +250,23 @@
                                 </button></br>
                             </td>
                             
-                            <td>{{ lst.getCategoryId().getCategTitle() }}</td>                          
+                            <td>
+								<button type="button" class="col btn btn-outline-secondary tooltip-viewport-bottom" title="" data-original-title=" {{ lst.getCategoryId().description() }}  </br>  {{ lst.getCategoryId().getCategDateCrea() | date('d/m/y H:m:s') }}">{{ lst.getCategoryId().getCategTitle() }}</button>							
+							</td>                          
                               <td>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}</td>
-                              <td class="text-center">
+                              <td class="text-center row">
                               {% if lst.getIsActived() == 1 %}
-                                <a class="col nav-link btn btn-success" href="{{ path('setServiceBoquer' , {id: lst.getId() } ) }}">
-                                  <div  data-toggle="modal" data-target="#myModal_bloquer_service" >BLOQUE</div>										
+                                <a class="btn btn-success" href="{{ path('setServiceBoquer' , {id: lst.getId() } ) }}" title="Click ici pour Débloqué">
+                                  <i class="fa fa-check-circle"></i>
                                 </a>
                               {% else %}
-                                <a class="col nav-link btn btn-secondary" href="{{ path('setServiceDebloque' , {id: lst.getId() } ) }}">
-                                  <div   data-toggle="modal" data-target="#myModal_debloquer_service" >DEBLOQUE</div>
+                                <a class="btn btn-secondary" href="{{ path('setServiceDebloque' , {id: lst.getId() } ) }}" title="Click ici pour Bloqué">
+                                  <i class="fa fa-circle-notch"></i>
                                 </a>
                               {% endif %}</br>
                               
-                              <div class="btn col-lg-12 btn-danger" data-toggle="modal" data-target="#myModal_sup_service" onclick="show_modal_delete_service({{ lst.getId() }})" title="Supprimer le service">
-                                SUPPRIMER
+                              <div class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_service" onclick="show_modal_delete_service({{ lst.getId() }})" title="Supprimer le service">
+                                <i class="fa fa-times"></i>
                               </div>
                             </td>
 								
@@ -243,25 +305,18 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
+</br></br></br>
+		<footer class="" style="position: fixed;z-index: 1;bottom: 0;">
+				<div class="">								
+				  <!-- Scroll to Top Button-->
+				  <a href="/admin/">
+					  <div class="btn-circle btn-secondary" style="z-index: 2;display: inline;">
+						<i class="fas fa-home">Menu</i>
+					  </div>				  
+				  </a>
+				</div>
+			</footer>
 </body>
 	{% endblock %}
 
@@ -309,7 +364,7 @@
                     }
                  };
 
-                 xhttp.open("GET", "../services/simple/"+$id , true);
+                 xhttp.open("GET", "/admin/services/simple/"+$id , true);
                  xhttp.send();
 				 
 		}
@@ -318,6 +373,15 @@
 		$('.nav-item').removeClass('active');
 		$('.nav_service').addClass('active');
 		
+		$(function () {			
+			$('.tooltip-viewport-bottom').tooltip({
+				placement: 'bottom',html : true ,
+				viewport: {
+					selector: '.container-viewport',
+					padding: 10
+				}
+			})
+		})
 	</script>
 
 

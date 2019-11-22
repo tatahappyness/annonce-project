@@ -23,6 +23,66 @@
       #wrapper{
        background-color:#ececec;
       }
+
+	  
+	    
+		@media screen  and  (max-width: 680px){
+			
+			#sidebarToggleTop{
+				display: block;
+			}
+			
+			.row_menu {
+				display: block;
+				position: relative;    
+				visibility: visible;
+			}
+			
+			.icon_menu {
+				font-size: 3em;
+			}
+			.menu_nav {
+				display: none;	
+				color: #fff;					
+				background-color: RGBa(29, 197, 151, 0.97);	
+				
+				
+				text-align: center;
+				padding: 12px 0;
+			}
+			.card-body {
+				font-size: 95%;
+			}
+			
+			div {
+				font-size: 95%;
+			}
+			
+			.img_logo{
+				height: 15px;			
+			}
+			
+			.head_title{
+				font-size: 15px;			
+			}
+			
+		}
+		
+		@media screen  and  (min-width: 680px){
+			.row_menu {
+				display: none;
+			}
+			
+			#sidebarToggleTop{
+				display: none;
+			}
+			
+			.sticky-footer {
+				display: none;
+			}
+		}
+	  
+
     </style>
     
 {% endblock %}
@@ -837,6 +897,18 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
+
+</br></br></br>
+		<footer class="" style="position: fixed;z-index: 1;bottom: 0;">
+				<div class="">								
+				  <!-- Scroll to Top Button-->
+				  <a href="/admin/">
+					  <div class="btn-circle btn-secondary" style="z-index: 2;display: inline;">
+						<i class="fas fa-home">Menu</i>
+					  </div>				  
+				  </a>
+				</div>
+			</footer>
 </body>
 	{% endblock %}
 
@@ -857,9 +929,6 @@
   <!-- Page level plugins -->
   <script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-  <script src="{{ absolute_url('/assets/vendor/datatables/datatables-demo.js') }}"></script>
-
-
 
 	<script>
 	

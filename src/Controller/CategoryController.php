@@ -209,6 +209,42 @@ class CategoryController extends AbstractController
         ]);
     }
 
+    
+    /**
+     * @Route("/{id}/image", name="category_show_image", methods={"GET"})
+     */
+    public function category_show_image(Category $category): Response
+    {
+        return $this->render('category/show_category_image.html.twig', [
+            'page_head_title' => 'OBJET DEVIS [Categorie]',
+            'category' => $category,
+        ]);
+    }
+
+        
+    /**
+     * @Route("/{id}/delete", name="category_delete", methods={"GET"})
+     */
+    public function category_delete(Category $category): Response
+    {
+        return $this->render('category/show_category_delete.html.twig', [            
+            'category' => $category,
+        ]);
+    }
+
+
+    /**
+     * @Route("/{id}/icone", name="category_show_icone", methods={"GET"})
+     */
+    public function category_show_icone(Category $category): Response
+    {
+        return $this->render('category/show_category_icon.html.twig', [
+            'page_head_title' => 'OBJET DEVIS [Categorie]',
+            'category' => $category,
+        ]);
+    }
+
+
     /**
      * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})
      */

@@ -50,7 +50,6 @@
         <div class="container-fluid">
 
 			<!-- Divider -->
-				<h3 class="chg_title_objet">Préstation</h3>
 			<hr class="sidebar-divider">
 				
 				<div class="row" style="justify-content: space-evenly">				
@@ -107,15 +106,10 @@
                         <h6 class="m-0 font-weight-bold text-primary">Modifier Article</h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive row">
-						
-                                                
-                            {{ include('article/_form.html.twig', {'button_label': 'Update'}) }}
-
-                            <a class="btn btn-secondary"  href="{{ path('article_index') }}">back to list</a>
-
-                            {{ include('article/_delete_form.html.twig') }}
-						
+                        <div class="row col-lg-12">						
+                            {{ include('article/_form.html.twig', {'button_label': 'Enregistrer'}) }} 
+							
+                            <a class="col-lg-4 btn btn-secondary"  href="{{ path('article_index') }}">Retourne à la liste</a>
 						</div> 
 					</div> 
 				 </div> 

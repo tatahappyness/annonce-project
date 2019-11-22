@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>#</th>
+                <td>{{ chantier_of_month.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ chantier_of_month.description }}</td>
+            </tr>
+            <tr>
+                <th>Image Avant</th>
+                <td>                
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/images/') }}{{ chantier_of_month.imageBefor }}" alt="">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>Image Après</th>
+                <td>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/images/') }}{{ chantier_of_month.imageAfter }}" alt="">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            
+            <tr>
+                <th>Date de création</th>
+                <td>{{ chantier_of_month.dateCrea ? chantier_of_month.dateCrea|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {{ include('chantier_of_month/_delete_form.html.twig') }}
+{% endblock %}

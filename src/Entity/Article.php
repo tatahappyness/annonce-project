@@ -26,7 +26,7 @@ class Article
 
     /**
     * @ORM\ManyToOne(targetEntity="App\Entity\SousCategory")
-    * @ORM\JoinColumn(name="article_sous_categ_id_id", referencedColumnName="id",onDelete="SET NULL", nullable=true)
+    * @ORM\JoinColumn(name="article_sous_categ_id_id", referencedColumnName="id",onDelete="SET NULL")
     */
     private $articleSousCategId;
 
@@ -85,7 +85,7 @@ class Article
 
     public function setArticleSousCategId(?SousCategory $articleSousCategId): self
     {
-        $this->articleCategId = $articleSousCategId;
+        $this->articleSousCategId = $articleSousCategId;
 
         return $this;
     }

@@ -1,0 +1,53 @@
+
+{% block body %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ category.id }}</td>
+            </tr>
+            <tr>
+                <th>Categorie</th>
+                <td>{{ category.categTitle }}</td>
+            </tr>
+            <tr>
+                <th>Date de creation</th>
+                <td>{{ category.categDateCrea | date('d/m/y H:m:s') }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ category.description }}</td>
+            </tr> 
+
+            
+            <tr>
+                <th>Icon</th>
+                <td>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 7rem;" src="{{ absolute_url('/uploads/logo/') }}{{ category.icon }}" alt="">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid img-fluid shadow" style="width: 60rem;" src="{{ absolute_url('/uploads/images/') }}{{ category.img }}" alt="">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+           
+        </tbody>
+    </table>
+  
+    </div>
+
+    {{ include('category/_delete_form.html.twig') }}
+
+
+
+{% endblock %}

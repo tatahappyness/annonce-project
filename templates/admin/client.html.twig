@@ -146,7 +146,7 @@
 						</div>												
 						  
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
+							<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">
 								NON
 							</button>
@@ -174,7 +174,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered display" id="" width="100%" cellspacing="0">
                             <thead class="bg-warning text-dark">
                             <tr>							
                                 <th>#</th>				
@@ -203,7 +203,9 @@
 									<td>{{ lst.id }}</td>
 									<td>{{ lst.name }}</td>
 									<td>{{ lst.customerId }}</td>
-									<td>{{ lst.email }}</td>
+									<td>
+										<button type="button" class="col btn btn-outline-secondary tooltip-viewport-bottom" title="" data-original-title=" {{ lst.userId.companyName() }} </br> {{ lst.getUserId().getMobile() }} </br>  {{ lst.getUserId().getCompanyDateCrea() }}">{{ lst.email }}</button>									
+									</td>
 									<td>{{ lst.dateCrea | date('d/m/y H:m:s') }}</td>	
 									
 									<td>								
@@ -259,13 +261,14 @@
       </div>
     </div>
   </div>
+
 </br></br></br>
-			<footer class="col sticky-footer bg-white" style="position: fixed;z-index: 1;bottom: 0;">
-				<div class="container my-auto">								
+		<footer class="" style="position: fixed;z-index: 1;bottom: 0;">
+				<div class="">								
 				  <!-- Scroll to Top Button-->
-				  <a href="{{ path('admin_home') }}">
-					  <div class="btn btn-secondary" style="z-index: 2;display: inline;">
-						<i class="fas fa-angle-left"></i> MENU
+				  <a href="/admin/">
+					  <div class="btn-circle btn-secondary" style="z-index: 2;display: inline;">
+						<i class="fas fa-home">Menu</i>
 					  </div>				  
 				  </a>
 				</div>
@@ -298,6 +301,20 @@
 	
 		$('.nav-item').removeClass('active');
 		$('.nav_client').addClass('active');
+		
+		$(function () {			
+			$('.tooltip-viewport-bottom').tooltip({
+				placement: 'bottom',html : true ,
+				viewport: {
+					selector: '.container-viewport',
+					padding: 10
+				}
+			})
+		});
+		
+		$(document).ready(function() {
+			$('table.display').DataTable();
+		} );
 		
 	</script>
 

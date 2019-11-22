@@ -1,0 +1,327 @@
+
+{% extends  'base.html.twig' %}
+
+{% block stylesheets %}
+
+  <title>Orange-Travaux ( Admin )</title>
+
+  <!-- Custom fonts for this template-->
+    <link href="{{ absolute_url('/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+	<!-- Custom styles for this template-->
+    <link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
+
+	
+	<link href="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+	
+  <style>
+  	/* width */
+	::-webkit-scrollbar {
+	  width: 10px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #f1f1f1; 
+	}
+	 
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #888; 
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #555; 
+	}
+    
+      .card-header {
+          background-color: #fcd42f4a;
+      }
+      #wrapper{
+       background-color:#ececec;
+      }
+      
+		@media screen  and  (max-width: 680px){
+			
+			#sidebarToggleTop{
+				display: block;
+			}
+			
+			.row_menu {
+				display: block;
+				position: relative;    
+				visibility: visible;
+			}
+			
+			.icon_menu {
+				font-size: 3em;
+			}
+			.menu_nav {
+				display: none;	
+				color: #fff;					
+				background-color: RGBa(29, 197, 151, 0.97);	
+				
+				
+				text-align: center;
+				padding: 12px 0;
+			}
+			.card-body {
+				font-size: 95%;
+			}
+			
+			div {
+				font-size: 95%;
+			}
+			
+			.img_logo{
+				height: 15px;			
+			}
+			
+			.head_title{
+				font-size: 15px;			
+			}
+			
+		}
+		
+		@media screen  and  (min-width: 680px){
+			.row_menu {
+				display: none;
+			}
+			
+			#sidebarToggleTop{
+				display: none;
+			}
+			
+			.sticky-footer {
+				display: none;
+			}
+		}
+	  
+    </style>
+    
+{% endblock %}
+
+{% block body %}
+
+
+<body id="page-top">
+
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+	<!--Begin nav_bar api_admin space -->
+	{% include "./admin/api_admin/nav_bar.html.twig" %}
+	<!--End nav_bar api_admin space -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+	</br>
+      <!-- Main Content -->
+      <div id="content">
+	  
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+		  <!-- Divider -->
+		  <hr class="sidebar-divider">
+
+          <!-- Content Row -->
+          <div class="row">
+
+		<!-- Content Column -->                  
+ 
+ 
+		<!-- Modal suppression Catégorie -->
+			<div class="modal fade" id="myModal_sup_chantier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+								Confirmer la suppression: [Chantier]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">                            
+							<div id="load_modal_delete_service"></div>							
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal suppression Catégorie-->
+            <!-- DataTales Example -->
+            <div class="col-12 mb-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Listes des Chantier / Mois
+                            <a href="/admin/chantier/of/month/new">
+                                <button data-toggle="modal" data-target="#myModal_add_type" class=" btn btn-primary" type="button" title="Ajouter nouveaux Chantier par mois"><i class="fa fa-plus"></i>
+                                </button>
+                            </a>
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                           <table class="table table-bordered display" id="" width="100%" cellspacing="0">
+                                <thead class="bg-warning text-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Déscription</th>
+                                        <th>Categorie</th>
+                                        <th>Article</th>
+                                        <th>Image Avant</th>
+                                        <th>Image Après</th>
+                                        <th>Date de création</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Déscription</th>
+                                        <th>Categorie</th>
+                                        <th>Article</th>
+                                        <th>Image Avant</th>
+                                        <th>Image Après</th>
+                                        <th>Date de création</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </tfoot>                                
+                                <tbody>
+                                {% for chantier_of_month in chantier_of_months %}
+                                    <tr>
+                                        <td>{{ chantier_of_month.id }}</td>
+                                        <td>{{ chantier_of_month.description }}</td>
+                                        <td>{{ chantier_of_month.categoryId.categTitle }}</td>
+                                        <td>{{ chantier_of_month.articleId.articleTitle }}</td>
+                                        
+                                        <td>
+                                            <div class="card-body">
+                                                <div class="text-center">
+                                                    <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/images/') }}{{ chantier_of_month.imageBefor }}" alt="">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="card-body">
+                                                <div class="text-center">
+                                                    <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/images/') }}{{ chantier_of_month.imageAfter }}" alt="">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{ chantier_of_month.dateCrea ? chantier_of_month.dateCrea|date('Y-m-d H:i:s') : '' }}</td>
+                                        <td style="width: 140px;">
+                                        
+                                            <a href="{{ path('chantier_of_month_edit', {'id': chantier_of_month.id}) }}">
+                                                <button class="btn btn-info" type="button" title="Modifier"><i class="fa fa-edit"></i>
+                                                </button>						
+                                            </a>					
+                                            <button type="button" class="btn btn-danger" onclick="show_modal_delete_service({{ chantier_of_month.id }})" data-toggle="modal" data-target="#myModal_sup_chantier" alt="supprimer" data-dismiss="modal">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">no records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          </div>
+
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+
+</br></br></br>
+		<footer class="" style="position: fixed;z-index: 1;bottom: 0;">
+				<div class="">								
+				  <!-- Scroll to Top Button-->
+				  <a href="/admin/">
+					  <div class="btn-circle btn-secondary" style="z-index: 2;display: inline;">
+						<i class="fas fa-home">Menu</i>
+					  </div>				  
+				  </a>
+				</div>
+			</footer>
+
+</body>
+	{% endblock %}
+
+	{% block javascripts %}
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
+
+
+
+  <!-- Page level plugins -->
+  <script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/datatables/datatables-demo.js') }}"></script>
+
+	
+	
+	<script>
+
+		function show_modal_delete_service($id){
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                     if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("load_modal_delete_service").innerHTML = xhttp.responseText;
+                    }
+                 };
+
+                 xhttp.open("GET", "/admin/chantier/of/month/"+$id , true);
+                 xhttp.send();
+				 
+        }
+        
+		$('.nav-item').removeClass('active');
+		$('.nav_chantier').addClass('active');
+
+
+
+		$(document).ready(function() {
+			$('table.display').DataTable();
+		} );
+
+	</script>
+
+
+{% endblock %}

@@ -285,6 +285,7 @@ class AdminController extends AbstractController
     }
 
     
+    
     /**
     * @Route("/setUpdateServiceActived/{userId}/{categoryId}", name="setUpdateServiceActived")
     */
@@ -324,22 +325,18 @@ class AdminController extends AbstractController
     
     
     /**
-    * @Route("/setUpdateServiceDisable", name="setUpdateServiceDisable")
+    * @Route("/setUpdateServiceDisable/{idUser}", name="setUpdateServiceDisable")
     */
-    public function setUpdateServiceDisable( ServicesRepository $serviceRep, OptionEmailRepository $oneUpdateService)
-    {
-        
-        
+    public function setUpdateServiceDisable( $idUser = null , ServicesRepository $serviceRep, OptionEmailRepository $oneUpdateService)
+    {                
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
         
         $serv = $serviceRep->updateServiceDisable();               
-        $option_email_get = $oneUpdateService->updateOne();
-        
-        $set_id_actived = $serviceRep->updateService_one_Actived(12);
-        
-        
+        $option_email_get = $oneUpdateService->updateOne();        
+
+        $set_id_actived = $serviceRep->updateService_one_Actived($idUser);                      
         
         return $this->redirectToRoute('m_e_email');
 
@@ -475,7 +472,7 @@ class AdminController extends AbstractController
         		
         $count_pro = $pro_user_rep->findRolesPro();
         
-        $count_option_service = $serviceRep->findAll();
+        
         $count_option_email = $option_email_rep->findAll();
 
         
@@ -492,7 +489,7 @@ class AdminController extends AbstractController
 		return $this->render('admin/m_e_email.html.twig', [
             'configsites' => $configsiteRepository->findAll(),
             'page_head_title' => 'MODES D’ENVOI D’EMAIL',            
-            'list_serv' => $count_option_service,
+            'list_serv' => $count_service,
             'list_pros' => $count_pro,
             'option_email' => $count_option_email,
             'listMails' => $listMails
@@ -786,6 +783,70 @@ class AdminController extends AbstractController
     }
 	
 	
+    
+    /**
+     * @Route("/setModeEmail3", name="setModeEmail3", methods={"GET"})
+     */
+    public function setModeEmail3(Request $req, ServicesRepository $serviceRep ,  OptionEmailRepository $oneUpdateService,  ConfigsiteRepository $configsiteRepository ): Response
+    {                
+        $entityManager = $this->getDoctrine()->getManager();
+        
+        //dump( $req->query->get('id') ); die;
+
+        //$serviceRep->updateService_one_Actived( $req->query->get('id'));
+        
+        //return $this->redirectToRoute('m_e_email');
+
+        if ( $req->query->get('active') == 'true' ) {             
+                
+            try {
+
+                $entityManager->beginTransaction();
+                
+                $comment = $serviceRep->findById( (int) $req->query->get('id') );                
+                $comment->setIsActived(true);
+                
+                $entityManager->merge($comment);
+                $entityManager->flush();
+                $entityManager->commit();
+                
+                $option_email_get = $oneUpdateService->updateMore();
+
+
+                return new Response('Envoi Activé');
+                //return new JsonResponse(['code'=> 200 ,'infos' => 'Bloqué'], 200);
+
+            } catch (\Throwable $th) {
+                return new Response('Erreur serveur ');
+                //return new JsonResponse(['code'=> 500 ,'infos' => 'Erreur serveur '], 500);
+            }
+        }
+            
+        try {
+
+            $entityManager->beginTransaction();
+
+            $comment = $serviceRep->findById( (int) $req->query->get('id') );
+            $comment->setIsActived(false);
+
+            $entityManager->merge($comment);
+            $entityManager->flush();
+            $entityManager->commit();
+
+            $option_email_get = $oneUpdateService->updateMore();
+
+            return new Response('Envoi Désactivé');            
+            //return new JsonResponse(['code'=> 200 ,'infos' => 'Bloqué'], 200);
+
+        } catch (\Throwable $th) {
+            return new Response('Erreur serveur');
+            //return new JsonResponse(['code'=> 500 ,'infos' => 'Erreur serveur '], 500);
+        }
+
+        
+    }
+
+
     /**
     * @Route("/m_e_email/setEmailDebloque/{id}", name="setEmailDebloque")
     */
@@ -859,7 +920,7 @@ class AdminController extends AbstractController
     /**
     * @Route("/objet_devis", name="objet_devis")
     */
-    public function objet_devis(TypeRepository $type_rep, ArticleRepository $art_rep, CategoryRepository $cat_rep)
+    public function objet_devis(TypeRepository $type_rep,ConfigsiteRepository $configsiteRepository, ArticleRepository $art_rep, CategoryRepository $cat_rep)
     {
 		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 		
@@ -869,8 +930,8 @@ class AdminController extends AbstractController
 		
 		
         return $this->render('admin/objet_devis.html.twig', [	
-			'page_head_title' => 'OBJET DE DEVIS',
-			
+			'page_head_title' => 'OBJET DE DEVIS',			
+             'configsites' => $configsiteRepository->findAll(),
 			 'numberType' => count($count_type),
 			 'list_type' => $count_type,
 			 
@@ -1000,7 +1061,7 @@ class AdminController extends AbstractController
             $em->commit();
 			
 			return $this->redirectToRoute('objet_devis');
-			return $this->redirectToRoute('objet_devis');
+			
 		
            } catch (\Throwable $th) {
             return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);

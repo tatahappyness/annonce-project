@@ -25,11 +25,24 @@ class SousCategory1Type extends AbstractType
                 'label' => 'Sous categorie',                              
                 'required'    => true
             ))     
+            ->add('sousCategIntro', TextType::class, array(
+                'attr' => ['class' => 'form-control col-lg-12'],
+                'label' => 'Désignation',                              
+                'required'    => true
+            ))     
+            
+            ->add('sousCategLinkQuestion', TextType::class, array(
+                'attr' => ['class' => 'form-control col-lg-12'],
+                'label' => 'En question',                              
+                'required'    => true
+            ))     
+
             ->add('description', TextType::class, array(
                 'attr' => ['class' => 'form-control col-lg-12'],
                 'label' => 'Description',                              
                 'required'    => true
             ))  
+            
             /*
             ->add('sousCategDateCrea')             
             ->add('catSousCategoryId', TextType::class, array(
@@ -39,6 +52,7 @@ class SousCategory1Type extends AbstractType
             ))  */
             ->add('catSousCategoryId', EntityType::class, [
                 'class' => Category::class, 'label' => 'Categorie',
+                'attr' => ['class' => 'form-control col-lg-12'],
                 'mapped' => false,
                 'choice_label' => function (Category $cat){
                     return $cat->getCategTitle();

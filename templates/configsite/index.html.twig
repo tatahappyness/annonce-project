@@ -20,6 +20,107 @@
       #wrapper{
        background-color:#ececec;
       }
+
+      
+	/* width */
+	::-webkit-scrollbar {
+	  width: 10px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #f1f1f1; 
+	}
+	 
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #888; 
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #555; 
+	}
+      .card-header {
+          background-color: #fcd42f4a;
+      }
+	  
+      #wrapper{
+       background-color:#ececec;
+      }
+	  
+	  
+	    
+		@media screen  and  (max-width: 680px){
+			
+			#sidebarToggleTop{
+				display: block;
+			}
+			
+			.row_menu {
+				display: block;
+				position: relative;    
+				visibility: visible;
+			}
+			
+			.icon_menu {
+				font-size: 3em;
+			}
+			.menu_nav {
+				display: none;	
+				color: #fff;					
+				background-color: RGBa(29, 197, 151, 0.97);	
+				
+				
+				text-align: center;
+				padding: 12px 0;
+			}
+			.card-body {
+				font-size: 95%;
+			}
+			.img_logo{
+				height: 15px;			
+			}
+			
+			.head_title{
+				font-size: 15px;			
+			}
+			
+			.row_collecton_show{
+				display: none;
+			}
+			.row_activiter_show{
+				display: none;
+			}
+			
+			.row_stat_show{
+				display: none;
+			}
+		}
+		
+		@media screen  and  (min-width: 680px){
+			.row_menu {
+				display: none;
+			}
+			
+			#sidebarToggleTop{
+				display: none;
+			}
+			
+			.row_collecton_show{
+				display: block;
+			}
+			.row_activiter_show{
+				display: block;
+			}
+			
+			.row_stat_show{
+				display: block;
+			}
+		}
+	  
+	  
+
     </style>
     
 {% endblock %}
@@ -136,6 +237,17 @@
     <i class="fas fa-angle-up"></i>
   </a>
   
+</br></br></br>
+		<footer class="" style="position: fixed;z-index: 1;bottom: 0;">
+				<div class="">								
+				  <!-- Scroll to Top Button-->
+				  <a href="/admin/">
+					  <div class="btn-circle btn-secondary" style="z-index: 2;display: inline;">
+						<i class="fas fa-home">Menu</i>
+					  </div>				  
+				  </a>
+				</div>
+			</footer>
 
 </body>
 

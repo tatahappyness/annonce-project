@@ -23,6 +23,64 @@
       #wrapper{
        background-color:#ececec;
       }
+	  
+	    
+		@media screen  and  (max-width: 680px){
+			
+			#sidebarToggleTop{
+				display: block;
+			}
+			
+			.row_menu {
+				display: block;
+				position: relative;    
+				visibility: visible;
+			}
+			
+			.icon_menu {
+				font-size: 3em;
+			}
+			.menu_nav {
+				display: none;	
+				color: #fff;					
+				background-color: RGBa(29, 197, 151, 0.97);	
+				
+				
+				text-align: center;
+				padding: 12px 0;
+			}
+			.card-body {
+				font-size: 95%;
+			}
+			
+			div {
+				font-size: 95%;
+			}
+			
+			.img_logo{
+				height: 15px;			
+			}
+			
+			.head_title{
+				font-size: 15px;			
+			}
+			
+		}
+		
+		@media screen  and  (min-width: 680px){
+			.row_menu {
+				display: none;
+			}
+			
+			#sidebarToggleTop{
+				display: none;
+			}
+			
+			.sticky-footer {
+				display: none;
+			}
+		}
+	  
     </style>
     
 {% endblock %}
@@ -548,7 +606,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-							<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+							<table class="table table-bordered display" id="" width="100%" cellspacing="0">
                             <thead class="bg-warning text-dark">
                             <tr>
 								<th>#</th>
@@ -1139,6 +1197,11 @@
 		});
 	
 		
+
+		$(document).ready(function() {
+			$('table.display').DataTable();
+		} );
+
 	</script>
 	
 

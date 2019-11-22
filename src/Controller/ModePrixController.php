@@ -42,12 +42,31 @@ class ModePrixController extends AbstractController
         
 
         if ($form->isSubmitted() && $form->isValid()) {
-                
+            
+            
+            $allDataForm = $request->request->get("mode_prix");                        
+
+            $souscat =  $allDataForm['prixSousCategoryId'];
+            $art = $allDataForm['prixArticleId'];
+            
+
             /** @var File $file */
             $file = $form['prixImage']->getData();
             
             if ( $file ) {
                 
+                $category = $this->getDoctrine()
+                    ->getRepository(\App\Entity\SousCategory::class)
+                    ->findById($souscat);
+                $modePrix->setPrixSousCategoryId($category);
+
+                $article = $this->getDoctrine()
+                    ->getRepository(\App\Entity\Article::class)
+                    ->findById($art);
+                $modePrix->setPrixArticleId($article);
+                
+                
+            
                 $output_dir = $this->getParameter('images_directory');      
                        
                 $newFilename = uniqid().".".$file->getClientOriginalExtension();
@@ -89,6 +108,18 @@ class ModePrixController extends AbstractController
         ]);
     }
 
+    
+    /**
+     * @Route("/{id}/image", name="mode_prix_show_image", methods={"GET"})
+     */
+    public function mode_prix_show_image(ModePrix $modePrix): Response
+    {
+        return $this->render('mode_prix/show_mode_prix_image.html.twig', [
+            'page_head_title' => 'OBJET DEVIS [Article]',
+            'mode_prix' => $modePrix,
+        ]);
+    }
+
     /**
      * @Route("/{id}/edit", name="mode_prix_edit", methods={"GET","POST"})
      */
@@ -102,20 +133,30 @@ class ModePrixController extends AbstractController
             /** @var File $file */
             $file = $form['prixImage']->getData();
             
+            $allDataForm = $request->request->get("mode_prix");                        
+
+            $souscat =  $allDataForm['prixSousCategoryId'];
+            $art = $allDataForm['prixArticleId'];
+            
+
             if ( $file ) {
                 
-                $output_dir = $this->getParameter('images_directory');      
-                
-                $newFilename = uniqid().".".$file->getClientOriginalExtension();
-                
-                $file->move($output_dir, $newFilename);
-                
-                $modePrix->SetPrixDateCrea(new \DateTime());
+                $category = $this->getDoctrine()
+                    ->getRepository(\App\Entity\SousCategory::class)
+                    ->findById($souscat);
+                $modePrix->setPrixSousCategoryId($category);
 
+                $article = $this->getDoctrine()
+                    ->getRepository(\App\Entity\Article::class)
+                    ->findById($art);
+                $modePrix->setPrixArticleId($article);
+                
+                
+                $output_dir = $this->getParameter('images_directory');                      
+                $newFilename = uniqid().".".$file->getClientOriginalExtension();                
+                $file->move($output_dir, $newFilename);                
+                $modePrix->SetPrixDateCrea(new \DateTime());
                 $modePrix->SetPrixImage($newFilename);
-                
-                
-                            
             
                 $this->getDoctrine()->getManager()->flush();
 

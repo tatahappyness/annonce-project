@@ -33,4 +33,8 @@ function zoom(e){
     //   grecaptcha.execute('6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm', {action: 'homepage'}).then(function(token) {
     //       console.log(token);
     //   });
-	// });
+  // });
+  
+
+  
+

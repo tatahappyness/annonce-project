@@ -1317,12 +1317,6 @@ class ProController extends AbstractController
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
-        return $this->render('premuim/felicitation-page.html.twig', [
-            'info' => 'Payement effectué!, Vous êtes abonné maintenant, Merci!!',
-        ]);
-        
-        die;
-
         if ($_POST) {
             
             if (!is_null($request->request->get('stripeToken'))) {
@@ -1337,9 +1331,12 @@ class ProController extends AbstractController
                 //Get the payment token ID submitted by the form:
                 $token = $request->request->get('stripeToken');
 
+                $em =  $this->getDoctrine()->getManager();
+                $em->beginTransaction();
+
                 $service = $serviceRep->findById((int) $request->request->get('service_id'));
                 //dump( $service);die;
-                $custom = $customRep->findById($security->getUser()->getId());
+                $custom = $customRep->findByUser($security->getUser());
                
                 if (is_null($custom)) {
                     //Create new customer
@@ -1351,8 +1348,8 @@ class ProController extends AbstractController
                     $custId = $customer->id;
                     $email = $request->request->get('email');
                     $newCustom = new Customer();
-                    $em =  $this->getDoctrine()->getManager();
-                    $em->beginTransaction();
+                    // $em =  $this->getDoctrine()->getManager();
+                    // $em->beginTransaction();
                     $newCustom
                         ->setUserId($security->getUser())
                         ->setCustomerId($custId)
@@ -1362,11 +1359,12 @@ class ProController extends AbstractController
 
                     $em->persist($newCustom);
                     $em->flush();
-                    $em->commit();
+                    sleep(4); //Stoppe pour 10 secondes
                     $custom = $customRep->findByUser($security->getUser());
                     $custId = $custom->getCustomerId();
                     $email = $custom->getEmail();
-                   
+
+                    // $em->commit();
                     
                 }
                 //dump($customer);die;
@@ -1420,9 +1418,10 @@ class ProController extends AbstractController
                     $service
                         ->setIsActived(true);
 
-                    $em =  $this->getDoctrine()->getManager();
+                    //$em =  $this->getDoctrine()->getManager();
+
                     try {
-                        $em->beginTransaction();
+                       // $em->beginTransaction(); 
                         $em->persist($abonnement);
                         $em->flush();
 
@@ -1431,9 +1430,12 @@ class ProController extends AbstractController
 
                         $em->merge($service);
                         $em->flush();
+
                         $em->commit();
                        
-                        /// ETO IZY
+                        return $this->render('premuim/felicitation-page.html.twig', [
+                            'info' => 'Payement effectué!, Vous êtes abonné maintenant, Merci!!',
+                        ]);
 
                     } catch (\Throwable $th) {
                         return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
@@ -1447,6 +1449,7 @@ class ProController extends AbstractController
         }
         //$offer = $offerRep->findAllArray();
         $offer = $offerRep->findByCategoryId($serviceRep->findById((int) $id)->getCategoryId());
+        
         return $this->render('premuim/strip-form.html.twig', [
             'serviceId' => $id, 'offer'=> $offer
         ]);   

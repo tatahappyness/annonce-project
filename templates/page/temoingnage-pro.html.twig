@@ -38,15 +38,15 @@
                         <div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
                             <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
                                 <a class="text-decoration-none" href="{{ path('home_page') }}">
-                                <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }} "></img>
+                                <img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
                                 </a>
 							
-                                <ul class="navbar-nav d-flex flex-column flex-sm-row justify-content-center mt-2 mt-lg-0">
-                                    <li class="nav-item m-1 active">
-                                    <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
+                                <ul class="navbar-nav mt-2 mt-lg-0">
+                                    <li class="nav-item active m-1">
+                                    <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
                                     </li>
-                                    <li class="nav-item m-1 active">
-                                    <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
+                                    <li class="nav-item active m-1">
+                                    <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">{{ configsite.getEmail() }}</span></span></a>
                                     </li>
                                 </ul>
                             </div>

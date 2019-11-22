@@ -22,6 +22,7 @@ $(document).ready(function () {
 
 //Type project css active here
 jQuery('.item-type').click(function() {
-    jQuery('#ask_devis_type').val(jQuery(this).data('id'));
+	jQuery('#ask_devis_type').val(jQuery(this).data('id'));
+	jQuery('.item-type').css('background', '#ffffff').css('color', '#000000');
     jQuery('.item-type-' + jQuery(this).data('id')).css('background', 'rgb(255, 144, 0)').css('color', '#ffffff');
 })

@@ -39,15 +39,15 @@
 						<div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
 							<div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
 								<a class="text-decoration-none" href="{{ path('home_page') }}">
-								  <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
+								<img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
 								</a>
-
-								<ul class="navbar-nav mt-2 d-flex flex-column flex-sm-row justify-content-center mt-lg-0">
+							
+								<ul class="navbar-nav mt-2 mt-lg-0">
 									<li class="nav-item active m-1">
-									  <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
+									<a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
 									</li>
 									<li class="nav-item active m-1">
-									  <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
+									<a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">{{ configsite.getEmail() }}</span></span></a>
 									</li>
 								</ul>
 							</div>
@@ -441,15 +441,26 @@
 										<div class="col-12">
 											<h6 class="text-warning"> demandes de devis associées </h6>
 										</div>
-										<div class="col-4">
-											
-										</div>
-										<div class="col-4">
-											
-										</div>
-										<div class="col-4">
-											
-										</div>
+										
+										{% if categories != null %}
+											{% for categ in categories %}
+											<div class="col-12 col-sm-6 col-lg-4 py-4">
+												<div class="img-container-popular popular-container-img-1 d-flex flex-column align-items-center" style="background-image: url(/uploads/images/{{ categ.getImg() }});">
+													<div class="bg-transparent w-100" style="">
+														<a href="{{ path('view_art_cat_galery_page', {id: categ.getId()}) }}" class="btn btn-warning text-decoration-none rounded-circle float-right m-1 p-0" alt="voir détail...">
+															<span class="lnr lnr-eye icon-popular-ask-eyes"></span>
+														</a>
+													</div>
+													<div class="img-title popular-title-img-1 h4 h-100 text-center">{{ categ.getCategTitle() }}</div>
+													<div class="img-desc popular-desc-img-1 w-100 text-center">
+														<a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page', {id: categ.getId()}) }}">Demander un devis</a>
+													</div>
+													<div class="bg-transparent d-flex align-items-end justify-content-end h-100 w-100" style=""><a class="btn bg-darkgray m-2">vote(3215)</a></div>
+												</div>
+											</div>
+											{% endfor %}
+										{% endif %}
+
 									</div>
 								</div>	
 							</div>				

@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\DevisRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\ConfigsiteRepository;
 
 
 class SecurityController extends AbstractController
@@ -23,7 +24,7 @@ class SecurityController extends AbstractController
     /**
     * @Route("/login", name="login")
     */
-    public function login( AuthenticationUtils $authenticationUtils, Security $security, CategoryRepository $categoryRep, DevisRepository $devisRep, ArticleRepository $artRep)
+    public function login( AuthenticationUtils $authenticationUtils, ConfigsiteRepository $configsiteRep, Security $security, CategoryRepository $categoryRep, DevisRepository $devisRep, ArticleRepository $artRep)
     {   
 
         // On vérifie que l'utilisateur dispose bien du rôle ROLE_ADMIN
@@ -65,7 +66,8 @@ class SecurityController extends AbstractController
                     }
 
                 }
-                
+            //Get config site
+            $configsite = $configsiteRep->findOneByIsActive();
 
             return $this->render('page/connexion.html.twig', [
                 'controller_name' => 'PremuimController', 
@@ -73,6 +75,7 @@ class SecurityController extends AbstractController
                 "error" =>  $error,
                 'popularDevis'=> $popularDevis,
                 'categories'=> $categories,
+                'configsite'=> $configsite,
 
             ]);
        

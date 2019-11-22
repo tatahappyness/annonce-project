@@ -25,6 +25,7 @@ class SecurityController extends AbstractController
     */
     public function login( AuthenticationUtils $authenticationUtils, Security $security, CategoryRepository $categoryRep, DevisRepository $devisRep, ArticleRepository $artRep)
     {   
+
         // On vérifie que l'utilisateur dispose bien du rôle ROLE_ADMIN
         if ($this->isGranted('ROLE_ADMIN')) {
             //return new JsonResponse(['success'=> 'OK'], 200);
@@ -43,6 +44,7 @@ class SecurityController extends AbstractController
 
         }
 
+       
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user

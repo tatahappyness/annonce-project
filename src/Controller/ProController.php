@@ -106,17 +106,21 @@ class ProController extends AbstractController
                             4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
-        $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : [null];
+        $postsAds = count( $postsAdsArray ) > 0 ? $postsAdsArray : [];
 
-        //Get DISTANCE AND CALCULATE BY KM USING LAT AND LONG
-        foreach ($postsAds as $key => $post) {
+        if(count($postsAds) > 0) {
 
-            $cityArray1['lat'] = $post->getCity()->getVilleLatitudeDeg();
-            $cityArray1['lng'] = $post->getCity()->getVilleLongitudeDeg();
-            $cityArray2['lat'] =  ($security->getUser()->getLat() !== null) ? $security->getUser()->getLat() : $security->getUser()->getUserCity()->getVilleLatitudeDeg();
-            $cityArray2['lng'] = ($security->getUser()->getLog() !== null) ? $security->getUser()->getLog() : $security->getUser()->getUserCity()->getVilleLongitudeDeg();
+            //Get DISTANCE AND CALCULATE BY KM USING LAT AND LONG
+            foreach ($postsAds as $key => $post) {
 
-            $distances[$post->getId()] =  $this->getDistance($cityArray1, $cityArray2, 'Km');
+                $cityArray1['lat'] = $post->getCity()->getVilleLatitudeDeg();
+                $cityArray1['lng'] = $post->getCity()->getVilleLongitudeDeg();
+                $cityArray2['lat'] =  ($security->getUser()->getLat() !== null) ? $security->getUser()->getLat() : $security->getUser()->getUserCity()->getVilleLatitudeDeg();
+                $cityArray2['lng'] = ($security->getUser()->getLog() !== null) ? $security->getUser()->getLog() : $security->getUser()->getUserCity()->getVilleLongitudeDeg();
+
+                $distances[$post->getId()] =  $this->getDistance($cityArray1, $cityArray2, 'Km');
+
+            }
 
         }
         
@@ -404,12 +408,12 @@ class ProController extends AbstractController
             $dompdf = new Dompdf($pdfOptions);
                    
             //Retrieve the HTML generated in our twig file
-            $html = $this->renderView('premuim/devis-to-pdf.html.twig', [
-               'devis' => $devis, 'isAbonned'=> true, 
+            $html = $this->renderView('premuim/pdf-devis.html.twig', [
+               'devis' => $devis, 'isAbonned'=> true, 'isMail'=> false
                 ]);
 
             // Load HTML to Dompdf
-            $dompdf->loadHtml($html);
+            $dompdf->loadHtml($html, 'UTF-8');
         
             //  (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
             $dompdf->setPaper('A4', 'portrait');
@@ -1313,12 +1317,6 @@ class ProController extends AbstractController
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
-        return $this->render('premuim/felicitation-page.html.twig', [
-            'info' => 'Payement effectué!, Vous êtes abonné maintenant, Merci!!',
-        ]);
-        
-        die;
-
         if ($_POST) {
             
             if (!is_null($request->request->get('stripeToken'))) {
@@ -1333,9 +1331,12 @@ class ProController extends AbstractController
                 //Get the payment token ID submitted by the form:
                 $token = $request->request->get('stripeToken');
 
+                $em =  $this->getDoctrine()->getManager();
+                $em->beginTransaction();
+
                 $service = $serviceRep->findById((int) $request->request->get('service_id'));
                 //dump( $service);die;
-                $custom = $customRep->findById($security->getUser()->getId());
+                $custom = $customRep->findByUser($security->getUser());
                
                 if (is_null($custom)) {
                     //Create new customer
@@ -1347,8 +1348,8 @@ class ProController extends AbstractController
                     $custId = $customer->id;
                     $email = $request->request->get('email');
                     $newCustom = new Customer();
-                    $em =  $this->getDoctrine()->getManager();
-                    $em->beginTransaction();
+                    // $em =  $this->getDoctrine()->getManager();
+                    // $em->beginTransaction();
                     $newCustom
                         ->setUserId($security->getUser())
                         ->setCustomerId($custId)
@@ -1358,11 +1359,12 @@ class ProController extends AbstractController
 
                     $em->persist($newCustom);
                     $em->flush();
-                    $em->commit();
+                    sleep(4); //Stoppe pour 10 secondes
                     $custom = $customRep->findByUser($security->getUser());
                     $custId = $custom->getCustomerId();
                     $email = $custom->getEmail();
-                   
+
+                    // $em->commit();
                     
                 }
                 //dump($customer);die;
@@ -1416,9 +1418,10 @@ class ProController extends AbstractController
                     $service
                         ->setIsActived(true);
 
-                    $em =  $this->getDoctrine()->getManager();
+                    //$em =  $this->getDoctrine()->getManager();
+
                     try {
-                        $em->beginTransaction();
+                       // $em->beginTransaction(); 
                         $em->persist($abonnement);
                         $em->flush();
 
@@ -1427,9 +1430,12 @@ class ProController extends AbstractController
 
                         $em->merge($service);
                         $em->flush();
+
                         $em->commit();
                        
-                        /// ETO IZY
+                        return $this->render('premuim/felicitation-page.html.twig', [
+                            'info' => 'Payement effectué!, Vous êtes abonné maintenant, Merci!!',
+                        ]);
 
                     } catch (\Throwable $th) {
                         return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
@@ -1443,6 +1449,7 @@ class ProController extends AbstractController
         }
         //$offer = $offerRep->findAllArray();
         $offer = $offerRep->findByCategoryId($serviceRep->findById((int) $id)->getCategoryId());
+        
         return $this->render('premuim/strip-form.html.twig', [
             'serviceId' => $id, 'offer'=> $offer
         ]);   

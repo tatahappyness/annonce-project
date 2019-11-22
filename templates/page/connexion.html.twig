@@ -45,15 +45,15 @@
 						<div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
 							<div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
 								<a class="text-decoration-none" href="{{ path('home_page') }}">
-								  <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
+								<img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
 								</a>
 							
-								<ul class="navbar-nav mt-2 flex-column flex-sm-row justify-content-center mt-lg-0">
+								<ul class="navbar-nav mt-2 mt-lg-0">
 									<li class="nav-item active m-1">
-									  <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
+									<a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
 									</li>
 									<li class="nav-item active m-1">
-									  <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
+									<a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">{{ configsite.getEmail() }}</span></span></a>
 									</li>
 								</ul>
 							</div>
@@ -218,7 +218,7 @@
 				
 				<!-- ############# Begin form search -->
 				<div class="col-12 col-md-10 d-flex flex-column justify-content-center align-items-end">
-					<div class="w-100 bg-dark" style="box-shadow: -14px 5px 5px black;">
+					<div class="w-100 form-container-devis bg-dark" style="box-shadow: -14px 5px 5px black;">
 						<form id="form-ask-devis-home" action="{{ path('post_ask_devis_page') }}" method="POST">
 							<div class="d-flex flex-column flex-sm-row align-items-center justify-content-center">
 								<div class="form-group p-0 m-0 w-100">
@@ -230,6 +230,7 @@
 								<div id="group-form-spcial-input-hidden">                                                                                                                                                           
                                  
 								</div>
+								
 								<div class="bg-warning  btn-ask-devis w-auto">
 								  <button type="submit" class="btn btn-warning border-0 text-nowrap">Demander un devis</button>
 								</div>
@@ -333,6 +334,9 @@
 															
 															<input type="password" class="form-control" name="_password" style="height: auto !important;"  placeholder="Votre mot de passe ">
 														</div>
+													</div>
+													<div class="form-group p-0 m-0 w-100">
+														<input type="hidden" name="token" value="6Leez8MUAAAAAJOo4jVjnrU5xX8wCTgulG48qcXC">
 													</div>
 													<div class="text-center">
 														<button type="submit" class="btn btn-warning">SE CONNECTER</button>
@@ -458,7 +462,6 @@
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/list-ajax-home.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/inscription.js') }}"></script>

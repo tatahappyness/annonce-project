@@ -842,7 +842,7 @@ hr {
 		min-height: 85vh;
 	}
 	.content-parallax-forms {
-		padding-top: 15rem !important;
+		padding-top: 15rem;
 	}
 }
 
@@ -867,13 +867,23 @@ hr {
 		box-shadow: 0px 4px 8px transparent;
 	}
  }
+
+ @media all and (min-width: 150px) { 
+
+	.particular-face {
+		margin-top: 14em !important;
+		
+	}
+}
  
  /* // Medium devices (tablets, less than 992px) */
 @media all and (min-width: 992px) { 
 	.content-parallax-forms {
-		padding-top: 5rem;
+		padding-top: 5rem !important;
 	}
+
  }
+
 
 
 /* // Large devices (desktops, less than 1200px) */

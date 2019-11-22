@@ -595,24 +595,39 @@ jQuery.ajax({
 // Initialize and add the map
 function initMap(lat, log) {
     // The location of Uluru
+    //alert(lat + '  ' + log) ;
     var uluru = {lat: parseFloat(lat), lng: parseFloat(log)};
     // The map, centered at Uluru
     //The options
     var mapOptions = {
         zoom: 8,
         center: uluru,
-        mapTypeId: 'roadmap'
+        mapTypeId: 'hybrid'
         };
-    var map = new google.maps.Map(
-        document.getElementById('map'), mapOptions);
-    // The marker, positioned at Uluru
-    var marker = new google.maps.Marker({position: uluru, map: map});
 
-// ///MAP II
-    var map2 = new google.maps.Map(
-        document.getElementById('map2'), mapOptions);
-    // The marker, positioned at Uluru
-    var marker = new google.maps.Marker({position: uluru, map: map2});
 
-    }
+        //MAP II
+        if (document.getElementById('map2') !== undefined) {
+            var map2 = new google.maps.Map(
+                document.getElementById('map2'), mapOptions);
+            // The marker, positioned at Uluru
+            var marker2 = new google.maps.Marker({position: uluru, map: map2});
+        }
+
+        if (document.getElementById('map1') !== undefined) {
+            var map1 = new google.maps.Map(
+                document.getElementById('map1'), mapOptions);
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({position: uluru, map: map1});
+        }
+
+    // // MAP III
+    // if (document.getElementById('map3') !== undefined) {
+    //     var map3 = new google.maps.Map(
+    //         document.getElementById('map3'), mapOptions);
+    //     // The marker, positioned at Uluru
+    //     var marker2 = new google.maps.Marker({position: uluru, map: map3});
+    // }
+
+}
      

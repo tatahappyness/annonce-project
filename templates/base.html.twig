@@ -27,32 +27,32 @@
                 width: 100%;
                 height: 100%;
                 z-index: 9999;
-                background: url(/loaders/pros-hero.gif) center no-repeat #fff;
+                background: url(/loaders/pros-ding.gif) center no-repeat #fff;
             }
         </style>
 
     </head>
-    <body class="">
+    <body>
 
         <!-- Paste this code after body tag -->
-        <!-- div class="se-pre-con"></div -->
+        <div class="se-pre-con"></div>
         <!-- Ends -->
        
         {% block body %}
 
         {% endblock %}
     
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBHd-0RBeiq5jJE6QffOxcXa7cI7H5UOY&callback=initMap"
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1NMlHcCPpSQ2hv2OUWmh_t72vd6bYy5Y&callback=initMap"
     type="text/javascript"></script>
-
+    <script src="https://www.google.com/recaptcha/api.js?render=6Leez8MUAAAAAPSJV-XSed3I8osrCw4yCpSbA4F7"></script> 
     {% block javascripts %}
 
     {% endblock %}
         <script>
           // Wait for window load
             window.onload = function () {
-                // Animate loader off screen
-                //jQuery(".se-pre-con").fadeOut('slow');
+                //Animate loader off screen
+                jQuery(".se-pre-con").fadeOut('slow');
    
             };
            

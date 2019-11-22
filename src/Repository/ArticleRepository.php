@@ -54,6 +54,17 @@ class ArticleRepository extends ServiceEntityRepository
 
     }
 
+    //get popula devis
+    public function findPopularDevisMoreAsk($value): ?Array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.isPopular = ?1')
+            ->setParameters($value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function findByCategoryArray($value)
     {
         return $this->createQueryBuilder('a')

@@ -25,6 +25,7 @@
         <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
 
         <style>
+           
             .js .menu-panel {
                 position: absolute !important;
                 {# left: -322px !important; #}
@@ -55,8 +56,8 @@
 
     {% block body %}
 	
-    <div class="page-header page-header-inscription">
-        <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
+    <div class="page-header">
+        <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/uploads/themes/gestion-patrimoine.jpeg'); background-position: center center !important;">
         </div>
         <div class="row">
             <div class="col-12 p-0">
@@ -67,15 +68,15 @@
                         <div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
                             <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
                                 <a class="text-decoration-none" href="{{ path('home_page') }}">
-                                <img class="logo" src="{{ absolute_url('/assets/img/logo.png') }}"></img>
+                                <img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
                                 </a>
 							
                                 <ul class="navbar-nav mt-2 mt-lg-0">
                                     <li class="nav-item active m-1">
-                                    <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">(102) 6666 8888</span></span></a>
+                                    <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
                                     </li>
                                     <li class="nav-item active m-1">
-                                    <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">info@thememove.com</span></span></a>
+                                    <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">{{ configsite.getEmail() }}</span></span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -125,7 +126,7 @@
                                     {% endif %}
                                 </ul>
 
-                                {# <div class="row-mega">
+                                <div class="row-mega">
                                     <div class="column-12">
                                     {% if popularDevis != null %}
                                         <div class="w-100 text-center">
@@ -176,7 +177,7 @@
                                         <!-- End sliderComplete -->
                                         {% endif %}
                                     </div>
-                                </div> #}
+                                </div>
 
                             </div>
                         </div>
@@ -222,10 +223,10 @@
         <!-- Begin for row content header parallax -->
         <div class="row d-flex justify-content-center font-weight-light" style="">
             <!-- ############# Begin slide beside -->
-            <div class="col-8" style="padding-top: 4em;">
+            <div class="col-8" style="padding-top: 15em;">
                 <div class="container border-0">
                     <div class="w-100 d-flex flex-column pb-4 justify-content-center">
-                        <div class="h4 text-text-white text-uppercase">
+                        <div class="h2 text-text-white title-price text-uppercase">
                             Guide des prix
                         </div>
                     </div>
@@ -244,7 +245,7 @@
             <!--Begin section  of the list ads by artisan-->
             {# <section class="bg-gray"> #}
 
-                <div id="container" class="container border-left-0 m-0 border-0">
+                <div id="container" class="container-container container-fluid border-left-0 m-0 border-0">
 		
                     <!-- Begin menu-panel -->
                     <div class="menu-panel">
@@ -279,22 +280,22 @@
 
                                         <div class="col-12 col-md-8 text-left">
                                             <h3 class="text-center">{{ categ.getCategTitle() }}</h3>
-                                            <p class="text-secondary small" style="font-size: 0.7em !important;">
+                                            <p class="text-secondary small" style="padding: 5px 2%; border-left: 4px solid orange; font-size: 1em !important;">
                                                 {{ categ.getDescription() }}
                                             </p>
                                         </div>
                                         <div class="col-md-4 d-none d-md-flex align-items-md-center d-md-block text-center">
-                                            <img class="rounded" src="{{ categ.getImg() != null ? absolute_url('/uploads/images/' ~ categ.getImg()) : '' }}" style="box-shadow: -10px 8px 60px lightgrey;">
+                                            <img class="rounded img" src="{{ categ.getImg() != null ? absolute_url('/uploads/images/' ~ categ.getImg()) : '' }}" style="box-shadow: -10px 8px 60px lightgrey;">
                                         </div>
 
                                         {% if sousCategories|length > 0 %}
                                             {% for sousCateg in sousCategories %}
                                                 {% if categ.getId() == sousCateg.getCatSousCategoryId().getId() %}
                                                 <div class="col-12 col-sm-6 col-lg-4 py-4">
-                                                    <div class="img-title popular-title-img-1 font-weight-bold text-center">
+                                                    <div class="img-title popular-title-img-1 my-2 font-weight-bold text-center">
                                                         <a href="{{ path('category_sous_category_guide_price_page', {sousCategId: sousCateg.getId()}) }}" class="text-decoration-none price-pose font-weight-bold"> > {{ sousCateg.getSousCategTitle() }} </a>
                                                     </div>
-                                                    <div class="img-container-popular popular-container-img-1 d-flex flex-column align-items-center" style="background-image: url(/uploads/images/{{ sousCateg.getImg() }});">
+                                                    <div class="img-container-popular img popular-container-img-1 d-flex flex-column align-items-center" style="background-image: url(/uploads/images/{{ sousCateg.getImg() }});">
                                                         <div class="bg-transparent w-100" style="">
                                                             <a href="{{ path('category_sous_category_guide_price_page', {sousCategId: sousCateg.getId()}) }}" class="btn btn-warning text-decoration-none rounded-circle float-right m-1 p-0" alt="voir détail...">
                                                                 <span class="lnr lnr-eye icon-popular-ask-eyes"></span>
@@ -309,7 +310,7 @@
                                                {% endif %}
                                             {% endfor %}
                                         {% else %}
-                                        <h6 class="secondary">Cette categorie n'a pas encore des guides deprix ajouté!<h6>
+                                        <h6 class="secondary">Cette categorie n'a pas encore des guides de prix ajouté!<h6>
                                         {% endif %}
                                             <div class="col-12 text-center text-white mt-4">
                                                 <a class="btn btn-secondary btn-guide-price-plus-view">Voir + de guides</a>

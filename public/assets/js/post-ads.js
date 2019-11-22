@@ -110,11 +110,8 @@ jQuery(document).ready(function() {
     //Function to create element input
     function inputCreateCity(id) {
         var parentDiv = document.getElementById('form-city-special-hidden');
-        var input = document.createElement("input");
-        input.type = 'hidden';
-        input.value = id	
-        input.name = 'city';
-        parentDiv.append(input);
+        var input = '<input type="hidden" name="city" value="'+ id + '">';
+        parentDiv.innerHTML = input;
     }
 
 
@@ -159,7 +156,7 @@ jQuery('.btn-post-ads').click(function() {
 				
         Swal.fire({
             title: 'Reponse',
-            text: response.infos,
+            text: response.info,
             type: 'success',
             // background: 'rgb(119, 119, 119)',
             backdrop: `rgba(0,0,123,0.4)`,

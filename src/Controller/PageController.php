@@ -68,18 +68,28 @@ class PageController extends AbstractController
         //array(1=> true, 2=> $activity, 3=> $city, 4=> $activity)
         $newPros = $userRep->findAllProfessionals();
         $newPros = count( $newPros) > 0 ? $newPros : null;
-      //Get top devis more asked
-        $devisPopulars = $devisRep->findTopPopularDevis();
-        $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-        $popularDevis = array();
-        if($devisPopulars !== null) {
 
-            foreach ($devisPopulars as $key => $value) {
-               $popularDevis[] =  $artRep->findById($value['article_id']);
+      //BEGIN GET TOP DEVIS MORE ASKED
+      $popularDevis = $artRep->findPopularDevisMoreAsk(array(1=> true));
+      $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+       if (count($popularDevis) <= 0) {
+
+            $popularDevis = array();
+            $devisPopulars = $devisRep->findTopPopularDevis();
+            $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+
+            if($devisPopulars !== null) {
+
+                foreach ($devisPopulars as $key => $value) {
+                $popularDevis[] =  $artRep->findById($value['article_id']);
+                }
+
             }
 
-        }
+       }
         //dump($popularDevis);die;
+        //END GET POPULA DEVIS
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
@@ -105,6 +115,7 @@ class PageController extends AbstractController
         ]);
         
     }
+
 
     /**
     * @Route("/list-cagory-ajax", name="list_ategory_ajax")
@@ -216,31 +227,46 @@ class PageController extends AbstractController
         if($categId !== null) {
             // get sous category by wildcard
             $category = $categoryRep->findById((int) $categId);
-            $sousCategories = $sousCategRep->findByCategoryId($category);
+            //$sousCategories = $sousCategRep->findByCategoryId($category);
+            $sousCategories = $sousCategRep->findAllArray();
             $sousCategories = count($sousCategories) > 0 ? $sousCategories : [];
         
         }
-        //get Category
+        //get Category all
         $categories = $categoryRep->findAllArray();
-        $categories = count( $categories) > 0 ? $categories :[];
+        $categories = count( $categories) > 0 ?  $this->__unshift($categories, $category) : [];
 
-        //Get top devis more asked
+        //dump($categories);die;
+
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $artRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
+
                 if($devisPopulars !== null) {
-    
+
                     foreach ($devisPopulars as $key => $value) {
                     $popularDevis[] =  $artRep->findById($value['article_id']);
                     }
-    
+
                 }
+
+        }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
+        
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/guid-price-sous-category.html.twig', [
+            'category'=>  $category,
             'categories'=> $categories,
-            'devisPopulars'=> $devisPopulars,
+            'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
             'sousCategories'=> $sousCategories,
             
@@ -281,26 +307,38 @@ class PageController extends AbstractController
         if($sousCategId !== null) {
             // get sous category by wildcard
             $sousCategory = $sousCategRep->findById((int) $sousCategId);
-            $modePrices = $modePriceRep->findBySousCategoryId($sousCategory);
+            //$modePrices = $modePriceRep->findBySousCategoryId($sousCategory);
+            $modePrices = $modePriceRep->findAllArray();
             $modePrices = count($modePrices) > 0 ? $modePrices : [];
         
         }
         //get sous Category
         $sousCategories = $sousCategRep->findAllArray();
-        $sousCategories = count( $sousCategories) > 0 ? $sousCategories :[];
+        $sousCategories = count( $sousCategories) > 0 ? $this->__unshift($sousCategories, $sousCategory) : [];
 
-        
-        //Get top devis more asked
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $artRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
+
                 if($devisPopulars !== null) {
-    
+
                     foreach ($devisPopulars as $key => $value) {
                     $popularDevis[] =  $artRep->findById($value['article_id']);
                     }
-    
+
                 }
+
+        }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
+        
+        
         //Get category for menu
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
@@ -736,6 +774,11 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
 
+        //Get comments list by particulars
+        $comments = $commentRep->findAllCommentsByPros(6);
+        $comments = count( $comments) > 0 ? $comments : null;
+        //dump( $comments);die;
+
         //get all city
         // $cities =  $cityRep->findAllArray();
         // $cities = count($cities) > 0 ? $cities : null;
@@ -746,6 +789,8 @@ class PageController extends AbstractController
             'categories'=> $categories,
             // 'cities'=> $cities,
             'configsite'=> $configsite,
+            'comments'=> $comments,
+            'guidesPrice'=> 1,
         ]);
             
     }
@@ -1233,13 +1278,21 @@ class PageController extends AbstractController
                     }
     
                 }
+
+        //Get comments list by particulars
+        $comments = $commentRep->findAllCommentsByParticular();
+        $comments = count( $comments) > 0 ? $comments : null;
+        //dump( $comments);die;
+
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('page/temoingnage-particulier.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
-            'configsite'=> $configsite,
+            'configsite'=> $configsite, 
+            'comments'=> $comments,
+            'guidesPrice'=> 1,
         ]);
         
     }
@@ -1263,6 +1316,12 @@ class PageController extends AbstractController
                     }
     
                 }
+
+        //Get comments list by particulars
+        $comments = $commentRep->findAllCommentsByPros();
+        $comments = count( $comments) > 0 ? $comments : null;
+        //dump( $comments);die;
+
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
 
@@ -1270,6 +1329,8 @@ class PageController extends AbstractController
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             'configsite'=> $configsite,
+            'comments'=> $comments,
+            'guidesPrice'=> 1,
         ]);
         
     }
@@ -1370,6 +1431,14 @@ class PageController extends AbstractController
 
         return true;
 
+    }
+
+    //ORDER VALUE IN ARRAY
+    function __unshift(&$array, $value){
+        $key = array_search($value, $array);
+        if($key) unset($array[$key]);
+        array_unshift($array, $value);  
+        return $array;
     }
 
     //GET DISTANCE BETWEEN TWO ZIP CODE OR LAT AND LONG

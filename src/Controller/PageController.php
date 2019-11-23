@@ -751,7 +751,7 @@ class PageController extends AbstractController
             $interval = $datetime1->diff($datetime2);
                 //Filtering by switch periodity 
                 //14 ads less than 30 days
-                if((int) $interval->format('%R%a') < 30) {
+                if((int) $interval->format('%R%a') < 60) {
                     $arrayPostAds[] = $value;
                 }
                     
@@ -1008,7 +1008,7 @@ class PageController extends AbstractController
         if($request->query->get('category_id') !== null && $request->query->get('offset') !== null) {
             //dump($request->request->get('CategoryId'));die;
             $offset = $request->query->get('offset');
-            $articles = $artRep->findByCategory($categoryRep->findById((int) $request->query->get('category_id'), $offset));
+            $articles = $artRep->findByCategory($categoryRep->findById((int) $request->query->get('category_id')), $offset );
             $articles = count($articles) > 0 ? $articles : [];
             $templateArticles = '';
 

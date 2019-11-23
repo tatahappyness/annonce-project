@@ -274,13 +274,13 @@
 												<span class="lnr lnr-eye icon-popular-ask-eyes"></span>
 											</a>
 										</div>
-										<div class="h-100 d-flex flex-column align-items-center justify-content-center">
-											<a id="item-{{ art.getId() }}" href="{{ path('post_ask_devis_page', {id: art.getArticleCategId().getid()}) }}" class="btn-warning btn-pro-emotion-heart d-none text-decoration-none p-3 rounded">
+										<div class="h-100 d-flex flex-column text-center align-items-center justify-content-center">
+											<a id="item-{{ art.getId() }}" href="{{ path('post_ask_devis_page', {id: art.getArticleCategId().getid()}) }}" class="btn-warning item-article btn-pro-emotion-heart d-none text-decoration-none p-3 rounded">
 												Demander un devis
 											</a>
 											<span class="h6 text-white p-2">{{ art.getArticleTitle() }}</span>
 										</div>
-										<div class="bg-transparent d-flex align-items-end justify-content-end h-auto w-100 pb-3" style=""><a class="btn bg-darkgray icon-pro-img-over d-none m-2">vote(3215)</a></div>
+										<div class="bg-transparent d-flex align-items-end justify-content-end h-auto w-100 pb-3" style=""><a href="{{ path('category_sous_category_guide_price_page', { sousCategId: art.getArticleSousCategId() != null ? art.getArticleSousCategId().getId() : '' }) }}" class="btn bg-darkgray icon-pro-img-over d-none m-2">Prix pose ?</a></div>
 									</div>
 								</div>
 							</div>

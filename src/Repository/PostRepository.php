@@ -36,7 +36,7 @@ class PostRepository extends ServiceEntityRepository
     public function filterByCategoryOrCityOrZipcodeOrDepartement($data = null, $offset = 0, $limit = 15)
     {
         if($offset > 0) {
-            $limit = $limit * $offset;
+            $offset = $limit * $offset;
         }
 
         return $this->createQueryBuilder('p')

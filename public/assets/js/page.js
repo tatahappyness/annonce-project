@@ -5,10 +5,11 @@ jQuery(document).ready(function() {
     })
 
     jQuery('.article-image-show ').mouseover(function() {
-        jQuery('#item-' + jQuery(this).data('id')).addClass('d-none');
+        jQuery('.item-article').addClass('d-none');
+        jQuery('#item-' + jQuery(this).data('id')).removeClass('d-none');
     })
     jQuery('.article-image-show ').mouseleave(function() {
-        jQuery('#item-' + jQuery(this).data('id')).removeClass('d-none');
+        jQuery('#item-' + jQuery(this).data('id')).addClass('d-none');
     })
 
 })

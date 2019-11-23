@@ -116,7 +116,7 @@ class UserRepository extends ServiceEntityRepository
         }
 
         if($offset > 0) {
-            $limit = $offset * $limit;
+            $offset = $offset * $limit;
         }
 
         return $this->createQueryBuilder('u')

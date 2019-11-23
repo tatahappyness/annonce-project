@@ -1,8 +1,13 @@
 <!-- bEGIN MENU DISPALY WHEN MOBILE & TABLETE -->
-<a class="openbtn d-block d-md-none pl-4" onclick="openNav()">&#9776;</a>
+<a class="text-decoration-none logo-content float-left d-block d-md-none" href="{{ path('home_page') }}">
+<img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
+</a>
+<a class="openbtn d-block d-md-none text-center bg-transparent float-right" onclick="openNav()">
+    <span class="lnr lnr-menu-circle text-warning" style="font-size: 64px !important;"></span>
+</a>
 
 <div id="mySidepanel" class="sidepanel d-block d-md-none">
-<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 			  
     <a class="collapsible">Demander un devis</a>
     <div class="content-mobile" style="height: 335px; overflow: scroll;">
@@ -29,6 +34,12 @@
     </div>
     <a href="{{ path('how_to_step_page') }}" class="collapsible">Comment ça marche ?</a>
     <a href="{{ path('space_find_pro_page') }}" class="collapsible">Trouvez un pros</a>
+    <a href="javascript:void(0)" class="text-decoration-none collapsible show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap">
+        <i class="">🔒</i> <label>Se connecter<label>
+    </a>
+    <a href="{{ path('inscription_page') }}" class="text-decoration-none collapsible text-warning font-weight-bold text-nowrap">
+        <i class="">👷‍♂️‍</i>  Inscription gratuite
+    </a>
 
 			  
 </div>

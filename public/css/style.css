@@ -775,6 +775,12 @@ hr {
 
 /* // Small devices (landscape phones, less than 768px) */
 @media all and (max-width: 767.98px) { 
+	.form-control {
+		height: calc(1.5em + .75rem + 25px) !important;
+	}
+	.show-form-pro-mouseclick-11 {
+		background: transparent !important;
+	}
 	.felicitation-alert {
 		padding-bottom: 0px !important;
 		margin-left: 0px !important;
@@ -863,7 +869,7 @@ hr {
 		padding-top: 15px;
 	}
 	.show-form-pro-mouseclick-11 {
-		background: orange !important;
+		background: orange;
 		box-shadow: 0px 4px 8px transparent;
 	}
  }

@@ -26,3 +26,15 @@
     cursor: pointer;
 }
 
+/* css alignment */
+.autocomplete {
+    text-align: left !important;
+}
+.autocomplete .option-index {
+    margin-left: 12px !important;
+}
+.autocomplete .option-index::first-letter {
+   font-weight: bold !important;
+   color: #ffae00 !important;
+}
+

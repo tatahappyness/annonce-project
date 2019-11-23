@@ -6,7 +6,9 @@
             <div class="contenair-header-menu"> 
                 <nav class="navbar navbar-expand bg-gray py-0 navbar-head">
                     <div class="container border-0">
-                        <div class="d-flex w-100 flex-column flex-md-row align-items-center justify-content-center justify-content-sm-around">
+                    
+                        <!-- MENU LARGE COORDONE-->
+                        <div class="d-none d-md-flex w-100 flex-md-row align-items-center justify-content-center justify-content-sm-around">
                             <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
                                 <a class="text-decoration-none logo-content" href="{{ path('home_page') }}">
                                 <img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
@@ -34,14 +36,20 @@
                                 </span>
                             </div>
                         </div>
+                        <!-- END MENU LARGE COORDONE -->
+                        
+                        <!-- BEGIN MOBILE MENU -->
+                        {% include "./page/menu/menu-mobile.html.twig" %}
+                        <!-- END MOBILE MENU -->
+
                     </div>
                 </nav>
                 <!-- Navbar menu end here -->
 
                 <!-- ############################# NAVBAR HERE LARGE -->
-                <!-- BEGIN MOBILE MENU -->
+                {# <!-- BEGIN MOBILE MENU -->
                 {% include "./page/menu/menu-mobile.html.twig" %}
-                <!-- END MOBILE MENU -->	
+                <!-- END MOBILE MENU -->	 #}
                 
                 <!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
 			

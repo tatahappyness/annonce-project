@@ -35,13 +35,14 @@
 					
                     <nav class="navbar navbar-expand bg-gray py-0 navbar-head">
                     <div class="container border-0">
-                        <div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+
+                        <div class="d-none d-md-flex flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
                             <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
                                 <a class="text-decoration-none" href="{{ path('home_page') }}">
                                 <img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
                                 </a>
 							
-                                <ul class="navbar-nav mt-2 mt-lg-0">
+                                <ul class="navbar-nav mt-2 mt-lg-0 d-flex flex-column flex-sm-row">
                                     <li class="nav-item active m-1">
                                     <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
                                     </li>
@@ -63,13 +64,17 @@
                                 </span>
                             </div>
                         </div>
+                        <!-- BEGIN MOBILE MENU -->
+                        {% include "./page/menu/menu-mobile.html.twig" %}
+                        <!-- END MOBILE MENU -->	
+
                     </div>
                     </nav>
                     <!-- Navbar menu end here -->
 					  
                     <!-- ############################# NAVBAR HERE LARGE -->
                     <!-- BEGIN MOBILE MENU -->
-                    {% include "./page/menu/menu-mobile.html.twig" %}
+                    {# {% include "./page/menu/menu-mobile.html.twig" %} #}
                     <!-- END MOBILE MENU -->	
                 
                     <!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->

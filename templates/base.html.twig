@@ -17,7 +17,7 @@
         {% endblock %}
         
         <style>
-            /* if it's not present, don't show loader */
+            {# /* if it's not present, don't show loader */
             .no-js #loader { display: none;  }
             .js #loader { display: block; position: absolute; left: 100px; top: 0; }
             .se-pre-con {
@@ -28,14 +28,14 @@
                 height: 100%;
                 z-index: 9999;
                 background: url(/loaders/pros-ding.gif) center no-repeat #fff;
-            }
+            } #}
         </style>
 
     </head>
     <body>
 
         <!-- Paste this code after body tag -->
-        <div class="se-pre-con"></div>
+        {# <div class="se-pre-con"></div> #}
         <!-- Ends -->
        
         {% block body %}
@@ -50,11 +50,11 @@
     {% endblock %}
         <script>
           // Wait for window load
-            window.onload = function () {
+            {# window.onload = function () {
                 //Animate loader off screen
                 jQuery(".se-pre-con").fadeOut('slow');
    
-            };
+            }; #}
            
         </script>
        

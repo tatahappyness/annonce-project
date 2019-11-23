@@ -26,7 +26,7 @@ jQuery('.zipcode').focusout( function() {
             var input = document.getElementById("show-city-search");
             autocomplete({
                 input: input,
-                minLength: 2,
+                minLength: 1,
                 emptyMsg: 'Aucune ville trouvé',
                 fetch: function(text, update) {
                     text = text.toLowerCase();

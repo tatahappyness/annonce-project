@@ -47,7 +47,7 @@
 			<div class="col-12 p-0">
 				<div class="contenair-header-menu">
 					
-					<nav class="navbar navbar-expand bg-gray py-0 navbar-head">
+					<nav class="navbar navbar-expand bg-gray d-none d-md-block py-0 navbar-head">
 					  <div class="container border-0">
 						<div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
 							<div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
@@ -55,7 +55,7 @@
 								<img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
 								</a>
 							
-								<ul class="navbar-nav mt-2 mt-lg-0">
+								<ul class="navbar-nav mt-2 mt-lg-0 d-flex flex-column flex-sm-row">
 									<li class="nav-item active m-1">
 									<a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
 									</li>
@@ -85,9 +85,16 @@
 						
 					<div class=" navbar bg-darkgray navbar-expand-md fix-top py-0 navbar-menu">
 					  <div class="container">
-						<a class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</a>
+
+						<a class="text-decoration-none logo-content float-left d-block d-md-none" href="{{ path('home_page') }}">
+						<img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
+						</a>
+						<a href="javascript:void(0);" class="float-right text-decoration-none btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="lnr lnr-menu-circle text-warning" style="font-size: 64px !important;"></span>
+						</a>
+						
 						<div class="navbar-collapse collapse">
-						  <ul class="nav navbar-nav">
+						  <ul class="nav navbar-nav font-weight-bold">
 							<li class="nav-item"><a href="{{ path('nos_tarif_page') }}" class="nav-link">Nos tarifs</a>
 							</li>
 							{# <li class="nav-item"><a href="{{ path('guide_price_page') }}" class="nav-link">Guide de prix</a>

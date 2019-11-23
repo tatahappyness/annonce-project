@@ -2,7 +2,7 @@
     <div class="col-12 p-0">
 			
         <div class="contenair-header-menu">
-            <nav class="navbar navbar-expand nav-pro-header d-none d-md-block bg-gray py-1 navbar-head ">
+            <nav class="navbar navbar-expand nav-pro-header d-none d-lg-block bg-gray py-1 navbar-head ">
             <div class="container border-0">
                 <div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
                     <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
@@ -41,11 +41,14 @@
             <div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
             <div class="container"> 
 
-                <a class="text-decoration-none logo-content float-left d-block d-md-none" href="{{ path('home_page') }}">
+                <a class="text-decoration-none logo-content float-left d-block d-lg-none" href="{{ path('home_page') }}">
                 <img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
                 </a>
+                <a href="{{ path('pro_devis_receved_lists') }}" class="d-block d-lg-none font-weight-bold d-flex flex-md-row flex-column align-items-center text-decoration-none text-success border-warning text-nowrap">
+                    <div class="bg-danger rounded-circle text-center mx-1" style="width: 32px; height: 32px;"><span class="text-white" style="line-height:32px;">{{ numberDevis }}</span></div><div class="small text-white font-weight-bold">Demandes devis</div>
+                </a>
                 <a href="javascript:void(0);" class="float-right text-decoration-none btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="lnr lnr-menu-circle text-warning" style="font-size: 64px !important;"></span>
+                <span class="lnr lnr-menu-circle text-warning float-right d-block d-lg-none" style="font-size: 64px !important;"></span>
                 </a>
 
                 <div class="navbar-collapse collapse">
@@ -57,6 +60,11 @@
                     <li class="nav-item"><a href="{{ path('site_create_page') }}" class="nav-link">Créer mon site internet</a>
                     </li>
                     <li class="nav-item"><a href="{{ path('pro_talk_us') }}" class="nav-link">Parlez à nous</a>
+                    </li>
+                    </li class="nav-item">
+                        <a href="{{ path('logout') }}" class="btn-outline-wrning d-block d-lg-none rounded text-decoration-none text-warning font-weight-bold text-nowrap">
+                            <i class="">👷🏾</i> Se déconecter
+                        </a>
                     </li>
                 </ul>
                 </div>

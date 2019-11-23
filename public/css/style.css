@@ -9,7 +9,7 @@ body {
 }
 
 @media screen and (min-width: 767.99px) and (max-width: 900px) and (orientation: landscape) {
-	
+
 }
 
 .page-header-image-Particulier {
@@ -400,8 +400,9 @@ p.small {
 	border-bottom: 2px solid rgb(255, 144, 0);
 }
 .container {
-	border-left: 8px inset rgb(255, 144, 0, 0.5);
-	border-right: 8px inset rgb(255, 144, 0, 0.5);
+	/* border-left: 8px inset rgb(255, 144, 0, 0.5);
+	border-right: 8px inset rgb(255, 144, 0, 0.5); */
+	border: 0px !important;
 }
 
 .logo {

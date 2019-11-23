@@ -1,12 +1,23 @@
 <!-- bEGIN MENU DISPALY WHEN MOBILE & TABLETE -->
-<a class="text-decoration-none logo-content float-left d-block d-md-none" href="{{ path('home_page') }}">
+<a class="text-decoration-none logo-content float-left d-block d-lg-none" href="{{ path('home_page') }}">
 <img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
 </a>
-<a class="openbtn d-block d-md-none text-center bg-transparent float-right" onclick="openNav()">
+<ul class="navbar-nav d-none d-lg-none mt-2 mt-lg-0 d-sm-flex flex-sm-column flex-md-row">
+    <li class="nav-item active m-1">
+    <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
+    </li>
+    <li class="nav-item active m-1">
+    <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">{{ configsite.getEmail() }}</span></span></a>
+    </li>
+</ul>
+<a href="{{ path('space_pro_page') }}" class="btn btn-round bg-white d-none border-warning font-weight-bold text-success text-nowrap text-decoration-none">
+    <i class="">👷🏾</i> <label class="sr-only-focusable"> Vous êtes un pro ?</label>
+</a>
+<a class="openbtn d-block d-lg-none text-center bg-transparent float-right" onclick="openNav()">
     <span class="lnr lnr-menu-circle text-warning" style="font-size: 64px !important;"></span>
 </a>
 
-<div id="mySidepanel" class="sidepanel d-block d-md-none">
+<div id="mySidepanel" class="sidepanel d-block d-lg-none">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 			  
     <a class="collapsible">Demander un devis</a>
@@ -34,7 +45,10 @@
     </div>
     <a href="{{ path('how_to_step_page') }}" class="collapsible">Comment ça marche ?</a>
     <a href="{{ path('space_find_pro_page') }}" class="collapsible">Trouvez un pros</a>
-    <a href="javascript:void(0)" class="text-decoration-none collapsible show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap">
+    <a href="{{ path('space_pro_page') }}" class="border-warning font-weight-bold text-white text-nowrap text-decoration-none">
+        <i class="">👷🏾</i> <label> Vous êtes un pro ?</label>
+    </a>
+    <a href="javascript:void(0)" class="text-decoration-none bg-transparent collapsible show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap">
         <i class="">🔒</i> <label>Se connecter<label>
     </a>
     <a href="{{ path('inscription_page') }}" class="text-decoration-none collapsible text-warning font-weight-bold text-nowrap">

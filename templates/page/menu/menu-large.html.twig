@@ -8,8 +8,8 @@
                     <div class="container border-0">
                     
                         <!-- MENU LARGE COORDONE-->
-                        <div class="d-none d-md-flex w-100 flex-md-row align-items-center justify-content-center justify-content-sm-around">
-                            <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
+                        <div class="d-none d-lg-flex w-100 flex-lg-row align-items-center justify-content-center justify-content-sm-around">
+                            <div class=" d-none d-lg-flex flex-lg-row w-100 justify-content-sm-around align-items-center justify-content-center">
                                 <a class="text-decoration-none logo-content" href="{{ path('home_page') }}">
                                 <img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
                                 </a>
@@ -23,7 +23,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+                            <div class="inscription-group-boutton d-none d-md-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
                                 <span class="mr-1">
                                     <button class="btn btn-round bg-gray text-decoration-none show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap" type="button">
                                         <i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
@@ -34,7 +34,7 @@
                                         <i class="">👷🏾</i> <label class="sr-only-focusable"> Vous êtes un pro ?</label>
                                     </a>
                                 </span>
-                            </div>
+                            </div>  
                         </div>
                         <!-- END MENU LARGE COORDONE -->
                         
@@ -53,7 +53,7 @@
                 
                 <!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
 			
-                <div class="navbar-mega large-menu d-md-flex justify-content-center">
+                <div class="navbar-mega large-menu d-lg-flex justify-content-center">
                     <div class="dropdown-mega">
                         <a class="dropbtn"> Demander un devis
                         <i class="fa fa-caret-down"></i>

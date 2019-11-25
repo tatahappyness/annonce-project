@@ -18,10 +18,15 @@
 		<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
-		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
 
 		<style>
+			
+			.page-header-inscription {
+				min-height: 85vh !important;
+			}
 			.selectize-input > input {
 				width: 100% !important;
 				height: 100% !important;
@@ -152,11 +157,12 @@
 			<div class="col-10" style="padding-top: 1em;">
 				<div class="container bg-dark pl-0 h-auto" style="box-shadow: 5px 5px 5px black;">
 					
-					<form action="{{ path('find_chantier_page') }}" method="POST">
+					<form id="form_search_category" action="{{ path('find_chantier_page') }}" method="POST">
 						<div class="form-group">
 							<div class="d-flex flex-column align-items-center flex-md-row w-100 justify-content-center">
 								
 								<input id="show-input-list-search" type="text" name="categLabel" class="form-control text-center show-input-list-search m-2" placeholder="Quel métier ?" style="height: 45px;">
+								<input type="hidden" id="CategoryIdSearch" name="CategoryId" value="">
 								{# <select id="select-beast" class="border animated fadeIn delay-8s border-warning demo-default" name="postCity"  placeholder="Dans quelle ville ?">
 								<option></option>
 								{% if cities != null %}
@@ -425,8 +431,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
-<!-- Auto-complete -->
-<script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
 <!-- MESSAGE NTIFICATION -->
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
@@ -438,13 +442,15 @@
 <script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<!-- Auto-complete -->
+<script src="{{ absolute_url('/assets/autocomplete/jquery.easy-autocomplete.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select-form/js/selectize.js') }}"></script>
 <script src="{{ absolute_url('/assets/select-form/js/index.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script>
+{# <script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script> #}
 <script src="{{ absolute_url('/assets/js/page.js') }}"></script>
 
 {% endblock %}

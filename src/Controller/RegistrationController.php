@@ -42,7 +42,7 @@ class RegistrationController extends AbstractController
         if ($request->request->get('TYPE_USER') !== null && $request->request->get('TYPE_USER') === 'PRO_USER') {
             // register pro
             $entityManager->beginTransaction();
-            $category = $categoryRep->findById((int) $request->request->get('metier_ask_devis'));
+            $category = $categoryRep->findById((int) $request->request->get('CategoryId'));
             $city = $cityRep->findById((int) $request->request->get('city'));
             $user
                 ->setRoles(['ROLE_USER_PROFESSIONAL'])

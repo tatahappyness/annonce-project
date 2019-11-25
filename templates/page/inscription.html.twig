@@ -18,16 +18,24 @@
 		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/menu/menu-large.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/menu/menu-mobile.css') }}" rel="stylesheet" />
-		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
 
 		<style>
 			.select2-container .select2-selection--single .select2-selection__rendered {
-				background: floralwhite !important;
-				border: 1px solid orange !important;
-				line-height: 35px !important;
+				background: white !important;
+				border: 1px solid #ffbb00 !important;
+				line-height: 45px !important;
 				padding-left: 20px;
+			}
+			.select2-container--default .select2-selection--single {
+				border-radius: 32px !important;
+			}
+			.select2-container .select2-selection--single .select2-selection__rendered, span.selection {
+				border-radius: 32px !important;
+				font-size: 1em !important;
 			}
 			.select2-search--dropdown .select2-search__field {
 				height: 35px !important;
@@ -229,6 +237,11 @@
 						<div class="progress w-100 d-flex justify-content-center border-0" style="height: 4px;">
 							<div class="progress-bar bg-warning" style="width:40%"></div>
 						</div>	
+						<div class="w-100 mt-5">
+							<span class="badge badge-secondary float-right">
+							<h2 clas=="text-white" style="font-size: 3vw;"> 👍 ⭐⭐⭐⭐ ✩ 4.2/5 </h2>
+							</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -355,12 +368,8 @@
 											<div class="form-group p-0 m-0 w-100">
 
 												<input type="text" id="show-input-list-search" class="form-control text-center" placeholder="Quel est votre activité ?">
-
-											</div>
-
-											<div id="group-form-spcial-input-hidden">                                                                                                                                                           
-                                 
-											</div>											
+												<input type="hidden" id="CategoryIdSearch" name="CategoryId" value="">
+											</div>										
 										</div>
 										<div class="form-group mb-3">
 											<label class="">Code Postale *</label>
@@ -368,18 +377,6 @@
 												
 												<input type="number" id="zipcode" class="form-control zipcode text-muted" name="zipcode" placeholder="Votre code Postale *">
 											</div>
-										</div>
-										<div class="form-group mb-3">
-											<label class="">Ville *</label>
-											<div class="input-group mb-3">
-												
-												<input type="text" id="show-city-search" class="form-control city" name="city" placeholder="Votre ville ou département">
-											</div>
-
-											<div id="form-city-special-hidden" class="form-group">
-												
-											</div>
-
 										</div>
 										<div class="form-group mb-3">
 											<label class="">Raison Sociale</label>
@@ -415,6 +412,12 @@
 											</div>
 										</div>
 										<div class="form-group mb-3">
+											<label class="">Ville *</label>
+											<select id="show-city-search" class="form-control show-city-search city" name="city">
+												<option></option>
+											</select>
+										</div>
+										<div class="form-group mb-3">
 											<label class="">Mot de passe</label>
 											<div class="input-group mb-3">
 												
@@ -442,7 +445,7 @@
 								<!-- Modal footer -->
 								<div class="modal-footer">
 									<div class="text-muted small">
-										Vous avez déjà un compte ?, <a class="text-warning show-form-pro-mouseclick" href="javascript:void();">se connecter</a>
+										Vous avez déjà un compte ?, <a class="text-warning" href="{{ path('login') }}">se connecter</a>
 									</div>
 								</div>
 							</div>
@@ -481,12 +484,15 @@
 <script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<!-- Auto-complete -->
+<script src="{{ absolute_url('/assets/autocomplete/jquery.easy-autocomplete.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script>
+{# <script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script> #}
+<script src="{{ absolute_url('/assets/js/page.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/list-city-ajax.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/inscription.js') }}"></script>
 

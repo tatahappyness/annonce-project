@@ -8,8 +8,18 @@ body {
     /* background: whitesmoke; */
 }
 
-@media screen and (min-width: 767.99px) and (max-width: 900px) and (orientation: landscape) {
-
+.easy-autocomplete-container {
+	color: #000000 !important;
+	z-index: 20;
+}
+.easy-autocomplete.eac-square ul li b, .easy-autocomplete.eac-square ul .eac-category b {
+	font-weight: bold !important;
+	color: orange !important;
+}
+.easy-autocomplete.eac-square, .easy-autocomplete.eac-square input {
+	width: 100% !important;
+	border-radius: 32px !important;
+	min-width: 150px;
 }
 
 .page-header-image-Particulier {

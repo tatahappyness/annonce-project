@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Emoji{% endblock %}
+
+{% block body %}
+    <h1>Emoji</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ emoji.id }}</td>
+            </tr>
+            <tr>
+                <th>Date de création</th>
+                <td>{{ emoji.dateCrea ? emoji.dateCrea|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td><p>  {{ emoji.code }} <p></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-secondary" href="{{ path('emoji_index') }}">Retourner dans la liste</a>
+
+    <a href="{{ path('emoji_edit', {'id': emoji.id}) }}"></a>
+
+    {{ include('emoji/_delete_form.html.twig') }}
+{% endblock %}

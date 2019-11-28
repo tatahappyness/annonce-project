@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ThemeImage{% endblock %}
+
+{% block body %}
+    <h1>ThemeImage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>#</th>
+                <td>{{ theme_image.id }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ theme_image.Image }}</td>
+            </tr>
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ theme_image.Comments }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {{ include('theme_image/_delete_form.html.twig') }}
+{% endblock %}

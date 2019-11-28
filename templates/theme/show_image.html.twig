@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table class="table">
+        <tbody>
+            <tr>            
+                <th>Image Fond</th>
+                <td>
+                    <div class="text-center">
+                        <img class="img-fluid img-fluid shadow"  src="{{ absolute_url('/uploads/themes/') }}{{ theme.ImageFond }}" alt="">
+                    </div>
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+{% endblock %}

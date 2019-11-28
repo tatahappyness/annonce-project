@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Emoji{% endblock %}
+
+{% block body %}
+    <h1>Create new Emoji</h1>
+
+    {{ include('emoji/_form.html.twig') }}
+
+    <a href="{{ path('emoji_index') }}">back to list</a>
+{% endblock %}

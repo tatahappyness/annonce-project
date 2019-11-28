@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fonction{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>#</th>
+                <td>{{ fonction.id }}</td>
+            </tr>
+            <tr>
+                <th>Fonction</th>
+                <td>{{ fonction.fonctionName }}</td>
+            </tr>
+            <tr>
+                <th>Date de création</th>
+                <td>{{ fonction.dateCrea ? fonction.dateCrea|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {{ include('fonction/_delete_form.html.twig') }}
+{% endblock %}
+
+
+
+
+{% block javascripts %}
+
+  <!-- Bootstrap core JavaScript-->
+  
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/jquery/jquery.min.js') }}"></script>
+  
+
+{% endblock %}

@@ -17,16 +17,33 @@
 	<link href="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 	
   <style>
+  /* width */
+	::-webkit-scrollbar {
+	  width: 10px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #f1f1f1; 
+	}
+	 
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #888; 
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #555; 
+	}
+	
       .card-header {
           background-color: #fcd42f4a;
       }
       #wrapper{
        background-color:#ececec;
       }
-	  
-	  
-	  
-	    
+	  	  
 		@media screen  and  (max-width: 680px){
 			
 			#sidebarToggleTop{
@@ -69,7 +86,7 @@
 			
 		}
 		
-		@media screen  and  (min-width: 680px){
+		@media screen  and  (min-width: 768px){
 			.row_menu {
 				display: none;
 			}
@@ -112,7 +129,7 @@
       <div id="content">
 	  
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container">
 
 		  <!-- Divider -->
 		  <hr class="sidebar-divider">
@@ -225,9 +242,8 @@
             </div>     
           </div>
 
-
         </div>
-        <!-- /.container-fluid -->
+        <!-- /.container -->
 
       </div>
       <!-- End of Main Content -->

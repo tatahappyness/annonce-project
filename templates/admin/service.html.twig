@@ -23,7 +23,25 @@
       #wrapper{
        background-color:#ececec;
       }
+/* width */
+	::-webkit-scrollbar {
+	  width: 10px;
+	}
 
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #f1f1f1; 
+	}
+	 
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #888; 
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #555; 
+	}
       
 	    
 		@media screen  and  (max-width: 680px){
@@ -110,7 +128,7 @@
       <div id="content">
 	  
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container">
 
 		  <!-- Divider -->
 		  <hr class="sidebar-divider">
@@ -288,7 +306,7 @@
 
 
         </div>
-        <!-- /.container-fluid -->
+        <!-- /.container -->
 
       </div>
       <!-- End of Main Content -->
@@ -331,6 +349,7 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/js/admin/admin_service.js') }}"></script>
 
 
 
@@ -339,50 +358,6 @@
   <script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
   <script src="{{ absolute_url('/assets/vendor/datatables/datatables-demo.js') }}"></script>
 
-	
-	
-	<script>
-
-		function show_modal_delete_service($id){
-                 var xhttp = new XMLHttpRequest();
-                 xhttp.onreadystatechange = function() {
-                     if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("load_modal_delete_service").innerHTML = xhttp.responseText;
-                    }
-                 };
-
-                 xhttp.open("GET", "/admin/services/"+$id , true);
-                 xhttp.send();
-				 
-		}
-	
-		function show_modal_show_service($id){
-                 var xhttp = new XMLHttpRequest();
-                 xhttp.onreadystatechange = function() {
-                     if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("load_modal_show_service").innerHTML = xhttp.responseText;
-                    }
-                 };
-
-                 xhttp.open("GET", "/admin/services/simple/"+$id , true);
-                 xhttp.send();
-				 
-		}
-	
-	
-		$('.nav-item').removeClass('active');
-		$('.nav_service').addClass('active');
-		
-		$(function () {			
-			$('.tooltip-viewport-bottom').tooltip({
-				placement: 'bottom',html : true ,
-				viewport: {
-					selector: '.container-viewport',
-					padding: 10
-				}
-			})
-		})
-	</script>
 
 
 	{% endblock %}

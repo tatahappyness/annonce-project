@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>#</th>
+                <td>{{ theme.id }}</td>
+            </tr>
+            <tr>
+                <th>Image Fond</th>
+                <td>
+                    <div class="text-center">
+                        <img class="img-fluid img-fluid shadow" style="width: 200px;" src="{{ absolute_url('/uploads/themes/') }}{{ theme.ImageFond }}" alt="">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>Color Fond</th>
+                <td>
+                    <button class="card col-lg-12 btn"  type="button" title="Mon Couler" style="background: {{ theme.ColorFond }} ;height: 5rem;">
+                    </button>                                
+                </td>
+            </tr>
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ theme.Comments }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {{ include('theme/_delete_form.html.twig') }}
+{% endblock %}

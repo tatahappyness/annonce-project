@@ -22,7 +22,25 @@
       #wrapper{
        background-color:#ececec;
       }
-      
+      /* width */
+	::-webkit-scrollbar {
+	  width: 10px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #f1f1f1; 
+	}
+	 
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #888; 
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #555; 
+	}
 	    
 		@media screen  and  (max-width: 680px){
 			
@@ -109,7 +127,7 @@
       <div id="content">
 	  
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container">
 
 		  <!-- Divider -->
 		  <hr class="sidebar-divider">
@@ -235,7 +253,7 @@
 
 
         </div>
-        <!-- /.container-fluid -->
+        <!-- /.container -->
 
       </div>
       <!-- End of Main Content -->
@@ -283,8 +301,7 @@
   <!-- Page level plugins -->
   <script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-  <script src="{{ absolute_url('/assets/vendor/datatables/datatables-demo.js') }}"></script>
-
+  
 
 	
 	<script>

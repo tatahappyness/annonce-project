@@ -1,0 +1,417 @@
+
+{% extends  'base.html.twig' %}
+
+{% block stylesheets %}
+
+  <title>Orange-Travaux ( Admin )</title>
+
+  <!-- Custom fonts for this template-->
+    <link href="{{ absolute_url('/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+	<!-- Custom styles for this template-->
+  <link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
+
+	
+    
+	<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+
+	<link href="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+	
+  <style>
+  	/* width */
+	::-webkit-scrollbar {
+	  width: 10px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #f1f1f1; 
+	}
+	 
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #888; 
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #555; 
+	}
+      .card-header {
+          background-color: #fcd42f4a;
+      }
+      #wrapper{
+       background-color:#ececec;
+      }
+      
+      .custom-control-input:checked~.custom-control-label::before {
+        background-color: #1cc88a;
+      }
+
+      
+		@media screen  and  (max-width: 680px){
+			
+			#sidebarToggleTop{
+				display: block;
+			}
+			
+			.row_menu {
+				display: block;
+				position: relative;    
+				visibility: visible;
+			}
+			
+			.icon_menu {
+				font-size: 3em;
+			}
+			.menu_nav {
+				display: none;	
+				color: #fff;					
+				background-color: RGBa(29, 197, 151, 0.97);	
+				
+				
+				text-align: center;
+				padding: 12px 0;
+			}
+			.card-body {
+				font-size: 95%;
+			}
+			
+			div {
+				font-size: 95%;
+			}
+			
+			.img_logo{
+				height: 15px;			
+			}
+			
+			.head_title{
+				font-size: 15px;			
+			}
+			
+		}
+		
+		@media screen  and  (min-width: 680px){
+			.row_menu {
+				display: none;
+			}
+			
+			#sidebarToggleTop{
+				display: none;
+			}
+			
+			.sticky-footer {
+				display: none;
+			}
+		}
+	  
+
+    </style>
+    
+{% endblock %}
+
+{% block body %}
+
+
+<body id="page-top">
+
+		<!--Begin head_bar api_admin space -->
+		{% include "./admin/api_admin/head_bar.html.twig" %}
+		<!--End head_bar api_admin space -->
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+	<!--Begin nav_bar api_admin space -->
+	{% include "./admin/api_admin/nav_bar.html.twig" %}
+	<!--End nav_bar api_admin space -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" style="background-color:#ececec"; class="mt-5 d-flex flex-column">
+	</br>
+      <!-- Main Content -->
+      <div id="content">
+	  
+        <!-- Begin Page Content -->
+        <div class="container">
+
+		  <!-- Divider -->
+		  <hr class="sidebar-divider">
+
+				<div class="row" style="justify-content: space-evenly">				
+
+						<a class=""  href="{{ path('theme_index') }}">
+							<div class="active_row_fonction link-1 btn text-white shadow" style="background-color: #c66fb8;">
+								<div class="card-body">
+									Theme                    
+								</div>
+							</div>
+						</a>		
+						<a class=""  href="{{ path('theme_image_index') }}">
+							<div class="active_row_type link-1 btn btn-success text-white shadow">
+								<div class="card-body">
+									Theme Image
+								</div>
+							</div>
+						</a>		
+						<a class="collapse-item"  href="{{ path('theme_color_index') }}">
+							<div class="active_row_categorie link-1 btn  text-white shadow" style="background-color: #4e73df;;">
+								<div class="card-body">
+								    Theme Couleur
+								</div>
+							</div>
+						</a>	
+				</div>
+						
+			</br> 
+			
+          <!-- Content Row -->
+          <div class="row">			
+			
+			
+			<input type='button' id='but_screenshot' value='Take screenshot' onclick='screenshot();'>
+
+
+      		<div class="modal fade" id="myModal_aff_image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content" style="width: 50rem;">
+						<div class="modal-body">						
+							<div id="load_modal_affiche_image"></div>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- End /.modal afficher type -->
+
+
+			<div class="modal fade" id="myModal_sup_theme" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel">
+								Confirmer la suppression: [Theme]
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">         																																		
+							<div id="load_modal_delete_theme">         																																									
+							</div>	
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal suppression Catégorie-->
+
+		
+	
+		    <div class="modal fade" id="myModal_add_theme" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">									
+							<h4 class="modal-title" id="myModalLabel"> 
+								Ajouter nouveaux: [Theme] 
+						
+								<div id="theme_color_Color"> </div>
+							</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+						</div>
+						<div class="modal-body">         																																		
+							<div id="load_model_theme_add">         																																									
+							</div>	
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- end /.modal suppression Catégorie-->
+
+	
+            <!-- DataTales Example -->
+            <div class="col-12 mb-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Theme                            
+                            <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal_add_theme" onclick="show_modal_add_theme()"  title="Ajouter un Theme"><i class="fa fa fa-plus"></i></button>
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered display" id="" width="100%" cellspacing="0">                               
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Commentaire</th>
+                                        <th>Image Fond</th>
+                                        <th>Couleur du Fond</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Commentaire</th>
+                                        <th>Image Fond</th>
+                                        <th>Couleur du Fond</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for theme in themes %}
+                                    <tr>
+                                        <td>{{ theme.id }}</td>       
+                                        <td>{{ theme.Comments }}</td>
+                                        <td style="width:250px">
+                                            <div class="card-body" data-toggle="modal" data-target="#myModal_aff_image" onclick="show_modal_affiche_theme_image({{ theme.id }})">
+                                                <div class="text-center">
+                                                    <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/themes/') }}{{ theme.ImageFond }}" alt="">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        </td>
+                                        <td>
+                                            <button class="card col-lg-12 btn"  type="button" title="Mon Couler" style="background: {{ theme.ColorFond }} ;height: 10rem;">
+                                            </button>                    
+                                        </td>
+                                        <td>                                                                                
+                                            <a href="{{ path('theme_edit', {'id': theme.id}) }}">
+                                                <button class=" btn btn-info" data-toggle="modal" type="button" title="Modifier"><i class="fa fa-edit"></i>
+                                                </button>
+                                            </a>
+
+                                            <button class=" btn btn-danger" onclick="show_modal_sup_theme({{ theme.id }})" data-toggle="modal" data-target="#myModal_sup_theme"   type="button" title="Supprimer">
+                                                <i class="fa fa-times"></i>
+                                            </button>                                        
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5">no records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+							
+							<div class="container" style="width: 250px;" id='image_canvas' >
+							</div>
+			
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          </div>
+
+
+        </div>
+        <!-- /.container -->
+
+      </div>
+      <!-- End of Main Content -->
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+
+
+</br></br></br>
+		<footer class="" style="position: fixed;z-index: 1;bottom: 0;">
+				<div class="">								
+				  <!-- Scroll to Top Button-->
+				  <a href="/admin/">
+					  <div class="btn-circle btn-secondary" style="z-index: 2;display: inline;">
+						<i class="fas fa-home">Menu</i>
+					  </div>				  
+				  </a>
+				</div>
+			</footer>
+</body>
+	{% endblock %}
+	
+
+
+
+
+	{% block javascripts %}
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{{ absolute_url('/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
+
+
+
+<!-- Page level plugins -->
+<script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/vendor/datatables/datatables-demo.js') }}"></script>
+
+
+
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+
+
+<script src="{{ absolute_url('/assets/js/admin/admin_theme.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/html2canvas.min.js') }}"></script>
+
+<script src="{{ absolute_url('/assets/js/tinycolor_theme.js') }}"></script>
+
+<script>
+	
+	/*window.take = function() {
+		html2canvas(document.getElementById("page-top"), {
+			onrendered: function (canvas) {
+			document.getElementById('img_val').value = canvas.toDataURL("image/png");
+			document.getElementById("myForm").submit();
+			}
+		})
+	}
+	*/
+
+	/*
+	html2canvas(document.body).then(function(canvas) {
+    	document.body.appendChild(canvas);
+	});
+	* MANDEA */
+	
+	/*
+	html2canvas(document.body).then(function(canvas) {
+		document.body.appendChild(canvas);
+	});
+
+	html2canvas(document.getElementById('container')).then(function(canvas) {
+		document.getElementById("image").src= canvas.toDataURL();
+	});
+	*/
+
+	function screenshot(){
+			html2canvas(document.body).then(function(canvas) {
+			//document.body.appendChild(canvas);
+			document.getElementById("image_canvas").appendChild(canvas);
+
+		});
+	}
+
+
+</script>
+
+
+
+{% endblock %}
+
+

@@ -24,7 +24,25 @@
        background-color:#ececec;
       }
 
-      
+      /* width */
+	::-webkit-scrollbar {
+	  width: 10px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #f1f1f1; 
+	}
+	 
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #888; 
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #555; 
+	}
 	    
 		@media screen  and  (max-width: 680px){
 			
@@ -108,14 +126,21 @@
       <div id="content">
 	  
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container">
 
 			<!-- Divider -->
-				<h3 class="chg_title_objet">Préstation</h3>
+            
 			<hr class="sidebar-divider">
 				
 				<div class="row" style="justify-content: space-evenly">				
 
+						<a class=""  href="{{ path('fonction_index') }}">
+							<div class="active_row_fonction link-1 btn text-white shadow" style="background-color: #c66fb8;">
+								<div class="card-body">
+									Fonction                    
+								</div>
+							</div>
+						</a>	
 						<a class=""  href="{{ path('type_index') }}">
 							<div class="active_row_type link-1 btn btn-success text-white shadow">
 								<div class="card-body">
@@ -166,7 +191,7 @@
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Listes des Client: 
                             <a href="{{ path('type_new') }}">
-                                <button data-toggle="modal" data-target="#myModal_add_type" class=" btn btn-primary" type="button" title="Ajouter nouveaux Type de Préstation"><i class="fa fa-plus"></i> Ajouter Type
+                                <button data-toggle="modal" data-target="#myModal_add_type" class=" btn btn-primary" type="button" title="Ajouter nouveaux Type de Préstation"><i class="fa fa-plus"></i>
                                 </button>
                             </a>
                         </h6> 
@@ -212,7 +237,7 @@
 
                                         <div class="modal fade" id="myModal_sup_type" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
-                                                <div class="modal-content" style="width: 50rem;">
+                                                <div class="modal-content">
                                                     <div class="modal-header">									
                                                         <h4 class="modal-title" id="myModalLabel">
                                                             Confirmer la suppression:
@@ -221,8 +246,10 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        ID: {{ type.id }}
+                                                        ID: {{ type.id }}  
+                                                    <br>
                                                         Nom du type: {{ type.title }}
+                                                    <br>
                                                         Date de creation: {{ type.dateCrea ? type.dateCrea|date('Y-m-d H:i:s') : '' }}                                                      
                                                     </div>
                                                     <div class="modal-footer">

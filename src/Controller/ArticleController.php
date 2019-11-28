@@ -85,14 +85,14 @@ class ArticleController extends AbstractController
                 $article->setArticleCategId($category);
                 //dump($article);die;
                 
-                $output_dir = $this->getParameter('images_directory');      
-                $output_dir_icon = $this->getParameter('logo_directory');      
+                $output_dir = $this->getParameter('theme_directory');   
+                   
         
                 $newFilename = uniqid().".".$file->getClientOriginalExtension();
-                $newFilename_icon = uniqid().".".$fileIcon->getClientOriginalExtension();
+                
 
                 $file->move($output_dir, $newFilename);
-                $fileIcon->move($output_dir_icon, $newFilename_icon);
+                
 
                 $article->setArticleDateCrea(new \DateTime());
 

@@ -47,7 +47,7 @@
       <div id="content">
 	  
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container">
 
 		  <!-- Divider -->
 		  <hr class="sidebar-divider">
@@ -63,7 +63,7 @@
                   <h6 class="m-0 font-weight-bold text-primary">Modification :</h6>
                 </div>
                 <div class="card-body">
-                    {{ include('configsite/_form.html.twig', {'button_label': 'Update'}) }}                                        
+                    {{ include('configsite/_form.html.twig', {'button_label': 'Enregistrer'}) }}                                        
                </div>
               </div>
             </div>
@@ -72,7 +72,7 @@
           </div>
 		  
         </div>
-        <!-- /.container-fluid -->
+        <!-- /.container -->
 
       </div>
       <!-- End of Main Content -->
@@ -123,10 +123,8 @@
 		}
 
 
-		$(function () { $('#myModal').modal('hide')});
-		/*$(function () { $('#myModal').on('hide.bs.modal', function () {
-			alert('Hey, I heard you like modals...');})
-		});*/
+    $(function () { $('#myModal').modal('hide')});
+    
 	</script>
 	
 	

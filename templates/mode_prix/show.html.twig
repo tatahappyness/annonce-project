@@ -42,16 +42,16 @@
         </tbody>
     </table>
      <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"
-                            data-dismiss="modal">
-                                NON
-                            </button>
-                            
-                            {{ include('mode_prix/_delete_form.html.twig') }}
-                                                                                      
-                        </div>
+        <button type="button" class="btn btn-secondary"
+            data-dismiss="modal">
+            NON
+        </button>
+        
+        {{ include('mode_prix/_delete_form.html.twig') }}
+                                                                    
+    </div>
 
-    <a href="{{ path('mode_prix_index') }}">back to list</a>
+    <a href="{{ path('mode_prix_index') }}">Retourner dans la liste</a>
 
     <a href="{{ path('mode_prix_edit', {'id': mode_prix.id}) }}">edit</a>
 

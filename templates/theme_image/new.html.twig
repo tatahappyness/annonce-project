@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ include('theme_image/_form.html.twig') }}
+    <br>
+
+    <a class="btn btn-secondary" href="{{ path('theme_image_index') }}">Retourner dans la liste</a>
+{% endblock %}

@@ -96,6 +96,7 @@
 			
 			<div id="collapsePagesObjetDevis" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar" style="">
 			  <div class="bg-white py-2 collapse-inner">
+			  	<a class="collapse-item"  href="{{ path('fonction_index') }}">Fonction</a>	
 				<a class="collapse-item"  href="{{ path('type_index') }}">Types</a>		
 				<a class="collapse-item"  href="{{ path('category_index') }}">Categories</a>	
 				<a class="collapse-item"   href="{{ path('sous_category_index') }}">Sous Categorie</a>			
@@ -122,11 +123,26 @@
 			  <span>Modes d’envoi d’email</span></a>
 		  </li>
 	  
+	  
+		  <!-- Nav Item - Modes d’envoi d’email -->
+		  <li class="nav-item nav_emoji">
+			<a class="nav-link " href="{{ path('emoji_index') }}">
+			  <i class="fas fa-fw fa-smile"></i>
+			  <span>Emoji</span></a>
+		  </li>
+
 		  <!-- Nav Item - Configuration du site -->
 		  <li class="nav-item nav_config_site">
 			<a class="nav-link " href="{{ path('configsite_index') }}">
 			  <i class="fa fa-cog"></i>
 			  <span>Configuration du site </span></a>
+		  </li>
+	  
+		  <!-- Nav Item - Configuration du site -->
+		  <li class="nav-item nav_theme">
+			<a class="nav-link " href="{{ path('theme_index') }}">
+			  <i class="fab fa-affiliatetheme"></i>
+			  <span>Théme </span></a>
 		  </li>
 	  
 		  <hr class="sidebar-divider my-0">

@@ -22,6 +22,83 @@
       #wrapper{
        background-color:#ececec;
       }
+
+	       /* width */
+	::-webkit-scrollbar {
+	  width: 10px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #f1f1f1; 
+	}
+	 
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #888; 
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #555; 
+	}
+	    
+		@media screen  and  (max-width: 680px){
+			
+			#sidebarToggleTop{
+				display: block;
+			}
+			
+			.row_menu {
+				display: block;
+				position: relative;    
+				visibility: visible;
+			}
+			
+			.icon_menu {
+				font-size: 3em;
+			}
+			.menu_nav {
+				display: none;	
+				color: #fff;					
+				background-color: RGBa(29, 197, 151, 0.97);	
+				
+				
+				text-align: center;
+				padding: 12px 0;
+			}
+			.card-body {
+				font-size: 95%;
+			}
+			
+			div {
+				font-size: 95%;
+			}
+			
+			.img_logo{
+				height: 15px;			
+			}
+			
+			.head_title{
+				font-size: 15px;			
+			}
+			
+		}
+		
+		@media screen  and  (min-width: 680px){
+			.row_menu {
+				display: none;
+			}
+			
+			#sidebarToggleTop{
+				display: none;
+			}
+			
+			.sticky-footer {
+				display: none;
+			}
+		}
+	  
     </style>
     
 {% endblock %}
@@ -48,13 +125,20 @@
       <div id="content">
 	  
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container">
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 				
 				<div class="row" style="justify-content: space-evenly">				
 
+						<a class=""  href="{{ path('fonction_index') }}">
+							<div class="active_row_fonction link-1 btn text-white shadow" style="background-color: #c66fb8;">
+								<div class="card-body">
+									Fonction                    
+								</div>
+							</div>
+						</a>	
 						<a class=""  href="{{ path('type_index') }}">
 							<div class="active_row_type link-1 btn btn-success text-white shadow">
 								<div class="card-body">

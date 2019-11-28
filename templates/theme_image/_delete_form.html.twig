@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('theme_image_delete', {'id': theme_image.id}) }}" >
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ theme_image.id) }}">
+    <button class="btn btn-danger">Supprimer</button>
+</form>

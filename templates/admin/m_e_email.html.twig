@@ -44,7 +44,25 @@
     .link-1{
         cursor: pointer;
     }
+/* width */
+	::-webkit-scrollbar {
+	  width: 10px;
+	}
 
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #f1f1f1; 
+	}
+	 
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #888; 
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #555; 
+	}
 	    
 		@media screen  and  (max-width: 680px){
 			
@@ -129,24 +147,25 @@
       <div id="content">
 	  </br>	
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container">
 			<div class="" >				
 				<div class="row col-lg-12">
         
       
+					<h4 class="" >MODE ACTIVER: </h4>
+					<h3 style="display:none" class="btn-info mode_envoi_3" >		[3] Envoyer les devis à plusieurs personnes</h3>
+
 					{% if option_email != null %}							
 						{% for lst in option_email %}
-							{% if lst.typekey() == 1 %}							
-								<h4 class="" >MODE ACTIVER: </h4>
-								<h3 class="btn-success" >	[1] Normalement </h3>
+							{% if lst.typekey() == 1 %}				
+								<h3 class="btn-success mode_envoi_all" >	[1] Normalement </h3>
 							{% endif %}	
 							{% if lst.typekey()  == 2 %}							
-								<h4 class="" >MODE ACTIVER: </h4> 
-								<h3 class=" btn-secondary" >	[2] Envoyer à une seule personne</h3>
+								
+								<h3 class=" btn-secondary mode_envoi_all" >	[2] Envoyer à une seule personne</h3>
 								{% endif %}
-							{% if lst.typekey()  == 3 %}	
-								<h4 class="" >MODE ACTIVER: </h4>
-								<h3 class="btn-info " >		[3] Envoyer les devis à plusieurs personnes</h3>                                
+							{% if lst.typekey()  == 3 %}									
+								<h3 class="btn-info mode_envoi_all " >		[3] Envoyer les devis à plusieurs personnes</h3>                                
 							{% endif %}	
 
                     {% endfor %}
@@ -253,7 +272,7 @@
 					<div class="modal-content">
 						<div class="modal-header">									
 							<h4 class="modal-title" id="myModalLabel">
-							Confirmer la mode d'envoi:</br> [Une seule personne]
+								Sélectionner un Email:<br> [Une seule personne]			 				
 							</h4>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
 							</button>
@@ -265,10 +284,10 @@
 									<h4 class="small  font-weight-bold">Email:</h4>
 								  </div>
 								  <div class="col-sm-12 mb-3 mb-sm-0">                          
-									<input type="email" class="form-control form-control-email-seul-perso" id="email_one_personne" placeholder="Adresse email" style="display: none;">
-									{% if listMails|length > 0 %}							
+									<input type="email" class="form-control form-control-email-seul-perso" id="email_one_personne" placeholder="Adresse email" style="display:none">
+									{% if listMails|length > 0 %}
 										<select onChange="Lien()" id="select_email" name="x_2"  class="form-control" >
-											<option class="col-lg-12 ">--- Selectioner ---</option>
+											<option class="select_x col-lg-12 ">--- Sélectioner ---</option>
 											{% for x in listMails %}												
 												<option value="{{ x.getUserId().getId() }}" class="col-lg-12 ">{{ x.getUserId().getEmail() }}</option>
 											{% endfor %}
@@ -286,7 +305,7 @@
 							data-dismiss="modal">
 								NON
 							</button>
-							<button data-toggle="modal" styme="display:none" data-target="#myModal_confirm_dev_personne" type="submit" class="confirmer_seul_pers btn btn-success" data-dismiss="modal">
+							<button data-toggle="modal" style="display:none" data-target="#myModal_confirm_dev_personne" type="submit" class="confirmer_seul_pers btn btn-success" data-dismiss="modal">
 								CONTINUER
 							</button>
 							
@@ -422,7 +441,7 @@
           <!-- End Content Row 2 -->
 				  
         </div>
-        <!-- /.container-fluid -->
+        <!-- /.container -->
 
       </div>
       <!-- End of Main Content -->
@@ -464,6 +483,7 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
+  <script src="{{ absolute_url('/assets/js/admin/admin_envoi_email.js') }}"></script>
 
 
   
@@ -473,184 +493,6 @@
   <script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
   
-  
-
-	<script>
-
-    $(function() {
-        $('.customSwitch').change(function() {
-
-            setPopular($(this).data('id') , $(this).prop('checked'));
-            //alert($(this).prop('checked') + ' ' + $(this).data('id') );
-
-        })
-    })
-
-
-		function setPopular(id, pop){
-
-                 var xhttp = new XMLHttpRequest();
-                 xhttp.onreadystatechange = function() {
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: xhttp.responseText,
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-						
-                        //location.reload(true);
-						$('.envoyer_plus').click();
-                    }
-                 };
-
-                 xhttp.open("GET", "/admin/setModeEmail3?id=" + id + "&&active=" + pop);
-                 xhttp.send();
-				 
-		}
-		
-		$('.nav-item').removeClass('active');
-		$('.nav_m_e_email').addClass('active');
-		
-	
-			$('#select_email').change(function(){				
-				$('.form-control-email-seul-perso').val();
-				Lien($(this).val(), this );
-				//alert( $(this).val()  )
-			});
-
-			
-		$('.confirmer_seul_pers').click(function (){			
-			$x = $('.form-control-email-seul-perso').val();
-
-			if ($x != '' ) {
-				alert('not null form-control-email-seul-perso')
-			}else{
-				alert('nullable')
-			}			
-			
-		});
-		
-			function Lien() {
-				i = document.x_1.x_2.selectedIndex;
-				if (i == 0) return;
-
-				selected = document.x_1.x_2.options[i].value;				
-				x = $('.form-control-email-seul-perso').val(selected);
-							
-								
-				document.getElementById("valider_email").innerHTML = `
-					<a class="col nav-link btn btn-success" href="/admin/setUpdateServiceDisable/`+selected+`">						
-						VALIDER						
-					</a>					
-					`;
-				
-			}
-			
-			/*
-
-			function Lien(all, i) {
-				
-				//alert(iduser +" "+ idcategory);
-
-				//i = document.x_1.x_2.selectedIndex;
-				//if (i == 0) return;
-				
-				//email = document.x_1.x_2.options[i].text;
-				email = $(i).text();
-
-				x = $('.form-control-email-seul-perso').val(selected);
-				
-				$('.select_my_email').text(email);
-				//parent.location.href = url;
-				
-				
-				document.getElementById("valider_email").innerHTML = `
-					<a class="col nav-link btn btn-success" href="/admin/setUpdateServiceActived/`+all+`">
-						VALIDER						
-					</a>
-					`;
-				
-			}
-
-			*/
-			
-
-		function edit_service_one_email($email){
-			alert("ACTIVER EMAIL = "+$email)
-
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-					if (xhttp.readyState == 4 && xhttp.status == 200) {
-				}
-			};
-			xhttp.open("GET", "{{ path('service') }}" , true);
-			xhttp.send();
-		}		
-		
-	
-	
-		// Call the dataTables jQuery plugin
-		$(document).ready(function() {
-		  $('#dataTables').DataTable();
-		  
-		  $('#dataTable_plus').DataTable();
-		  
-		  $('#dataTable').DataTable();
-		  
-		});
-
-
-
-		
-		$('.envoyer_normale').click(function (){
-			
-			//$('.envoyer_normale_row').removeAttr('style','display:none');
-
-			//$('.envoyer_one_row').attr('style','display:none');
-			$('.envoyer_plus_row').attr('style','display:none');
-			
-		});
-		
-		
-		$('.envoyer_one').click(function (){
-			
-			//$('.envoyer_one_row').removeAttr('style','display:none');
-
-			//$('.envoyer_normale_row').attr('style','display:none');
-			$('.envoyer_plus_row').attr('style','display:none');
-			
-		});
-				
-		$('.envoyer_plus').click(function (){
-			
-			$('.envoyer_plus_row').removeAttr('style','display:none');
-
-			//$('.envoyer_one_row').attr('style','display:none');
-			//$('.envoyer_normale_row').attr('style','display:none');
-			
-		});
-		
-		
-		
-		$(function () {
-			$('.tooltip-viewport-bottom').tooltip({
-				placement: 'bottom',html : true ,
-				viewport: {
-					selector: '.container-viewport',
-					padding: 10
-				}
-			})
-		});
-	
-		$(document).ready(function() {
-			$('table.display').DataTable();
-		} );
-	
-		
-	</script>
-	
 	
 	{% endblock %}
 	

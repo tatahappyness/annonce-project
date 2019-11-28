@@ -1,0 +1,25 @@
+
+{% block body %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>#</th>
+                <td>{{ theme_color.id }}</td>
+            </tr>
+            <tr>
+                <th>Couleur</th>
+                <td>
+                    <button class="card col-lg-12 btn"  type="button" title="Mon Couler" style="background: {{ theme_color.Color }} ;height: 5rem;">
+                    </button>                    
+                </td>
+            </tr>
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ theme_color.Comments }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    {{ include('theme_color/_delete_form.html.twig') }}
+{% endblock %}

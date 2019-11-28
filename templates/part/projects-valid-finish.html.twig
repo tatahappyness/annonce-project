@@ -123,7 +123,7 @@
                                                         </li>
                                                     {% endfor %}
                                                     {% else %}
-                                                        Votre demande devis n'est pas encore accepté par le professionnels
+                                                        Votre demande devis n'est pas encore validé par le professionnels
                                                     {% endif %}
                                                    
                                                 </ul>
@@ -136,7 +136,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes projets terminés ({{nbDevisFinish}})</h6>
-                                                <ul class="list-group list-group-flush">
+                                                <ul class="list-group list-group-flush list-project valid finish">
 
                                                     {% if devisFinish != null %}
                                                     {% for devFinish in devisFinish %}
@@ -149,7 +149,7 @@
                                                         </li>
                                                     {% endfor %}
                                                     {% else %}
-                                                        Votre demande devis n'est pas encore accepté par le professionnels
+                                                        Votre demande devis n'est pas encore terminé par le professionnels
                                                     {% endif %}
                                                    
                                                 </ul>

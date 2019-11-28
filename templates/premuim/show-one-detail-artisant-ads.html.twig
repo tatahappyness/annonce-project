@@ -53,7 +53,7 @@
 									</button>
 								</span>
 								<span class="">
-									<a href="inscription " class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
+									<a href="{{ path('inscription_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
 										<i class="">👷🏾</i>  Inscription gratuite
 									</a>
 								</span>
@@ -78,8 +78,8 @@
 								</li>
 								<li class="nav-item"><a href="{{ path('site_create_page') }}" class="nav-link">Créer mon site internet</a>
 								</li>
-								<li class="nav-item"><a href="{{ path('pro_dashbord') }}" class="nav-link pro-dashbord-access">Gérer mon espace professionnel</a>
-								</li>
+								{# <li class="nav-item"><a href="{{ path('pro_dashbord') }}" class="nav-link pro-dashbord-access">Gérer mon espace professionnel</a>
+								</li> #}
 							</ul>
 							</div>
 						</div>
@@ -136,8 +136,8 @@
 							<div class="d-inline m-2 float-right">
 								<span class="">
 									<span class="d-block">Vous avez déjà un compte?</span>
-									<a class="btn btn-outline-success d-block text-success ">Se connecter</a>
-									<a class="btn btn-outline-warning d-block text-warning">S'inscrire gratuitement</a>
+									<a href="{{ path('login') }}" class="btn btn-outline-success text-decoration-none d-block text-success ">Se connecter</a>
+									<a href="{{ path('inscription_page') }}" class="btn btn-outline- text-decoration-none d-block text-warning">S'inscrire gratuitement</a>
 								</span>
 							</div>
 							

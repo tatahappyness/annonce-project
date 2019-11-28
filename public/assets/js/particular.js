@@ -20,18 +20,21 @@
 	 
 	 //Bouttons action in liste dashbord particular
 	 jQuery('li.accept').mouseover( function () {
+		
 		jQuery('.btn-action-particular-' + jQuery(this).data('id')).removeClass('d-none').addClass('d-inline');
 	 }).mouseleave( function() {
 			jQuery('.btn-action-particular-' + jQuery(this).data('id')).removeClass('d-inline').addClass('d-none');
 	 })
 
 	 jQuery('li.valid').mouseover( function () {
+		
 		jQuery('.btn-action-particular-' + jQuery(this).data('id')).removeClass('d-none').addClass('d-inline');
 	}).mouseleave( function() {
 			jQuery('.btn-action-particular-' + jQuery(this).data('id')).removeClass('d-inline').addClass('d-none');
 	})
 
 	jQuery('li.finish').mouseover( function () {
+	
 		jQuery('.btn-action-particular-' + jQuery(this).data('id')).removeClass('d-none').addClass('d-inline');
 	}).mouseleave( function() {
 			jQuery('.btn-action-particular-' + jQuery(this).data('id')).removeClass('d-inline').addClass('d-none');

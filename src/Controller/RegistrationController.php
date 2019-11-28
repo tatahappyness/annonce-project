@@ -41,6 +41,7 @@ class RegistrationController extends AbstractController
         
         if ($request->request->get('TYPE_USER') !== null && $request->request->get('TYPE_USER') === 'PRO_USER') {
             // register pro
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->beginTransaction();
             $category = $categoryRep->findById((int) $request->request->get('CategoryId'));
             $city = $cityRep->findById((int) $request->request->get('city'));

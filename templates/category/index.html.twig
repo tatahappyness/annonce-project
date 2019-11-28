@@ -10,9 +10,10 @@
 
 	<!-- Custom styles for this template-->
     <link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
-
 	
 	<link href="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
+	<link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
 	
   <style>
       .card-header {
@@ -106,7 +107,7 @@
       <div id="content">
 	  
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container">
 
 			<!-- Divider -->			
 			<hr class="sidebar-divider">
@@ -251,6 +252,7 @@
                                 <th>Description</th>
                                 <th>Image</th>
                                 <th>Icon</th>
+								<th>Populaire</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -262,6 +264,7 @@
                                 <th>Description</th>
                                 <th>Image</th>
                                 <th>Icon</th>
+								<th>Populaire</th>
                                 <th>Action</th>
                             </tr>
                             </tfoot>
@@ -287,6 +290,12 @@
                         </div>
                     </div>
                 </td>
+				<td class="text-center">                
+					<div class="custom-control custom-switch">
+						<input {{ category.getIsTop() == true ? "checked=true"  }} data-id="{{ category.id }}" type="checkbox" class="custom-control-input customSwitch" id="customSwitch{{ category.id }}">
+						<label class="custom-control-label" for="customSwitch{{ category.id }}"></label>
+					</div>                    
+				</td>
                 <td class="row" style="width:150px">
                     <button class=" btn btn-warning" onclick="show_modal_affiche_categorie({{ category.id }})" data-toggle="modal" data-target="#myModal_aff_cat"   type="button" title="Visualiser"><i class="fa fa-eye"></i> 
                     </button>
@@ -351,7 +360,8 @@
   <!-- Custom scripts for all pages-->
   <script src="{{ absolute_url('/assets/js/sb-admin-2.min.js') }}"></script>
 
-
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 
   <!-- Page level plugins -->
   <script src="{{ absolute_url('/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>

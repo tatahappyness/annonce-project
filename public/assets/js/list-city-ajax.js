@@ -11,6 +11,9 @@ jQuery('.show-city-search').select2({
 
 jQuery('.zipcode').focusout( function() {
     //alert(jQuery(this).val());
+    if (jQuery(this).val() == '') {
+        return false;
+    }
     //FORM  SEARCH CITY
     jQuery.ajax({
         type : 'GET',

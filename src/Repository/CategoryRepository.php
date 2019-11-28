@@ -63,6 +63,17 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
 
+    //get popula devis
+    public function findPopularDevisMoreAsk($value): ?Array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.isTop = ?1')
+            ->setParameters($value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function findAllArray(): ?Array
     {
         return $this->findAll();

@@ -59,7 +59,7 @@
 		<div class="row">
 			<div class="col-12 p-0">
 				<div class="contenair-header-menu">
-					<nav class="navbar navbar-expand bg-gray py-0 navbar-head">
+					<nav class="navbar navbar-expand d-none d-lg-block bg-gray py-0 navbar-head">
 					  <div class="container border-0">
 
 						<!-- MENU LARGE COORDONE-->
@@ -85,132 +85,51 @@
 									</button>
 								</span>
 								<span class="">
-									<a href="{{ path('inscription_particulier_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
-										<i class="">👷🏾</i>  Inscription gratuite
+									<a href="{{ path('space_pro_page') }}" class="btn btn-round bg-white border-warning font-weight-bold text-success text-nowrap text-decoration-none">
+										<i class="">👷🏾</i> <label class="sr-only-focusable"> Trouvez de chantiers ?</label>
 									</a>
 								</span>
 							</div>
 						</div>
 						<!-- END MENU LARGE COORDONE -->
-                        
-						<!-- BEGIN MOBILE MENU -->
-						{% include "./page/menu/menu-mobile.html.twig" %}
-						<!-- END MOBILE MENU -->
-
 					  </div>
 					</nav>
 					<!-- Navbar menu end here -->
 					  
 					<!-- ############################# NAVBAR HERE LARGE -->
-					<!-- BEGIN MOBILE MENU -->
-					{# {% include "./page/menu/menu-mobile.html.twig" %} #}
-					<!-- END MOBILE MENU -->	
-                
-					<!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
-			
-					<div class="navbar-mega large-menu d-md-flex justify-content-center">
-						<div class="dropdown-mega">
-							<a class="dropbtn"> Demander un devis
-							<i class="fa fa-caret-down"></i>
-							</a>
-							<div class="dropdown-content">
-								<ul class=" px-4">
-									{% if categories != null %}
-										{% for categ in categories %}
-											<li class="column-list text-left px-0" style="line-height: 0;">
-											<a href="{{ path('post_ask_devis_page', {id: categ.getId()}) }}" class="d-flex align-items-center">
-											<span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
-											<span class="text-warning">{{ categ.getCategTitle() }}</span>
-											</a>
-										</li>
-										{% endfor %}
-									<li class="text-center"  style="line-height: 0;">
-									<a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
-									</li>
-									{% endif %}
-								</ul>
-								{# <div class="row-mega">
-									<div class="column-12">
-									{% if popularDevis != null %}
-										<div class="w-100 text-center">
-											<h3> Les  plus populaires </h3>
-										</div>
-										<section class="sliderComplete">
-											<!-- Wrapper -->
-											<section class="wrapper">
-												<!-- ".slider" has a width greater than 100% to give way to all albums to align.  -->
-												<ul class="slider">
-                                           
-													{% for devPopular in popularDevis %}
-													<li class="column-list text-center">
-														<a href="#" class="d-block mb-1 p-0">
-															<img class="img-fluid img-thumbnail" src="{{ absolute_url('/uploads/images/' ~ devPopular.getImg()) }}" />
-														</a>
-														<p><a href="{{ path('view_art_cat_galery_page', {id: devPopular.getArticleCategId().getId()}) }}">{{ devPopular.getArticleTitle() }}</a></p>
-														<p><a href="{{ path('post_ask_devis_page', {id: devPopular.getArticleCategId().getId()}) }}" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
-													</li>
-													{% endfor %}
-                                           
-                                            
-												</ul>
-											</section>
-											<!-- End wrapper -->
+						
+					<div class="navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
+					<div class="container">
 
-											<button title="before" class="close button-slid bg-warning" style="height: 50%;">
-												<svg version="1.1" id="left" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-													viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
-												<g id="chevron-right">
-													<polygon fill="#38373A" points="13,15 25,27 27.8,24.2 18.6,15 27.8,5.8 25,3 	"/>
-												</g>
-												</svg>
-											</button>
+						<a class="text-decoration-none logo-content float-left d-block d-lg-none" href="{{ path('home_page') }}">
+						<img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
+						</a>
+						<a class="nav-link d-none d-md-block d-lg-none" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
+						<a class="nav-link d-none d-md-block d-lg-none" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">{{ configsite.getEmail() }}</span></span></a>
+						<a href="javascript:void(0);" class="float-right text-decoration-none btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="lnr lnr-menu-circle text-warning d-block d-lg-none" style="font-size: 64px !important;"></span>
+						</a>
 
-											<!-- 
-											".open" is on display:block; to be visible.
-											-->
-											<button title="after" class="open button-slid bg-warning" style="height: 50%;">
-												<svg version="1.1" id="right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-													viewBox="12.7 2.5 15.4 25" enable-background="new 12.7 2.5 15.4 25" height="24" xml:space="preserve">
-												<g id="chevron-right">
-													<polygon fill="#38373A" points="15.8,3 13,5.8 22.2,15 13,24.2 15.8,27 27.8,15 	"/>
-												</g>
-												</svg>
-											</button>
-										</section>
-										<!-- End sliderComplete -->
-										{% endif %}
-									</div>
-								</div> #}
-							</div>
+						<div class="navbar-collapse collapse">
+						<ul class="nav navbar-nav font-weight-bold">
+							<li class="nav-item"><a href="{{ path('find_chantier_page') }}" class="nav-link">Trouvez des chantiers</a>
+							</li>
+							<li class="nav-item"><a href="{{ path('nos_tarif_page') }}" class="nav-link">Nos tarifs</a>
+							</li>
+							<li class="nav-item"><a href="{{ path('how_to_step_page') }}" class="nav-link">Comment ça marche</a>
+							</li>
+							<li class="nav-item"><a href="{{ path('site_create_page') }}" class="nav-link">Créer mon site internet</a>
+							</li>
+							<li class="nav-item">
+								<a  href="{{ path('login') }}" class="btn-outline-wrning bg-transparent float-right d-block d-lg-none rounded text-decoration-none show-form-pro-mouseclick-11 font-weight-bold text-warning border-warning text-nowrap">
+									<i class="">🔒</i> Se connecter
+								</a>
+							</li>
+						</ul>
 						</div>
-						<!-- END TYPE TRAVAUX -->
-						<div class="dropdown-mega">
-							<a class="dropbtn">Guides des prix
-							<i class="fa fa-caret-down"></i>
-							</a>
-							<div class="dropdown-content">
-								<ul class=" px-4">
-									{% if categories != null %}
-										{% for categ in categories %}
-											<li class="column-list text-left px-0" style="line-height: 0;">
-											<a href="{{ path('category_sous_category_page', {categId: categ.getId()}) }}" class="d-flex align-items-center">
-											<span class="lnr lnr-chevron-right-circle text-warning mr-1" style="font-size: 12px;"></span>
-											<span class="text-warning">{{ categ.getCategTitle() }}</span>
-											</a>
-										</li>
-										{% endfor %}
-									{# <li class="text-center"  style="line-height: 0;">
-									<a href="{{ path('view_all_tavaux_page') }}" class="mm-view-more p-1"> Voir les articles >></a>
-									</li> #}
-									{% endif %}
-								</ul>
-							</div>
-						</div>
-						<a href="{{ path('how_to_step_page') }}">Comment ça marche ?</a>
-						<a href="{{ path('space_find_pro_page') }}">Trouvez un pros</a>
 					</div>
-			
-					<!-- END MENU DISPALY WHEN  WHEN LARGE SCREEN -->
+					</div>
+					<!-- ############################# END NAVBAR HERE LARGE -->
 					
 					 <!-- Progress barr slid scroll -->
 						<div class="progress-container fixed-top">
@@ -367,8 +286,19 @@
 											
 											<div class="form-group p-0 m-0 w-100">
 
-												<input type="text" id="show-input-list-search" class="form-control text-center" placeholder="Quel est votre activité ?">
-												<input type="hidden" id="CategoryIdSearch" name="CategoryId" value="">
+												<select id="inscription_category" class="form-control form-field show-list-metier-nature-in-ask-form" name="CategoryId">
+													<option value="-1">Sélectionez une catégorie...</option>
+
+													{% if categories != null %}
+															
+														{% for categ in categories %}
+															<option value="{{ categ.id }}"> -  {{ categ.getCategTitle() }}</option>										
+														{% endfor %}
+													{% endif %}
+															
+												</select>
+												{# <input type="text" id="show-input-list-search" class="form-control text-center" placeholder="Quel est votre activité ?">
+												<input type="hidden" id="CategoryIdSearch" name="CategoryId" value=""> #}
 											</div>										
 										</div>
 										<div class="form-group mb-3">
@@ -492,8 +422,8 @@
 <script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 {# <script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script> #}
-<script src="{{ absolute_url('/assets/js/page.js') }}"></script>
+{# <script src="{{ absolute_url('/assets/js/page.js') }}"></script> #}
 <script src="{{ absolute_url('/assets/js/list-city-ajax.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/inscription.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/inscription.js') }}"></script>	
 
 {% endblock %}

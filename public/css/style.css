@@ -164,7 +164,7 @@ p.small {
 .select2-search--dropdown .select2-search__field {
     height: 45px;
 	background-color: transparent;
-    color: white;
+    color: #000000;
 	font-size: 1.2em;
 }
 
@@ -824,7 +824,7 @@ hr {
 		font-size: 1rem !important;
 	}
    .card a {
-    font-size: 1.4vw !important;
+    font-size: 3vw !important;
 	font-weight: 700px !important;
 	}
 	.header-login-parallax {
@@ -1100,8 +1100,8 @@ hr {
     height: 50%;
 }
 .select2-dropdown {
-	background-color: rgba(0, 0, 0, 85%);
-    color: #fff;
+	/* background-color: rgba(0, 0, 0, 85%); */
+    color: #000000;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {

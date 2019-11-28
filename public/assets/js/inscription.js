@@ -1,5 +1,5 @@
 jQuery(document).ready( function() {
-
+   
     //Check email if existe or invalid or valid
     jQuery('.email').focusout(function() {
        
@@ -48,6 +48,18 @@ jQuery(document).ready( function() {
 
     // SAVE User Register
     jQuery('.btn-register-user').click( function() {
+
+        if(jQuery('#inscription_category').val() == '-1') {
+            Swal.fire({
+                title: 'ERREUR',
+                text: 'Vous n\' avez pas sélectioné une categorie!!',
+                type: 'error',
+                // background: 'rgb(119, 119, 119)',
+                backdrop: `rgba(0,0,123,0.4)`,
+                confirmButtonColor: 'rgb(255, 144, 0)'
+                });
+            return false;
+        }
 
         var form_record = jQuery('.form-register-user');
         //Verify each input type is validity here
@@ -118,7 +130,7 @@ jQuery(document).ready( function() {
 
     //INscription Particulier
     jQuery('.btn-register-particular').click(function() {
-        
+    
         var form_record = jQuery('#form-incription-particular');
 
         jQuery.ajax({

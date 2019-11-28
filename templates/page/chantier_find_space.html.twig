@@ -77,7 +77,7 @@
 									</button>
 								</span>
 								<span class="">
-									<a href="{{ path('inscription_particulier_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
+									<a href="{{ path('inscription_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
 										<i class="">👷🏾</i>  Inscription gratuite
 									</a>
 								</span>
@@ -227,7 +227,7 @@
 										<p class="card-text motif-pub">{{ post.getPostAdsTravauxDescription() }}</p>
 										<p class="text-secondary small">Postulé par: {{ post.getPostUserId().getFirstname() }}</p><br>
 										{# <p class="text-secondary small">Habite à: {{ post.getPostUserId().getUserCity().getVilleNomReel()}}.</p> #}
-										<a class="text-warning float-right" href="{{ path('show_detail_ads_page', { id: post.getId() }) }}">voir le chantier >></a>
+										<a class="text-warning view-setail-ads-page float-right" href="{{ path('show_detail_ads_page', { id: post.getId() }) }}">voir le chantier >></a>
 									</div>
 								<div class="card-footer text-secondary text-center mt-0 py-2">
 									{{''}}

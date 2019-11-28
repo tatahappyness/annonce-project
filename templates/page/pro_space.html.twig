@@ -78,18 +78,13 @@
 									</button>
 								</span>
 								<span class="">
-									<a href="{{ path('inscription_particulier_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
+									<a href="{{ path('inscription_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
 										<i class="">👷🏾</i>  Inscription gratuite
 									</a>
 								</span>
 							</div>
 						</div>
 						<!-- END MENU LARGE COORDONE -->
-                        
-						<!-- BEGIN MOBILE MENU -->
-						{% include "./page/menu/menu-mobile.html.twig" %}
-						<!-- END MOBILE MENU -->
-						
 					</div>
 					</nav>
 					<!-- Navbar menu end here -->
@@ -119,8 +114,13 @@
 							<li class="nav-item"><a href="{{ path('site_create_page') }}" class="nav-link">Créer mon site internet</a>
 							</li>
 							<li class="nav-item">
-								<a class="btn-outline-wrning bg-transparent float-right d-block d-lg-none rounded text-decoration-none show-form-pro-mouseclick-11 font-weight-bold text-warning border-warning text-nowrap">
+								<a class="btn-outline-wrning bg-transparent m-1 float-right d-block d-lg-none rounded text-decoration-none show-form-pro-mouseclick-11 font-weight-bold text-warning border-warning text-nowrap">
 									<i class="">🔒</i> Se connecter
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ path('inscription_page') }}" class="btn-outline-wrning bg-transparent m-1 float-right d-block d-lg-none rounded text-decoration-none font-weight-bold text-warning border-warning text-nowrap">
+									<i class="">👷🏾</i> Inscription gratuite
 								</a>
 							</li>
 						</ul>
@@ -272,7 +272,7 @@
 											<p class="text-secondary">{{ post.getPostAdsDateCrea() | date('d/m/y H:m:s') }}</p>
 											<p class="card-text motif-pub">{{ post.getPostAdsTravauxDescription() }}</p>
 											<p class="text-secondary small">Postulé par: {{ post.getPostUserId().getFirstname() }}</p><br>
-											<a class="text-warning float-right" href="{{ path('show_detail_ads_page', { id: post.getId() }) }}">voir le chantier >></a>
+											<a class="text-warning view-setail-ads-page float-right" href="{{ path('show_detail_ads_page', { id: post.getId() }) }}">voir le chantier >></a>
 										</div>
 									<div class="card-footer text-secondary text-center mt-0 py-2">
 										{{''}}

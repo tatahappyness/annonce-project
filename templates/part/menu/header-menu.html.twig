@@ -22,13 +22,8 @@
                     </div>
                     <div class="inscription-group-boutton d-none d-lg-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
                         <span class="mr-1">
-                            <button class="btn btn-round bg-gray text-decoration-none show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap" type="button">
-                                <i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
-                            </button>
-                        </span>
-                        <span class="">
-                            <a href="{{ path('inscription_particulier_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
-                                <i class="">👷🏾</i>  Inscription gratuite
+                            <a href="{{ path('logout') }}" class="btn-outline-wrning rounded text-decoration-none text-warning font-weight-bold text-nowrap">
+                                <i class="">👷🏾</i> Se déconecter
                             </a>
                         </span>
                     </div>
@@ -36,7 +31,7 @@
                 <!-- END MENU LARGE COORDONE -->
                         
                 <!-- BEGIN MOBILE MENU -->
-                {% include "./page/menu/menu-mobile.html.twig" %}
+                {% include "./part/menu/mobile-menu-particulier.html.twig" %}
                 <!-- END MOBILE MENU -->
 
             </div>

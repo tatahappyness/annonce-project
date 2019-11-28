@@ -237,7 +237,7 @@ class PartController extends AbstractController
        if($listProsAcceptDevis !== null) {
         foreach ($listProsAcceptDevis as $key => $value) {
             $nbDevisPros[$value->getUserId()->getId()] = count($devisAcceptRep->findByUserId(array(1=> $value->getUserId())));
-            $nbEvaluationPros[$value->getUserId()->getId()] = count( $evalRep->findByUser(array(1=> $value->getUserId())));
+            $nbEvaluationPros[$value->getUserId()->getId()] = count( $evalRep->findByUserId(array(1=> $value->getUserId())));
             $partEvaluatePros = $evalRep->findOneByUserProAndPart(array(1=> $value->getUserId(), 2=> $security->getUser()));
             $partIsEvaluatePros[$value->getUserId()->getId()] =  $partEvaluatePros !== null ? true : false;
             }
@@ -463,7 +463,7 @@ class PartController extends AbstractController
         if($listResponsePosts !== null) {
             foreach ($listResponsePosts as $key => $value) {
                 $nbDevisPros[$value->getUserProId()->getId()] = count($devisAcceptRep->findByUserId(array(1=> $value->getUserProId())));
-                $nbEvaluationPros[$value->getUserProId()->getId()] = count( $evalRep->findByUser(array(1=> $value->getUserProId())));
+                $nbEvaluationPros[$value->getUserProId()->getId()] = count( $evalRep->findByUserId(array(1=> $value->getUserProId())));
                 $partEvaluatePros = $evalRep->findOneByUserProAndPart(array(1=> $value->getUserProId(), 2=> $security->getUser()));
                 $partIsEvaluatePros[$value->getUserProId()->getId()] =  $partEvaluatePros !== null ? true : false;
                 }
@@ -673,7 +673,7 @@ class PartController extends AbstractController
         if($listProsAcceptDevis !== null) {
             foreach ($listProsAcceptDevis as $key => $value) {
                 $nbDevisPros[$value->getUserId()->getId()] = count($devisAcceptRep->findByUserId(array(1=> $value->getUserId())));
-                $nbEvaluationPros[$value->getUserId()->getId()] = count( $evalRep->findByUser(array(1=> $value->getUserId())));
+                $nbEvaluationPros[$value->getUserId()->getId()] = count( $evalRep->findByUserId(array(1=> $value->getUserId())));
                 $partEvaluatePros = $evalRep->findOneByUserProAndPart(array(1=> $value->getUserId(), 2=> $security->getUser()));
                 $partIsEvaluatePros[$value->getUserId()->getId()] =  $partEvaluatePros !== null ? true : false;
                 }
@@ -752,7 +752,7 @@ class PartController extends AbstractController
         if($detailDevis !== null) {
            
                 $nbDevisPros[$detailDevis->getUserId()->getId()] = count($devisAcceptRep->findByUserId(array(1=> $detailDevis->getUserId())));
-                $nbEvaluationPros[$detailDevis->getUserId()->getId()] = count( $evalRep->findByUser(array(1=> $detailDevis->getUserId())));
+                $nbEvaluationPros[$detailDevis->getUserId()->getId()] = count( $evalRep->findByUserId(array(1=> $detailDevis->getUserId())));
                 $partEvaluatePros = $evalRep->findOneByUserProAndPart(array(1=> $detailDevis->getUserId(), 2=> $security->getUser()));
                 $partIsEvaluatePros[$detailDevis->getUserId()->getId()] =  $partEvaluatePros !== null ? true : false;
                
@@ -831,7 +831,7 @@ class PartController extends AbstractController
         if($detailDevis !== null) {
            
                 $nbDevisPros[$detailDevis->getUserId()->getId()] = count($devisAcceptRep->findByUserId(array(1=> $detailDevis->getUserId())));
-                $nbEvaluationPros[$detailDevis->getUserId()->getId()] = count( $evalRep->findByUser(array(1=> $detailDevis->getUserId())));
+                $nbEvaluationPros[$detailDevis->getUserId()->getId()] = count( $evalRep->findByUserId(array(1=> $detailDevis->getUserId())));
                 $partEvaluatePros = $evalRep->findOneByUserProAndPart(array(1=> $detailDevis->getUserId(), 2=> $security->getUser()));
                 $partIsEvaluatePros[$detailDevis->getUserId()->getId()] =  $partEvaluatePros !== null ? true : false;
                

@@ -102,7 +102,7 @@
                                                     <p class=""><h6 class>Détails du chantier</h6></p>
                                                     <hr class="bg-darkgray" style="height: 1px;" />
                                                     <p class="">Type du projet:  {{ detailPost.getTypeId().getTitle() }}</p>
-                                                    <p class="">Nature du projet: {{ detailPost.getArticleId() }}</p>
+                                                    <p class="">Nature du projet: {{ detailPost.getArticleId() != null ? detailPost.getArticleId().getArticleTitle() : '' }}</p>
                                                     <p class="">Domaine de spécialisation: {{ detailPost.getCategoryId().getCategTitle() }}</p>
 
                                                 </div>

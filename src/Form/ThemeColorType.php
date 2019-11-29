@@ -22,12 +22,18 @@ class ThemeColorType extends AbstractType
                 'label' => 'Couleur',                              
                 'required'    => true
             ))          
+            
+            ->add('KeyWord', TextType::class, array(
+                'attr' => ['class' => 'form-control col-lg-12'],
+                'label' => 'Mot clé',                              
+                'required'    => true
+            ))        
             ->add('Comments', TextType::class, array(
                 'attr' => ['class' => 'form-control col-lg-12'],
                 'label' => 'Commentaire',                              
                 'required'    => true
             ))          
-            
+              
             
             ->add('ThemeId', EntityType::class, [
                 'class' => Theme::class, 'label' => 'Theme',

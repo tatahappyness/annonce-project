@@ -384,7 +384,7 @@
 								<th>Client (Email)</th>
 								<th>Catégorie</th>
 								<th>Date de Création</th>
-								<th>Action</th>                  
+								<th>Action</th>
 							</tr>
 							</thead>
 								<tfoot>
@@ -401,8 +401,11 @@
 								{% if list_serv|length > 0 %}							
 									{% for lst in list_serv %}
 									<tr>
-										<td>
-											<input  {{ lst.getIsActived == true ? "checked=true"  }} data-id="{{ lst.id  }}" type="checkbox" class="form-control customSwitch" id="customSwitch{{ lst.id  }}">
+										<td>											
+											<div class="custom-control custom-switch">                                          
+												<input {{ lst.getIsActived == true ? "checked=true"  }} data-id="{{ lst.id  }}" type="checkbox" class="custom-control-input customSwitch" id="customSwitch{{ lst.id  }}">
+												<label class="custom-control-label" for="customSwitch{{ lst.id }}"></label>
+											</div>    											
 										</td>
 										<td>{{ lst.getId() }}</td>
 										<td>

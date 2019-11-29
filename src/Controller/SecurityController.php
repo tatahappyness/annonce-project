@@ -62,7 +62,7 @@ class SecurityController extends AbstractController
                 if($devisPopulars !== null) {
 
                     foreach ($devisPopulars as $key => $value) {
-                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                        //$popularDevis[] =  $artRep->findById($value['article_id']);
                     }
 
                 }

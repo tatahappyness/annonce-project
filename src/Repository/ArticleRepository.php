@@ -27,7 +27,7 @@ class ArticleRepository extends ServiceEntityRepository
     {
 
             if($offset > 0) {
-                $limit =  $limit * $offset;
+                $offset =  $limit * $offset;
             }
 
             if ($value !== null) {

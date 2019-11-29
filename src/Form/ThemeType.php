@@ -26,7 +26,21 @@ class ThemeType extends AbstractType
                 'label' => 'Commentaire',                              
                 'required'    => true
             ))          
+               
             
+            ->add('KeyWord', TextType::class, array(
+                'attr' => ['class' => 'form-control col-lg-12'],
+                'label' => 'Mot clé',                              
+                'required'    => true
+            ))          
+            
+            ->add('ImageCapture', FileType::class, [
+                'label' => 'Image Capture',                     
+                'attr' => ['class' => 'form-control btn-info col-lg-12'],                  
+                'mapped' => false,
+                'required'    => true
+            ])
+
             ->add('ImageFond', FileType::class, [
                 'label' => 'Image du Fond',                     
                 'attr' => ['class' => 'form-control btn-info col-lg-12'],                  

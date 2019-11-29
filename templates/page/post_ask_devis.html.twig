@@ -19,9 +19,25 @@
 		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/menu/menu-large.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/menu/menu-mobile.css') }}" rel="stylesheet" />
-		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+		<style>
+
+			.easy-autocomplete.eac-square ul li b, .easy-autocomplete.eac-square ul .eac-category b {
+				font-weight: bold;
+				color: orange;
+			}
+			.select2-container--default .select2-selection--single {
+				border: 1px solid #ffbb00 !important;
+				border-radius: 32px !important;
+			}
+			.select2-container .select2-selection--single .select2-selection__rendered, span.selection {
+				border-radius: 32px !important;
+				font-size: 1em !important;
+			}
+
+		</style>
     
 	{% endblock %}
 
@@ -33,16 +49,17 @@
 		<div class="row">
 			<div class="col-12 p-0">
 				<div class="contenair-header-menu">
-
 					<nav class="navbar navbar-expand bg-gray py-0 navbar-head">
 					  <div class="container border-0">
-						<div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+
+						<!-- MENU LARGE COORDONE-->
+						<div class="d-none d-lg-flex w-100 flex-md-row align-items-center justify-content-center justify-content-sm-around">
 							<div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
-								<a class="text-decoration-none" href="{{ path('home_page') }}">
+								<a class="text-decoration-none logo-content" href="{{ path('home_page') }}">
 								<img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
 								</a>
-							
-								<ul class="navbar-nav mt-2 mt-lg-0">
+                                
+								<ul class="navbar-nav mt-2 mt-lg-0 d-lg-flex flex-column flex-sm-row">
 									<li class="nav-item active m-1">
 									<a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
 									</li>
@@ -51,26 +68,33 @@
 									</li>
 								</ul>
 							</div>
-							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+							<div class="inscription-group-boutton d-none d-lg-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
 								<span class="mr-1">
-									<button class="btn btn-round show-form-pro-mouseclick-11 bg-gray font-weight-bold text-warning border-warning text-nowrap" type="button">
-										<i class="">🔒</i> se connecter
+									<button class="btn btn-round bg-gray text-decoration-none show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap" type="button">
+										<i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
 									</button>
 								</span>
 								<span class="">
-									<a href="" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
-										<i class="{{ path('inscription_particulier_page') }}">👷🏾</i>  inscription gratuite
+									<a href="{{ path('inscription_particulier_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
+										<i class="">👷🏾</i>  Inscription gratuite
 									</a>
 								</span>
 							</div>
 						</div>
+						<!-- END MENU LARGE COORDONE -->
+						                        
+						<!-- BEGIN MOBILE MENU -->
+						{% include "./page/menu/menu-mobile.html.twig" %}
+						<!-- END MOBILE MENU -->
+
+
 					  </div>
 					</nav>
 					<!-- navbar menu end here -->
 
 					<!-- ############################# NAVBAR HERE LARGE -->
 					<!-- BEGIN MOBILE MENU -->
-					{% include "./page/menu/menu-mobile.html.twig" %}
+					{# {% include "./page/menu/menu-mobile.html.twig" %} #}
 					<!-- END MOBILE MENU -->	
                 
 					<!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
@@ -198,7 +222,7 @@
 				<div class="container border-0">
 					<div class="w-100 d-flex flex-column pb-4 justify-content-center">
 						<div class="h2 text-white text-monospace font-weight-bold text-uppercase">
-							{{ category.getCategTitle() }}
+							<a href="{{ path('home_page') }}" class="text-decoration font-weight-bold text-warning" >ACCeuil</a> / {{ category.getCategTitle() }}
 						</div>
 					</div>
 				</div>
@@ -234,7 +258,7 @@
 								</div>
 							 </div>
 
-							<div class="w-100 d-flex justify-content-center  py-4">
+							<div class="w-100 d-md-flex justify-content-md-center py-4">
 								<form id="form-post-ask-devis" role="form">
 									<div class="setup-content" id="step-1">
 						                <!-- First Form slide content -->
@@ -263,7 +287,7 @@
 												<div class="form-group pb-2">
 												<input id="ask_devis_type" type="hidden" name="ask_devis_type">
 												</div>												
-												<div class="form-group pb-2">
+												<div class="form-group pb-2 my-2">
 													<select class="form-control form-field show-list-metier-nature-in-ask-form" name="post_metier_ask_devis">
 														<option></option>
 
@@ -272,10 +296,7 @@
 															{% for article in articles %}
 																<option value="{{ article.id }}"> -  {{ article.getarticletitle() }}</option>										
 															{% endfor %}
-
-																
-														{% else %}
-															<option selected="selected" value="{{ article is defined ? article.id : 'NaN' }}">{{ article is defined ? article.getarticletitle() : '' }}</option>
+															{# <option selected="selected" value="{{ article is defined ? article.id : 'NaN' }}">{{ article is defined ? article.getarticletitle() : '' }}</option> #}
 														{% endif %}
 															
 													</select>
@@ -315,16 +336,19 @@
 	                               		<div class="row d-flex justify-content-center">
 											<div class="col-12">
 												<h6 class="text-warning py-4">vos coordonnées</h6>
-												<div class="form-group mb-4">
+												<div class="form-group mb-3">
+													<input type="number" required="required" id="zipcode" class="form-control zipcode form-input m-1 d-lg-inline d-block" name="post_zipcode_ask_devis" style="height: 50px;" placeholder="votre code postal*">
 													<input type="text" required="required" name="post_name_user_ask_devis" class="form-control form-input m-1 d-lg-inline d-block" style="height: 50px;" placeholder="votre nom*">
 													<input type="text" required="required" name="post_firstname_user_ask_devis" class="form-control  form-input m-1 d-lg-inline d-block" style="height: 50px;" placeholder="votre prénom">
 												</div>
-												<div class="form-group">
+												<div class="form-group mb-3">
 													<label class="text-secondary d-block">votre civilité *</label>
-													<div class="d-flex flex-column flex-md-row align-items-center mb-2">
-														<span class="text-center d-flex flex-row align-items-center"><input type="radio" required="required" value="M" name="post_civility_ask_devis" style="width: 25px; height: 25px;" placeholder="votre civilité"><span class="mx-2">monsieur</span></span>
-														<span class="text-center d-flex flex-row align-items-center"><input type="radio" required="required" value="F" name="post_civility_ask_devis" style="width: 25px; height: 25px;" placeholder="votre civilité*"><span class="mx-2">madame</span></span>
+													<div class="d-flex flex-column	 flex-md-row align-items-center mb-2">
+														<span class="text-center d-flex flex-row align-items-center"><input type="radio" required="required" class="m-1" value="M" name="post_civility_ask_devis" style="width: 25px; height: 25px;" placeholder="votre civilité"><span class="mx-2">Monsieur</span></span>
+														<span class="text-center d-flex flex-row align-items-center"><input type="radio" required="required" class="m-1" value="F" name="post_civility_ask_devis" style="width: 25px; height: 25px;" placeholder="votre civilité*"><span class="mx-2">Madame</span></span>
 													</div>
+												</div>
+												<div class="form-group mb-3">
 													<select class="form-control show-list-fonction-user-in-ask-form" name="fonction_ask_devis">
 														<option></option>
 														{% if fonctions != null %}
@@ -339,23 +363,20 @@
 
 													</select>
 												</div>
-												<div class="form-group mb-4">
+												<div class="form-group mb-3">
 													<input type="tel" required="required" class="form-control  form-input m-1 d-lg-inline d-block" name="post_phone_ask_devis" style="height: 50px;" placeholder="votre numéro de téléphone*">
 													<input type="email" required="required" class="form-control  form-input m-1 d-lg-inline d-block" name="post_email_ask_devis" style="height: 50px;" placeholder="votre email*">
-												</div>
-												<div class="form-group mb-4">
-													<input type="number" required="required" id="zipcode" class="form-control zipcode form-input m-1 d-lg-inline d-block" name="post_zipcode_ask_devis" style="height: 50px;" placeholder="votre code postal*">
-													<input type="text" required="required" id="show-city-search" class="form-control city  form-input m-1 d-lg-inline d-block" name="post_city_ask_devis" style="height: 50px;" placeholder="votre ville ou Département*">
-												</div>
-												<div id="form-city-special-hidden" class="form-group">
-												
+													<select id="show-city-search" class="form-control show-city-search city" name="city">
+														<option></option>
+													</select>
+													{# <input type="text" required="required" id="show-city-search" class="form-control city  form-input m-1 d-lg-inline d-block" name="post_city_ask_devis" style="height: 50px;" placeholder="votre ville ou Département*"> #}
 												</div>
 												<div class="forn-group">
-												<input  type="hidden" name="route_page" value="post_ask_devis_page">
+													<input  type="hidden" name="route_page" value="post_ask_devis_page">
 												</div>
 												<div class="d-flex flex-column flex-sm-row align-items-center justify-content-between w-100">
-												<button class="btn bg-darkgray prevbtn btn-lg m-1 text-uppercase" type="button">précedant</button>
-												<button id="btn-post-ask-devis" class="btn btn-warning text-uppercase btn-post-ask-devis nextbtn btn-lg m-1" type="button">Valider</button>
+													<button class="btn bg-darkgray prevbtn btn-lg m-1 text-uppercase" type="button">précedant</button>
+													<button id="btn-post-ask-devis" class="btn btn-warning text-uppercase btn-post-ask-devis nextbtn btn-lg m-1" type="button">Valider</button>
 												</div>
 											</div>
 	                                	</div>
@@ -618,8 +639,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
-<!-- Auto-complete -->
-<script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
 <!-- message ntification -->
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>

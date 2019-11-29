@@ -242,6 +242,8 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Commentaire</th>
+                                        <th>Mot clé</th>
+                                        <th>Image Capture</th>
                                         <th>Image Fond</th>
                                         <th>Couleur du Fond</th>
                                         <th>Actions</th>
@@ -251,6 +253,9 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Commentaire</th>
+                                        <th>Mot clé</th>
+                                        <th>Url</th>
+                                        <th>Image Capture</th>
                                         <th>Image Fond</th>
                                         <th>Couleur du Fond</th>
                                         <th>Actions</th>
@@ -261,27 +266,37 @@
                                     <tr>
                                         <td>{{ theme.id }}</td>       
                                         <td>{{ theme.Comments }}</td>
+                                        <td>{{ theme.KeyWord }}</td>
+                                        <td>{{ theme_color.Url }}</td>                                        
                                         <td style="width:250px">
+                                            <div class="card-body" data-toggle="modal" data-target="#myModal_aff_image" onclick="show_modal_affiche_theme_image({{ theme.id }})">
+                                                <div class="text-center">
+                                                    <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/themes/') }}{{ theme.ImageCapture }}" alt="">
+                                                </div>
+                                            </div>
+                                        </td>
+										<td style="width:250px">
                                             <div class="card-body" data-toggle="modal" data-target="#myModal_aff_image" onclick="show_modal_affiche_theme_image({{ theme.id }})">
                                                 <div class="text-center">
                                                     <img class="img-fluid img-fluid shadow" style="width: 15rem;" src="{{ absolute_url('/uploads/themes/') }}{{ theme.ImageFond }}" alt="">
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td> 
+										
                                         </td>
                                         <td>
                                             <button class="card col-lg-12 btn"  type="button" title="Mon Couler" style="background: {{ theme.ColorFond }} ;height: 10rem;">
                                             </button>                    
                                         </td>
-                                        <td>                                                                                
+                                        <td style="/* width: 100px */">                                                                                
                                             <a href="{{ path('theme_edit', {'id': theme.id}) }}">
                                                 <button class=" btn btn-info" data-toggle="modal" type="button" title="Modifier"><i class="fa fa-edit"></i>
                                                 </button>
                                             </a>
 
-                                            <button class=" btn btn-danger" onclick="show_modal_sup_theme({{ theme.id }})" data-toggle="modal" data-target="#myModal_sup_theme"   type="button" title="Supprimer">
+                                            <!-- button class=" btn btn-danger" onclick="show_modal_sup_theme({{ theme.id }})" data-toggle="modal" data-target="#myModal_sup_theme"   type="button" title="Supprimer">
                                                 <i class="fa fa-times"></i>
-                                            </button>                                        
+                                            </button -->                                        
                                         </td>
                                     </tr>
                                 {% else %}

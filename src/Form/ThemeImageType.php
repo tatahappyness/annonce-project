@@ -26,6 +26,11 @@ class ThemeImageType extends AbstractType
                 'required'    => true
             ))          
             */
+            ->add('KeyWord', TextType::class, array(
+                'attr' => ['class' => 'form-control col-lg-12'],
+                'label' => 'Mot clé',                              
+                'required'    => true
+            ))        
             ->add('Comments', TextType::class, array(
                 'attr' => ['class' => 'form-control col-lg-12'],
                 'label' => 'Commentaire',                              

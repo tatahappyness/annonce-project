@@ -141,12 +141,14 @@ class AdminController extends AbstractController
         $devisPopulars = $devisRep->findTopPopularDevis();
         $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
         
+        /*
         $popularDevis = array();
         if($devisPopulars !== null) {
             foreach ($devisPopulars as $key => $value) {
                $popularDevis[] =  $art_rep->findById($value['article_id']);
             }
         }
+        */
         
 
         $count_devis = $devisRep->findAll();
@@ -163,8 +165,8 @@ class AdminController extends AbstractController
             
             'devis' => $count_devis,            
             'numberDevis' => count($count_devis),
-            'popularDevis' => $popularDevis,
-            'devisPopulars' => $devisPopulars[0],
+            //'popularDevis' => $popularDevis,
+            //'devisPopulars' => $devisPopulars[0],
             
 			'numberPro' =>  count($count_pro),
 			'numberPart' =>  count($count_part),

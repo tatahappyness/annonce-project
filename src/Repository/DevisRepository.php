@@ -55,9 +55,9 @@ class DevisRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
-                SELECT d.nature_project_id AS article_id, COUNT(d.id) AS number_top_devis 
+                SELECT d.category_id_id AS category_id, COUNT(d.id) AS number_top_devis 
                 FROM devis d
-                GROUP BY d.nature_project_id
+                GROUP BY d.category_id_id
                 ORDER BY number_top_devis DESC
                 LIMIT 10;
             ';

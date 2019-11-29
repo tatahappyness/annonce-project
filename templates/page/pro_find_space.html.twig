@@ -18,9 +18,16 @@
 		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/menu/menu-large.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/menu/menu-mobile.css') }}" rel="stylesheet" />
-		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+		<style>
+			.page-header-inscription {
+				min-height: 80vh !important;
+			}
+		</style>
     
 	{% endblock %}
 
@@ -32,16 +39,18 @@
 		<div class="row">
 			<div class="col-12 p-0">
 				<div class="contenair-header-menu">
-					
+				
 					<nav class="navbar navbar-expand bg-gray py-0 navbar-head">
 					  <div class="container border-0">
-						<div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+
+						<!-- MENU LARGE COORDONE-->
+						<div class="d-none d-lg-flex w-100 flex-md-row align-items-center justify-content-center justify-content-sm-around">
 							<div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
-								<a class="text-decoration-none" href="{{ path('home_page') }}">
+								<a class="text-decoration-none logo-content" href="{{ path('home_page') }}">
 								<img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
 								</a>
-							
-								<ul class="navbar-nav mt-2 mt-lg-0">
+                                
+								<ul class="navbar-nav mt-2 mt-lg-0 d-lg-flex flex-column flex-sm-row">
 									<li class="nav-item active m-1">
 									<a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
 									</li>
@@ -50,26 +59,33 @@
 									</li>
 								</ul>
 							</div>
-							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+							<div class="inscription-group-boutton d-none d-lg-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
 								<span class="mr-1">
-									<button class="btn btn-round show-form-pro-mouseclick-11 bg-gray font-weight-bold text-warning border-warning text-nowrap" type="button">
+									<button class="btn btn-round bg-gray text-decoration-none show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap" type="button">
 										<i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
 									</button>
 								</span>
 								<span class="">
-									<a href="{{ path('inscription_particulier_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
+									<a href="{{ path('inscription_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
 										<i class="">👷🏾</i>  Inscription gratuite
 									</a>
 								</span>
 							</div>
 						</div>
+						<!-- END MENU LARGE COORDONE -->
+                        
+						<!-- BEGIN MOBILE MENU -->
+						{% include "./page/menu/menu-mobile.html.twig" %}
+						<!-- END MOBILE MENU -->
+
+
 					  </div>
 					</nav>
 					<!-- Navbar menu end here -->
 					  
 					<!-- ############################# NAVBAR HERE LARGE -->
 					<!-- BEGIN MOBILE MENU -->
-					{% include "./page/menu/menu-mobile.html.twig" %}
+					{# {% include "./page/menu/menu-mobile.html.twig" %} #}
 					<!-- END MOBILE MENU -->	
                 
 					<!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
@@ -155,12 +171,13 @@
 			<div class="col-10" style="padding-top: 1em;">
 				<div class="container bg-dark pl-0 h-auto" style="box-shadow: 5px 5px 5px black;">
 					
-					<form action="{{ path('space_find_pro_page') }}" method="POST">
+					<form id="form_search_category" action="{{ path('space_find_pro_page') }}" method="POST">
 						<div class="form-group">
 							
 							<div class="d-flex flex-column flex-sm-row w-100 align-items-center justify-content-center">
 								
-								<input id="show-input-list-search" type="text" name="categLabel" value="{{ (categLabel is defined) ? categLabel :'' }}" class="form-control text-center show-input-list-search m-2" placeholder="Quel métier ?" style="height: 45px;">
+								<input id="show-input-list-search" type="text" name="categLabel" value="{{ (categLabel is defined) ? categLabel :'' }}" class="form-control text-center show-input-list-search m-2" style="height: 45px;">
+								<input type="hidden" id="CategoryIdSearch" name="CategoryId" value="">
 								{# <select id="select-beast" class="border animated fadeIn delay-8s border-warning demo-default" name="postCity"  placeholder="Dans quelle ville ?">
 								<option></option>
 								{% if cities != null %}
@@ -169,8 +186,6 @@
 									{% endfor %}
 								{% endif %}
 								</select> #}
-								<div id="group-form-spcial-input-hidden"></div>
-								
 								<div class="input-group-append input-group-append-find-artisant bg-warning text-center">
 								  <button type="submit" class="btn btn-warning border-0 text-center text-nowrap w-100">Trouver des professionnels</button>
 								</div>
@@ -266,12 +281,9 @@
 							
 									<div class="d-flex flex-column flex-sm-row w-100 align-items-center justify-content-center">
 								
-										<input id="show-input-list-search-under-find" type="text" class="form-control text-center show-input-list-search m-2" placeholder="Quel métier ?" style="height: 45px;">
-										
-										<div id="form-hidden-under-find">
-											
-										</div>
-								
+										<input id="show-input-list-search-under-find" type="text" class="form-control text-center show-input-list-search m-2" style="height: 45px;">
+										<input type="hidden" id="metier_ask_devis" name="metier_ask_devis" value="">
+
 										<div class="input-group-append input-group-append-find-artisant bg-warning text-center">
 										<button type="submit" class="btn btn-warning border-0 text-center text-nowrap w-100">Demmander un devis</button>
 										</div>
@@ -302,8 +314,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
-<!-- Auto-complete -->
-<script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
 <!-- MESSAGE NTIFICATION -->
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
@@ -315,12 +325,14 @@
 <script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<!-- Auto-complete -->
+<script src="{{ absolute_url('/assets/autocomplete/jquery.easy-autocomplete.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script>
+{# <script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script> #}
 <script src="{{ absolute_url('/assets/js/ajax-list-categ-form-under.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/page.js') }}"></script>
 

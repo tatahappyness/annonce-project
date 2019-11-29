@@ -18,10 +18,15 @@
 		<link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
-		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
 
 		<style>
+			
+			.page-header-inscription {
+				min-height: 85vh !important;
+			}
 			.selectize-input > input {
 				width: 100% !important;
 				height: 100% !important;
@@ -47,15 +52,17 @@
 			<div class="col-12 p-0">
 				<div class="contenair-header-menu">
 					
-					<nav class="navbar navbar-expand bg-gray py-0 navbar-head">
-					  <div class="container border-0">
-						<div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+					<nav class="navbar navbar-expand bg-gray d-none d-lg-block py-0 navbar-head">
+					<div class="container border-0">
+
+						<!-- MENU LARGE COORDONE-->
+						<div class="d-none d-lg-flex w-100 flex-md-row align-items-center justify-content-center justify-content-sm-around">
 							<div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
-								<a class="text-decoration-none" href="{{ path('home_page') }}">
+								<a class="text-decoration-none logo-content" href="{{ path('home_page') }}">
 								<img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
 								</a>
-							
-								<ul class="navbar-nav mt-2 mt-lg-0">
+                                
+								<ul class="navbar-nav mt-2 mt-lg-0 d-lg-flex flex-column flex-sm-row">
 									<li class="nav-item active m-1">
 									<a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
 									</li>
@@ -64,7 +71,7 @@
 									</li>
 								</ul>
 							</div>
-							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+							<div class="inscription-group-boutton d-none d-lg-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
 								<span class="mr-1">
 									<button class="btn btn-round bg-gray text-decoration-none show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap" type="button">
 										<i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
@@ -77,32 +84,51 @@
 								</span>
 							</div>
 						</div>
-					  </div>
+						<!-- END MENU LARGE COORDONE -->
+					</div>
 					</nav>
 					<!-- Navbar menu end here -->
 					  
-					  <!-- ############################# NAVBAR HERE LARGE -->
+					<!-- ############################# NAVBAR HERE LARGE -->
 						
-					<div class=" navbar bg-darkgray navbar-expand-md fix-top py-0 navbar-menu">
-					  <div class="container">
-						<a class="navbar-toggler btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">☰</a>
+					<div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
+					<div class="container">
+                    
+						<a class="text-decoration-none logo-content float-left d-block d-lg-none" href="{{ path('home_page') }}">
+						<img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
+						</a>
+						<a class="nav-link d-none d-md-block d-lg-none" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
+						<a class="nav-link d-none d-md-block d-lg-none" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">{{ configsite.getEmail() }}</span></span></a>
+						<a href="javascript:void(0);" class="float-right text-decoration-none btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="lnr lnr-menu-circle text-warning d-block d-lg-none" style="font-size: 64px !important;"></span>
+						</a>
+
 						<div class="navbar-collapse collapse">
-						  <ul class="nav navbar-nav">
+						<ul class="nav navbar-nav font-weight-bold">
+							<li class="nav-item"><a href="{{ path('space_pro_page') }}" class="nav-link">Vous êtes un pro ?</a>
+							</li>
 							<li class="nav-item"><a href="{{ path('nos_tarif_page') }}" class="nav-link">Nos tarifs</a>
 							</li>
-							{# <li class="nav-item"><a href="{{ path('guide_price_page') }}" class="nav-link">Guide de prix</a>
-							</li> #}
 							<li class="nav-item"><a href="{{ path('how_to_step_page') }}" class="nav-link">Comment ça marche</a>
 							</li>
 							<li class="nav-item"><a href="{{ path('site_create_page') }}" class="nav-link">Créer mon site internet</a>
 							</li>
-							<li class="nav-item"><a href="{{ path('pro_dashbord') }}" class="nav-link pro-dashbord-access">Gérer mon espace professionnel</a>
+							<li class="nav-item">
+								<a class="btn-outline-wrning bg-transparent m-1 float-right d-block d-lg-none rounded text-decoration-none show-form-pro-mouseclick-11 font-weight-bold text-warning border-warning text-nowrap">
+									<i class="">🔒</i> Se connecter
+								</a>
 							</li>
-						  </ul>
+							<li class="nav-item">
+								<a href="{{ path('inscription_page') }}" class="btn-outline-wrning bg-transparent m-1 float-right d-block d-lg-none rounded text-decoration-none font-weight-bold text-warning border-warning text-nowrap">
+									<i class="">👷🏾</i> Inscription gratuite
+								</a>
+							</li>
+						</ul>
 						</div>
-					  </div>
+					</div>
 					</div>
 					<!-- ############################# END NAVBAR HERE LARGE -->
+					
 					 <!-- Progress barr slid scroll -->
 						<div class="progress-container fixed-top">
 							<div class="progress-bar" id="myBar"></div>
@@ -131,11 +157,12 @@
 			<div class="col-10" style="padding-top: 1em;">
 				<div class="container bg-dark pl-0 h-auto" style="box-shadow: 5px 5px 5px black;">
 					
-					<form action="{{ path('find_chantier_page') }}" method="POST">
+					<form id="form_search_category" action="{{ path('find_chantier_page') }}" method="POST">
 						<div class="form-group">
 							<div class="d-flex flex-column align-items-center flex-md-row w-100 justify-content-center">
 								
 								<input id="show-input-list-search" type="text" name="categLabel" class="form-control text-center show-input-list-search m-2" placeholder="Quel métier ?" style="height: 45px;">
+								<input type="hidden" id="CategoryIdSearch" name="CategoryId" value="">
 								{# <select id="select-beast" class="border animated fadeIn delay-8s border-warning demo-default" name="postCity"  placeholder="Dans quelle ville ?">
 								<option></option>
 								{% if cities != null %}
@@ -245,7 +272,7 @@
 											<p class="text-secondary">{{ post.getPostAdsDateCrea() | date('d/m/y H:m:s') }}</p>
 											<p class="card-text motif-pub">{{ post.getPostAdsTravauxDescription() }}</p>
 											<p class="text-secondary small">Postulé par: {{ post.getPostUserId().getFirstname() }}</p><br>
-											<a class="text-warning float-right" href="{{ path('show_detail_ads_page', { id: post.getId() }) }}">voir le chantier >></a>
+											<a class="text-warning view-setail-ads-page float-right" href="{{ path('show_detail_ads_page', { id: post.getId() }) }}">voir le chantier >></a>
 										</div>
 									<div class="card-footer text-secondary text-center mt-0 py-2">
 										{{''}}
@@ -404,8 +431,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
-<!-- Auto-complete -->
-<script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
 <!-- MESSAGE NTIFICATION -->
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
@@ -417,13 +442,15 @@
 <script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<!-- Auto-complete -->
+<script src="{{ absolute_url('/assets/autocomplete/jquery.easy-autocomplete.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select-form/js/selectize.js') }}"></script>
 <script src="{{ absolute_url('/assets/select-form/js/index.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
-<script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script>
+{# <script src="{{ absolute_url('/assets/js/list-ajax.js') }}"></script> #}
 <script src="{{ absolute_url('/assets/js/page.js') }}"></script>
 
 {% endblock %}

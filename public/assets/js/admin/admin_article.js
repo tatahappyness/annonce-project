@@ -3,36 +3,36 @@
   $(function () { $('#myModal').modal('hide')});
         
   
-  $('.customSwitch').change(function() {
-    //alert($(this).data('id') +" "+ $(this).prop('checked'))            
-    setPopular($(this).data('id') , $(this).prop('checked'));
+//   $('.customSwitch').change(function() {
+//     //alert($(this).data('id') +" "+ $(this).prop('checked'))            
+//     setPopular($(this).data('id') , $(this).prop('checked'));
     
-    //alert($(this).prop('checked') + ' ' + $(this).data('id') );
+//     //alert($(this).prop('checked') + ' ' + $(this).data('id') );
 
-});
+// });
 
-  function setPopular(id, pop){			
+//   function setPopular(id, pop){			
 
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-       if (xhttp.readyState == 4 && xhttp.status == 200) {
-           Swal.fire({
-               position: 'top-end',
-               icon: 'success',
-               title: xhttp.responseText,
-               showConfirmButton: false,
-               timer: 1500
-           })
+//     var xhttp = new XMLHttpRequest();
+//     xhttp.onreadystatechange = function() {
+//        if (xhttp.readyState == 4 && xhttp.status == 200) {
+//            Swal.fire({
+//                position: 'top-end',
+//                icon: 'success',
+//                title: xhttp.responseText,
+//                showConfirmButton: false,
+//                timer: 1500
+//            })
 
-           location.reload(true);
+//            location.reload(true);
 
-       }
-    };
+//        }
+//     };
 
-    xhttp.open("GET", "/admin/article/pop/" + id + "/" + pop);
-    xhttp.send();
+//     xhttp.open("GET", "/admin/article/pop/" + id + "/" + pop);
+//     xhttp.send();
 
-}
+// }
 
 
 

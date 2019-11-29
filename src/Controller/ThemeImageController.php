@@ -139,21 +139,25 @@ class ThemeImageController extends AbstractController
             $allDataForm = $request->request->get("theme_image");                        
             $themeId =  $allDataForm['ThemeId'];
             
+                
             /** @var File $file */
             $file = $form['Image']->getData();
               
               
             if ( $file  ) {
-                
+
                 $output_dir = $this->getParameter('themes_directory');
                 $newFilename = uniqid().".".$file->getClientOriginalExtension();
                 
                 $file->move($output_dir, $newFilename);
-
-
                 $themeImage->setImage($newFilename);
-
+                
+                $theme = $this->getDoctrine()
+                    ->getRepository(\App\Entity\Theme::class)
+                    ->findById($themeId);
                     
+                $themeImage->setThemeId( $theme );
+            
                 $this->getDoctrine()->getManager()->flush();
 
                 return $this->redirectToRoute('theme_image_index', [

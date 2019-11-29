@@ -37,6 +37,53 @@ class ServicesController extends AbstractController
         ]);
     }
     
+    
+    /**
+     * @Route("/isactived", name="isactived", methods={"GET"})
+     */
+    public function isactived(Request $req, ServicesRepository $servicesRepository ): Response
+    {                
+        $entityManager = $this->getDoctrine()->getManager();
+                                                   
+        
+        if ( $req->query->get('active') == 'true' ) {             
+                
+            try {
+
+                $entityManager->beginTransaction();
+
+                $serv = $servicesRepository->findById( (int) $req->query->get('id') );                
+                $serv->setIsActived(true);
+
+
+                $entityManager->merge($serv);
+                $entityManager->flush();                       
+                $entityManager->commit();
+
+                return new Response('Service activé');
+            } catch (\Throwable $th) {
+                return new Response('Erreur serveur');
+            }
+        }
+            
+        try {
+
+            $entityManager->beginTransaction();
+
+            $serv = $servicesRepository->findById( (int) $req->query->get('id') );            
+            $serv->setIsActived(false);
+
+            $entityManager->merge($serv);
+            $entityManager->flush();
+            $entityManager->commit();
+
+            
+            return new Response('Service desactivé');
+        } catch (\Throwable $th) {
+            return new Response('Erreur serveur');
+        }
+    }
+
 
 
     /**

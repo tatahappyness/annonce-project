@@ -21,10 +21,21 @@ class Theme
      */
     private $ImageFond;
 
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $ImageCapture;
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $ColorFond;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $KeyWord;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -34,6 +45,18 @@ class Theme
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getImageCapture(): ?string
+    {
+        return $this->ImageCapture;
+    }
+
+    public function setImageCapture(string $ImageCapture): self
+    {
+        $this->ImageCapture = $ImageCapture;
+
+        return $this;
     }
 
     public function getImageFond(): ?string
@@ -68,6 +91,18 @@ class Theme
     public function setComments(string $Comments): self
     {
         $this->Comments = $Comments;
+
+        return $this;
+    }
+
+    public function getKeyWord(): ?string
+    {
+        return $this->KeyWord;
+    }
+
+    public function setKeyWord(string $KeyWord): self
+    {
+        $this->KeyWord = $KeyWord;
 
         return $this;
     }

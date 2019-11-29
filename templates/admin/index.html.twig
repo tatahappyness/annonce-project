@@ -614,25 +614,28 @@
 			</div>
 
 			<!-- Content Row -->
-			<div class="row_stat_show">
+			<div class="row_stat_show" style="display:none">
 				<!-- Divider -->
 				Statistique :
 
 
 
 
-				{% if popularDevis != null %}
-					{% for devPopular in popularDevis %}												
-							<div class="img-title popular-title-img-1 h4 h-100 text-center">{{ devPopular.getArticleTitle() }}</div>						
-					{% endfor %}
-				{% endif %}
+				<!--
+
+				{ % if popularDevis != null %}
+					{ % for devPopular in popularDevis %}												
+							<div class="img-title popular-title-img-1 h4 h-100 text-center">{ { devPopular.getArticleTitle() }}</div>						
+					{ % endfor %}
+				{ % endif %}
 				
-				{% if devisPopulars != null %}
-					{% for x in devisPopulars %}												
-							<div class="img-title popular-title-img-1 h4 h-100 text-center">{{ x }}</div>						
-					{% endfor %}
-				{% endif %}
+				{ % if devisPopulars != null %}
+					{ % for x in devisPopulars %}												
+							<div class="img-title popular-title-img-1 h4 h-100 text-center">{ { x }}</div>						
+					{ % endfor %}
+				{ % endif %}
 				
+				-->
 							
 
 
@@ -642,10 +645,9 @@
 				<div class="col-lg-6 mb-4">
 	  
 					<!-- Project Card Example -->
-					<div class="card shadow mb-4">
+					{# <div class="card shadow mb-4">
 					  <div class="card-header py-3">
 						<h6 class="m-0 font-weight-bold text-primary">Top 5 des activitées</h6>
-						
 					  </div>
 					  <div class="card-body">                  
 						<h4 class="small font-weight-bold">Plomberie-Sanitaire : 
@@ -703,11 +705,11 @@
 										
 					  </div>
 					</div>
-	  
+	   #}
 				  </div>
 					  
 
-
+{# 
 				<!-- Pie Chart -->
 				<div class="col-xl-4 col-lg-5">
 				  <div class="card shadow mb-4">
@@ -775,10 +777,10 @@
                   </div>
                 </div>
 				
-					
+					 #}
 					
 				<!-- Area Chart -->
-				<div class="col-xl-8 col-lg-7">
+				{# <div class="col-xl-8 col-lg-7">
 				  <div class="card shadow mb-4">
 					<!-- Card Header - Dropdown -->
 					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -805,20 +807,20 @@
 				  </div>
 				</div>
 				
-				
+				 #}
             </div>
   
 			
 
 <div id="piechart"></div>
 
-<div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+	<div id="columnchart_values" style="width: 900px; height: 300px; display:none"></div>
 
-    <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+    <div id="columnchart_material" style="width: 800px; height: 500px; display:none"></div>
         </div>
         <!-- /.container -->
 
-    <div id="series_chart_div" style="width: 900px; height: 500px;"></div>
+    <div id="series_chart_div" style="width: 900px; height: 500px; display:none"></div>
 	
 	
 	

@@ -238,6 +238,7 @@
                                         <th>#</th>
                                         <th>Couleur</th>
                                         <th>Commentaire</th>
+                                        <th>Mot clé</th>
                                         <th>Theme Genéral</th>
                                         <th>Actions</th>
                                     </tr>
@@ -246,12 +247,12 @@
                                 {% for theme_color in theme_colors %}
                                     <tr>          
                                         <td>{{ theme_color.Id }}</td>                                        
-			
 										<td>
 											<button class="card col-lg-12 btn"  type="button" title="Mon Couler" style="background: {{ theme_color.Color }} ;height: 5rem;">
 											</button>                    
 										</td>
                                         <td>{{ theme_color.Comments }}</td>                                        
+                                        <td>{{ theme_color.KeyWord }}</td>                                        
                                         <td>{{ theme_color.ThemeId.Comments }}</td>                                        
                                         <td>										      
                                             <a href="{{ path('theme_color_edit', {'id': theme_color.id }) }}">

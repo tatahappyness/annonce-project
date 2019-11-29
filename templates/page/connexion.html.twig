@@ -18,7 +18,8 @@
 		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/menu/menu-large.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/menu/menu-mobile.css') }}" rel="stylesheet" />
-		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
 
@@ -42,13 +43,15 @@
 				<div class="contenair-header-menu"> 
 					<nav class="navbar navbar-expand bg-gray py-0 navbar-head">
 					  <div class="container border-0">
-						<div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+					  
+						<!-- MENU LARGE COORDONE-->
+						<div class="d-none d-lg-flex w-100 flex-md-row align-items-center justify-content-center justify-content-sm-around">
 							<div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
-								<a class="text-decoration-none" href="{{ path('home_page') }}">
+								<a class="text-decoration-none logo-content" href="{{ path('home_page') }}">
 								<img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
 								</a>
-							
-								<ul class="navbar-nav mt-2 mt-lg-0">
+                                
+								<ul class="navbar-nav mt-2 mt-lg-0 d-lg-flex flex-column flex-sm-row">
 									<li class="nav-item active m-1">
 									<a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
 									</li>
@@ -57,19 +60,25 @@
 									</li>
 								</ul>
 							</div>
-							<div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+							<div class="inscription-group-boutton d-none d-lg-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
 								<span class="mr-1">
-									<button class="btn btn-round rounded bg-gray show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap">
-										<i class="">🔒</i>  <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
+									<button class="btn btn-round bg-gray text-decoration-none show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap" type="button">
+										<i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
 									</button>
 								</span>
 								<span class="">
-									<a href="{{ path('space_pro_page') }}" class="btn btn-round bg-white border-warning font-weight-bold text-success text-nowrap text-decoration-none">
-										<i class="">👷🏾</i>  Vous êtes un pro ?
+									<a href="{{ path('inscription_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
+										<i class="">👷🏾</i>  Inscription gratuite
 									</a>
 								</span>
 							</div>
 						</div>
+						<!-- END MENU LARGE COORDONE -->
+                        
+						<!-- BEGIN MOBILE MENU -->
+						{% include "./page/menu/menu-mobile.html.twig" %}
+						<!-- END MOBILE MENU -->
+						
 					  </div>
 					</nav>
 					<!-- Navbar menu end here -->
@@ -77,7 +86,7 @@
 					  
 					<!-- ############################# NAVBAR HERE LARGE -->
 					<!-- BEGIN MOBILE MENU -->
-					{% include "./page/menu/menu-mobile.html.twig" %}
+					{# {% include "./page/menu/menu-mobile.html.twig" %} #}
 					<!-- END MOBILE MENU -->	
                 
 					<!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
@@ -204,12 +213,12 @@
 				<div class="col-12 d-flex flex-column flex-md-row text-center align-items-center justify-content-center py-4">
 					<div class="col-12 d-flex justify-content-center pb-4">
 						<div class="row">
-							<div class="col-12 col-lg-9 d-flex flex-column align-self-center align-items-center align-items-lg-end text-center w-100" style="font-size: 18px;">
+							{# <div class="col-12 d-none col-lg-9 flex-column align-self-center align-items-center align-items-lg-end text-center w-100" style="font-size: 18px;">
 								<h4 class="text-warning title-front-h1 font-weight-bold">SELECTIONNEZ LE MEILLEUR ARTISAN LOCAL POUR VOS TRAVAUX</h4>
 								<p class="text-white text-italic">Recevez jusqu’à 5 devis en 48h, gratuitement et sans engagement!</p>
-							</div>
-							<div class=" col-12 col-lg-3 content-img-garantie text-left">
-								<img class="free-img" src="{{ absolute_url('/assets/img/garantie.png') }}" style="width: 50%;"></img>
+							</div> #}
+							<div class=" col-12 content-img-garantie text-right">
+								<img class="free-img" src="{{ absolute_url('/assets/img/garantie.png') }}" style="width: 25%;"></img>
 							</div>
 						</div>
 					</div>
@@ -223,14 +232,10 @@
 							<div class="d-flex flex-column flex-sm-row align-items-center justify-content-center">
 								<div class="form-group p-0 m-0 w-100">
 
-									<input type="text" id="show-input-list-search" class="form-control text-center" placeholder="Quel travaux souhaitez vous realiser ?">
+									<input type="text" id="show-input-list-search" class="form-control input-ask-devis-home text-center" placeholder="Quel travaux souhaitez vous realiser ?">
+									<input type="hidden" id="metier_ask_devis" name="metier_ask_devis" value="">
 
 								</div>
-
-								<div id="group-form-spcial-input-hidden">                                                                                                                                                           
-                                 
-								</div>
-								
 								<div class="bg-warning  btn-ask-devis w-auto">
 								  <button type="submit" class="btn btn-warning border-0 text-nowrap">Demander un devis</button>
 								</div>
@@ -445,8 +450,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
 <!-- Auto-complete -->
-<script src="{{ absolute_url('/assets/autocomplete/autocomplete.js') }}"></script>
-<!-- Auto-complete -->
 <!-- MESSAGE NTIFICATION -->
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
@@ -458,6 +461,8 @@
 <script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<!-- Auto-complete -->
+<script src="{{ absolute_url('/assets/autocomplete/jquery.easy-autocomplete.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>

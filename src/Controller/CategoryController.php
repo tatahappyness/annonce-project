@@ -50,6 +50,56 @@ class CategoryController extends AbstractController
         ]);
     }
 
+
+    /**
+    * @Route("/top/{id}/{active}", name="istop", methods={"GET"})
+    */
+    public function ispop($id = null , $active = null , CategoryRepository $categRep): Response
+    {
+
+                     
+        //dump($active);die;
+
+        $entityManager = $this->getDoctrine()->getManager();
+          
+        if ( $active == 'true' ) {             
+                
+            try {
+
+                $entityManager->beginTransaction();
+
+                $category = $categRep->findById($id);                
+                $category->setIsTop(true);
+
+                $entityManager->merge($category);
+                $entityManager->flush();                       
+                $entityManager->commit();
+
+                return new Response('Populaire activé');
+            } catch (\Throwable $th) {
+                return new Response('Erreur serveur active');
+            }
+        }
+            
+        try {
+
+            $entityManager->beginTransaction();
+
+            $category = $categRep->findById($id);            
+            $category->setIsTop(false);
+
+            $entityManager->merge($category);
+            $entityManager->flush();
+            $entityManager->commit();
+
+            
+            return new Response('Populaire desactivé');
+        } catch (\Throwable $th) {
+            return new Response('Erreur serveur false');
+        }
+
+    }
+
     
     /**
     * @Route("/setImage", name="setImage")

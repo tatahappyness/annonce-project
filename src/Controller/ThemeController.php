@@ -73,16 +73,21 @@ class ThemeController extends AbstractController
             
             /** @var File $file */
             $file = $form['ImageFond']->getData();
+            $file_capture = $form['ImageCapture']->getData();
               
-            if ( $file  ) {
+            if ( $file && $file_capture ) {
                 
-                $output_dir = $this->getParameter('theme_directory');                      
+                $output_dir = $this->getParameter('themes_directory');                      
                 $newFilename = uniqid().".".$file->getClientOriginalExtension();
+                $newFilename_capture = uniqid().".".$file->getClientOriginalExtension();
                 
                 $file->move($output_dir, $newFilename);
+                $file_capture->move($output_dir, $newFilename);
 
 
+                //dump(file_capture); die;
                 $theme->setImageFond($newFilename);
+                $theme->setImageCapture($newFilename_capture);
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($theme);
@@ -146,18 +151,31 @@ class ThemeController extends AbstractController
             
             /** @var File $file */
             $file = $form['ImageFond']->getData();
-              
-            if ( $file  ) {
-                    
-                    $output_dir = $this->getParameter('themes_directory');                      
-                    $newFilename = uniqid().".".$file->getClientOriginalExtension();
-                    
-                    $file->move($output_dir, $newFilename);
+            $file_capture = $form['ImageCapture']->getData();
+
+            if ( $file && $file_capture ) {
+                
+                $output_dir = $this->getParameter('themes_directory');                      
+                $output_dir_2 = $this->getParameter('themes_directory');                      
+                $newFilename = uniqid().".".$file->getClientOriginalExtension();
+                $newFilename_capture = uniqid().".".$file->getClientOriginalExtension();
+                
+                $file->move($output_dir, $newFilename);
+                $file_capture->move($output_dir_2, $newFilename_capture);
 
 
-                    $theme->setImageFond($newFilename);
+                $theme->setImageFond($newFilename);
+                $theme->setImageCapture($newFilename_capture);
 
-                $this->getDoctrine()->getManager()->flush();
+                //dump($theme); die;
+
+                //dump(file_capture); die;
+                
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($theme);
+                $entityManager->flush();
+                //$this->getDoctrine()->getManager()->flush();
 
                 return $this->redirectToRoute('theme_index', [
                     'id' => $theme->getId(),

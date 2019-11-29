@@ -5,10 +5,11 @@ jQuery(document).ready(function() {
     })
 
     jQuery('.article-image-show ').mouseover(function() {
-        jQuery('#item-' + jQuery(this).data('id')).addClass('d-none');
+        jQuery('.item-article').addClass('d-none');
+        jQuery('#item-' + jQuery(this).data('id')).removeClass('d-none');
     })
     jQuery('.article-image-show ').mouseleave(function() {
-        jQuery('#item-' + jQuery(this).data('id')).removeClass('d-none');
+        jQuery('#item-' + jQuery(this).data('id')).addClass('d-none');
     })
 
 })
@@ -92,40 +93,39 @@ jQuery.ajax({
     }).done(function(response){
 			
         //console.log(response);return false;
-        var input = document.getElementById("show-input-list-search");
-        autocomplete({
-            input: input,
-            minLength: 2,
-            emptyMsg: 'Aucun élément trouvé',
-            fetch: function(text, update) {
-                text = text.toLowerCase();
-                // you can also use AJAX requests instead of preloaded data
-                var suggestions = response.filter(n => n.label.toLowerCase().startsWith(text))
-                update(suggestions);
-            },
-            onSelect: function(item) {
-                input.value = item.label;
-                inputCreate(item.value);
-            }
+        var options = {
 
-        });
-	            
+            data: response,
+            placeholder: "Quel métier?",
+            getValue: "label",
+
+            list: {
+		
+                match: {
+                enabled: true
+                },
+                onSelectItemEvent: function() {
+                    var value = $("#show-input-list-search").getSelectedItemData().value;
+                    //alert(value);
+                    jQuery("#CategoryIdSearch").val(value).trigger("change");
+                    // var form_dev = document.getElementById('form_search_category');
+                    // //submit the form post devis from home
+                    // form_dev.submit();
+                }
+            },
+
+            theme: "square"
+        };
+        
+        jQuery("#show-input-list-search").easyAutocomplete(options);
+       
+
     }).fail(function(){
         // Here you should treat the http errors (e.g., 403, 40
         alert('serveur internal error!!')					
         }).always(function(){
             console.log("AJAX request finished!");
         });
-
-//Function to create element input
-function inputCreate(id) {
-    var parentDiv = document.getElementById('group-form-spcial-input-hidden');
-    var input = document.createElement("input");
-    input.type = 'hidden';
-    input.value = id
-    input.name = 'CategoryId';
-    parentDiv.append(input);
-}
 //END FORM FRONT SEARCH Category
 
 

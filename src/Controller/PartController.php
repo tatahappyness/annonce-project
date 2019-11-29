@@ -55,7 +55,7 @@ class PartController extends AbstractController
     /**
     * @Route("/dashbord", name="particulier_dashbord")
     */
-    public function dashbord(Security $security, ArticleRepository $artRep, CategoryRepository $categoryRep, UserRepository $userRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
+    public function dashbord(Security $security, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CategoryRepository $categoryRep, UserRepository $userRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -101,6 +101,8 @@ class PartController extends AbstractController
             //dump($popularDevis);die;
             //END GET POPULA DEVIS
 
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
 
         return $this->render('part/dashbord.html.twig', [
             'pros' => $pros,
@@ -111,13 +113,14 @@ class PartController extends AbstractController
             'user'=> $security->getUser(),
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
+            'configsite'=> $configsite,
         ]);
     }
 
     /**
     * @Route("/list-articles-ajax", name="particulier_list_articles_ajax")
     */
-    public function listArticlesAjax(Request $request, Security $security, CategoryRepository $categoryRep, ArticleRepository $articleRep)
+    public function listArticlesAjax(Request $request, ConfigsiteRepository $configsiteRep, Security $security, CategoryRepository $categoryRep, ArticleRepository $articleRep)
     {
 
         try {
@@ -148,7 +151,7 @@ class PartController extends AbstractController
     /**
     * @Route("/lists-ask-projects-devis", name="particulier_ask_project_devis")
     */
-    public function askProjectsDevis(Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
+    public function askProjectsDevis(Security $security, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -183,6 +186,9 @@ class PartController extends AbstractController
             }
         }
 
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
         return $this->render('part/my-ask-devis-project-list.html.twig', [
             'devis' => $devis,
             'nbMyProject'=> $nbMyProject,
@@ -192,6 +198,7 @@ class PartController extends AbstractController
             'user'=> $security->getUser(),
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
+            'configsite'=> $configsite,
 
         ]);
     }
@@ -199,7 +206,7 @@ class PartController extends AbstractController
     /**
     * @Route("/lists-devis-receved-detail/{id}", name="particulier_devis_receved")
     */
-    public function devisReceved($id = null, Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
+    public function devisReceved($id = null, Security $security, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -230,7 +237,7 @@ class PartController extends AbstractController
        if($listProsAcceptDevis !== null) {
         foreach ($listProsAcceptDevis as $key => $value) {
             $nbDevisPros[$value->getUserId()->getId()] = count($devisAcceptRep->findByUserId(array(1=> $value->getUserId())));
-            $nbEvaluationPros[$value->getUserId()->getId()] = count( $evalRep->findByUser(array(1=> $value->getUserId())));
+            $nbEvaluationPros[$value->getUserId()->getId()] = count( $evalRep->findByUserId(array(1=> $value->getUserId())));
             $partEvaluatePros = $evalRep->findOneByUserProAndPart(array(1=> $value->getUserId(), 2=> $security->getUser()));
             $partIsEvaluatePros[$value->getUserId()->getId()] =  $partEvaluatePros !== null ? true : false;
             }
@@ -251,6 +258,9 @@ class PartController extends AbstractController
            }
        }
 
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
         return $this->render('part/my-devis-receved-list.html.twig', [
             'devis'=> $devis,
             'detailDevis'=>  $detailDevis,
@@ -265,13 +275,14 @@ class PartController extends AbstractController
             'user'=> $security->getUser(),
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
+            'configsite'=> $configsite,
         ]);
     }
 
     /**
     * @Route("/post-ads-project", name="particulier_post_ads")
     */
-    public function adsProjectPostule(Request $request, Security $security, AbonnementRepository $abonnementRep, CustomerRepository $customRep, ServicesRepository $serviceRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, ArticleRepository $artRep, CategoryRepository $categoryRep, TypeRepository $typeRep, CitiesRepository $cityRep, ArticleRepository $articleRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
+    public function adsProjectPostule(Request $request, Security $security, ConfigsiteRepository $configsiteRep, AbonnementRepository $abonnementRep, CustomerRepository $customRep, ServicesRepository $serviceRep, UserRepository $userRep, ArticleRepository $artRep, CategoryRepository $categoryRep, TypeRepository $typeRep, CitiesRepository $cityRep, ArticleRepository $articleRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -351,6 +362,9 @@ class PartController extends AbstractController
                 }
             }
 
+            //Get config site
+            $configsite = $configsiteRep->findOneByIsActive();
+
             return $this->render('part/post-ads.html.twig', [
                 'pros' => $pros,
                 'nbMyProject'=> $nbMyProject,
@@ -361,6 +375,7 @@ class PartController extends AbstractController
                 'categories'=> $categories,
                 'types'=> $types,
                 'popularDevis'=> $popularDevis,
+                'configsite'=> $configsite,
             ]);      
 
     }
@@ -368,7 +383,7 @@ class PartController extends AbstractController
     /**
     * @Route("/lists-ads-postule", name="particulier_ads_postule")
     */
-    public function listsAdsPostule(Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, ReponsePostAdsRepository $reponseRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
+    public function listsAdsPostule(Security $security, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, ReponsePostAdsRepository $reponseRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -408,6 +423,10 @@ class PartController extends AbstractController
             }
         }
 
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
+
         return $this->render('part/my-project-postule-list.html.twig', [
             'posts' => $posts,
             'nbResponsePosts'=> $nbResponsePosts,
@@ -418,13 +437,14 @@ class PartController extends AbstractController
             'user'=> $security->getUser(),
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
+            'configsite'=> $configsite,
         ]);
     }
 
     /**
     * @Route("/lists-details-candidates/{id}", name="particulier_details_candidates")
     */
-    public function listNumberDetailCandidate($id = null, Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, ReponsePostAdsRepository $reponseRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
+    public function listNumberDetailCandidate($id = null, Security $security, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, ReponsePostAdsRepository $reponseRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -443,7 +463,7 @@ class PartController extends AbstractController
         if($listResponsePosts !== null) {
             foreach ($listResponsePosts as $key => $value) {
                 $nbDevisPros[$value->getUserProId()->getId()] = count($devisAcceptRep->findByUserId(array(1=> $value->getUserProId())));
-                $nbEvaluationPros[$value->getUserProId()->getId()] = count( $evalRep->findByUser(array(1=> $value->getUserProId())));
+                $nbEvaluationPros[$value->getUserProId()->getId()] = count( $evalRep->findByUserId(array(1=> $value->getUserProId())));
                 $partEvaluatePros = $evalRep->findOneByUserProAndPart(array(1=> $value->getUserProId(), 2=> $security->getUser()));
                 $partIsEvaluatePros[$value->getUserProId()->getId()] =  $partEvaluatePros !== null ? true : false;
                 }
@@ -474,6 +494,9 @@ class PartController extends AbstractController
             }
         }
 
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
         return $this->render('part/number-detail-candidature-project.html.twig', [
             'detailPost' => $detailPost,
             'listResponsePosts'=> $listResponsePosts,
@@ -488,13 +511,14 @@ class PartController extends AbstractController
             'user'=> $security->getUser(),
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
+            'configsite'=> $configsite,
         ]);
     }
 
     /**
     * @Route("/post-evaluations", name="particulier_post_evaluations")
     */
-    public function evaluations(Request $request, Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep)
+    public function evaluations(Request $request, Security $security, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -534,10 +558,14 @@ class PartController extends AbstractController
                 }
             }
 
+            //Get config site
+            $configsite = $configsiteRep->findOneByIsActive();
+
             return $this->render('part/post-evaluations.html.twig', [
                 'user'=> $security->getUser(),
                 'categories'=> $categories,
                 'popularDevis'=> $popularDevis,
+                'configsite'=> $configsite,
             ]);
 
         }
@@ -547,7 +575,7 @@ class PartController extends AbstractController
     /**
     * @Route("/projects-valid-finish", name="particulier_projects_valid_finish")
     */
-    public function validFinishProjects(Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, ReponsePostAdsRepository $reponseRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function validFinishProjects(Security $security, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, ReponsePostAdsRepository $reponseRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -590,6 +618,9 @@ class PartController extends AbstractController
             }
         }
 
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
         return $this->render('part/projects-valid-finish.html.twig', [
             'nbMyProject'=> $nbMyProject,
             'nbDevis'=> $nbDevis,
@@ -604,13 +635,14 @@ class PartController extends AbstractController
             'user'=> $security->getUser(),
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
+            'configsite'=> $configsite,
         ]);
     }
 
     /**
     * @Route("/projects-detail-accept/{id}", name="particulier_projects_detail_accept")
     */
-    public function acceptProjectsDetails($id = null, Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
+    public function acceptProjectsDetails($id = null, Security $security, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -641,7 +673,7 @@ class PartController extends AbstractController
         if($listProsAcceptDevis !== null) {
             foreach ($listProsAcceptDevis as $key => $value) {
                 $nbDevisPros[$value->getUserId()->getId()] = count($devisAcceptRep->findByUserId(array(1=> $value->getUserId())));
-                $nbEvaluationPros[$value->getUserId()->getId()] = count( $evalRep->findByUser(array(1=> $value->getUserId())));
+                $nbEvaluationPros[$value->getUserId()->getId()] = count( $evalRep->findByUserId(array(1=> $value->getUserId())));
                 $partEvaluatePros = $evalRep->findOneByUserProAndPart(array(1=> $value->getUserId(), 2=> $security->getUser()));
                 $partIsEvaluatePros[$value->getUserId()->getId()] =  $partEvaluatePros !== null ? true : false;
                 }
@@ -662,6 +694,9 @@ class PartController extends AbstractController
             }
         }
 
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
         return $this->render('part/detail-valid-finish.html.twig', [
             'devis'=> $devis,
             'detailDevis'=>  $detailDevis,
@@ -676,13 +711,14 @@ class PartController extends AbstractController
             'user'=> $security->getUser(),
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
+            'configsite'=> $configsite,
         ]);
     }
 
     /**
     * @Route("/projects-detail-valid/{id}", name="particulier_projects_detail_valid")
     */
-    public function validProjectsDetails($id = null, Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
+    public function validProjectsDetails($id = null, Security $security, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -716,7 +752,7 @@ class PartController extends AbstractController
         if($detailDevis !== null) {
            
                 $nbDevisPros[$detailDevis->getUserId()->getId()] = count($devisAcceptRep->findByUserId(array(1=> $detailDevis->getUserId())));
-                $nbEvaluationPros[$detailDevis->getUserId()->getId()] = count( $evalRep->findByUser(array(1=> $detailDevis->getUserId())));
+                $nbEvaluationPros[$detailDevis->getUserId()->getId()] = count( $evalRep->findByUserId(array(1=> $detailDevis->getUserId())));
                 $partEvaluatePros = $evalRep->findOneByUserProAndPart(array(1=> $detailDevis->getUserId(), 2=> $security->getUser()));
                 $partIsEvaluatePros[$detailDevis->getUserId()->getId()] =  $partEvaluatePros !== null ? true : false;
                
@@ -737,6 +773,9 @@ class PartController extends AbstractController
             }
         }
 
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
         return $this->render('part/detail-valid-finish.html.twig', [
             'devis'=> $devis,
             'detailDevis'=>  $detailDev,
@@ -751,13 +790,14 @@ class PartController extends AbstractController
             'user'=> $security->getUser(),
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
+            'configsite'=> $configsite,
         ]);
     }
 
     /**
     * @Route("/projects-detail-finish/{id}", name="particulier_projects_detail_finish")
     */
-    public function finishProjectsDetails($id = null, Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep, EvaluationsRepository $evalRep)
+    public function finishProjectsDetails($id = null, Security $security, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep, EvaluationsRepository $evalRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -791,7 +831,7 @@ class PartController extends AbstractController
         if($detailDevis !== null) {
            
                 $nbDevisPros[$detailDevis->getUserId()->getId()] = count($devisAcceptRep->findByUserId(array(1=> $detailDevis->getUserId())));
-                $nbEvaluationPros[$detailDevis->getUserId()->getId()] = count( $evalRep->findByUser(array(1=> $detailDevis->getUserId())));
+                $nbEvaluationPros[$detailDevis->getUserId()->getId()] = count( $evalRep->findByUserId(array(1=> $detailDevis->getUserId())));
                 $partEvaluatePros = $evalRep->findOneByUserProAndPart(array(1=> $detailDevis->getUserId(), 2=> $security->getUser()));
                 $partIsEvaluatePros[$detailDevis->getUserId()->getId()] =  $partEvaluatePros !== null ? true : false;
                
@@ -812,6 +852,9 @@ class PartController extends AbstractController
             }
         }
 
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
         return $this->render('part/detail-valid-finish.html.twig', [
             'devis'=> $devis,
             'detailDevis'=>  $detailDev,
@@ -826,13 +869,14 @@ class PartController extends AbstractController
             'user'=> $security->getUser(),
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
+            'configsite'=> $configsite,
         ]);
     }
 
     /**
     * @Route("/part-password-edit", name="particulier_password_edit")
     */
-    public function editPassword(Request $request, UserPasswordEncoderInterface $passwordEncoder, Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
+    public function editPassword(Request $request, ConfigsiteRepository $configsiteRep, UserPasswordEncoderInterface $passwordEncoder, Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -891,6 +935,9 @@ class PartController extends AbstractController
             }
         }
 
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
         return $this->render('part/password-edit.html.twig', [
             'pros' => $pros,
             'nbMyProject'=> $nbMyProject,
@@ -900,13 +947,14 @@ class PartController extends AbstractController
             'user'=> $security->getUser(),
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
+            'configsite'=> $configsite,
         ]);
     }
 
     /**
     * @Route("/edit-profil", name="particulier_edit_profil")
     */
-    public function editProfil(Request $request, Security $security, UserRepository $user, CategoryRepository $categoryRep, ArticleRepository $artRep)
+    public function editProfil(Request $request, Security $security, ConfigsiteRepository $configsiteRep, UserRepository $user, CategoryRepository $categoryRep, ArticleRepository $artRep)
     {
             if (!is_null($request->files->get('file-upload')) ) {
 
@@ -946,7 +994,7 @@ class PartController extends AbstractController
     /**
     * @Route("/post-comments-particular", name="particulier_post_comments")
     */
-    public function postComments(Request $request, Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
+    public function postComments(Request $request, Security $security, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
     {
          if(!is_null($request->request->get('comment_description'))) {
                    
@@ -1001,6 +1049,9 @@ class PartController extends AbstractController
             }
         }
 
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+
         return $this->render('part/add-comment-particular.html.twig', [
             'pros' => $pros,
             'nbMyProject'=> $nbMyProject,
@@ -1010,6 +1061,7 @@ class PartController extends AbstractController
             'user'=> $security->getUser(),
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
+            'configsite'=> $configsite,
         ]);
 
     }

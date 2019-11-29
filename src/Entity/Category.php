@@ -43,6 +43,11 @@ class Category
      */
     private $icon;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isTop;
+
     public function __construct()
     {
        
@@ -109,6 +114,18 @@ class Category
     public function setIcon(?string $icon): self
     {
         $this->icon = $icon;
+
+        return $this;
+    }
+
+    public function getIsTop(): ?bool
+    {
+        return $this->isTop;
+    }
+
+    public function setIsTop(?bool $isTop): self
+    {
+        $this->isTop = $isTop;
 
         return $this;
     }

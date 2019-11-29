@@ -6,8 +6,10 @@
             <div class="contenair-header-menu"> 
                 <nav class="navbar navbar-expand bg-gray py-0 navbar-head">
                     <div class="container border-0">
-                        <div class="d-flex w-100 flex-column flex-md-row align-items-center justify-content-center justify-content-sm-around">
-                            <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
+                    
+                        <!-- MENU LARGE COORDONE-->
+                        <div class="d-none d-lg-flex w-100 flex-lg-row align-items-center justify-content-center justify-content-sm-around">
+                            <div class=" d-none d-lg-flex flex-lg-row w-100 justify-content-sm-around align-items-center justify-content-center">
                                 <a class="text-decoration-none logo-content" href="{{ path('home_page') }}">
                                 <img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
                                 </a>
@@ -21,31 +23,37 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+                            <div class="inscription-group-boutton d-none d-md-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
                                 <span class="mr-1">
                                     <button class="btn btn-round bg-gray text-decoration-none show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap" type="button">
                                         <i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
                                     </button>
                                 </span>
                                 <span class="">
-                                    <a href="{{ path('space_pro_page') }}" class="btn btn-round bg-white border-warning font-weight-bold text-success text-nowrap text-decoration-none">
-                                        <i class="">👷🏾</i> <label class="sr-only-focusable"> Vous êtes un pro ?</label>
+                                    <a href="{{ path('inscription_page') }}" class="btn btn-round bg-warning text-white font-weight-bold text-nowrap">
+                                        <i class="">👷🏾</i>  Inscription gratuite
                                     </a>
                                 </span>
-                            </div>
+                            </div>  
                         </div>
+                        <!-- END MENU LARGE COORDONE -->
+                        
+                        <!-- BEGIN MOBILE MENU -->
+                        {% include "./page/menu/menu-mobile.html.twig" %}
+                        <!-- END MOBILE MENU -->
+
                     </div>
                 </nav>
                 <!-- Navbar menu end here -->
 
                 <!-- ############################# NAVBAR HERE LARGE -->
-                <!-- BEGIN MOBILE MENU -->
+                {# <!-- BEGIN MOBILE MENU -->
                 {% include "./page/menu/menu-mobile.html.twig" %}
-                <!-- END MOBILE MENU -->	
+                <!-- END MOBILE MENU -->	 #}
                 
                 <!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->
 			
-                <div class="navbar-mega large-menu d-md-flex justify-content-center">
+                <div class="navbar-mega large-menu d-lg-flex justify-content-center">
                     <div class="dropdown-mega">
                         <a class="dropbtn"> Demander un devis
                         <i class="fa fa-caret-down"></i>
@@ -183,13 +191,9 @@
                             <div class="form-group p-0 m-0 w-100">
 
                                 <input type="text" id="show-input-list-search" class="form-control input-ask-devis-home text-center" placeholder="Quel travaux souhaitez vous realiser ?">
+                                <input type="hidden" id="metier_ask_devis" name="metier_ask_devis" value="">
 
                             </div>
-
-                            <div id="group-form-spcial-input-hidden">                                                                                                                                                           
-                                 
-                            </div>
-
                             <div class="form-group">                                                                                                                                                           
                             <input  type="hidden" name="route_page" value="home_page">
                             </div>

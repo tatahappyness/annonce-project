@@ -10,7 +10,7 @@ jQuery.ajax({
         var input = document.getElementById("show-input-list-search");
         autocomplete({
             input: input,
-            minLength: 2,
+            minLength: 1,
             emptyMsg: 'Aucun élément trouvé',
             fetch: function(text, update) {
                 text = text.toLowerCase();

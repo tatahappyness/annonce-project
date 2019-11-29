@@ -32,16 +32,17 @@
         <div class="row">
             <div class="col-12 p-0">
                 <div class="contenair-header-menu">
-					
                     <nav class="navbar navbar-expand bg-gray py-0 navbar-head">
                     <div class="container border-0">
-                        <div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+
+                        <!-- MENU LARGE COORDONE-->
+                        <div class="d-none d-lg-flex w-100 flex-md-row align-items-center justify-content-center justify-content-sm-around">
                             <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
-                                <a class="text-decoration-none" href="{{ path('home_page') }}">
+                                <a class="text-decoration-none logo-content" href="{{ path('home_page') }}">
                                 <img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
                                 </a>
-							
-                                <ul class="navbar-nav mt-2 mt-lg-0">
+                                
+                                <ul class="navbar-nav mt-2 mt-lg-0 d-lg-flex flex-column flex-sm-row">
                                     <li class="nav-item active m-1">
                                     <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
                                     </li>
@@ -50,9 +51,9 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="inscription-group-boutton d-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
+                            <div class="inscription-group-boutton d-none d-lg-flex flex-column flex-sm-row justify-content-center align-items-center  text-center w-sm-75 w-100">
                                 <span class="mr-1">
-                                    <button class="btn btn-round show-form-pro-mouseclick-11 bg-gray font-weight-bold text-warning border-warning text-nowrap" type="button">
+                                    <button class="btn btn-round bg-gray text-decoration-none show-form-pro-mouseclick-11 text-nowrap font-weight-bold text-warning border-warning text-nowrap" type="button">
                                         <i class="">🔒</i> <label class="sr-only-focusable d-none d-lg-inline">Se connecter<label>
                                     </button>
                                 </span>
@@ -63,13 +64,19 @@
                                 </span>
                             </div>
                         </div>
+                        <!-- END MENU LARGE COORDONE -->
+
+                        <!-- BEGIN MOBILE MENU -->
+                        {% include "./page/menu/menu-mobile.html.twig" %}
+                        <!-- END MOBILE MENU -->	
+
                     </div>
                     </nav>
                     <!-- Navbar menu end here -->
 					  
                     <!-- ############################# NAVBAR HERE LARGE -->
                     <!-- BEGIN MOBILE MENU -->
-                    {% include "./page/menu/menu-mobile.html.twig" %}
+                    {# {% include "./page/menu/menu-mobile.html.twig" %} #}
                     <!-- END MOBILE MENU -->	
                 
                     <!-- BEGIN MENU DISPALY WHEN LARGE SCREEN -->

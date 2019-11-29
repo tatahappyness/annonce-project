@@ -26,8 +26,8 @@ class CitiesRepository extends ServiceEntityRepository
     public function findByZipCode($value)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.villeCodePostal = :val')
-            ->setParameter('val', $value)
+            ->andWhere('c.villeCodePostal LIKE :val')
+            ->setParameter('val', '%' . $value . '%')
             ->orderBy('c.id', 'ASC')
             //->setMaxResults(10)
             ->getQuery()

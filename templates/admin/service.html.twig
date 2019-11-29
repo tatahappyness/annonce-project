@@ -16,6 +16,10 @@
 	
 	<link href="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 	
+    
+	<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+  	<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+
   <style>
       .card-header {
           background-color: #fcd42f4a;
@@ -44,6 +48,10 @@
 	}
       
 	    
+      .custom-control-input:checked~.custom-control-label::before {
+        background-color: #1cc88a;
+      }
+
 		@media screen  and  (max-width: 680px){
 			
 			#sidebarToggleTop{
@@ -273,6 +281,12 @@
 							</td>                          
                               <td>{{ lst.getDateCrea() | date('d/m/y H:m:s') }}</td>
                               <td class="text-center row">
+							   		<div class="custom-control custom-switch">                                          
+                                       <input {{ lst.isActived == true ? "checked=true"  }} data-id="{{ lst.id  }}" type="checkbox" class="custom-control-input customSwitch" id="customSwitch{{ lst.id  }}">
+                                       <label class="custom-control-label" for="customSwitch{{ lst.id }}"></label>
+                                    </div>  
+							{# 
+
                               {% if lst.getIsActived() == 1 %}
                                 <a class="btn btn-success" href="{{ path('setServiceBoquer' , {id: lst.getId() } ) }}" title="Click ici pour Débloqué">
                                   <i class="fa fa-check-circle"></i>
@@ -282,10 +296,14 @@
                                   <i class="fa fa-circle-notch"></i>
                                 </a>
                               {% endif %}</br>
-                              
+							  
+                            #}
+
                               <div class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_service" onclick="show_modal_delete_service({{ lst.getId() }})" title="Supprimer le service">
                                 <i class="fa fa-times"></i>
                               </div>
+
+
                             </td>
 								
                             </tr>
@@ -359,5 +377,44 @@
   <script src="{{ absolute_url('/assets/vendor/datatables/datatables-demo.js') }}"></script>
 
 
+
+  <script>
+    
+		function setPopular(id, pop){			
+
+                 var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: xhttp.responseText,
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+
+                        location.reload(true);
+
+                    }
+                 };
+
+                 xhttp.open("GET", "/admin/services/isactived?id=" + id + "&&active=" + pop);
+                 xhttp.send();
+				 
+		}
+
+    $(function() {
+        $('.customSwitch').change(function() {
+
+            setPopular($(this).data('id') , $(this).prop('checked'));
+            //alert($(this).prop('checked') + ' ' + $(this).data('id') );
+
+        })
+    })
+    
+
+  </script>
+
+  
 
 	{% endblock %}

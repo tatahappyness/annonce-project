@@ -13,11 +13,7 @@
     
 	<link href="{{ absolute_url('/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 	<link href="{{ absolute_url('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet" />
-
-    
-	<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
-    <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
-    
+	<link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
 	
     <style>
       .card-header {
@@ -267,7 +263,7 @@
 									<th>Date de Création</th>
 									<th>Image</th>
 									<th>Icon</th>
-									<th>Populaire</th>
+									{# <th>Populaire</th> #}
 									<th>Actions</th>
 								</tr>
 								</thead>
@@ -280,7 +276,7 @@
 									<th>Date de Création</th>
 									<th>Image</th>
 									<th>Icon</th>
-									<th>Populaire</th>
+									{# <th>Populaire</th> #}
 									<th>Actions</th>
 								</tr>
 								</tfoot>
@@ -311,12 +307,12 @@
 												</div>
 											</div>
 										</td>
-										<td class="text-center">                
+										{# <td class="text-center">                
 											<div class="custom-control custom-switch">
 												<input {{ article.ispopular == true ? "checked=true"  }} data-id="{{ article.id }}" type="checkbox" class="custom-control-input customSwitch" id="customSwitch{{ article.id }}">
 												<label class="custom-control-label" for="customSwitch{{ article.id }}"></label>
 											</div>                    
-										</td>
+										</td> #}
 										<td class="row" style="width: 180px;">
 											<button class=" btn btn-warning" onclick="show_modal_affiche_article({{ article.id }})" data-toggle="modal" data-target="#myModal_aff_cat"   type="button" title="Modifier"><i class="fa fa-eye"></i>                      
 											</button>                    

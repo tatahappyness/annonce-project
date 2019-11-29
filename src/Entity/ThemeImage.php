@@ -26,6 +26,12 @@ class ThemeImage
      */
     private $Comments;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $KeyWord;
+
+    
     
     /**
     * @ORM\ManyToOne(targetEntity="App\Entity\Theme")
@@ -52,6 +58,18 @@ class ThemeImage
         return $this;
     }
 
+    public function getKeyWord(): ?string
+    {
+        return $this->KeyWord;
+    }
+
+    public function setKeyWord(string $KeyWord): self
+    {
+        $this->KeyWord = $KeyWord;
+
+        return $this;
+    }
+    
     public function getComments(): ?string
     {
         return $this->Comments;

@@ -15,7 +15,7 @@ class EmojiType extends AbstractType
         $builder
             ->add('code', TextType::class, array(
                 'attr' => ['class' => 'form-control col-lg-12'],
-                'label' => 'Fonction',                              
+                'label' => 'Code Emoji',                              
                 'required'    => true
             ))          
             

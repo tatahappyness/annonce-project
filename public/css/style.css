@@ -8,6 +8,20 @@ body {
     /* background: whitesmoke; */
 }
 
+.easy-autocomplete-container {
+	color: #000000 !important;
+	z-index: 20;
+}
+.easy-autocomplete.eac-square ul li b, .easy-autocomplete.eac-square ul .eac-category b {
+	font-weight: bold !important;
+	color: orange !important;
+}
+.easy-autocomplete.eac-square, .easy-autocomplete.eac-square input {
+	width: 100% !important;
+	border-radius: 32px !important;
+	min-width: 150px;
+}
+
 .page-header-image-Particulier {
 	min-height: 50vh !important;
 }
@@ -150,7 +164,7 @@ p.small {
 .select2-search--dropdown .select2-search__field {
     height: 45px;
 	background-color: transparent;
-    color: white;
+    color: #000000;
 	font-size: 1.2em;
 }
 
@@ -396,8 +410,9 @@ p.small {
 	border-bottom: 2px solid rgb(255, 144, 0);
 }
 .container {
-	border-left: 8px inset rgb(255, 144, 0, 0.5);
-	border-right: 8px inset rgb(255, 144, 0, 0.5);
+	/* border-left: 8px inset rgb(255, 144, 0, 0.5);
+	border-right: 8px inset rgb(255, 144, 0, 0.5); */
+	border: 0px !important;
 }
 
 .logo {
@@ -775,6 +790,12 @@ hr {
 
 /* // Small devices (landscape phones, less than 768px) */
 @media all and (max-width: 767.98px) { 
+	.form-control {
+		height: calc(1.5em + .75rem + 25px) !important;
+	}
+	.show-form-pro-mouseclick-11 {
+		background: transparent !important;
+	}
 	.felicitation-alert {
 		padding-bottom: 0px !important;
 		margin-left: 0px !important;
@@ -803,7 +824,7 @@ hr {
 		font-size: 1rem !important;
 	}
    .card a {
-    font-size: 1.4vw !important;
+    font-size: 3vw !important;
 	font-weight: 700px !important;
 	}
 	.header-login-parallax {
@@ -863,7 +884,7 @@ hr {
 		padding-top: 15px;
 	}
 	.show-form-pro-mouseclick-11 {
-		background: orange !important;
+		background: orange;
 		box-shadow: 0px 4px 8px transparent;
 	}
  }
@@ -1079,8 +1100,8 @@ hr {
     height: 50%;
 }
 .select2-dropdown {
-	background-color: rgba(0, 0, 0, 85%);
-    color: #fff;
+	/* background-color: rgba(0, 0, 0, 85%); */
+    color: #000000;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {

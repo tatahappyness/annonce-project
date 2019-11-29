@@ -151,7 +151,7 @@ class AdminController extends AbstractController
                 if($devisPopulars !== null) {
 
                     foreach ($devisPopulars as $key => $value) {
-                    $popularDevis[] =  $cat_rep->findById($value['category_id']);
+                        $popularDevis[] =  $cat_rep->findById($value['category_id']);
                     }
 
                 }
@@ -175,7 +175,8 @@ class AdminController extends AbstractController
             
             'devis' => $count_devis,            
             'numberDevis' => count($count_devis),
-            //'popularDevis' => $popularDevis,
+            
+            'popularDevis' => $popularDevis,
             //'devisPopulars' => $devisPopulars[0],
             
 			'numberPro' =>  count($count_pro),

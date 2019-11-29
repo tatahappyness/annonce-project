@@ -61,6 +61,7 @@ class DevisRepository extends ServiceEntityRepository
                 ORDER BY number_top_devis DESC
                 LIMIT 10;
             ';
+            
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(); // return data array ,not array ogbject

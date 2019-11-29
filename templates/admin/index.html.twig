@@ -612,26 +612,45 @@
 				</div>
 				
 			</div>
+			<div class="row_stat_show">
 
+				Statistique :
+				<br>											
+				<div class="col-lg-6  col-sm-6 mb-4 animated bounceInDown delay-1s faster">
+					  <div class="card border-left-success shadow h-100 py-2">
+					  	<div class="col mr-2">
+							<div class="h5 mb-0 font-weight-bold text-gray-800">Top 5 des catégories</div>      
+						</div>						
+						<div class="card-body">
+						  <div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+							  <div class="h5 mb-0 font-weight-bold text-gray-800 row">
+							  
+							  {% if popularDevis|length > 0 %}							  	
+								{% for key , devPopular in popularDevis %}						
+									<div class="mr-2 h1 font-weight-bold  text-primary text-uppercase mb-1"><div class=" h3 text-center">{{ key+1 }}  - {{ devPopular.getCategTitle() }}</div></div>													
+									
+									</hr>							
+								{% endfor %}
+							{% endif %}
+							  </div>      
+							</div>							
+						  </div>
+						</div>
+					  </div>
+					</div>
+			</div>
+				
+				
 			<!-- Content Row -->
 			<div class="row_stat_show" style="display:none">
 				<!-- Divider -->
-				Statistique :
-
-
-
-
-				{% if popularDevis|length > 0 %}
-					{% for devPopular in popularDevis %}												
-							<div class="img-title popular-title-img-1 h4 h-100 text-center">{{ devPopular.getCategTitle() }}</div>						
-					{% endfor %}
-				{% endif %}
 				
-				{ % if devisPopulars != null %}
+				{# { % if devisPopulars != null %}
 					{ % for x in devisPopulars %}												
 							<div class="img-title popular-title-img-1 h4 h-100 text-center">{ { x }}</div>						
 					{ % endfor %}
-				{ % endif %}
+				{ % endif %} #}
 				
 				<hr class="sidebar-divider">					
 				  <!-- Content Column -->
@@ -805,7 +824,7 @@
   
 			
 
-<div id="piechart"></div>
+<div id="piechart" style="display:none"></div>
 
 	<div id="columnchart_values" style="width: 900px; height: 300px; display:none"></div>
 

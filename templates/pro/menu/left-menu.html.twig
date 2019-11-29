@@ -34,7 +34,7 @@
 								
         <div class="card">
             <div class="card-header bg-white text-center text-warning"> <h6 class="card-title mt-2"><span class="lnr lnr-construction float-left"></span> &nbsp;MENU</h6></div>
-            <div class="card-body pt-0">	
+            <div class="card-body p-0">	
                 <ul class=" bg-darkgray px-2" style="list-style-type: none;">
                 <li class="d-block">
                     <a class="btn-warning btn w-100 border-0 text-nowrap" href="{{ path('pro_dashbord') }}">Accueil</a>
@@ -63,12 +63,14 @@
             </div>
         </div>
 								
-        <div class="card">
-            <div class="card-header bg-darkgray p-1 text-white"> <h6 class="card-title"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span> &nbsp; Ma zone géographique</h6></div>
-            <div class="card-body">
+        <div class="card d-none d-lg-block">
+            <div class="card-header bg-darkgray p-1 text-white"> <h6 class="card-title" style="font-size: 1.2em !important;"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span> &nbsp; Ma zone géographique</h6></div>
+            <div class="card-body p-0">
                 <div class="row">
                     <div class="col-12 h-100">
-                        <div id="map2"></div>
+                        <div id="container-map2">
+                           
+                        </div>
                         <div class="d-block text-uppercase text-center pt-2">
                             <a href="{{path('pro_geolocation_map_edit')}}" class="btn btn-warning text-decoration-none">Modifier ma zone géographique</a>
                         </div>
@@ -81,7 +83,7 @@
             <div class="card-header bg-warning p-1 text-center text-white">
                 <img class="animated fadeIn infinite delay-1s" src="{{ absolute_url('/uploads/themes/them-2.png') }}" style="">
             </div>
-            <div class="card-body">
+            <div class="card-body p-0">
                 <div class="row">
                     <div class="col-12 d-flex" style="background: linear-gradient(-70deg, #fa7c30 30%, rgba(0, 0, 0, 0) 30%), url('/uploads/themes/htem-1.png'); height: 350px; background-size: cover; background-blend-mode: overlay; background-color: currentColor; background-position: center center; background-repeat: no-repeat;">
                         <div class="w-100 align-self-center text-italic text-center">
@@ -126,18 +128,20 @@
                                   
             </div>
             
-            <div class="card-body text-secondary text-center">
+            <div class="card-body text-secondary p-0 text-center">
                 {{ user.getEmail() }}
                 <p><a href="{{ path('pro_password_edit') }}" class="text-warning small"> > Modifier mon mot de passe </a></p>
             </div>
         </div>
 								
-        <div class="card">
+        <div class="card d-none d-lg-block">
             <div class="card-header bg-darkgray p-1 text-white text-uppercase"> <h6 class="card-title"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span></span> &nbsp; Ma zone géographique</h6></div>
-            <div class="card-body">
+            <div class="card-body p-0">
                 <div class="row">
                     <div class="col-12 h-100">
-                        <div id="map1"></div>
+                        <div id="container-map1">
+                           
+                        </div>
                         <div class="d-block text-uppercase text-center pt-2">
                             <a href="" class="btn btn-warning text-decoration-none">Modifier ma zone géographique</a>
                         </div>
@@ -150,7 +154,7 @@
             <div class="card-header bg-warning p-1 text-center text-white">
                 <img class="animated fadeIn infinite delay-1s" src="{{ absolute_url('/uploads/themes/them-2.png') }}" style="">
             </div>
-            <div class="card-body">
+            <div class="card-body p-0">
                 <div class="row">
                     <div class="col-12 d-flex" style="background: linear-gradient(-70deg, #fa7c30 30%, rgba(0, 0, 0, 0) 30%), url('/uploads/themes/htem-1.png'); height: 350px; background-size: cover; background-blend-mode: overlay; background-color: currentColor; background-position: center center; background-repeat: no-repeat;">
                        

@@ -18,9 +18,16 @@
 		<link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/menu/menu-large.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/menu/menu-mobile.css') }}" rel="stylesheet" />
-		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" />
+		<link href="{{ absolute_url('/assets/autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+		<style>
+			.page-header-inscription {
+				min-height: 85vh !important;
+			}
+		</style>
     
 	{% endblock %}
 
@@ -120,8 +127,8 @@
 														<a href="#" class="d-block mb-1 p-0">
 															<img class="img-fluid img-thumbnail" src="{{ absolute_url('/uploads/images/' ~ devPopular.getImg()) }}" />
 														</a>
-														<p><a href="{{ path('view_art_cat_galery_page', {id: devPopular.getArticleCategId().getId()}) }}">{{ devPopular.getArticleTitle() }}</a></p>
-														<p><a href="{{ path('post_ask_devis_page', {id: devPopular.getArticleCategId().getId()}) }}" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
+														<p><a href="{{ path('view_art_cat_galery_page', {id: devPopular.getId()}) }}">{{ devPopular.getCategTitle() }}</a></p>
+														<p><a href="{{ path('post_ask_devis_page', {id: devPopular.getId()}) }}" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
 													</li>
 													{% endfor %}
                                            
@@ -220,6 +227,7 @@
 							<div class="d-flex flex-column flex-sm-row w-100 align-items-center justify-content-center">
 								
 								<input id="show-input-list-search" type="text" name="categLabel" value="{{ (categLabel is defined) ? categLabel :'' }}" class="form-control text-center show-input-list-search m-2" placeholder="Quel métier ?" style="height: 45px;">
+								<input type="hidden" id="CategoryIdSearch" name="CategoryId" value="">
 								{# <select id="select-beast" class="border animated fadeIn delay-8s border-warning demo-default" name="postCity"  placeholder="Dans quelle ville ?">
 								<option></option>
 								{% if cities != null %}
@@ -228,8 +236,6 @@
 									{% endfor %}
 								{% endif %}
 								</select> #}
-								<div id="group-form-spcial-input-hidden"></div>
-								
 								<div class="input-group-append input-group-append-find-artisant bg-warning text-center">
 								<button type="submit" class="btn btn-warning border-0 text-center text-nowrap w-100">Trouver des professionnels</button>
 								</div>
@@ -377,6 +383,8 @@
 <script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<!-- Auto-complete -->
+<script src="{{ absolute_url('/assets/autocomplete/jquery.easy-autocomplete.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>

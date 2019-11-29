@@ -572,55 +572,78 @@ jQuery(document).ready(function () {
 
 }) //END DOCUMENT READY
 
-//AJAX GET GEOLOCATION IN SERVEUR
-jQuery.ajax({
-    type : 'GET',
-    url : '/pro/get-lat-log-ajax',
-    contentType : false,
-    processData : false
-                        
-    }).done(function(response) {
-        
-        //alert(response.lat + '  ' + response.log);
-        initMap(response.lat, response.log);
-               
-    }).fail(function(){
-        // Here you should treat the http errors (e.g., 403, 40
-        alert('serveur internal error!!')					
-        }).always(function(){
-            console.log("AJAX request finished!");
-        });
     
 
 // Initialize and add the map
-function initMap(lat, log) {
-    // The location of Uluru
-    //alert(lat + '  ' + log) ;
-    var uluru = {lat: parseFloat(lat), lng: parseFloat(log)};
-    // The map, centered at Uluru
-    //The options
-    var mapOptions = {
-        zoom: 8,
-        center: uluru,
-        mapTypeId: 'hybrid'
-        };
+function initMap() {
+
+    
+    var elem3 = document.getElementById('container-map3');
+    if(window.innerWidth < 992) {
+        elem3.innerHTML = '<div id="map1"></div>';
+       //location.reload(true);
+    }
+
+    if(window.innerWidth > 991) {
+    var elem1 = document.getElementById('container-map1');
+    var elem2 = document.getElementById('container-map2');
+    elem1.innerHTML = '<div id="map1"></div>';
+    elem2.innerHTML = '<div id="map2"></div>';
+    //location.reload(true);
+    }
+
+    //AJAX GET GEOLOCATION IN SERVEUR
+    jQuery.ajax({
+        type : 'GET',
+        url : '/pro/get-lat-log-ajax',
+        contentType : false,
+        processData : false
+                        
+        }).done(function(response) {
+        
+            // The location of Uluru
+            //alert(lat + '  ' + log) ;
+            //var uluru = {lat: parseFloat(response.lat), lng: parseFloat(response.log)};
+            // The map, centered at Uluru
+            var uluru = new google.maps.LatLng(parseFloat(response.lat), parseFloat(response.log));
+            //The options
+            var mapOptions = {
+                zoom: 8,
+                center: uluru,
+                mapTypeId: google.maps.MapTypeId.HYBRID
+                };
+
+                if (document.getElementById('map1') !== undefined) {
+                    var map1 = new google.maps.Map(
+                        document.getElementById('map1'), mapOptions);
+                    // The marker, positioned at Uluru
+                    var marker = new google.maps.Marker({position: uluru, map: map1});
+                }
+            //MAP II
+                if (document.getElementById('map2') !== undefined) {
+                    var map2 = new google.maps.Map(
+                        document.getElementById('map2'), mapOptions);
+                    // The marker, positioned at Uluru
+                    var marker2 = new google.maps.Marker({position: uluru, map: map2});
+                }
+            //MAP III
+            if (document.getElementById('map3') !== undefined) {
+                var map3 = new google.maps.Map(
+                    document.getElementById('map3'), mapOptions);
+                // The marker, positioned at Uluru
+                var marker3 = new google.maps.Marker({position: uluru, map: map3});
+            }
 
 
-        //MAP II
-        if (document.getElementById('map2') !== undefined) {
-            var map2 = new google.maps.Map(
-                document.getElementById('map2'), mapOptions);
-            // The marker, positioned at Uluru
-            var marker2 = new google.maps.Marker({position: uluru, map: map2});
-        }
+               
+        }).fail(function(){
+            // Here you should treat the http errors (e.g., 403, 40
+            alert('serveur internal error!!')					
+            }).always(function(){
+                console.log("AJAX request finished!");
+            });
 
-        if (document.getElementById('map1') !== undefined) {
-            var map1 = new google.maps.Map(
-                document.getElementById('map1'), mapOptions);
-            // The marker, positioned at Uluru
-            var marker = new google.maps.Marker({position: uluru, map: map1});
-        }
-
+   
     // // MAP III
     // if (document.getElementById('map3') !== undefined) {
     //     var map3 = new google.maps.Map(

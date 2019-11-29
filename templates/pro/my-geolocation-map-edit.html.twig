@@ -21,7 +21,7 @@
 
     <style>
     /* Set the size of the div element that contains the map */
-    #map1, #map2 {
+    #map1, #map2, #map3 {
         height: 400px;  /* The height is 400 pixels */
         width: 100%;  /* The width is the width of the web page */
     }
@@ -88,11 +88,11 @@
                                                
                                                 <div class="form-group mb-3">
                                                     <label class="">Latitude</label>
-                                                    <input type="text" id="latitude" class="form-control" name="latitude"  placeholder="Lat ">
+                                                    <input type="text" id="latitude" class="form-control" name="latitude" value="{{ user.getLat() }}"  placeholder="Lat ">
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label class="">Longitude</label>
-                                                    <input type="text" id="longitude" class="form-control" name="longitude"  placeholder="Long ">
+                                                    <input type="text" id="longitude" class="form-control" name="longitude" value="{{ user.getLog() }}" placeholder="Long ">
                                                 </div>
                                                
                                                 <a class="btn btn-warning btn-update-password-pro w-100">Modifier</a>
@@ -109,23 +109,21 @@
                                 <!-- END MY CORDONNE -->
 
                                 <!--BEGIN MY MAP EDIT-->
-                                {# <div class="card text-center">
-                                    <div class="card-header p-2 font-weight-bold bg-darkgray">
-                                        <h5 class="text-uppercase">Ma zone géografique</h5>
-                                    </div>
-                                    <div class="card-body">
-										
-                                        <!-- Modal body -->
-                                        <div class="pt-2">
-                                           <div id="map3"></div>
+                                <div class="card">
+                                    <div class="card-header bg-darkgray p-1 text-white text-uppercase"> <h6 class="card-title"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span></span> &nbsp; Ma zone géographique</h6></div>
+                                    <div class="card-body p-0">
+                                        <div class="row">
+                                            <div class="col-12 h-100">
+                                                <div id="container-map4">
+                                                    <div id="map3"></div>
+                                                </div>
+                                                <div class="d-block text-uppercase text-center pt-2">
+                                                    <a href="" class="btn btn-warning text-decoration-none">Modifier ma zone géographique</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <!-- Modal footer -->
-										
                                     </div>
-                                    <!-- <div class="card-footer text-muted pb-4"> -->
-									 
-                                    <!-- </div> -->
-                                </div> #}
+                                </div>
                                 <!-- END MY MAP EDIT -->
 
                             </div>

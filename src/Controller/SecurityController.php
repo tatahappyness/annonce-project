@@ -16,6 +16,7 @@ use App\Repository\DevisRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ConfigsiteRepository;
+use App\Repository\ThemeImageRepository;
 
 
 class SecurityController extends AbstractController
@@ -24,7 +25,7 @@ class SecurityController extends AbstractController
     /**
     * @Route("/login", name="login")
     */
-    public function login( AuthenticationUtils $authenticationUtils, ConfigsiteRepository $configsiteRep, Security $security, CategoryRepository $categoryRep, DevisRepository $devisRep, ArticleRepository $artRep)
+    public function login( AuthenticationUtils $authenticationUtils, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, Security $security, CategoryRepository $categoryRep, DevisRepository $devisRep, ArticleRepository $artRep)
     {   
 
         // On vérifie que l'utilisateur dispose bien du rôle ROLE_ADMIN

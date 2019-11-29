@@ -25,6 +25,22 @@ class ThemeImageRepository extends ServiceEntityRepository
         return $this->find($id);
     }
 
+    public function findAllArray(): ?Array
+    {
+        return $this->findAll();
+    }
+
+    public function findOneByArray(array $criteria, array $orderBy = null): ?ThemeImage
+    {
+        return $this->findOneBy($criteria, $orderBy);
+    }
+    
+    public function findByArray(array $criteria, array $orderBy = null, $limit = null, $offset = null): ?Array
+    {
+        return $this->findBy($criteria, $orderBy = null, $limit = null, $offset = null);
+    }
+
+
     // /**
     //  * @return ThemeImage[] Returns an array of ThemeImage objects
     //  */

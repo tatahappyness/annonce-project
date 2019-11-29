@@ -254,7 +254,7 @@
                                         <th>Id</th>
                                         <th>Commentaire</th>
                                         <th>Mot clé</th>
-                                        <th>Url</th>
+                                        <th>Root [url]</th>                                        
                                         <th>Image Capture</th>
                                         <th>Image Fond</th>
                                         <th>Couleur du Fond</th>
@@ -266,8 +266,15 @@
                                     <tr>
                                         <td>{{ theme.id }}</td>       
                                         <td>{{ theme.Comments }}</td>
+                                        <td>{{ theme.Comments }}</td>
                                         <td>{{ theme.KeyWord }}</td>
-                                        <td>{{ theme_color.Url }}</td>                                        
+                                        <td>
+											<a class="nav-link" href=" {{ path( theme.KeyRoot|lower ) }}">
+												<i class="fa fa-fw fa-voicemail"></i>
+												<span class="btn btn-info">Voir</span>
+											</a>
+										</td>
+
                                         <td style="width:250px">
                                             <div class="card-body" data-toggle="modal" data-target="#myModal_aff_image" onclick="show_modal_affiche_theme_image({{ theme.id }})">
                                                 <div class="text-center">

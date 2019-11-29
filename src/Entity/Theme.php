@@ -40,6 +40,11 @@ class Theme
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $KeyRoot;
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $Comments;
 
     public function getId(): ?int
@@ -82,6 +87,20 @@ class Theme
 
         return $this;
     }
+
+    
+    public function getKeyRoot(): ?string
+    {
+        return $this->KeyRoot;
+    }
+
+    public function setKeyRoot(string $KeyRoot): self
+    {
+        $this->KeyRoot = $KeyRoot;
+
+        return $this;
+    }
+
 
     public function getComments(): ?string
     {

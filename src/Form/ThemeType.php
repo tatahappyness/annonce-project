@@ -34,6 +34,13 @@ class ThemeType extends AbstractType
                 'required'    => true
             ))          
             
+            ->add('KeyRoot', TextType::class, array(
+                'attr' => ['class' => 'form-control col-lg-12'],
+                'label' => 'Mot clé',                              
+                'required'    => true
+            ))          
+            
+            
             ->add('ImageCapture', FileType::class, [
                 'label' => 'Image Capture',                     
                 'attr' => ['class' => 'form-control btn-info col-lg-12'],                  

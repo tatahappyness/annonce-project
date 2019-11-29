@@ -22,6 +22,14 @@
 		<link href="{{ absolute_url('/assets/autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+		<style>
+		/* Set the size of the div element that contains the map */
+		#map {
+			height: 400px;  /* The height is 400 pixels */
+			width: 100%;  /* The width is the width of the web page */
+		}
+	</style>
     
 	{% endblock %}
 
@@ -122,8 +130,8 @@
 														<a href="#" class="d-block mb-1 p-0">
 															<img class="img-fluid img-thumbnail" src="{{ absolute_url('/uploads/images/' ~ devPopular.getImg()) }}" />
 														</a>
-														<p><a href="{{ path('view_art_cat_galery_page', {id: devPopular.getArticleCategId().getId()}) }}">{{ devPopular.getArticleTitle() }}</a></p>
-														<p><a href="{{ path('post_ask_devis_page', {id: devPopular.getArticleCategId().getId()}) }}" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
+														<p><a href="{{ path('view_art_cat_galery_page', {id: devPopular.getId()}) }}">{{ devPopular.getCategTitle() }}</a></p>
+														<p><a href="{{ path('post_ask_devis_page', {id: devPopular.getId()}) }}" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
 													</li>
 													{% endfor %}
                                            
@@ -424,11 +432,11 @@
 								{{ eval.getMotif() }} <br>
 								{{ eval.getDateCrea() | date('d/m/y H:m:s') }}
 								</p>
-								<p class=" border border-bottom-white"> 
+								{# <p class=" border border-bottom-white"> 
 								<h6 class=""> {{ eval.getHaveStart() }} </h6>
 								{{ eval.getMotif() }} <br>
 								{{ eval.getDateCrea() | date('d/m/y H:m:s') }}
-								</p>
+								</p> #}
 								{% endfor %}
 							{% else %}
 							Ce professionnel n’a pas encore indiqué posséder d'évaluation.
@@ -459,6 +467,25 @@
 						Ce professionnel n’a pas encore indiqué posséder de labels qualités.
 						{% endif %}
 						</div>
+					</div>
+					<div class="col-12 mt-5 col-lg-8">
+						<!--BEGIN MY MAP EDIT-->
+						<div class="card">
+							<div class="card-header bg-darkgray p-1 text-white text-uppercase"> <h6 class="card-title" style="font-size: 1em !important;"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span></span> &nbsp; sa zone géographique</h6></div>
+							<div class="card-body p-0">
+								<div class="row">
+									<div class="col-12 h-100">
+										<div id="container-map4">
+											<div id="map"></div>
+										</div>
+										<div class="d-block text-uppercase text-center pt-2">
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END MY MAP EDIT -->
 					</div>
 				</div>
 			</div>
@@ -498,6 +525,30 @@
 <script src="{{ absolute_url('/assets/menu/menu.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/list-ajax-home.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+
+<script>
+
+	// Initialize and add the map
+	function initMap() {
+	//alert({{ user.lat }});
+		var uluru = new google.maps.LatLng(parseFloat({{ user.lat }}), parseFloat({{ user.log }}));
+		//The options
+		var mapOptions = {
+			zoom: 8,
+			center: uluru,
+			mapTypeId: google.maps.MapTypeId.HYBRID
+			};
+			
+		var map = new google.maps.Map(
+			document.getElementById('map'), mapOptions);
+		// The marker, positioned at Uluru
+		var marker = new google.maps.Marker({position: uluru, map: map});
+
+	}
+
+	initMap();
+
+</script>
 
 
 {% endblock %}

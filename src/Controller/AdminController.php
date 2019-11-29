@@ -138,17 +138,27 @@ class AdminController extends AbstractController
  		$count_pro = $pro_user_rep->findAll();
  		$count_part = $pro_user_rep->findAll();
 		
-        $devisPopulars = $devisRep->findTopPopularDevis();
-        $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-        
-        /*
-        $popularDevis = array();
-        if($devisPopulars !== null) {
-            foreach ($devisPopulars as $key => $value) {
-               $popularDevis[] =  $art_rep->findById($value['article_id']);
-            }
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $cat_rep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
+                $devisPopulars = $devisRep->findTopPopularDevis();
+                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+
+                if($devisPopulars !== null) {
+
+                    foreach ($devisPopulars as $key => $value) {
+                    $popularDevis[] =  $cat_rep->findById($value['category_id']);
+                    }
+
+                }
+
         }
-        */
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
         
 
         $count_devis = $devisRep->findAll();

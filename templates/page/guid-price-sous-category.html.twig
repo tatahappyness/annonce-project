@@ -150,8 +150,8 @@
                                                         <a href="#" class="d-block mb-1 p-0">
                                                             <img class="img-fluid img-thumbnail" src="{{ absolute_url('/uploads/images/' ~ devPopular.getImg()) }}" />
                                                         </a>
-                                                        <p><a href="{{ path('view_art_cat_galery_page', {id: devPopular.getArticleCategId().getId()}) }}">{{ devPopular.getArticleTitle() }}</a></p>
-                                                        <p><a href="{{ path('post_ask_devis_page', {id: devPopular.getArticleCategId().getId()}) }}" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
+                                                        <p><a href="{{ path('view_art_cat_galery_page', {id: devPopular.getId()}) }}">{{ devPopular.getCategTitle() }}</a></p>
+                                                        <p><a href="{{ path('post_ask_devis_page', {id: devPopular.getId()}) }}" style="font-size: smaller; padding: 2px;" class="mm-view-more text-white sr-only-focusable text-decoration-noen">Demander un devis</a></p>
                                                     </li>
                                                     {% endfor %}
                                            

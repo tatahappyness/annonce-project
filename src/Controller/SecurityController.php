@@ -53,19 +53,29 @@ class SecurityController extends AbstractController
 
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
-        //Get top devis more asked
-                $devisPopulars = $devisRep->findTopPopularDevis();
-                $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
-                
-                
-                if($devisPopulars !== null) {
+       
+            //BEGIN GET TOP DEVIS MORE ASKED
+            $popularDevis = $categoryRep->findPopularDevisMoreAsk(array(1=> true));
+            $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
 
-                    foreach ($devisPopulars as $key => $value) {
-                        //$popularDevis[] =  $artRep->findById($value['article_id']);
+            if (count($popularDevis) <= 0) {
+
+                    $popularDevis = array();
+                    $devisPopulars = $devisRep->findTopPopularDevis();
+                    $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
+
+                    if($devisPopulars !== null) {
+
+                        foreach ($devisPopulars as $key => $value) {
+                        $popularDevis[] =  $categoryRep->findById($value['category_id']);
+                        }
+
                     }
 
-                }
+            }
+                //dump($popularDevis);die;
+                //END GET POPULA DEVIS
+        
             //Get config site
             $configsite = $configsiteRep->findOneByIsActive();
 

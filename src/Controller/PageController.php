@@ -1073,17 +1073,28 @@ class PageController extends AbstractController
         
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
-        //Get top devis more asked
+        
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $categoryRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
+
                 if($devisPopulars !== null) {
-    
+
                     foreach ($devisPopulars as $key => $value) {
-                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    $popularDevis[] =  $categoryRep->findById($value['category_id']);
                     }
-    
+
                 }
+
+        }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
 
         //get detail one devis
         $devis = $devisRep->findById((int) $id);
@@ -1175,17 +1186,29 @@ class PageController extends AbstractController
        
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
-        //Get top devis more asked
+       
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $categoryRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
+
                 if($devisPopulars !== null) {
-    
+
                     foreach ($devisPopulars as $key => $value) {
-                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    $popularDevis[] =  $categoryRep->findById($value['category_id']);
                     }
-    
+
                 }
+
+        }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
+        
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
 
@@ -1212,17 +1235,29 @@ class PageController extends AbstractController
 
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
-        //Get top devis more asked
+        
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $categoryRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
+
                 if($devisPopulars !== null) {
-    
+
                     foreach ($devisPopulars as $key => $value) {
-                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    $popularDevis[] =  $categoryRep->findById($value['category_id']);
                     }
-    
+
                 }
+
+        }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
+        
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         
@@ -1244,17 +1279,29 @@ class PageController extends AbstractController
         
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
-        //Get top devis more asked
+        
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $categoryRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
+
                 if($devisPopulars !== null) {
-    
+
                     foreach ($devisPopulars as $key => $value) {
-                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    $popularDevis[] =  $categoryRep->findById($value['category_id']);
                     }
-    
+
                 }
+
+        }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
+        
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
 
@@ -1275,17 +1322,29 @@ class PageController extends AbstractController
 
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
-        //Get top devis more asked
+        
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $categoryRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
+
                 if($devisPopulars !== null) {
-    
+
                     foreach ($devisPopulars as $key => $value) {
-                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    $popularDevis[] =  $categoryRep->findById($value['category_id']);
                     }
-    
+
                 }
+
+        }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
+        
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
 
@@ -1331,17 +1390,29 @@ class PageController extends AbstractController
 
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
-        //Get top devis more asked
+       
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $categoryRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
+
                 if($devisPopulars !== null) {
-    
+
                     foreach ($devisPopulars as $key => $value) {
-                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    $popularDevis[] =  $categoryRep->findById($value['category_id']);
                     }
-    
+
                 }
+
+        }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
+        
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
 
@@ -1370,17 +1441,28 @@ class PageController extends AbstractController
 
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
-        //Get top devis more asked
+        
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $categoryRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
+
                 if($devisPopulars !== null) {
-    
+
                     foreach ($devisPopulars as $key => $value) {
-                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    $popularDevis[] =  $categoryRep->findById($value['category_id']);
                     }
-    
+
                 }
+
+        }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
 
         //Get comments list by particulars
         $comments = $commentRep->findAllCommentsByParticular();
@@ -1408,17 +1490,28 @@ class PageController extends AbstractController
 
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
-        //Get top devis more asked
+        
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $categoryRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
+
                 if($devisPopulars !== null) {
-    
+
                     foreach ($devisPopulars as $key => $value) {
-                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    $popularDevis[] =  $categoryRep->findById($value['category_id']);
                     }
-    
+
                 }
+
+        }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
 
         //Get comments list by particulars
         $comments = $commentRep->findAllCommentsByPros();
@@ -1446,17 +1539,29 @@ class PageController extends AbstractController
 
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
-        //Get top devis more asked
+       
+        //BEGIN GET TOP DEVIS MORE ASKED
+        $popularDevis = $categoryRep->findPopularDevisMoreAsk(array(1=> true));
+        $popularDevis = count($popularDevis) > 0 ? $popularDevis : [];
+
+        if (count($popularDevis) <= 0) {
+
+                $popularDevis = array();
                 $devisPopulars = $devisRep->findTopPopularDevis();
                 $devisPopulars = count( $devisPopulars) > 0 ? $devisPopulars : null;
-                $popularDevis = array();
+
                 if($devisPopulars !== null) {
-    
+
                     foreach ($devisPopulars as $key => $value) {
-                    $popularDevis[] =  $artRep->findById($value['article_id']);
+                    $popularDevis[] =  $categoryRep->findById($value['category_id']);
                     }
-    
+
                 }
+
+        }
+            //dump($popularDevis);die;
+            //END GET POPULA DEVIS
+        
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
 

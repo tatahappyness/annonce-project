@@ -131,15 +131,15 @@
                                <div class="col-12 col-sm-6 col-lg-4 py-4">
                                 <div class="img-container-popular popular-container-img-1 d-flex flex-column align-items-center" style="background-image: url(/uploads/images/{{ devPopular.getImg() }});">
                                     <div class="bg-transparent w-100" style="">
-                                        <a href="{{ path('view_art_cat_galery_page', {id: devPopular.getArticleCategId().getId()}) }}" class="btn btn-warning text-decoration-none rounded-circle float-right m-1 p-0" alt="voir détail...">
+                                        <a href="{{ path('view_art_cat_galery_page', {id: devPopular.getId()}) }}" class="btn btn-warning text-decoration-none rounded-circle float-right m-1 p-0" alt="voir détail...">
                                             <span class="lnr lnr-eye icon-popular-ask-eyes"></span>
                                         </a>
                                     </div>
-                                    <div class="img-title popular-title-img-1 h4 h-100 text-center">{{ devPopular.getArticleTitle() }}</div>
+                                    <div class="img-title popular-title-img-1 h4 h-100 text-center">{{ devPopular.getCategTitle() }}</div>
                                     <div class="img-desc popular-desc-img-1 w-100 text-center">
-                                        <a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page', {id: devPopular.getArticleCategId().getId()}) }}">Demander un devis</a>
+                                        <a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page', {id: devPopular.getId()}) }}">Demander un devis</a>
                                     </div>
-                                    <div class="bg-transparent d-flex align-items-end justify-content-end h-100 w-100" style=""><a class="btn bg-darkgray m-2">vote(3215)</a></div>
+                                    <div class="bg-transparent d-flex align-items-end justify-content-end h-100 w-100" style=""><a class="btn bg-darkgray m-2">vote(32{{ devPopular.getId() }})</a></div>
                                 </div>
                             </div>
                         {% endfor %}

@@ -20,7 +20,7 @@ class ThemeImageRepository extends ServiceEntityRepository
     }
 
     
-    public function findById($id, $lockMode = null, $lockVersion = null): ?Theme
+    public function findById($id, $lockMode = null, $lockVersion = null): ?ThemeImage
     {
         return $this->find($id);
     }

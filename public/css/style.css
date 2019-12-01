@@ -292,12 +292,21 @@ p.small {
     background-size: cover;
 } 
 .img-new-pro-content:hover {
-	background-blend-mode: overlay;
-    background-color: currentColor;
+	background-blend-mode: overlay !important;
+    background-color: transparent !important;
 }
-.img-container-popular:hover {
+.img-container-popular, .img-new-pro-content {
 	background-blend-mode: overlay;
     background-color: darkslategrey;
+}
+.vote-number, .prix-pose, .btn-devis-popular, .btn-category {
+	background: transparent !important;
+	color: orange !important;
+	border: 1px solid orange !important;
+}
+.img-container-popular:hover {
+	background-blend-mode: overlay !important;
+	background-color: transparent !important;
 }
 .icon-pro-emotion-heart, .icon-star-pro {
 	font-size: 20px !important;

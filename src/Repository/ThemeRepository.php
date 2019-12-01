@@ -25,6 +25,22 @@ class ThemeRepository extends ServiceEntityRepository
         return $this->find($id);
     }
 
+    public function findAllArray(): ?Array
+    {
+        return $this->findAll();
+    }
+
+    public function findOneByArray(array $criteria, array $orderBy = null): ?Theme
+    {
+        return $this->findOneBy($criteria, $orderBy);
+    }
+    
+    public function findByArray(array $criteria, array $orderBy = null, $limit = null, $offset = null): ?Array
+    {
+        return $this->findBy($criteria, $orderBy = null, $limit = null, $offset = null);
+    }
+
+
     // /**
     //  * @return Theme[] Returns an array of Theme objects
     //  */

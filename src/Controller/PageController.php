@@ -23,6 +23,7 @@ use App\Repository\AbonnementRepository;
 use App\Repository\DevisRepository;
 use App\Repository\ThemeImageRepository;
 use App\Repository\ThemeColorRepository;
+use App\Repository\ThemeRepository;
 use App\Repository\EmojiRepository;
 use App\Repository\CommentsRepository;
 use App\Repository\EvaluationsRepository;
@@ -55,7 +56,7 @@ class PageController extends AbstractController
     /**
     * @Route("/", name="home_page")
     */
-    public function home(ArticleRepository $artRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function home(ArticleRepository $artRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
                       
        try {
@@ -97,12 +98,22 @@ class PageController extends AbstractController
         $configsite = $configsiteRep->findOneByIsActive();
 
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
         $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
-        $themes = array();
         $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -135,8 +146,9 @@ class PageController extends AbstractController
            'comments'=> $comments,
            'guidesPrice'=> 1,
            'configsite'=> $configsite,
-           'themes'=> $themes,
+           'themesImage'=> $themes,
            'themesColor'=> $themesColor,
+           'themes'=> $them,
 
 
         ]);
@@ -225,7 +237,7 @@ class PageController extends AbstractController
     /**
     * @Route("category/sous-category/{categId}", name="category_sous_category_page")
     */
-    public function showSousCategory($categId = null, Request $request, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, SousCategoryRepository $sousCategRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function showSousCategory($categId = null, Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, SousCategoryRepository $sousCategRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
         
         //Ajax get by pagination
@@ -289,10 +301,24 @@ class PageController extends AbstractController
         
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -301,13 +327,22 @@ class PageController extends AbstractController
         }
         //dump($themes);die;
 
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
+
         return $this->render('page/guid-price-sous-category.html.twig', [
             'category'=>  $category,
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
             'sousCategories'=> $sousCategories,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
             
             ]);
         
@@ -317,7 +352,7 @@ class PageController extends AbstractController
     /**
     * @Route("category/sous-category/guide-price/{sousCategId}", name="category_sous_category_guide_price_page")
     */
-    public function showGuidePrice($sousCategId = null, Request $request, ThemeImageRepository $themeImageRep, SousCategoryRepository $sousCategRep, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, ModePrixRepository $modePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function showGuidePrice($sousCategId = null, Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, SousCategoryRepository $sousCategRep, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep, ModePrixRepository $modePriceRep, UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
         
         //Ajax get by pagination
@@ -384,9 +419,22 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -395,13 +443,22 @@ class PageController extends AbstractController
         }
         //dump($themes);die;
 
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
+
         return $this->render('page/guid-price-all-articles-sous-category.html.twig', [
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
             'modePrices'=>  $modePrices,
             'sousCategories'=>  $sousCategories,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
             ]);
 
     }
@@ -409,7 +466,7 @@ class PageController extends AbstractController
     /**
     * @Route("/inscription", name="inscription_page")
     */
-    public function inscription(ConfigsiteRepository $configsiteRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function inscription(ConfigsiteRepository $configsiteRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
       
         $categories = $categoryRep->findAllArray();
@@ -440,23 +497,45 @@ class PageController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
-        //THEMES PAGES
-        $themeImages = $themeImageRep->findAllArray();
-        $themeImages = count($themeImages) > 0 ? $themeImages : [];
-        $themes = array();
+    //THEMES PAGES
+    $thems =  $themeRep->findAllArray();
+    $themeImages = $themeImageRep->findAllArray();
+    $themeColors = $themeColorRep->findAllArray();
+    $thems = count($thems) > 0 ? $thems : [];
+    $themeImages = count($themeImages) > 0 ? $themeImages : [];
+    $themeColors = count($themeColors) > 0 ? $themeColors : [];
+    $them = array();
+    $themes = array();
+    $themesColor = array();
 
-        if(count($themeImages) > 0) {
-            foreach($themeImages as $key => $value) {
-                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
-            }
-        }   
+    if(count($thems) > 0) {
+        foreach($thems as $key => $value) {
+            $them[$value->getKeyWord()] = $value;
+        }
+    }
+    //dump($them);die;
+
+    if(count($themeImages) > 0) {
+        foreach($themeImages as $key => $value) {
+            $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+        }
+    }
     //dump($themes);die;
+
+    if(count($themeColors) > 0) {
+        foreach($themeColors as $key => $value) {
+            $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+        }
+    }
+    //dump($themesColor);die;
 
        return $this->render('page/inscription.html.twig', [
            'categories'=> $categories,
            'popularDevis'=> $popularDevis,
            'configsite'=> $configsite,
-           'themes'=> $themes,
+           'themesImage'=> $themes,
+           'themesColor'=> $themesColor,
+           'themes'=> $them,
            ]);
         
     }
@@ -464,7 +543,7 @@ class PageController extends AbstractController
     /**
     * @Route("/inscription-particulier", name="inscription_particulier_page")
     */
-    public function inscriptionParticulier(ConfigsiteRepository $configsiteRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function inscriptionParticulier(ConfigsiteRepository $configsiteRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
@@ -494,9 +573,22 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -505,11 +597,20 @@ class PageController extends AbstractController
         }
         //dump($themes);die;
 
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
+
         return $this->render('page/inscription-particular.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             'configsite'=> $configsite,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
         
     }
@@ -544,16 +645,29 @@ class PageController extends AbstractController
     /**
     * @Route("/post-ask-devis/{id}/{prosId}", name="post_ask_devis_page" , requirements={"id"="\d+"})
     */
-    public function postAskDevis($id = null, $prosId = null, Request $request, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep,   CitiesRepository $cityRep, TypeRepository $typeRep, CategoryRepository $categRep, ArticleRepository $artRep, FonctionRepository $foncRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, UserRepository $userRep)
+    public function postAskDevis($id = null, $prosId = null, Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep,   CitiesRepository $cityRep, TypeRepository $typeRep, CategoryRepository $categRep, ArticleRepository $artRep, FonctionRepository $foncRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, UserRepository $userRep)
     {       
             //dump($request->request->get('metier_ask_devis'));die;
             //dump($_ENV['MAILER_URL']);die;
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -561,6 +675,13 @@ class PageController extends AbstractController
             }
         }
         //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         $arrayTypes = $typeRep->findAllArray();
         $arrayArticles = $artRep->findAllArray();
@@ -662,7 +783,9 @@ class PageController extends AbstractController
                     'popularDevis'=> $popularDevis,
                     'categories'=> $categories,
                     'configsite'=> $configsite,
-                    'themes'=> $themes,
+                    'themesImage'=> $themes,
+                    'themesColor'=> $themesColor,
+                    'themes'=> $them,
                 ]);
 
             } else {
@@ -708,7 +831,9 @@ class PageController extends AbstractController
                 'popularDevis'=> $popularDevis,
                 'categories'=> $categories,
                 'configsite'=> $configsite,
-                'themes'=> $themes,
+                'themesImage'=> $themes,
+                'themesColor'=> $themesColor,
+                'themes'=> $them,
             ]);
         }
 
@@ -721,15 +846,28 @@ class PageController extends AbstractController
     /**
     * @Route("/space-find-chantier", name="find_chantier_page")
     */
-    public function findChantier(ConfigsiteRepository $configsiteRep, Request $request, ThemeImageRepository $themeImageRep, CitiesRepository $cityRep, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep)
+    public function findChantier(ConfigsiteRepository $configsiteRep, Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, CitiesRepository $cityRep, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep)
     {
         
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
-        //THEMES PAGES
-        $themeImages = $themeImageRep->findAllArray();
-        $themeImages = count($themeImages) > 0 ? $themeImages : [];
-        $themes = array();
+    //THEMES PAGES
+    $thems =  $themeRep->findAllArray();
+    $themeImages = $themeImageRep->findAllArray();
+    $themeColors = $themeColorRep->findAllArray();
+    $thems = count($thems) > 0 ? $thems : [];
+    $themeImages = count($themeImages) > 0 ? $themeImages : [];
+    $themeColors = count($themeColors) > 0 ? $themeColors : [];
+    $them = array();
+    $themes = array();
+    $themesColor = array();
+
+    if(count($thems) > 0) {
+        foreach($thems as $key => $value) {
+            $them[$value->getKeyWord()] = $value;
+        }
+    }
+    //dump($them);die;
 
     if(count($themeImages) > 0) {
         foreach($themeImages as $key => $value) {
@@ -737,6 +875,13 @@ class PageController extends AbstractController
         }
     }
     //dump($themes);die;
+
+    if(count($themeColors) > 0) {
+        foreach($themeColors as $key => $value) {
+            $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+        }
+    }
+    //dump($themesColor);die;
 
 
        if($_POST) {
@@ -798,7 +943,9 @@ class PageController extends AbstractController
                     'categLabel'=> $request->request->get('categLabel'),
                     'CategoryId'=> $request->request->get('CategoryId'),
                     'configsite'=> $configsite,
-                    'themes'=> $themes,
+                    'themesImage'=> $themes,
+                    'themesColor'=> $themesColor,
+                    'themes'=> $them,
 
                 ]);
 
@@ -900,7 +1047,9 @@ class PageController extends AbstractController
             'categories'=> $categories,
             // 'cities'=> $cities,
             'configsite'=> $configsite,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
         
     }
@@ -908,7 +1057,7 @@ class PageController extends AbstractController
     /**
     * @Route("/space-pro", name="space_pro_page")
     */
-    public function spacePro(ConfigsiteRepository $configsiteRep, Request $request, ThemeImageRepository $themeImageRep, CitiesRepository $cityRep, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function spacePro(ConfigsiteRepository $configsiteRep, Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, CitiesRepository $cityRep, CategoryRepository $categRep, PostRepository $postRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
               
         $arrayPostAds = Array();
@@ -954,9 +1103,22 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -964,6 +1126,13 @@ class PageController extends AbstractController
             }
         }
         //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         //Get comments list by particulars
         $comments = $commentRep->findAllCommentsByPros(6);
@@ -982,7 +1151,9 @@ class PageController extends AbstractController
             'configsite'=> $configsite,
             'comments'=> $comments,
             'guidesPrice'=> 1,
-            'themes'=> $themes
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
             
     }
@@ -990,14 +1161,27 @@ class PageController extends AbstractController
     /**
     * @Route("/space-find-pro", name="space_find_pro_page")
     */
-    public function findPro(Request $request, UserRepository $userRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CategoryRepository $categRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   TypeRepository $typeRep)
+    public function findPro(Request $request, UserRepository $userRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CategoryRepository $categRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   TypeRepository $typeRep)
     {
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -1005,6 +1189,13 @@ class PageController extends AbstractController
             }
         }
         //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         $categories = $categRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
@@ -1050,7 +1241,9 @@ class PageController extends AbstractController
                         'categoryId'=> $request->request->get('categoryId'),
                         'categLabel'=> $request->request->get('categLabel'),
                         'configsite'=> $configsite,
-                        'themes'=> $themes,
+                        'themesImage'=> $themes,
+                        'themesColor'=> $themesColor,
+                        'themes'=> $them,
                     ]);
                 }
             } //END POST
@@ -1119,7 +1312,9 @@ class PageController extends AbstractController
             'categories'=> $categories,
             'pros'=> $pros,
             'configsite'=> $configsite,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
         
     }
@@ -1127,7 +1322,7 @@ class PageController extends AbstractController
     /**
     * @Route("/show-one-detail-pro/{id}", name="show_detail_pro_page")
     */
-    public function detailPro($id = null, ConfigsiteRepository $configsiteRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, DevisRepository $devisRep, CommentsRepository $commentRep, ImagesRepository $imageRep,   UserRepository $userRep, VideosRepository $videoRep, CategoryRepository $categoryRep, EvaluationsRepository $evaluationRep, DocummentRepository $docummentRep, LabelsRepository $labelRep)
+    public function detailPro($id = null, ConfigsiteRepository $configsiteRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, DevisRepository $devisRep, CommentsRepository $commentRep, ImagesRepository $imageRep,   UserRepository $userRep, VideosRepository $videoRep, CategoryRepository $categoryRep, EvaluationsRepository $evaluationRep, DocummentRepository $docummentRep, LabelsRepository $labelRep)
     {
 
         //get pros user one infos company
@@ -1176,9 +1371,22 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -1186,6 +1394,13 @@ class PageController extends AbstractController
             }
         }
         //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('page/show_one_detail_pro.html.twig', [
             'popularDevis'=> $popularDevis,
@@ -1197,7 +1412,9 @@ class PageController extends AbstractController
             'labels'=> $labels,
             'documents'=> $documents,
             'configsite'=> $configsite,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
         
     }
@@ -1205,7 +1422,7 @@ class PageController extends AbstractController
     /**
     * @Route("/show-detail-ads/{id}", name="show_detail_ads_page")
     */
-    public function detailAds($id = null, ConfigsiteRepository $configsiteRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function detailAds($id = null, ConfigsiteRepository $configsiteRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
         
         $categories = $categoryRep->findAllArray();
@@ -1240,9 +1457,22 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -1251,12 +1481,21 @@ class PageController extends AbstractController
         }
         //dump($themes);die;
 
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
+
         return $this->render('premuim/show-one-detail-artisant-ads.html.twig', [
             'devis'=>  $devis,
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             'configsite'=> $configsite,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
         
     }
@@ -1264,7 +1503,7 @@ class PageController extends AbstractController
     /**
     * @Route("/view-all-travaux/{id}", name="view_all_tavaux_page")
     */
-    public function viewAllTravaux($id = null, Request $request, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function viewAllTravaux($id = null, Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
 
         //BEGIN GET LIST ARTICLES BY AJAX PAGINATION
@@ -1361,9 +1600,22 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -1372,6 +1624,13 @@ class PageController extends AbstractController
         }
         //dump($themes);die;
 
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
+
         return $this->render('page/view_all_art_cat_family_byfilter.html.twig', [
             'articles'=>  $articles,
             'popularDevis'=> $popularDevis,
@@ -1379,7 +1638,9 @@ class PageController extends AbstractController
             'configsite'=> $configsite,
             'categLabel'=> $labelCategory,
             'categoryId'=> $categoryId,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
 
         ]);
         
@@ -1388,7 +1649,7 @@ class PageController extends AbstractController
     /**
     * @Route("/view-art-cat-galery/{id}", name="view_art_cat_galery_page")
     */
-    public function galery($id = null, ConfigsiteRepository $configsiteRep, ThemeImageRepository $themeImageRep, CategoryRepository $categoryRep, ArticleRepository $articleRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep)
+    public function galery($id = null, ConfigsiteRepository $configsiteRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, CategoryRepository $categoryRep, ArticleRepository $articleRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep)
     {
         $category = $categoryRep->findById((int) $id);
         $artiles = $articleRep->findByCategory($category);
@@ -1422,9 +1683,22 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -1432,6 +1706,13 @@ class PageController extends AbstractController
             }
         }
         //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
         
         return $this->render('page/catalog_art_img_galery.html.twig', [
             'articles'=> $articles,
@@ -1439,7 +1720,9 @@ class PageController extends AbstractController
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             'configsite'=> $configsite,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
         
     }
@@ -1447,7 +1730,7 @@ class PageController extends AbstractController
     /**
     * @Route("/how-to-steping", name="how_to_step_page")
     */
-    public function howToStep( ConfigsiteRepository $configsiteRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep )
+    public function howToStep( ConfigsiteRepository $configsiteRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep )
     {
         
         $categories = $categoryRep->findAllArray();
@@ -1478,9 +1761,22 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -1489,11 +1785,20 @@ class PageController extends AbstractController
         }
         //dump($themes);die;
 
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
+
         return $this->render('page/comment-ca-marche.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             'configsite'=> $configsite,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
         
     }
@@ -1502,7 +1807,7 @@ class PageController extends AbstractController
     /**
     * @Route("/nos-tarif", name="nos_tarif_page")
     */
-    public function tarif(ConfigsiteRepository $configsiteRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function tarif(ConfigsiteRepository $configsiteRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
 
         $categories = $categoryRep->findAllArray();
@@ -1533,9 +1838,22 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -1544,11 +1862,20 @@ class PageController extends AbstractController
         }
         //dump($themes);die;
 
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
+
         return $this->render('page/nos-tarif.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             'configsite'=> $configsite,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
         
     }
@@ -1556,7 +1883,7 @@ class PageController extends AbstractController
     /**
     * @Route("/sites-create", name="site_create_page")
     */
-    public function sites(Request $request, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function sites(Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
 
  
@@ -1613,9 +1940,22 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -1624,11 +1964,20 @@ class PageController extends AbstractController
         }
         //dump($themes);die;
 
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
+
         return $this->render('page/sites.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             'configsite'=> $configsite,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
         
     }
@@ -1645,7 +1994,7 @@ class PageController extends AbstractController
     /**
     * @Route("/temoingnage-particulier", name="comments_particular_page")
     */
-    public function commentsParticular(ConfigsiteRepository $configsiteRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function commentsParticular(ConfigsiteRepository $configsiteRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
 
         $categories = $categoryRep->findAllArray();
@@ -1681,9 +2030,22 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -1692,13 +2054,22 @@ class PageController extends AbstractController
         }
         //dump($themes);die;
 
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
+
         return $this->render('page/temoingnage-particulier.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             'configsite'=> $configsite, 
             'comments'=> $comments,
             'guidesPrice'=> 1,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
         
     }
@@ -1706,7 +2077,7 @@ class PageController extends AbstractController
     /**
     * @Route("/temoingnage-pro", name="comments_pro_page")
     */
-    public function commentsPro(ConfigsiteRepository $configsiteRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function commentsPro(ConfigsiteRepository $configsiteRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
 
         $categories = $categoryRep->findAllArray();
@@ -1742,9 +2113,22 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -1753,13 +2137,22 @@ class PageController extends AbstractController
         }
         //dump($themes);die;
 
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
+
         return $this->render('page/temoingnage-pro.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             'configsite'=> $configsite,
             'comments'=> $comments,
             'guidesPrice'=> 1,
-            'themes'=> $themes,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
         
     }
@@ -1767,7 +2160,7 @@ class PageController extends AbstractController
     /**
     * @Route("/prince-talks-us", name="prince_talk_page")
     */
-    public function princeTalksUs(ConfigsiteRepository $configsiteRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function princeTalksUs(ConfigsiteRepository $configsiteRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
 
         $categories = $categoryRep->findAllArray();
@@ -1798,9 +2191,22 @@ class PageController extends AbstractController
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
         $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
         $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
 
         if(count($themeImages) > 0) {
             foreach($themeImages as $key => $value) {
@@ -1809,11 +2215,20 @@ class PageController extends AbstractController
         }
         //dump($themes);die;
 
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
+
         return $this->render('page/prince-talks-us.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
             'configsite'=> $configsite,
-            'themes'=> $themes
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
         
     }

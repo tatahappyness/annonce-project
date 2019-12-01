@@ -19,6 +19,7 @@ class ThemeColorRepository extends ServiceEntityRepository
         parent::__construct($registry, ThemeColor::class);
     }
 
+    
     public function findById($id, $lockMode = null, $lockVersion = null): ?ThemeColor
     {
         return $this->find($id);

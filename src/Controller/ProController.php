@@ -41,6 +41,8 @@ use App\Repository\CitiesRepository;
 use App\Repository\EmojiRepository;
 use App\Repository\VideosRepository;
 use App\Repository\ThemeImageRepository;
+use App\Repository\ThemeColorRepository;
+use App\Repository\ThemeRepository;
 use App\Repository\DevisAcceptRepository;
 use App\Repository\DevisValidRepository;
 use App\Repository\DevisFinishRepository;
@@ -81,7 +83,7 @@ class ProController extends AbstractController
     * @Route("/dashbord", name="pro_dashbord")
     * @param $user to find pro owner infos
     */
-    public function dashbord(Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function dashbord(Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -129,6 +131,37 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('pro/dashbord.html.twig', [
             'numberDevis' => $nbdevis,
@@ -137,6 +170,9 @@ class ProController extends AbstractController
              'nbProjectDispo'=> count($postsAds),
              'user'=> $security->getUser(),
              'configsite'=> $configsite,
+             'themesImage'=> $themes,
+             'themesColor'=> $themesColor,
+             'themes'=> $them,
 
         ]);
     }
@@ -145,7 +181,7 @@ class ProController extends AbstractController
     /**
     * @Route("/lists-projects-disponible", name="pro_dispos_projects")
     */
-    public function dispoProjects(Request $request, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, Security $security, CategoryRepository $catRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisRepository $devisRep)
+    public function dispoProjects(Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, Security $security, CategoryRepository $catRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisRepository $devisRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -214,6 +250,37 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
        
         return $this->render('pro/projects-dispos.html.twig', [
             'postAds' => $postsAds, 
@@ -221,6 +288,9 @@ class ProController extends AbstractController
             'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
             'user'=> $security->getUser(),
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
 
     }
@@ -240,7 +310,7 @@ class ProController extends AbstractController
     /**
     * @Route("/show-one-detail-ads-project/{id}", name="pro_one_detail_ads_projects")
     */
-    public function detailAdsProjects($id = null, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CategoryRepository $catRep, PostRepository $postRep, AbonnementRepository $abonnementRep, CustomerRepository $customRep, ServicesRepository $serviceRep, DevisRepository $devisRep)
+    public function detailAdsProjects($id = null, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CategoryRepository $catRep, PostRepository $postRep, AbonnementRepository $abonnementRep, CustomerRepository $customRep, ServicesRepository $serviceRep, DevisRepository $devisRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -249,6 +319,37 @@ class ProController extends AbstractController
         $post = $postRep->findById((int) $id);
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
         
         if (!is_null($post) && !is_null($customer)) {
 
@@ -266,6 +367,9 @@ class ProController extends AbstractController
                     'user'=> $security->getUser(),
                     'service'=> $myservice,
                     'configsite'=> $configsite,
+                    'themesImage'=> $themes,
+                    'themesColor'=> $themesColor,
+                    'themes'=> $them,
                 ]);
             }
         }
@@ -276,6 +380,9 @@ class ProController extends AbstractController
             'user'=> $security->getUser(),
             'service'=> $myservice,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
@@ -316,7 +423,7 @@ class ProController extends AbstractController
     /**
     * @Route("/devis-receved-lists", name="pro_devis_receved_lists")
     */
-    public function devisReceved(Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep, ServicesRepository $serviceRep, CustomerRepository $customRep, DevisAcceptRepository $devisAcceptrep)
+    public function devisReceved(Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep, ServicesRepository $serviceRep, CustomerRepository $customRep, DevisAcceptRepository $devisAcceptrep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -328,6 +435,37 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         $services = $serviceRep->findByUser($security->getUser());
 
@@ -355,6 +493,9 @@ class ProController extends AbstractController
                 'isAbonned'=> true, 'devisAccept'=>  $devisAccept,
                 'user'=> $security->getUser(),
                 'configsite'=> $configsite,
+                'themesImage'=> $themes,
+                'themesColor'=> $themesColor,
+                'themes'=> $them,
             ]);
 
         }
@@ -366,6 +507,9 @@ class ProController extends AbstractController
             'isAbonned'=> false, 'devisAccept'=>  $devisAccept,
             'user'=> $security->getUser(),
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
 
     }
@@ -373,7 +517,7 @@ class ProController extends AbstractController
     /**
     * @Route("/devis-receved-detail/{id}/{download}", name="pro_devis_receved_detail")
     */
-    public function devisRecevedDetail($id = null, $download = null, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, ServicesRepository $serviceRep, DevisRepository $devisRep)
+    public function devisRecevedDetail($id = null, $download = null, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, ServicesRepository $serviceRep, DevisRepository $devisRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -385,6 +529,37 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
        
         if ($id !== null && (int) $interval->format('%R%a') <= 0) 
         {
@@ -394,6 +569,9 @@ class ProController extends AbstractController
                 'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
                 'user'=> $security->getUser(),
                 'configsite'=> $configsite,
+                'themesImage'=> $themes,
+                'themesColor'=> $themesColor,
+                'themes'=> $them,
             ]);
 
         }
@@ -416,6 +594,9 @@ class ProController extends AbstractController
                     'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
                     'user'=> $security->getUser(),
                     'configsite'=> $configsite,
+                    'themesImage'=> $themes,
+                    'themesColor'=> $themesColor,
+                    'themes'=> $them,
                 ]);
             }
         }
@@ -467,6 +648,9 @@ class ProController extends AbstractController
             'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
             'user'=> $security->getUser(),
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
@@ -474,7 +658,7 @@ class ProController extends AbstractController
     /**
     * @Route("/do-accept-project", name="pro_do_accept_devis")
     */
-    public function acceptDevis(Request $request, DevisRepository $devisRep, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CustomerRepository $customRep)
+    public function acceptDevis(Request $request, DevisRepository $devisRep, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CustomerRepository $customRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -510,7 +694,7 @@ class ProController extends AbstractController
     /**
     * @Route("/do-valid-project", name="pro_do_valid_devis")
     */
-    public function validDevis(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep )
+    public function validDevis(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep )
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -546,7 +730,7 @@ class ProController extends AbstractController
     /**
     * @Route("/do-finish-project", name="pro_do_finish_devis")
     */
-    public function finishDevis(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep, DevisValidRepository $devisValidRep )
+    public function finishDevis(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep, DevisValidRepository $devisValidRep )
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -584,7 +768,7 @@ class ProController extends AbstractController
     /**
     * @Route("/lists-projects-accepted", name="pro_projects_accepted")
     */
-    public function projectsAccepted(Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ServicesRepository $serviceRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep) 
+    public function projectsAccepted(Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ServicesRepository $serviceRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep) 
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -599,6 +783,37 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('pro/project-accepted.html.twig', [
             'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
@@ -607,6 +822,9 @@ class ProController extends AbstractController
             'devisFinish'=> $devisFinish,
             'user'=> $security->getUser(),
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
 
         ]);
     }
@@ -614,7 +832,7 @@ class ProController extends AbstractController
     /**
     * @Route("/lists-my-evaluations", name="pro_evaluations")
     */
-    public function proEvaluations(Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep, EvaluationsRepository $evaluationRep, ImagesRepository $imageRep, CustomerRepository $customRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep)
+    public function proEvaluations(Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep, EvaluationsRepository $evaluationRep, ImagesRepository $imageRep, CustomerRepository $customRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -633,6 +851,37 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('pro/pro-evaluations.html.twig', [
             'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
@@ -642,13 +891,16 @@ class ProController extends AbstractController
             'user'=> $security->getUser(),
             'evaluations'=> $evaluations,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/show-my-profil", name="pro_show_profil")
     */
-    public function profil(Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, VideosRepository $videoRep, DocummentRepository $docummentRep, LabelsRepository $labelRep, EvaluationsRepository $evaluationRep, ImagesRepository $imageRep, CustomerRepository $customRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep)
+    public function profil(Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, VideosRepository $videoRep, DocummentRepository $docummentRep, LabelsRepository $labelRep, EvaluationsRepository $evaluationRep, ImagesRepository $imageRep, CustomerRepository $customRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -693,6 +945,37 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('pro/profil.html.twig', [
             'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
@@ -704,13 +987,16 @@ class ProController extends AbstractController
             'labels'=> $labels,
             'videos'=>  $videos,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/edit-profil-pros", name="pro_edit_profil-pros")
     */
-    public function editProfil(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $user)
+    public function editProfil(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $user)
     {
             if (!is_null($request->files->get('file-upload')) ) {
 
@@ -750,17 +1036,51 @@ class ProController extends AbstractController
     /**
     * @Route("/show-coordonation", name="pro_coordonation")
     */
-    public function coordonation(Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CustomerRepository $customRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function coordonation(Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CustomerRepository $customRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
        
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('pro/my-coordonation.html.twig', [
             'user'=> $security->getUser(),
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
 
         ]);
     }
@@ -768,7 +1088,7 @@ class ProController extends AbstractController
     /**
     * @Route("/edit-logo", name="pro_edit_logo")
     */
-    public function editLogo(Request $request, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, Security $security, CustomerRepository $customRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function editLogo(Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, Security $security, CustomerRepository $customRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -813,7 +1133,7 @@ class ProController extends AbstractController
     /**
     * @Route("/company-edit", name="pro_company_edit")
     */
-    public function editCompany(Request $request, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, Security $security, CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function editCompany(Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, Security $security, CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
 
         if($_POST) {
@@ -849,7 +1169,7 @@ class ProController extends AbstractController
     /**
     * @Route("/coordonation-edit", name="pro_cordonation_edit")
     */
-    public function editCoordonation(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function editCoordonation(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -915,6 +1235,37 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
        
         return $this->render('pro/my-coordonation-edit.html.twig', [
@@ -923,6 +1274,9 @@ class ProController extends AbstractController
             'nbProjectDispo'=> count($postsAds),
             'user'=> $security->getUser(),
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
             
         ]);
     }
@@ -930,7 +1284,7 @@ class ProController extends AbstractController
     /**
     * @Route("/geolocation-map-edit", name="pro_geolocation_map_edit")
     */
-    public function editGeolocationMap(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function editGeolocationMap(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -994,19 +1348,53 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('pro/my-geolocation-map-edit.html.twig', [
             'user'=> $security->getUser(),
             'numberDevis' => $nbdevis,
             'nbProjectDispo'=> count($postsAds),
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/password-edit", name="pro_password_edit")
     */
-    public function editpassword(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserPasswordEncoderInterface $passwordEncoder, ServicesRepository $serviceRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function editpassword(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserPasswordEncoderInterface $passwordEncoder, ServicesRepository $serviceRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -1048,6 +1436,37 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('pro/my-password-edit.html.twig', [
             'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
@@ -1056,13 +1475,16 @@ class ProController extends AbstractController
             'devisFinish'=> $devisFinish,
             'user'=> $security->getUser(),
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/image-chantier-realize-edit", name="pro_image_realize_edit")
     */
-    public function editImagesRealize(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ArticleRepository $articleRep,  CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function editImagesRealize(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ArticleRepository $articleRep,  CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -1143,6 +1565,37 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('pro/image-chantie-realize-edit.html.twig', [
             'numberDevis' => $nbdevis,
@@ -1151,13 +1604,16 @@ class ProController extends AbstractController
             'user'=> $security->getUser(),
             'articles'=> $articles,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/video-chantier-realize-edit", name="pro_video_realize_edit")
     */
-    public function editVideosRealize(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, PostRepository $postRep, ServicesRepository $serviceRep, ArticleRepository $articleRep, CustomerRepository $customRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function editVideosRealize(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, PostRepository $postRep, ServicesRepository $serviceRep, ArticleRepository $articleRep, CustomerRepository $customRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -1227,6 +1683,37 @@ class ProController extends AbstractController
        $article = $articleRep->findByCategoryArray(array(1=> $categoryId));
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('pro/video-chantie-realize-edit.html.twig', [
             'numberDevis' => $nbdevis,
@@ -1235,6 +1722,9 @@ class ProController extends AbstractController
             'user'=> $security->getUser(),
             'articles'=> $article,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
 
     }
@@ -1242,7 +1732,7 @@ class ProController extends AbstractController
     /**
     * @Route("/document-file-edit", name="pro_document_file_edit")
     */
-    public function editDocumentFile(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DocummentRepository $documentRep, CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function editDocumentFile(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DocummentRepository $documentRep, CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -1315,6 +1805,37 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('pro/my-document-file-edit.html.twig', [
             'numberDevis' => $nbdevis,
@@ -1322,13 +1843,16 @@ class ProController extends AbstractController
             'nbProjectDispo'=> count($postsAds),
             'user'=> $security->getUser(),
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
      * @Route("/label-quality-edit", name="pro_label_quality_edit")
     */
-    public function editLabelQuality(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, LabelsRepository $labelRep, CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function editLabelQuality(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, LabelsRepository $labelRep, CitiesRepository $cityRep, DevisRepository $devisRep, PostRepository $postRep, ServicesRepository $serviceRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
 
         if (!is_null($request->files->get('file_image_label')) && !is_null($request->request->get('label_quality_title'))  ) {
@@ -1378,7 +1902,7 @@ class ProController extends AbstractController
     /**
     * @Route("/post-payements/{id}", name="pro_post_payements")
     */
-    public function payements($id = null, Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abennementRep, OfferRepository $offerRep )
+    public function payements($id = null, Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abennementRep, OfferRepository $offerRep )
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -1524,7 +2048,7 @@ class ProController extends AbstractController
     /**
     * @Route("/lists-services", name="pro_services")
     */
-    public function services(Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CategoryRepository $categoryRep, ServicesRepository $serviceRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function services(Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CategoryRepository $categoryRep, ServicesRepository $serviceRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -1545,6 +2069,37 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('pro/services.html.twig', [
             'services' => $services,
@@ -1555,13 +2110,16 @@ class ProController extends AbstractController
             'user'=> $security->getUser(),
             'categories'=> $categories,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/add-service", name="pro_add_service")
     */
-    public function addService(Request $request, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, Security $security, CategoryRepository $categoryRep)
+    public function addService(Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, Security $security, CategoryRepository $categoryRep)
     {
         if($_POST) {
 
@@ -1594,7 +2152,7 @@ class ProController extends AbstractController
     /**
     * @Route("/delete-service/{id}", name="pro_delete_service")
     */
-    public function deleteService($id = null, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ServicesRepository $serviceRep)
+    public function deleteService($id = null, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ServicesRepository $serviceRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -1617,7 +2175,7 @@ class ProController extends AbstractController
     /**
     * @Route("/talk-us", name="pro_talk_us")
     */
-    public function talkUs(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ServicesRepository $serviceRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function talkUs(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ServicesRepository $serviceRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
 
         if ($_POST) {
@@ -1656,6 +2214,37 @@ class ProController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
         
         return $this->render('pro/talk-us.html.twig', [
             'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
@@ -1664,6 +2253,9 @@ class ProController extends AbstractController
             'devisFinish'=> $devisFinish,
             'user'=> $security->getUser(),
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
         
     }

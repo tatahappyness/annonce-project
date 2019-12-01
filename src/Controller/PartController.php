@@ -29,6 +29,8 @@ use App\Repository\EvaluationsRepository;
 use App\Repository\CommentsRepository;
 use App\Repository\ConfigsiteRepository;
 use App\Repository\ThemeImageRepository;
+use App\Repository\ThemeColorRepository;
+use App\Repository\ThemeRepository;
 use App\Repository\EmojiRepository;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -104,6 +106,37 @@ class PartController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('part/dashbord.html.twig', [
             'pros' => $pros,
@@ -115,13 +148,16 @@ class PartController extends AbstractController
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/list-articles-ajax", name="particulier_list_articles_ajax")
     */
-    public function listArticlesAjax(Request $request, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, Security $security, CategoryRepository $categoryRep, ArticleRepository $articleRep)
+    public function listArticlesAjax(Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, Security $security, CategoryRepository $categoryRep, ArticleRepository $articleRep)
     {
 
         try {
@@ -152,7 +188,7 @@ class PartController extends AbstractController
     /**
     * @Route("/lists-ask-projects-devis", name="particulier_ask_project_devis")
     */
-    public function askProjectsDevis(Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
+    public function askProjectsDevis(Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -201,6 +237,37 @@ class PartController extends AbstractController
         
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('part/my-ask-devis-project-list.html.twig', [
             'devis' => $devis,
@@ -212,6 +279,9 @@ class PartController extends AbstractController
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
 
         ]);
     }
@@ -219,7 +289,7 @@ class PartController extends AbstractController
     /**
     * @Route("/lists-devis-receved-detail/{id}", name="particulier_devis_receved")
     */
-    public function devisReceved($id = null, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
+    public function devisReceved($id = null, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -285,6 +355,37 @@ class PartController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('part/my-devis-receved-list.html.twig', [
             'devis'=> $devis,
@@ -301,13 +402,16 @@ class PartController extends AbstractController
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/post-ads-project", name="particulier_post_ads")
     */
-    public function adsProjectPostule(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, AbonnementRepository $abonnementRep, CustomerRepository $customRep, ServicesRepository $serviceRep, UserRepository $userRep, ArticleRepository $artRep, CategoryRepository $categoryRep, TypeRepository $typeRep, CitiesRepository $cityRep, ArticleRepository $articleRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
+    public function adsProjectPostule(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, AbonnementRepository $abonnementRep, CustomerRepository $customRep, ServicesRepository $serviceRep, UserRepository $userRep, ArticleRepository $artRep, CategoryRepository $categoryRep, TypeRepository $typeRep, CitiesRepository $cityRep, ArticleRepository $articleRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -401,6 +505,37 @@ class PartController extends AbstractController
 
             //Get config site
             $configsite = $configsiteRep->findOneByIsActive();
+            //THEMES PAGES
+            $thems =  $themeRep->findAllArray();
+            $themeImages = $themeImageRep->findAllArray();
+            $themeColors = $themeColorRep->findAllArray();
+            $thems = count($thems) > 0 ? $thems : [];
+            $themeImages = count($themeImages) > 0 ? $themeImages : [];
+            $themeColors = count($themeColors) > 0 ? $themeColors : [];
+            $them = array();
+            $themes = array();
+            $themesColor = array();
+
+            if(count($thems) > 0) {
+                foreach($thems as $key => $value) {
+                    $them[$value->getKeyWord()] = $value;
+                }
+            }
+            //dump($them);die;
+
+            if(count($themeImages) > 0) {
+                foreach($themeImages as $key => $value) {
+                    $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+                }
+            }
+            //dump($themes);die;
+
+            if(count($themeColors) > 0) {
+                foreach($themeColors as $key => $value) {
+                    $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+                }
+            }
+            //dump($themesColor);die;
 
             return $this->render('part/post-ads.html.twig', [
                 'pros' => $pros,
@@ -413,6 +548,9 @@ class PartController extends AbstractController
                 'types'=> $types,
                 'popularDevis'=> $popularDevis,
                 'configsite'=> $configsite,
+                'themesImage'=> $themes,
+                'themesColor'=> $themesColor,
+                'themes'=> $them,
             ]);      
 
     }
@@ -420,7 +558,7 @@ class PartController extends AbstractController
     /**
     * @Route("/lists-ads-postule", name="particulier_ads_postule")
     */
-    public function listsAdsPostule(Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, ReponsePostAdsRepository $reponseRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
+    public function listsAdsPostule(Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, ReponsePostAdsRepository $reponseRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -474,6 +612,37 @@ class PartController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
 
         return $this->render('part/my-project-postule-list.html.twig', [
@@ -487,13 +656,16 @@ class PartController extends AbstractController
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/lists-details-candidates/{id}", name="particulier_details_candidates")
     */
-    public function listNumberDetailCandidate($id = null, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, ReponsePostAdsRepository $reponseRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
+    public function listNumberDetailCandidate($id = null, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, ReponsePostAdsRepository $reponseRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -557,6 +729,37 @@ class PartController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('part/number-detail-candidature-project.html.twig', [
             'detailPost' => $detailPost,
@@ -573,13 +776,16 @@ class PartController extends AbstractController
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/post-evaluations", name="particulier_post_evaluations")
     */
-    public function evaluations(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep)
+    public function evaluations(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -633,12 +839,46 @@ class PartController extends AbstractController
 
             //Get config site
             $configsite = $configsiteRep->findOneByIsActive();
+            //THEMES PAGES
+            $thems =  $themeRep->findAllArray();
+            $themeImages = $themeImageRep->findAllArray();
+            $themeColors = $themeColorRep->findAllArray();
+            $thems = count($thems) > 0 ? $thems : [];
+            $themeImages = count($themeImages) > 0 ? $themeImages : [];
+            $themeColors = count($themeColors) > 0 ? $themeColors : [];
+            $them = array();
+            $themes = array();
+            $themesColor = array();
+
+            if(count($thems) > 0) {
+                foreach($thems as $key => $value) {
+                    $them[$value->getKeyWord()] = $value;
+                }
+            }
+            //dump($them);die;
+
+            if(count($themeImages) > 0) {
+                foreach($themeImages as $key => $value) {
+                    $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+                }
+            }
+            //dump($themes);die;
+
+            if(count($themeColors) > 0) {
+                foreach($themeColors as $key => $value) {
+                    $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+                }
+            }
+            //dump($themesColor);die;
 
             return $this->render('part/post-evaluations.html.twig', [
                 'user'=> $security->getUser(),
                 'categories'=> $categories,
                 'popularDevis'=> $popularDevis,
                 'configsite'=> $configsite,
+                'themesImage'=> $themes,
+                'themesColor'=> $themesColor,
+                'themes'=> $them,
             ]);
 
         }
@@ -648,7 +888,7 @@ class PartController extends AbstractController
     /**
     * @Route("/projects-valid-finish", name="particulier_projects_valid_finish")
     */
-    public function validFinishProjects(Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, ReponsePostAdsRepository $reponseRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
+    public function validFinishProjects(Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, ReponsePostAdsRepository $reponseRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -705,6 +945,37 @@ class PartController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('part/projects-valid-finish.html.twig', [
             'nbMyProject'=> $nbMyProject,
@@ -721,13 +992,16 @@ class PartController extends AbstractController
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/projects-detail-accept/{id}", name="particulier_projects_detail_accept")
     */
-    public function acceptProjectsDetails($id = null, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
+    public function acceptProjectsDetails($id = null, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -793,6 +1067,37 @@ class PartController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('part/detail-valid-finish.html.twig', [
             'devis'=> $devis,
@@ -809,13 +1114,16 @@ class PartController extends AbstractController
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/projects-detail-valid/{id}", name="particulier_projects_detail_valid")
     */
-    public function validProjectsDetails($id = null, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
+    public function validProjectsDetails($id = null, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, EvaluationsRepository $evalRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -883,6 +1191,37 @@ class PartController extends AbstractController
             //END GET POPULA DEVIS
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('part/detail-valid-finish.html.twig', [
             'devis'=> $devis,
@@ -899,13 +1238,16 @@ class PartController extends AbstractController
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/projects-detail-finish/{id}", name="particulier_projects_detail_finish")
     */
-    public function finishProjectsDetails($id = null, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep, EvaluationsRepository $evalRep)
+    public function finishProjectsDetails($id = null, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep, EvaluationsRepository $evalRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -974,6 +1316,37 @@ class PartController extends AbstractController
         
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('part/detail-valid-finish.html.twig', [
             'devis'=> $devis,
@@ -990,13 +1363,16 @@ class PartController extends AbstractController
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/part-password-edit", name="particulier_password_edit")
     */
-    public function editPassword(Request $request, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserPasswordEncoderInterface $passwordEncoder, Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
+    public function editPassword(Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserPasswordEncoderInterface $passwordEncoder, Security $security, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
@@ -1069,6 +1445,37 @@ class PartController extends AbstractController
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('part/password-edit.html.twig', [
             'pros' => $pros,
@@ -1080,13 +1487,16 @@ class PartController extends AbstractController
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
     }
 
     /**
     * @Route("/edit-profil", name="particulier_edit_profil")
     */
-    public function editProfil(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $user, CategoryRepository $categoryRep, ArticleRepository $artRep)
+    public function editProfil(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $user, CategoryRepository $categoryRep, ArticleRepository $artRep)
     {
             if (!is_null($request->files->get('file-upload')) ) {
 
@@ -1126,7 +1536,7 @@ class PartController extends AbstractController
     /**
     * @Route("/post-comments-particular", name="particulier_post_comments")
     */
-    public function postComments(Request $request, Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
+    public function postComments(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, UserRepository $userRep, CategoryRepository $categoryRep, ArticleRepository $artRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
     {
          if(!is_null($request->request->get('comment_description'))) {
                    
@@ -1195,6 +1605,37 @@ class PartController extends AbstractController
         
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
 
         return $this->render('part/add-comment-particular.html.twig', [
             'pros' => $pros,
@@ -1206,6 +1647,9 @@ class PartController extends AbstractController
             'categories'=> $categories,
             'popularDevis'=> $popularDevis,
             'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
         ]);
 
     }

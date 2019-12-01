@@ -93,6 +93,10 @@
 			.row_menu {
 				display: none;
 			}
+						
+			.menu_home_page{
+				display: none;
+			}
 			
 			#sidebarToggleTop{
 				display: none;
@@ -161,12 +165,23 @@
 								<!-- Color System -->
 							<div class="row text-center">            
 							  <div class="col-lg-3 col-sm-3 mb-3">
-								<div class="card bg-white  shadow">
+								<div class="card  shadow" style="background-color: #bdac9d;">
 									<div class="card-body" > 
 									  <a href="{{ path('client') }}" class="text-dark">
 										<i class="fa  fa-5x icon_menu fa-fw fa-user-friends"></i>
 									  </a><hr>
 										<div class="text-dark ">Client</div>
+									</div>						
+								</div>
+							  </div>
+
+							<div class="col-lg-3 col-sm-3 mb-3">
+								<div class="card bg-white  shadow">
+									<div class="card-body" > 
+									  <a href="{{ path('comments_index') }}" class="text-dark">
+										<i class="fa icon_menu fa-5x fa-fw fa-voicemail "></i>
+									  </a><hr>
+										<div class="text-dark ">Publication</div>
 									</div>						
 								</div>
 							  </div>
@@ -245,6 +260,17 @@
 								  </div>
 								</div>
 							  </div>
+
+							  <div class="col-lg-3 col-sm-3 mb-3">
+								<div class="card  shadow" style="background-color: #8de634;">
+									<div class="card-body" > 
+									  <a href="{{ path('emoji_index') }}" class="text-dark">
+										<i class="fa-5x icon_menu fas fa-fw fa-smile"></i>
+									  </a><hr>
+										<div class="text-dark ">Emoji</div>
+									</div>						
+								</div>
+							  </div>
 							  
 							  <div class="col-lg-3  col-sm-3 mb-3">
 								<div class="card bg-primary text-white shadow">
@@ -254,6 +280,18 @@
 									</a><hr>
 									<div class="text-white small ">Configuration du site </div>
 								  </div>
+								</div>
+							  </div>
+
+							  
+							<div class="col-lg-3 col-sm-3 mb-3">
+								<div class="card bg-white  shadow">
+									<div class="card-body" > 
+									  <a href="{{ path('theme_index') }}" class="text-dark">
+										<i class="fa icon_menu fa-5x fa-fw fa-voicemail "></i>
+									  </a><hr>
+										<div class="text-dark ">Théme</div>
+									</div>						
 								</div>
 							  </div>
 							  
@@ -268,9 +306,10 @@
 								</div>
 							  </div>
 							  
+							  							
 							  
 							  <div class="col-lg-3  col-sm-3 mb-3">
-								<div class="card text-white shadow" style="background-color: yellowgreen;">
+								<div class="card text-white shadow" style="background-color: #ef4986;">
 								  <div class="card-body">                      
 									<a href="#"  data-toggle="modal" data-target="#colect_donnees"  class="text-white">
 										<i class="fas    fa-fw icon_menu  fa-5x ">+</i>
@@ -615,7 +654,7 @@
 			<div class="row_stat_show">
 
 				Statistique :
-				<br>											
+				<hr class="diviseur">											
 				<div class="col-lg-6  col-sm-6 mb-4 animated bounceInDown delay-1s faster">
 					  <div class="card border-left-success shadow h-100 py-2">
 					  	<div class="col mr-2">

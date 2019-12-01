@@ -9,32 +9,33 @@
             <img style="height: 50px; " class="img_logo" src="{{ absolute_url('/uploads/logo/') }}{{ configsite.image }}"  />
         {% endfor %}
       </div> _
+
 	  <div class="topbar-divider d-none d-sm-block"></div>
 	  
 
 
           <!-- Page Heading -->
-          <div class="">
+          <div class="d-none d-sm-block">
             <h1 class="head_title h3 mb-0 text-gray-800">{{page_head_title}}</h1>
           </div>
 
-            <div class="topbar-divider d-none d-sm-block"></div>
+            <div class="topbar-divider d-none d-lg-block"></div>
 
           <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+          <button id="sidebarToggleTop" class="btn btn-link d-none d-sm-block rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>            
-		      <div class="navbar-nav">
+		      <div class="navbar-nav d-none d-md-flex flex-row">
               <span class="nav-item active">
-                <a class="nav-link"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{% for configsite in configsites %} {{ configsite.numphone }} {% endfor %}</span></span></a>
+                <a class="nav-link"><span class=" d-none d-lg-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{% for configsite in configsites %} {{ configsite.numphone }} {% endfor %}</span></span></a>
               </span>
-              <span class="nav-item">
-                <a class="nav-link"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">{% for configsite in configsites %} {{ configsite.email }} {% endfor %}</span></span></a>
+              <span class="nav-item active">
+                <a class="nav-link"><span class="d-none d-lg-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">{% for configsite in configsites %} {{ configsite.email }} {% endfor %}</span></span></a>
               </span>
-              <a class="nav-link " href="{{ path('configsite_index') }}">
+              <a class="nav-link d-none d-md-flex flex-md-column" href="{{ path('configsite_index') }}">
                 <button class="btn-circle btn-warning" type="button" title="Modifier les Configuration du site"><i class="fa fa-edit"></i>
                 </button>
-						  </a>
+              </a>
           </div>
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">

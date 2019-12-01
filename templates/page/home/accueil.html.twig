@@ -37,14 +37,65 @@
             padding: 0.5rem 1rem ;
         }
 
-        /** CSS THEMES**/
-        .navbar {
-            background: {{ themesColor['HEADER']['HEADER_COUL_1'].Color }} !important;
+        /** CSS THEMES
+            warning dark : rgb(255, 144, 0)
+            warning claire : #ffc107
+            gray dark: rgb(119, 119, 119) ou #777
+            gray claire : rgb(240, 240, 240) ou #bfbfbf
+            white claire : rgb(248, 248, 248) ou #ffffff
+            black claire: rgba(0, 0, 0, 95%)
+            black dark : #000000
+
+        **/
+        .navbar, .bg-grey {
+            background: {{ themesColor['HEADER']['HEADER_FONT_COUL_1'].Color != null ? themesColor['HEADER']['HEADER_FONT_COUL_1'].Color : 'rgb(240, 240, 240)' }} !important;
+            color: {{ themesColor['HEADER']['HEADER_TEXT_COUL_1'].Color != null ? themesColor['HEADER']['HEADER_TEXT_COUL_1'].Color : 'rgb(248, 248, 248)' }} !important;
         }
-        .navbar-mega {
-            background: {{ themesColor['HEADER']['HEADER_COUL_2'].Color }};
+        .navbar-mega, .sidepanel, .bg-darkgray {
+            background: {{ themesColor['HEADER']['HEADER_FONT_COUL_2'].Color != null ? themesColor['HEADER']['HEADER_FONT_COUL_2'].Color : '#777'}} !important;
+            color: {{ themesColor['HEADER']['HEADER_TEXT_COUL_2'].Color != null ? themesColor['HEADER']['HEADER_TEXT_COUL_1'].Color : 'rgb(248, 248, 248)' }} !important;
         }
-    
+
+        button, .bg-warning, .icon-sondage, .triangle {
+            background: {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgb(255, 144, 0)' }} !important;
+            color: {{ themes['BUTTON_TEXT_COLOR'].colorFond != null ? themes['BUTTON_TEXT_COLOR'].colorFond : ' rgb(248, 248, 248)' }} !important;
+        }
+        .triangle::after {
+            border-color: transparent transparent {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgb(255, 144, 0)' }} {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgb(255, 144, 0)' }} !important;
+        }
+
+        .man-young-container .text-title {
+            color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color : ' #ffc107' }} !important;
+        }
+        .man-young-container .text-desc {
+            color: {{ themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_1'].Color != null ? themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_1'].Color : ' rgb(248, 248, 248)' }} !important;
+        }
+        .text-dark {
+            color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_2'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_2'].Color : ' #ffc107' }} !important;
+        }
+        p, .text-secondary {
+            color: {{ themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_2'].Color != null ? themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_2'].Color : ' rgb(248, 248, 248)' }} !important;
+        }
+        .text-warning {
+            color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color : ' #ffc107' }} !important;
+        }
+        .text-white {
+            color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_1'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_1'].Color : ' #ffffff' }} !important;
+        }
+        .fond-slide-background {
+            background-color: {{ themes['SLIDE_PRESENTATION_SECTION'].colorFond != null ?  themes['SLIDE_PRESENTATION_SECTION'].colorFont : 'rgba(19, 19, 19, 95%)' }};
+            background-blend-mode: overlay !important;
+        }
+        .page-header-image {
+            background-blend-mode: overlay !important;
+            background-color: {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgba(255, 144, 0, 50%)' }} !important;
+        }
+        .section-footer {
+            background-image: url(/uploads/images/{{ themes['FOOTER'].imageFond != null ? themes['FOOTER'].imageFond : 'footer_bg.jpg'}}) !important;
+            background-color: themes['FOOTER'].colorFond != null ? themes['FOOTER'].colorFond : 'rgba(19, 19, 19, 95%)'}}) !important;
+            background-blend-mode: overlay !important;
+        }
+
     </style>
 
     {% endblock %}
@@ -98,25 +149,25 @@
                         <!-- ######## Begin  man young -->
                         <div class="row man-young-container d-sm-flex justify-content-sm-center d-none d-sm-block">
                             <div class="col-sm-12 d-sm-flex man-young justify-content-sm-center text-warning py-4"> 
-                                <h4 class="font-weight-bold ">COMMENT RECEVOIR DES DEVIS POUR VOS TRAVAUX ? </h4>
+                                <h4 class="font-weight-bold text-title">COMMENT RECEVOIR DES DEVIS POUR VOS TRAVAUX ? </h4>
                             </div>
                             <div class="col-sm-3 d-sm-flex flex-sm-column man-young justify-content-sm-center align-items-sm-center"> 
-                                <div class=""><img class="img" src="{{ absolute_url('/assets/img/photos/formulaire.jpg') }}"></img></div>
-                                <div class="text-center pt-2 man-young-desc">Déposez votre demande de devis</div>
+                                <div class=""><img class="img" src="{{ themesImage['HOME_PAGE']['HOME_PAGE_COMMENT_RECEVOIR_DEVIS_ICON_IMG_1'].image != null ? absolute_url('/uploads/themes/' ~ themesImage['HOME_PAGE']['HOME_PAGE_COMMENT_RECEVOIR_DEVIS_ICON_IMG_1'].image) : absolute_url('/uploads/themes/formulaire.jpg') }}"></img></div>
+                                <div class="text-center pt-2 text-desc man-young-desc">Déposez votre demande de devis</div>
                             </div>
                             <div class="col-sm d-sm-flex man-young justify-content-sm-center align-items-center"> 
                                 <span class="lnr lnr-chevron-right text-warning animated infinite fadeIn delay-2s"></span>
                             </div>
                             <div class="col-sm-3  d-sm-flex flex-sm-column man-young justify-content-sm-center align-items-sm-center"> 
-                                <div class=""><img class="img" src="{{ absolute_url('/assets/img/photos/telephone.jpg') }}"></img></div>
-                                <div class="text-center d-flex flex-fill pt-2 man-young-desc">Des professionnels vous contacteront</div>
+                                <div class=""><img class="img" src="{{ themesImage['HOME_PAGE']['HOME_PAGE_COMMENT_RECEVOIR_DEVIS_ICON_IMG_1'].image != null ? absolute_url('/uploads/themes/' ~ themesImage['HOME_PAGE']['HOME_PAGE_COMMENT_RECEVOIR_DEVIS_ICON_IMG_2'].image) : absolute_url('/uploads/themes/telephone.jpg') }}"></img></div>
+                                <div class="text-center d-flex flex-fill pt-2 text-desc man-young-desc">Des professionnels vous contacteront</div>
                             </div>
                             <div class="col-sm  d-sm-flex man-young justify-content-sm-center align-items-center"> 
                                 <span class="lnr lnr-chevron-right text-warning animated infinite fadeIn"></span>
                             </div>
                             <div class="col-sm-3 d-sm-flex flex-sm-column man-young justify-content-sm-center align-items-sm-center"> 
-                                <div class=""><img class="img" src="{{ absolute_url('/assets/img/photos/telephone.jpg') }}"></img></div>
-                                <div class="text-center pt-2 man-young-desc">Choisissez la meilleure offre</div>
+                                <div class=""><img class="img" src="{{ themesImage['HOME_PAGE']['HOME_PAGE_COMMENT_RECEVOIR_DEVIS_ICON_IMG_1'].image != null ? absolute_url('/uploads/themes/' ~ themesImage['HOME_PAGE']['HOME_PAGE_COMMENT_RECEVOIR_DEVIS_ICON_IMG_3'].image) : absolute_url('/uploads/themes/telephone.jpg') }}"></img></div>
+                                <div class="text-center pt-2 text-desc man-young-desc">Choisissez la meilleure offre</div>
                             </div>
                         </div>
                     </div>
@@ -129,23 +180,23 @@
                 <div class="container">
                     <div class="row py-5">
                         <div class="col-12 " >
-                            <h5 class="text-center text-dark">DEVIS TRAVAUX LES PLUS DEMANDÉS</h5>
-                            <div class="text-center  text-muted">Choisissez les travaux que vous souhaitez réaliser : nous vous accompagnons dans le choix du prestataire et nous vous donnons de nombreux conseils pour les réussir.</div>
+                            <h5 class="text-center text-title text-dark">DEVIS TRAVAUX LES PLUS DEMANDÉS</h5>
+                            <div class="text-center text-desc  text-muted">Choisissez les travaux que vous souhaitez réaliser : nous vous accompagnons dans le choix du prestataire et nous vous donnons de nombreux conseils pour les réussir.</div>
                         </div>
 						{% if popularDevis != null %}
                             {% for devPopular in popularDevis %}
                                <div class="col-12 col-sm-6 col-lg-4 py-4">
-                                <div class="img-container-popular popular-container-img-1 d-flex flex-column align-items-center" style="background-image: url(/uploads/images/{{ devPopular.getImg() }});">
+                                <div data-id="{{ devPopular.getId() }}" class="img-container-popular popular-container-img-1 d-flex flex-column align-items-center" style="background-image: url(/uploads/images/{{ devPopular.getImg() }});">
                                     <div class="bg-transparent w-100" style="">
                                         <a href="{{ path('view_art_cat_galery_page', {id: devPopular.getId()}) }}" class="btn btn-warning text-decoration-none rounded-circle float-right m-1 p-0" alt="voir détail...">
                                             <span class="lnr lnr-eye icon-popular-ask-eyes"></span>
                                         </a>
                                     </div>
-                                    <div class="img-title popular-title-img-1 h4 h-100 text-center">{{ devPopular.getCategTitle() }}</div>
+                                    <div class="img-title popular-title-img-1 h4 d-flex align-items-center h-100 text-center">{{ devPopular.getCategTitle() }}</div>
                                     <div class="img-desc popular-desc-img-1 w-100 text-center">
-                                        <a class="btn btn-warning btn-popular-devis d-none" href="{{ path('post_ask_devis_page', {id: devPopular.getId()}) }}">Demander un devis</a>
+                                        <a class="btn bg-dark btn-devis-popular btn-popular-devis-{{ devPopular.getId() }} d-none" href="{{ path('post_ask_devis_page', {id: devPopular.getId()}) }}">Demander un devis</a>
                                     </div>
-                                    <div class="bg-transparent d-flex align-items-end justify-content-end h-100 w-100" style=""><a class="btn bg-darkgray m-2">vote(32{{ devPopular.getId() }})</a></div>
+                                    <div class="bg-transparent d-flex align-items-end justify-content-end h-100 w-100" style=""><a class="btn vote-number m-2">vote(32{{ devPopular.getId() }})</a></div>
                                 </div>
                             </div>
                         {% endfor %}
@@ -219,8 +270,8 @@
                                 <div class="img-new-pro-container d-flex flex-column align-items-center justify-content-center bg-white rounded">
                                     <div class="img-new-pro-content rounded-top" style="background-image: url(/uploads/images/{{newpro.getUserCategoryActivity().getImg()}}); width: 100%; height: 250px;">
                                         <div class="w-100">
-                                            <a class="btn btn-warning float-left m-1 text-white">{{ newpro.getUserCategoryActivity().getCategTitle() }}</a>
-                                            <a class="btn btn-warning btn-pro-emotion-heart rounded-circle float-right m-1">
+                                            <a class="btn btn-category float-left m-1 text-white">{{ newpro.getUserCategoryActivity().getCategTitle() }}</a>
+                                            <a class="btn btn-category btn-pro-emotion-heart rounded-circle float-right m-1">
                                                 <span class="lnr lnr-heart icon-pro-emotion-heart"></span>
                                             </a>
                                         </div>

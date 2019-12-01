@@ -21,13 +21,70 @@
 		<link href="{{ absolute_url('/assets/autocomplete/autocomplete.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/assets/carousel/slid.css') }}" rel="stylesheet" />
 		<link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+
+		<style>
+			/** CSS THEMES
+				warning dark : rgb(255, 144, 0)
+				warning claire : #ffc107
+				gray dark: rgb(119, 119, 119) ou #777
+				gray claire : rgb(240, 240, 240) ou #bfbfbf
+				white claire : rgb(248, 248, 248) ou #ffffff
+				black claire: rgba(0, 0, 0, 95%)
+				black dark : #000000
+
+			**/
+			.navbar, .bg-grey {
+				background: {{ themesColor['HEADER']['HEADER_FONT_COUL_1'].Color != null ? themesColor['HEADER']['HEADER_FONT_COUL_1'].Color : 'rgb(240, 240, 240)' }} !important;
+				color: {{ themesColor['HEADER']['HEADER_TEXT_COUL_1'].Color != null ? themesColor['HEADER']['HEADER_TEXT_COUL_1'].Color : 'rgb(248, 248, 248)' }} !important;
+			}
+			.navbar-mega, .sidepanel, .bg-darkgray {
+				background: {{ themesColor['HEADER']['HEADER_FONT_COUL_2'].Color != null ? themesColor['HEADER']['HEADER_FONT_COUL_2'].Color : '#777'}} !important;
+				color: {{ themesColor['HEADER']['HEADER_TEXT_COUL_2'].Color != null ? themesColor['HEADER']['HEADER_TEXT_COUL_1'].Color : 'rgb(248, 248, 248)' }} !important;
+			}
+
+			button, .bg-warning, .icon-sondage, .triangle {
+				background: {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgb(255, 144, 0)' }} !important;
+				color: {{ themes['BUTTON_TEXT_COLOR'].colorFond != null ? themes['BUTTON_TEXT_COLOR'].colorFond : ' rgb(248, 248, 248)' }} !important;
+			}
+			.triangle::after {
+				border-color: transparent transparent {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgb(255, 144, 0)' }} {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgb(255, 144, 0)' }} !important;
+			}
+
+			.man-young-container .text-title {
+				color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color : ' #ffc107' }} !important;
+			}
+			.man-young-container .text-desc {
+				color: {{ themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_1'].Color != null ? themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_1'].Color : ' rgb(248, 248, 248)' }} !important;
+			}
+			.text-dark {
+				color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_2'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_2'].Color : ' #ffc107' }} !important;
+			}
+			p, .text-secondary {
+				color: {{ themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_2'].Color != null ? themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_2'].Color : ' rgb(248, 248, 248)' }} !important;
+			}
+			.text-warning {
+				color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color : ' #ffc107' }} !important;
+			}
+			.text-white {
+				color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_1'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_1'].Color : ' #ffffff' }} !important;
+			}
+			.page-header-image {
+				background-blend-mode: overlay !important;
+				background-color: {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgba(255, 144, 0, 50%)' }} !important;
+			}
+			.section-footer {
+				background-image: url(/uploads/themes/{{ themes['FOOTER'].imageFond != null ? themes['FOOTER'].imageFond : 'footer_bg.jpg'}}) !important;
+				background-color: {{ themes['FOOTER'].colorFond != null ? themes['FOOTER'].colorFond : 'rgba(19, 19, 19, 95%)'}}) !important;
+				background-blend-mode: overlay !important;
+			}
+		</style>
     
 	{% endblock %}
 
 	{% block body %}
 	
 	<div class="page-header" style="min-height: 65vh !important;">
-		<div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('./assets/img/photos/head-1.jpg'); background-attachment: fixed;">
+		<div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/uploads/themes/{{ themes['COMMENT_CHAMARCHE'].imageFond != null ? themes['COMMENT_CHAMARCHE'].imageFond : 'head-1.jpg'}}'); background-attachment: fixed;">
 		</div>
 		<div class="row">
 			<div class="col-12 p-0">
@@ -174,7 +231,7 @@
 							<span class="bg-warning mb-3 rounded-circle" style="width: 64px; height: 64px"><span class="h2 text-dark font-weight-bold" style="line-height: 64px;">1</span></span>
 							<span class="pro-icon mb-3">
 							<span class="icon-how-to-step">
-								<img src="{{ absolute_url('/assets/img/student-businesswoman-816.jpg') }}" class="icon-how-to-step"></img>
+								<img src="{{ themesImage['COMMENT_CHAMARCHE']['COMMENT_CHAMARCHE_IMG_1'].image != null ? absolute_url('/uploads/themes/' ~ themesImage['COMMENT_CHAMARCHE']['COMMENT_CHAMARCHE_IMG_1'].image) : absolute_url('/uploads/themes/student-businesswoman-816.jpg') }}" class="icon-how-to-step"></img>
 							</span>
 							</span>
 							<span class="h6 text-warning">Je decri mon projet <br> Vous recevrez jusqu'à 5 devis </span>
@@ -188,7 +245,7 @@
 							<span class="bg-warning mb-3 rounded-circle" style="width: 64px; height: 64px"><span class="h2 text-dark font-weight-bold" style="line-height: 64px;">2</span></span>
 							<span class="pro-icon mb-3">
 							<span class="icon-how-to-step">
-								<img src="{{ absolute_url('/assets/img/site-engineer-construction-42834.jpg') }}" class="icon-how-to-step"></img>
+								<img src="{{ themesImage['COMMENT_CHAMARCHE']['COMMENT_CHAMARCHE_IMG_2'].image != null ? absolute_url('/uploads/themes/' ~ themesImage['COMMENT_CHAMARCHE']['COMMENT_CHAMARCHE_IMG_2'].image) : absolute_url('/uploads/themes/site-engineer-construction-42834.jpg') }}" class="icon-how-to-step"></img>
 							</span>
 							</span>
 							<span class="h6 text-warning">Nos professionnels qualifiés <br> vous contacte</span>
@@ -202,7 +259,7 @@
 							<span class="bg-warning mb-3 rounded-circle" style="width: 64px; height: 64px"><span class="h2 text-dark font-weight-bold" style="line-height: 64px;">3</span></span>
 							<span class="pro-icon mb-3">
 							<span class="icon-how-to-step">
-								<img src="{{ absolute_url('/assets/img/happy-customer-approving-16184.jpg') }}" class="icon-how-to-step"></img>
+								<img src="{{ themesImage['COMMENT_CHAMARCHE']['COMMENT_CHAMARCHE_IMG_3'].image != null ? absolute_url('/uploads/themes/' ~ themesImage['COMMENT_CHAMARCHE']['COMMENT_CHAMARCHE_IMG_3'].image) : absolute_url('/uploads/themes/happy-customer-approving-16184.jpg') }}" class="icon-how-to-step"></img>
 							</span>
 							</span>
 							<span class="h6 text-warning">Choisissez votre artisans<br>Selon la qualité prix</span>

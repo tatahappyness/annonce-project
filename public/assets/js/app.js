@@ -128,9 +128,9 @@ $(document).ready(function() {
 	
 	//Show btn popular devis
 	 $('.popular-container-img-1').mouseover(function(){
-		 $('.btn-popular-devis').removeClass('d-none');
+		 $('.btn-popular-devis-' + $(this).data('id')).removeClass('d-none');
 	 }).mouseleave(function() {
-		 $('.btn-popular-devis').addClass('d-none');
+		 $('.btn-popular-devis-' + $(this).data('id')).addClass('d-none');
 	 })
 	 //show btn on travaux gallery pro
 	 $('.swiper-slide-gallery').mouseover(function(){

@@ -17,6 +17,8 @@ use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ConfigsiteRepository;
 use App\Repository\ThemeImageRepository;
+use App\Repository\ThemeColorRepository;
+use App\Repository\ThemeRepository;
 
 
 class SecurityController extends AbstractController
@@ -25,7 +27,7 @@ class SecurityController extends AbstractController
     /**
     * @Route("/login", name="login")
     */
-    public function login( AuthenticationUtils $authenticationUtils, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, Security $security, CategoryRepository $categoryRep, DevisRepository $devisRep, ArticleRepository $artRep)
+    public function login( AuthenticationUtils $authenticationUtils, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, Security $security, CategoryRepository $categoryRep, DevisRepository $devisRep, ArticleRepository $artRep)
     {   
 
         // On vérifie que l'utilisateur dispose bien du rôle ROLE_ADMIN
@@ -80,6 +82,38 @@ class SecurityController extends AbstractController
             //Get config site
             $configsite = $configsiteRep->findOneByIsActive();
 
+            //THEMES PAGES
+            $thems =  $themeRep->findAllArray();
+            $themeImages = $themeImageRep->findAllArray();
+            $themeColors = $themeColorRep->findAllArray();
+            $thems = count($thems) > 0 ? $thems : [];
+            $themeImages = count($themeImages) > 0 ? $themeImages : [];
+            $themeColors = count($themeColors) > 0 ? $themeColors : [];
+            $them = array();
+            $themes = array();
+            $themesColor = array();
+
+            if(count($thems) > 0) {
+                foreach($thems as $key => $value) {
+                    $them[$value->getKeyWord()] = $value;
+                }
+            }
+            //dump($them);die;
+
+            if(count($themeImages) > 0) {
+                foreach($themeImages as $key => $value) {
+                    $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+                }
+            }
+            //dump($themes);die;
+
+            if(count($themeColors) > 0) {
+                foreach($themeColors as $key => $value) {
+                    $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+                }
+            }
+            //dump($themesColor);die;
+
             return $this->render('page/connexion.html.twig', [
                 'controller_name' => 'PremuimController', 
                 "success" =>  $lastUsername, 
@@ -87,6 +121,9 @@ class SecurityController extends AbstractController
                 'popularDevis'=> $popularDevis,
                 'categories'=> $categories,
                 'configsite'=> $configsite,
+                'themesImage'=> $themes,
+                'themesColor'=> $themesColor,
+                'themes'=> $them,
 
             ]);
        

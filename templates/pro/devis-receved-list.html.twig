@@ -25,6 +25,62 @@
     height: 400px;  /* The height is 400 pixels */
     width: 100%;  /* The width is the width of the web page */
 }
+
+    /** CSS THEMES
+        warning dark : rgb(255, 144, 0)
+        warning claire : #ffc107
+        gray dark: rgb(119, 119, 119) ou #777
+        gray claire : rgb(240, 240, 240) ou #bfbfbf
+        white claire : rgb(248, 248, 248) ou #ffffff
+        black claire: rgba(0, 0, 0, 95%)
+        black dark : #000000
+
+    **/
+    .navbar, .bg-grey {
+        background: {{ themesColor['HEADER']['HEADER_FONT_COUL_1'].Color != null ? themesColor['HEADER']['HEADER_FONT_COUL_1'].Color : 'rgb(240, 240, 240)' }} !important;
+        color: {{ themesColor['HEADER']['HEADER_TEXT_COUL_1'].Color != null ? themesColor['HEADER']['HEADER_TEXT_COUL_1'].Color : 'rgb(248, 248, 248)' }} !important;
+    }
+    .navbar-mega, .sidepanel, .bg-darkgray {
+        background: {{ themesColor['HEADER']['HEADER_FONT_COUL_2'].Color != null ? themesColor['HEADER']['HEADER_FONT_COUL_2'].Color : '#777'}} !important;
+        color: {{ themesColor['HEADER']['HEADER_TEXT_COUL_2'].Color != null ? themesColor['HEADER']['HEADER_TEXT_COUL_1'].Color : 'rgb(248, 248, 248)' }} !important;
+    }
+
+    button, .bg-warning, .icon-sondage, .triangle {
+        background: {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgb(255, 144, 0)' }} !important;
+        color: {{ themes['BUTTON_TEXT_COLOR'].colorFond != null ? themes['BUTTON_TEXT_COLOR'].colorFond : ' rgb(248, 248, 248)' }} !important;
+    }
+    .triangle::after {
+        border-color: transparent transparent {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgb(255, 144, 0)' }} {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgb(255, 144, 0)' }} !important;
+    }
+
+    .man-young-container .text-title {
+        color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color : ' #ffc107' }} !important;
+    }
+    .man-young-container .text-desc {
+        color: {{ themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_1'].Color != null ? themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_1'].Color : ' rgb(248, 248, 248)' }} !important;
+    }
+    .text-dark {
+        color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_2'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_2'].Color : ' #ffc107' }} !important;
+    }
+    p, .text-secondary {
+        color: {{ themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_2'].Color != null ? themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_2'].Color : ' rgb(248, 248, 248)' }} !important;
+    }
+    .text-warning {
+        color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color : ' #ffc107' }} !important;
+    }
+    .text-white {
+        color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_1'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_1'].Color : ' #ffffff' }} !important;
+    }
+    .page-header-image {
+        background-blend-mode: overlay !important;
+        background-color: {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgba(255, 144, 0, 50%)' }} !important;
+    }
+    .section-footer {
+        background-image: url(/uploads/themes/{{ themes['FOOTER'].imageFond != null ? themes['FOOTER'].imageFond : 'footer_bg.jpg'}}) !important;
+        background-color: {{ themes['FOOTER'].colorFond != null ? themes['FOOTER'].colorFond : 'rgba(19, 19, 19, 95%)'}}) !important;
+        background-blend-mode: overlay !important;
+    }
+
 </style>
 
 {% endblock %}
@@ -32,7 +88,7 @@
 {% block body %}
 
 <div class="page-header page-header-image-gallery page-headers-pros">
-    <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/assets/img/photos/slide-inscription.jpg'); background-position: 0 50px !important;">
+    <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/uploads/themes/{{ themes['SPACE_PRO'].imageFond != null ? themes['SPACE_PRO'].imageFond : 'slide-inscription.jpg' }}'); background-position: 0 50px !important;">
     </div>
 		
     <!--Begin heder-menu pro space -->

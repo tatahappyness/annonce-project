@@ -21,7 +21,7 @@
 
 	<style>
 	/* Set the size of the div element that contains the map */
-	#map1, #map2 {
+	#map, #map2 {
 		height: 400px;  /* The height is 400 pixels */
 		width: 100%;  /* The width is the width of the web page */
 	}
@@ -173,16 +173,15 @@
 								    </div>
 								</div>
 
-								<div class="card d-block d-lg-none">
+								<div class="card">
 									<div class="card-header bg-darkgray p-1 text-white text-uppercase"> <h6 class="card-title"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span></span> &nbsp; Ma zone géographique</h6></div>
 									<div class="card-body">
 										<div class="row">
 											<div class="col-12 h-100">
-												<div id="container-map3">
-													
+												<div id="map">
 												</div>
 												<div class="d-block text-uppercase text-center pt-2">
-													<a href="" class="btn btn-warning text-decoration-none">Modifier ma zone géographique</a>
+													<a href="{{ path('pro_geolocation_map_edit') }}" class="btn btn-warning text-decoration-none">Modifier ma zone géographique</a>
 												</div>
 											</div>
 										</div>

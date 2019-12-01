@@ -578,19 +578,19 @@ jQuery(document).ready(function () {
 function initMap() {
 
     
-    var elem3 = document.getElementById('container-map3');
-    if(window.innerWidth < 992) {
-        elem3.innerHTML = '<div id="map1"></div>';
-       //location.reload(true);
-    }
+    // var elem3 = document.getElementById('container-map3');
+    // if(window.innerWidth < 992) {
+    //     elem3.innerHTML = '<div id="map1"></div>';
+    //    //location.reload(true);
+    // }
 
-    if(window.innerWidth > 991) {
-    var elem1 = document.getElementById('container-map1');
-    var elem2 = document.getElementById('container-map2');
-    elem1.innerHTML = '<div id="map1"></div>';
-    elem2.innerHTML = '<div id="map2"></div>';
-    //location.reload(true);
-    }
+    // if(window.innerWidth > 991) {
+    // var elem1 = document.getElementById('container-map1');
+    // var elem2 = document.getElementById('container-map2');
+    // elem1.innerHTML = '<div id="map1"></div>';
+    // elem2.innerHTML = '<div id="map2"></div>';
+    // //location.reload(true);
+    // }
 
     //AJAX GET GEOLOCATION IN SERVEUR
     jQuery.ajax({
@@ -613,29 +613,11 @@ function initMap() {
                 mapTypeId: google.maps.MapTypeId.HYBRID
                 };
 
-                if (document.getElementById('map1') !== undefined) {
-                    var map1 = new google.maps.Map(
-                        document.getElementById('map1'), mapOptions);
-                    // The marker, positioned at Uluru
-                    var marker = new google.maps.Marker({position: uluru, map: map1});
-                }
-            //MAP II
-                if (document.getElementById('map2') !== undefined) {
-                    var map2 = new google.maps.Map(
-                        document.getElementById('map2'), mapOptions);
-                    // The marker, positioned at Uluru
-                    var marker2 = new google.maps.Marker({position: uluru, map: map2});
-                }
-            //MAP III
-            if (document.getElementById('map3') !== undefined) {
-                var map3 = new google.maps.Map(
-                    document.getElementById('map3'), mapOptions);
+                var map = new google.maps.Map(
+                    document.getElementById('map'), mapOptions);
                 // The marker, positioned at Uluru
-                var marker3 = new google.maps.Marker({position: uluru, map: map3});
-            }
-
-
-               
+                var marker = new google.maps.Marker({position: uluru, map: map});
+            
         }).fail(function(){
             // Here you should treat the http errors (e.g., 403, 40
             alert('serveur internal error!!')					

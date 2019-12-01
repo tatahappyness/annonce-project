@@ -189,6 +189,22 @@
                                 {# <a href="{{ path('pro_dispos_projects') }}" class="btn-outline-warning text-decoration-none text-warning">Voir tous les projets disponibles</a> #}
                                 </div>
                             </div>
+
+                            <div class="card">
+                                <div class="card-header bg-darkgray p-1 text-white text-uppercase"> <h6 class="card-title"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span></span> &nbsp; Ma zone géographique</h6></div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 h-100">
+                                            <div id="map">
+                                            </div>
+                                            <div class="d-block text-uppercase text-center pt-2">
+                                                <a href="{{ path('pro_geolocation_map_edit') }}" class="btn btn-warning text-decoration-none">Modifier ma zone géographique</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

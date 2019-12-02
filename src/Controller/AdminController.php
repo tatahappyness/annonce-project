@@ -25,6 +25,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\PostRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\TypeRepository;
+use App\Repository\VisitorRepository;
 
 use App\Repository\SousCategoryRepository;
 use App\Repository\ModePrixRepository;
@@ -129,14 +130,15 @@ class AdminController extends AbstractController
     /**
     * @Route("/", name="admin_home")
     */
-    public function index(Security $security, SousCategoryRepository $sousCatRep, DevisRepository $devisRep, ServicesRepository $serviceRep, UserRepository $pro_user_rep, TypeRepository $type_rep, ArticleRepository $art_rep, CategoryRepository $cat_rep,  PostRepository $post_rep, ConfigsiteRepository $configsiteRepository)
+    public function index(Security $security, CustomerRepository $customerRep, VisitorRepository $visitorRep, SousCategoryRepository $sousCatRep, DevisRepository $devisRep, ServicesRepository $serviceRep, UserRepository $pro_user_rep, TypeRepository $type_rep, ArticleRepository $art_rep, CategoryRepository $cat_rep,  PostRepository $post_rep, ConfigsiteRepository $configsiteRepository)
     {
         //$this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
         $count_sousCat = $sousCatRep->findAll(); 
  		$count_pro = $pro_user_rep->findAll();
- 		$count_part = $pro_user_rep->findAll();
+        $count_part = $customerRep->findAll();
+        $visitor_exist = $visitorRep->findAllArray();
 		
         //BEGIN GET TOP DEVIS MORE ASKED
         $popularDevis = $cat_rep->findPopularDevisMoreAsk(array(1=> true));
@@ -187,7 +189,8 @@ class AdminController extends AbstractController
             'numberCat' => count($count_category),
             'numberSousCat' => count($count_sousCat),
             
-            'numberPost' => count($count_post)
+            'numberPost' => count($count_post),
+            'numberVisitor'=> count($visitor_exist),
              
         ]);
     }

@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Post;
 use App\Entity\Article;
 use App\Entity\Devis;
+use App\Entity\Visitor;
 use App\Entity\Newletter;
 use App\Entity\Siteinternet;
 use App\Repository\TypeRepository;
@@ -33,6 +34,7 @@ use App\Repository\LabelsRepository;
 use App\Repository\OfferRepository;
 use App\Repository\SiteinternetRepository;
 use App\Repository\ConfigsiteRepository;
+use App\Repository\VisitorRepository;
 use App\Repository\VideosRepository;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,10 +58,50 @@ class PageController extends AbstractController
     /**
     * @Route("/", name="home_page")
     */
-    public function home(ArticleRepository $artRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
+    public function home(ArticleRepository $artRep, VisitorRepository $visitorRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CommentsRepository $commentRep, DevisRepository $devisRep,   UserRepository $userRep, TypeRepository $typeRep, CategoryRepository $categoryRep)
     {
                       
        try {
+        $ip = '';
+
+        //whether ip is from share internet
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+        {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        }
+        //whether ip is from proxy
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+        {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        //whether ip is from remote address
+        else
+        {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->beginTransaction();
+
+        $visitor_exist = $visitorRep->findAllArray();
+        if(count($visitor_exist) > 0) {
+
+            if(in_array($ip, $visitor_exist)) {
+                $visitor = $visitorRep->findOneBySomeField($ip);
+                $visitor->setDateCrea(new \DateTime('now'));
+                $em->merge($visitor);
+                $em->flush();
+            }
+        }
+        else{
+            $visitor = new Visitor();
+            $visitor
+                ->setIpAdress($ip)
+                ->setDateCrea(new \DateTime('now'));
+            $em->persist($visitor);
+            $em->flush();
+
+        }
         
         $arrayarticles = $artRep->findAll();
         $arraytypes = $typeRep->findAll();
@@ -134,6 +176,9 @@ class PageController extends AbstractController
         $comments = $commentRep->findAllCommentsByParticular(6);
         $comments = count( $comments) > 0 ? $comments : null;
         //dump( $comments);die;
+
+        $em->commit();
+
        } catch (\Throwable $th) {
         return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
        }

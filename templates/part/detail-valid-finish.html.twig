@@ -185,7 +185,7 @@
                                                             <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center justify-sm-content-around">
                                                                 <div class="">
                                                                     {% if listProsAcceptDev.getUserId().getLogo() != null %}
-                                                                    <img class="rounded-circle" src="{{ absolute_url('/assets/img/photos/' ~ listProsAcceptDev.getUserId().getLogo()) }} " style="width: 64px; height: auto;" style="height: 64px; width: 64px;"></img>
+                                                                    <img class="rounded-circle" src="{{ absolute_url('/uploads/logo/' ~ listProsAcceptDev.getUserId().getLogo()) }} " style="width: 64px; height: auto;" style="height: 64px; width: 64px;"></img>
                                                                     {% else %}
                                                                     <span class="d-block"><span class="lnr lnr-mustache text-warning" style="font-size: 64px;"></span></span>
                                                                     {% endif %}

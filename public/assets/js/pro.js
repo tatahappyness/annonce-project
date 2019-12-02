@@ -577,21 +577,6 @@ jQuery(document).ready(function () {
 // Initialize and add the map
 function initMap() {
 
-    
-    // var elem3 = document.getElementById('container-map3');
-    // if(window.innerWidth < 992) {
-    //     elem3.innerHTML = '<div id="map1"></div>';
-    //    //location.reload(true);
-    // }
-
-    // if(window.innerWidth > 991) {
-    // var elem1 = document.getElementById('container-map1');
-    // var elem2 = document.getElementById('container-map2');
-    // elem1.innerHTML = '<div id="map1"></div>';
-    // elem2.innerHTML = '<div id="map2"></div>';
-    // //location.reload(true);
-    // }
-
     //AJAX GET GEOLOCATION IN SERVEUR
     jQuery.ajax({
         type : 'GET',
@@ -601,9 +586,6 @@ function initMap() {
                         
         }).done(function(response) {
         
-            // The location of Uluru
-            //alert(lat + '  ' + log) ;
-            //var uluru = {lat: parseFloat(response.lat), lng: parseFloat(response.log)};
             // The map, centered at Uluru
             var uluru = new google.maps.LatLng(parseFloat(response.lat), parseFloat(response.log));
             //The options
@@ -625,14 +607,6 @@ function initMap() {
                 console.log("AJAX request finished!");
             });
 
-   
-    // // MAP III
-    // if (document.getElementById('map3') !== undefined) {
-    //     var map3 = new google.maps.Map(
-    //         document.getElementById('map3'), mapOptions);
-    //     // The marker, positioned at Uluru
-    //     var marker2 = new google.maps.Marker({position: uluru, map: map3});
-    // }
-
 }
+initMap();
      

@@ -58,7 +58,7 @@ class PartController extends AbstractController
     /**
     * @Route("/dashbord", name="particulier_dashbord")
     */
-    public function dashbord(Security $security, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CategoryRepository $categoryRep, UserRepository $userRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
+    public function dashbord(Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ArticleRepository $artRep, CategoryRepository $categoryRep, UserRepository $userRep, DevisRepository $devisRep, PostRepository $postRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PARTICULAR', null, 'Vous n\'as pas de droit d\'accèder à cette page!');

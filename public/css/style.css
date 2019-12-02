@@ -7,6 +7,10 @@ body {
 	background-attachment: fixed;
     /* background: whitesmoke; */
 }
+.column-list .img-thumbnail {
+	height: 125px !important;
+	width: 283% !important;
+}
 
 .easy-autocomplete-container {
 	color: #000000 !important;

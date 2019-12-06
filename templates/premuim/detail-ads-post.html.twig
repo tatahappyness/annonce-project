@@ -38,7 +38,7 @@
                         <p class=""><h6 class>Détails du chantier</h6></p>
                         <hr class="bg-darkgray" style="height: 1px;" />
                         <p class="">Type du projet: {{ post.getTypeId().getTitle() }} </p>
-                        <p class="">Domaine de spécialisatio: {{ post.getCategoryId().getCategTitle() }}</p>
+                        <p class="">Domaine de spécialisation: {{ post.getCategoryId().getCategTitle() }}</p>
                         <p class="">Description du projet: <br> {{ post.getPostAdsTravauxDescription() }} 
                         </p>
                     </div>
@@ -49,10 +49,10 @@
                         <p class="">Type d’habitation: Récent</p>
                         <p class="">Début du projet: Immédiat</p>
                     </div>
-                    <div class="col-12 col-md-10 text-center bg-white pb-2">
-                        <p class="font-weight-bold">Description de projet :</p>
+                    {# <div class="col-12 col-md-10 text-center bg-white pb-2">
+                        <p class="font-weight-bold text-dark">Description de projet :</p>
                        <p class="small"> {{ post.getPostAdsTravauxDescription() }} </p>
-                    </div>
+                    </div> #}
                     <div class="col-12 col-md-10 text-center bg-white">
                         {% if isAbonned == true %}
                         <a class="btn btn-outline-warning btn-show-message-container text-warning w-50">Répondre au chantier</a>

@@ -141,7 +141,7 @@
                                         <div class="card-body">
                                             <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes projets acceptés ({{nbDevisAccept}})</h6>
                                                 <ul class="list-group list-group-flush">
-                                                {% if devisAccepts != null %}
+                                                {% if devisAccepts|length > 0 %}
                                                     {% for devAccept in devisAccepts %}
                                                         <li data-id="{{ devAccept.getId() }}" class="list-group-item list-item-particular-left accept bg-transparent text-center">
                                                             <a href="{{ path('particulier_projects_detail_accept', {id: devAccept.getDevisId().getId()}) }}" class="text-decoration-none d-inline float-left"><span class="float-left lnr "></span>{{ devAccept.getDevisId().getCategoryId().getCategtitle() }}<span class="d-block small text-secondary"> Date de dépôt: {{ devAccept.getDevisId().getDateCrea() | date('d/m/y H:m:s') }}</span></a>
@@ -166,7 +166,7 @@
                                             <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes projets validés ({{nbDevisValid}})</h6>
                                                 <ul class="list-group list-group-flush">
 
-                                                    {% if devisValids != null %}
+                                                    {% if devisValids|length > 0 %}
                                                     {% for devValid in devisValids %}
                                                         <li data-id="{{devValid.getId()}}" class="list-group-item list-item-particular-left valid bg-transparent text-center">
                                                             <a href="{{ path('particulier_projects_detail_valid', {id: devValid.getDevisAcceptId().getId()}) }}" class="text-decoration-none d-inline float-left"><span class="float-left lnr "></span>{{ devValid.getDevisAcceptId().getDevisId().getCategoryId().getCategtitle() }}<span class="d-block small text-secondary"> Date de dépôt: {{ devValid.getDevisAcceptId().getDevisId().getDateCrea() | date('d/m/y H:m:s') }}</span></a>
@@ -192,7 +192,7 @@
                                             <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Mes projets terminés ({{nbDevisFinish}})</h6>
                                                 <ul class="list-group list-group-flush list-project valid finish">
 
-                                                    {% if devisFinish != null %}
+                                                    {% if devisFinish|length > 0 %}
                                                     {% for devFinish in devisFinish %}
                                                         <li data-id="{{ devFinish.getId() }}" class="list-group-item list-item-particular-left finish bg-transparent text-center">
                                                             <a href="{{ path('particulier_projects_detail_finish', {id: devFinish.getDevisValid().getId()}) }}" class="text-decoration-none d-inline float-left"><span class="float-left lnr "></span>{{ devFinish.getDevisValid().getDevisAcceptId().getDevisId().getCategoryId().getCategtitle() }}<span class="d-block small text-secondary"> Date de dépôt: {{ devFinish.getDevisValid().getDevisAcceptId().getDevisId().getDateCrea() | date('d/m/y H:m:s') }}</span></a>

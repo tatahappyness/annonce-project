@@ -692,7 +692,7 @@ class PageController extends AbstractController
     */
     public function postAskDevis($id = null, $prosId = null, Request $request, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, DevisRepository $devisRep,   CitiesRepository $cityRep, TypeRepository $typeRep, CategoryRepository $categRep, ArticleRepository $artRep, FonctionRepository $foncRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, UserRepository $userRep)
     {       
-            //dump($request->request->get('metier_ask_devis'));die;
+            //dump($request->request->get('ask_devis_prest_type'));die;
             //dump($_ENV['MAILER_URL']);die;
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
@@ -737,8 +737,12 @@ class PageController extends AbstractController
 
         if ($_POST) {
             // Posting Ask in Server data base
-            if(!is_null($request->request->get('post_metier_ask_devis')) && !is_null($request->request->get('post_civility_ask_devis')) && !is_null($request->request->get('post_description_ask_devis')) && !is_null($request->request->get('post_email_ask_devis')) && !is_null($request->request->get('post_zipcode_ask_devis')) && !is_null($request->request->get('post_phone_ask_devis'))){
+            
+            if(!is_null($request->request->get('ask_devis_category')) && !is_null($request->request->get('ask_devis_type')) && !is_null($request->request->get('post_civility_ask_devis')) && !is_null($request->request->get('post_civility_ask_devis')) && !is_null($request->request->get('post_description_ask_devis')) && !is_null($request->request->get('post_email_ask_devis')) && !is_null($request->request->get('post_zipcode_ask_devis')) && !is_null($request->request->get('post_phone_ask_devis'))){
                
+                //dump($request->request->get('ask_devis_prest_type'));
+                //dump($request->request->get('ask_devis_type')); die;
+
                 $devis = new Devis();
                 //dump($request->request->get('ask_devis_type'));die;
                 $em = $this->getDoctrine()->getManager();
@@ -748,12 +752,12 @@ class PageController extends AbstractController
                    $userPros = $userRep->findOneById((int) $request->request->get('UserProsId'));
                    $devis->setDevUserIdDest($userPros);
                 }
-
-                $article = $artRep->findById((int) $request->request->get('post_metier_ask_devis'));
+                $category = $categRep->findById((int) $request->request->get('ask_devis_category'));
+               // $article = $artRep->findById((int) $request->request->get('post_metier_ask_devis'));
                 $devis
                    ->setTypeProject($typeRep->findById((int) $request->request->get('ask_devis_type')))
-                   ->setNatureProject($article)
-                   ->setCategoryId($article->getArticleCategId())
+                   //->setNatureProject($article)
+                   ->setCategoryId($category)
                    ->setFonctionId($foncRep->findById((int) $request->request->get('fonction_ask_devis')))
                     ->setDetailProject($request->request->get('post_description_ask_devis'))
                     ->setFirstName($request->request->get('post_firstname_user_ask_devis'))
@@ -762,17 +766,17 @@ class PageController extends AbstractController
                     ->setEmail($request->request->get('post_email_ask_devis'))
                     ->setZipCode($request->request->get('post_zipcode_ask_devis'))
                     ->setCity($cityRep->findById((int) $request->request->get('city')))
+                    ->setPrestType($request->request->get('ask_devis_prest_type'))
                     ->setAppartementType($request->request->get('appartement_type'))
                     ->setIsAcceptedCondition(true)
                     ->setDateCrea(new \DateTime('now'))
                     ->setCivility($request->request->get('post_civility_ask_devis'))
                     ->setIsAskDemande(true);
-                    //dump($request->request->get('ask_devis_type'));die;
-
+                   
                     try {
 
-                        if($this->sendMail($devis, $article->getArticleCategId(), $configsiteRep, $serviceRep, $customRep, $abonnementRep)) 
-                        {
+                        // if($this->sendMail($devis, $article->getArticleCategId(), $configsiteRep, $serviceRep, $customRep, $abonnementRep)) 
+                        // {
                             $em->persist($devis);
                             $em->flush();
                             $em->commit();
@@ -781,7 +785,7 @@ class PageController extends AbstractController
                                                 "infos" => 'Votre demmande a été engregistré!,
                                                     Nos professionels le traiterons!!'
                                                 ], 200);
-                        }
+                        // }
 
                     } 
                     catch (\Exception $e) {

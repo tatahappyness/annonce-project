@@ -35,7 +35,7 @@
                     </div>
                     <div style="position: relative; padding-right: 15px; padding-left: 15px; border: 1px solid #dee2e6!important; border-color: #ffc107!important;">
                         <p style="font-size: 1.5em; line-height: 1.45em;  margin-top: 30px;  margin-bottom: 15px; font-weight: 700!important; text-align: center!important; color: #ffc107!important;">
-                            {{ devis.getNatureProject().getArticleCategId().getCategTitle() }}
+                            {{ devis.getCategoryId().getCategTitle() }}
                         </p>
                     </div>
                   
@@ -46,8 +46,9 @@
                                 <p>Date de dépôt:</p>
                                 <p>Ville ou département:</p>
                                 <p>Type:</p>
-                                <p>Categorie:</p>
-                                <p>Nature:</p>
+                                <p>Categorie de travaux:</p>
+                                <p>Type de prestation:</p>
+                                <p>Type d'appartement:</p>
                                 <p>Email:</p>
                                 <p>Téléphone:</p>
                             </td>
@@ -55,8 +56,9 @@
                                 <p>{{ devis.getDateCrea() | date('d/m/y') }}</p>
                                 <p>{{ devis.getCity().getVilleNomReel() }}</p>
                                 <p>{{ devis.getTypeProject().getTitle() }}</p>
-                                <p>{{ devis.getNatureProject().getArticleCategId().getCategTitle() }}</p>
-                                <p>{{ devis.getNatureProject().getArticleTitle() }}</p>
+                                <p>{{ devis.getCategoryId().getCategTitle() }}</p>
+                                <p>{{ devis.getPrestType() }}</p>
+                                <p>{{ devis.getAppartementType() }}</p>
                                 <p>
                                 {% if isAbonned == true %}
                                     {{ devis.getEmail() }}

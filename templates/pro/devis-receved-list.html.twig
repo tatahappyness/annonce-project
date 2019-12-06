@@ -151,25 +151,28 @@
                                                                 </div>
                                                             </div>
                                                             <div class="px-2 info-ads-detail">
-                                                                <a href="{{ path('pro_devis_receved_detail', {id: dev.id}) }}" class="text-reset"><h3 class="d-block text-left">{{ dev.getCategoryId().getCategTitle() }}</h3></a>
-                                                                <p class="text-dark text-left">
-                                                                    {{ dev.getFirstName() }} - à {{ dev.getCity() != null ? dev.getCity().getVilleNomReel() : '' }} <br>
+                                                                <a href="{{ path('pro_devis_receved_detail', {id: dev.id}) }}" class="text-reset"><h3 class="d-block text-warning text-left">{{ dev.getCategoryId().getCategTitle() }}</h3></a>
+                                                                <p class="text-secondary text-left">
+                                                                    {{ dev.getFirstName() }} - habite à {{ dev.getCity() != null ? dev.getCity().getVilleNomReel() : '' }} <br>
                                                                     <span class="text-secondary">{{ dev.getDetailProject() }}</span>
                                                                 </p> 
-                                                                <p class="text-center {% for devAccept in devisAccept %} {% if devAccept.getDevisId().getId() == dev.id %} d-none {% endif %}{% endfor %}">
-                                                                    {% if isAbonned == false %}
-                                                                    <a data-id="{{ dev.id }}" class="btn btn-warning btn-accept-devis text-decoration-none">J'accept</a>
+                                                                <p class="text-center">
+                                                                    {% if isAbonned == true %}
+                                                                        {% if devisAccept != null %}
+                                                                            {% for devAccept in devisAccept %}
+                                                                                {% if devAccept.getDevisId().getId() != dev.id %}
+                                                                                    <a data-id="{{ dev.id }}" class="btn btn-warning btn-accept-devis text-decoration-none">J'accept</a>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        {% else %}
+                                                                        <a data-id="{{ dev.id }}" class="btn btn-warning btn-accept-devis text-decoration-none">J'accept</a>
+                                                                        {% endif %}
+                                                                    {% else %}
+                                                                    <a href="{{ path('pro_devis_receved_detail', {id: dev.id}) }}" class="btn btn-warning text-decoration-none">Voir</a>
                                                                     {% endif %}
                                                                     
+                                                                    
                                                                 </p>
-                                                                {% if devisAccept != null %}                                                                   
-                                                                {% else %}
-                                                                <p class="text-dark text-left">
-                                                                    {{ dev.getFirstName() }} - à {{ dev.getCity().getVilleNomReel() }} <br>
-                                                                    <span class="text-secondary">{{ dev.getDetailProject() }}</span>
-                                                                </p>
-                                                                                                                                                                                                                                                                                                                                
-                                                                {% endif %}
                                                             </div>
                                                         </div>
                                                     </div>

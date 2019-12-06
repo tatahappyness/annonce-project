@@ -171,10 +171,9 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="px-2 info-ads-detail">
-                                                                    <a href="{{ path('pro_one_detail_ads_projects', {id: post.id}) }}" class="text-reset"><h3 class="d-block text-left">{{ post.getCategoryId().getCategTitle() }}</h3></a>
-                                                                    <p class="d-block text-dark text-left">
-                                                                        {{ post.getPostUserId().getFirstname() }} - à {{ post.getCity().getVilleNomReel() }} 
-                                                                        {{ post.getPostUserId().getFirstname() }} - à {{ post.getCity().getVilleNomReel() }} 
+                                                                    <a href="{{ path('pro_one_detail_ads_projects', {id: post.id}) }}" class="text-reset"><h3 class="d-block text-warning text-left">{{ post.getCategoryId().getCategTitle() }}</h3></a>
+                                                                    <p class="d-block text-secondary text-left">
+                                                                        {{ post.getPostUserId().getFirstname() }} - habite à {{ post.getCity().getVilleNomReel() }} 
                                                                         {% for key, distance in distances %}
                                                                             {% if key == post.getId() %}
                                                                             (Aviron de {{ distance }})

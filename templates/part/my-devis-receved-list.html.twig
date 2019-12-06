@@ -142,22 +142,28 @@
                                             <span class="lnr lnr-chevron-right float-left text-warning font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">DETAIL DE MA DEMANDE</h6>
                                             <div class="row border-top border-secondary">
                                                 
-                                                <div class="col-6 text-right text-secondary font-font-weight-bold">
+                                                <div class="col-12 col-md-6 text-left text-secondary font-font-weight-bold">
                                                     <p>Date de dépôt:&nbsp; </p>
+                                                    <p class="d-block d-md-none">{{ detailDevis.getDateCrea() | date('d/m/y H:m:s') }}</p>
                                                     <p>Type: &nbsp;</p>
+                                                    <p class="d-block d-md-none">{{ detailDevis.getTypeProject().getTitle() }}</p>
                                                     <p>Categorie: &nbsp;</p>
-                                                    <p>Nature: &nbsp;</p>
-                                                    {# <p>Début de projet:&nbsp;</p> #}
+                                                    <p class="d-block d-md-none">{{ detailDevis.getCategoryId().getCategTitle() }}</p>
+                                                    <p>Type de prestation: &nbsp;</p>
+                                                    <p class="d-block d-md-none">{{ detailDevis.getPrestType() }}</p>
+                                                    <p>Type d'appartement: &nbsp;</p>
+                                                    <p class="d-block d-md-none">{{ detailDevis.getAppartementType() }}</p>
                                                     <p>Ville:&nbsp;</p>
+                                                    <p class="d-block d-md-none">{{ detailDevis.getCity().getVilleNomReel() }}</p>
                                                     {# <p>Statut:&nbsp;</p> #}
                                                 </div> 
-                                                <div class="col-6 text-secondary text-left">
+                                                <div class="col-12 col-md-6 text-secondary text-left d-none d-md-block">
                                                     <p>{{ detailDevis.getDateCrea() | date('d/m/y H:m:s') }}</p>
                                                     <p>{{ detailDevis.getTypeProject().getTitle() }}</p>
                                                     <p>{{ detailDevis.getCategoryId().getCategTitle() }}</p>
-                                                    <p>{{ detailDevis.getNatureProject().getArticleTitle() }}</p>
-                                                    {# <p>{{ 'Imédiate' }}</p> #}
-                                                    <p>{{ detailDevis.getCity().getVilleNomReel() }}</p>
+                                                    <p>{{ detailDevis.getPrestType() }}</p>
+                                                    <p>{{ detailDevis.getAppartementType() }}</p>
+                                                   <p>{{ detailDevis.getCity().getVilleNomReel() }}</p>
                                                     {# <p>validé</p> #}
                                                 </div>                              
                                                
@@ -175,7 +181,7 @@
                                     <!-- My list devis receved section -->
                                     <div class="card">
                                     <div class="card-body">
-                                        <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase">Les professionnels qui ont accpté de repondre votre demande</h6>
+                                        <span class="lnr lnr-chevron-right float-left text-dark font-weight-bold"></span><h6 class="card-title d-inline text-uppercase" style="font-size: 1em !important;">Les professionnels qui ont accpté de repondre votre demande</h6>
                                             <ul class="list-group list-group-flush">
                                                
                                             {% if listProsAcceptDevis != null %}

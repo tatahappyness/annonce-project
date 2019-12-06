@@ -89,7 +89,7 @@ class ProController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
         $services = $serviceRep->findByUser($security->getUser());
-
+        //dump($services);die;
         $array = Array();
         foreach ($services as $key => $value) {
         $array[] = $value->getCategoryId();
@@ -103,15 +103,16 @@ class ProController extends AbstractController
                             );
 
         $devis = $devisRep->findByZipCodeAndCity($arrayData1);
+       //dump( $devis);die;
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                            2=> ($categoryId), 3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
+                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
+        //dump($postsAdsArray);die;
         $postsAds = count( $postsAdsArray ) > 0 ? $postsAdsArray : [];
-
+        $distances = array();
         if(count($postsAds) > 0) {
 
             //Get DISTANCE AND CALCULATE BY KM USING LAT AND LONG
@@ -196,8 +197,7 @@ class ProController extends AbstractController
         }
         $categoryId =  $array;
         $arrayData = array(1=>  ($categoryId), 
-                            2=> ($categoryId), 3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
+                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
                             );          
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData);
         $postsAds = count( $postsAdsArray ) > 0 ? $postsAdsArray : null;
@@ -350,6 +350,8 @@ class ProController extends AbstractController
             }
         }
         //dump($themesColor);die;
+        //initialite Service IF client is null
+        $myservice = $serviceRep->findByUserAndCategoryId(array(1=> $security->getUser(), 2=> $post->getCategoryId()));
         
         if (!is_null($post) && !is_null($customer)) {
 
@@ -561,7 +563,7 @@ class ProController extends AbstractController
         }
         //dump($themesColor);die;
        
-        if ($id !== null && (int) $interval->format('%R%a') <= 0) 
+        if ($id !== null && $download == null && (int) $interval->format('%R%a') <= 0) 
         {
             $devis = $devisRep->findById((int) $id);
             return $this->render('premuim/devis-receved-detail.html.twig', [
@@ -582,7 +584,7 @@ class ProController extends AbstractController
         
         if ($id !== null && $download == null && !is_null($devis) && !is_null($customer)) {
 
-            $myservice = $serviceRep->findByUserAndCategoryId(array(1=> $security->getUser(), 2=> $devis->getNatureProject()->getArticleCategId()));
+            $myservice = $serviceRep->findByUserAndCategoryId(array(1=> $security->getUser(), 2=> $devis->getCategoryId()));
             $arrayCriticals = array(1=>  $customer, 2=> $myservice); // prepare query to get abonnement here!
 
             if ($myservice->getIsActived() == true && $abonnementRep->isPremiumAndDateExpireValid($arrayCriticals)) 
@@ -641,7 +643,7 @@ class ProController extends AbstractController
         if ($devis == null) {
             return  $this->redirectToroute('pro_devis_receved_lists');
         }
-        $service = $serviceRep->findByUserAndCategoryId(array(1=> $security->getUser(), 2=> $devis->getNatureProject()->getArticleCategId()));
+        $service = $serviceRep->findByUserAndCategoryId(array(1=> $security->getUser(), 2=> $devis->getCategoryId()));
         return $this->render('premuim/devis-receved-detail.html.twig', [
             'devis' => $devis, 'isAbonned'=> false,
             'service'=>  $service,
@@ -923,8 +925,7 @@ class ProController extends AbstractController
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                            2=> ($categoryId), 3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
+                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
@@ -1227,8 +1228,7 @@ class ProController extends AbstractController
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                            2=> ($categoryId), 3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
+                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
@@ -1340,8 +1340,7 @@ class ProController extends AbstractController
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                            2=> ($categoryId), 3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
+                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
@@ -1557,8 +1556,7 @@ class ProController extends AbstractController
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                            2=> ($categoryId), 3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
+                           2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
@@ -1673,8 +1671,7 @@ class ProController extends AbstractController
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                            2=> ($categoryId), 3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
+                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
@@ -1797,8 +1794,7 @@ class ProController extends AbstractController
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                            2=> ($categoryId), 3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId), 5=> $security->getUser()->getZipCode()
+                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
@@ -2061,7 +2057,8 @@ class ProController extends AbstractController
         $devisValid = count( $devisValidArray) > 0 ?  $devisValidArray : null;
         $devisFinish = count( $devisFinishArray) > 0 ?  $devisFinishArray : null;
 
-        $servicesArray = $serviceRep->findAll();
+        //$servicesArray = $serviceRep->findAll();
+        $servicesArray = $serviceRep->findByUser($security->getUser());
         $services = !is_null($servicesArray) ? $servicesArray : null;
         //get category lists
         $categories = $categoryRep->findAllArray();

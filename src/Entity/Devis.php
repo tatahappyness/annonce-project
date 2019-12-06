@@ -98,12 +98,6 @@ class Devis
     private $typeProject;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Cities")
-     * @ORM\JoinColumn(name="city_id", referencedColumnName="id",onDelete="SET NULL")
-     */
-    private $city;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
      * @ORM\JoinColumn(name="category_id_id", referencedColumnName="id",onDelete="SET NULL")
      */
@@ -113,6 +107,16 @@ class Devis
      * @ORM\Column(type="string", length=250, nullable=true)
      */
     private $appartementType;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $prestType;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cities")
+     */
+    private $city;
 
     public function getId(): ?int
     {
@@ -299,18 +303,6 @@ class Devis
         return $this;
     }
 
-    public function getCity(): ?Cities
-    {
-        return $this->city;
-    }
-
-    public function setCity(?Cities $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
     public function getCategoryId(): ?Category
     {
         return $this->CategoryId;
@@ -331,6 +323,30 @@ class Devis
     public function setAppartementType(?string $appartementType): self
     {
         $this->appartementType = $appartementType;
+
+        return $this;
+    }
+
+    public function getPrestType(): ?string
+    {
+        return $this->prestType;
+    }
+
+    public function setPrestType(string $prestType): self
+    {
+        $this->prestType = $prestType;
+
+        return $this;
+    }
+
+    public function getCity(): ?Cities
+    {
+        return $this->city;
+    }
+
+    public function setCity(?Cities $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

@@ -327,22 +327,56 @@
 													{{ category.getDescription() }}
 												</p>
 											</div>
-	                                        <div class="col-12 text-center text-warning pt-5 h4">Selectionez le type de votre projet ? </div>
-	                               	        {% if types != null %}
-											   {% for type in types %}
+	                                        {# <div class="col-12 text-center text-warning pt-5 h4">Selectionez le type de votre projet ? </div> #}
+	                               	        
+											   {# {% if types != null %}
+												{% for type in types %}
 												<div class="col-12 col-sm-3 col-lg-4">
 													<a data-id="{{type.id}}" class="btn item-type item-type-{{ type.getId() }} d-flex justify-content-center align-items-center text-center text-uppercase border-warning" style="width: auto; height: 100px; box-shadow: 0px 0px 8px;">
 														{{ type.getTitle() }}
 													</a> 																		
 												</div>
 											   {% endfor %}
-											   
-											{% endif %}
-											<div class="col-12 col-lg-7 pt-5">	
+											{% endif %} #}
+											<div class="col-12 col-lg-7 pt-4">
+												<div class="form-group mb-3">
+													<label class="text-warning font-weight-bold d-block border-bottom border-bottom-secondary text-decoration-underline"> > Quel type de travaux ? </label>
+													<div class="mb-2">
+													{% if types != null %}
+														{% for type in types %}
+														<span class="text-left text-secondary d-flex align-items-center">
+															<input type="radio" class="m-1 text-left" value="{{ type.getId() }}" name="ask_devis_type" style="width: 18px; height: 18px;">
+															<span class="mx-2 font-weight-light">{{ type.getTitle() }}</span>
+														</span>
+														{% endfor %}
+													{% endif %}
+													</div>
+												</div>
+											</div>
+											<div class="col-12 col-lg-7 pt-4">
+												<div class="form-group mb-3">
+													<label class="text-warning font-weight-bold d-block border-bottom border-bottom-secondary text-decoration-underline"> > Quelle prestation souhaitée ? </label>
+													<div class="mb-2">
+														<div class="w-100 d-flex align-items-center">
+															<input type="radio" class="m-1 text-left" value="Pose uniquement" name="ask_devis_prest_type" style="width: 18px; height: 18px;">
+															<span class="mx-2 font-weight-light align-baseline">Pose uniquement</span>
+														</div>
+														<div class="w-100 d-flex align-items-center">
+															<input type="radio" class="m-1 text-left" value="Fourniture et pose" name="ask_devis_prest_type" style="width: 18px; height: 18px;">
+															<span class="mx-2 font-weight-light align-middle">Fourniture et pose</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-12 col-lg-7 pt-4">	
 												<div class="form-group pb-2">
+												<input id="ask_devis_category" type="hidden" value="{{ category.getId() }}" name="ask_devis_category">
+												</div>
+												{# <div class="form-group pb-2">
 												<input id="ask_devis_type" type="hidden" name="ask_devis_type">
-												</div>												
-												<div class="form-group pb-2 my-2">
+												</div> #}
+												{# <div class="form-group pb-2 my-2">
+													
 													<select class="form-control form-field show-list-metier-nature-in-ask-form" name="post_metier_ask_devis">
 														<option></option>
 
@@ -351,11 +385,12 @@
 															{% for article in articles %}
 																<option value="{{ article.id }}"> -  {{ article.getarticletitle() }}</option>										
 															{% endfor %}
-															{# <option selected="selected" value="{{ article is defined ? article.id : 'NaN' }}">{{ article is defined ? article.getarticletitle() : '' }}</option> #}
+															
 														{% endif %}
 															
 													</select>
-												</div>
+												
+												</div> #}
 												<div class="form-group pb-2 my-2">
 													<select class="form-control form-field appartement_type" name="appartement_type">
 
@@ -399,8 +434,8 @@
 												<div class="form-group mb-3">
 													<label class="text-secondary d-block">votre civilité *</label>
 													<div class="d-flex flex-column	 flex-md-row align-items-center mb-2">
-														<span class="text-center d-flex flex-row align-items-center"><input type="radio" required="required" class="m-1" value="M" name="post_civility_ask_devis" style="width: 25px; height: 25px;" placeholder="votre civilité"><span class="mx-2">Monsieur</span></span>
-														<span class="text-center d-flex flex-row align-items-center"><input type="radio" required="required" class="m-1" value="F" name="post_civility_ask_devis" style="width: 25px; height: 25px;" placeholder="votre civilité*"><span class="mx-2">Madame</span></span>
+														<span class="text-center d-flex flex-row align-items-center"><input type="radio" required="required" class="m-1" value="M" name="post_civility_ask_devis" style="width: 18px; height: 18px;" placeholder="votre civilité"><span class="mx-2">Monsieur</span></span>
+														<span class="text-center d-flex flex-row align-items-center"><input type="radio" required="required" class="m-1" value="F" name="post_civility_ask_devis" style="width: 18px; height: 18px;" placeholder="votre civilité*"><span class="mx-2">Madame</span></span>
 													</div>
 												</div>
 												<div class="form-group mb-3">

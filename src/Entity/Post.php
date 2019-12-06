@@ -106,15 +106,14 @@ class Post
     private $phone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Cities")
-     * @ORM\JoinColumn(name="city_id",referencedColumnName="id",onDelete="SET NULL")
-     */
-    private $city;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article")
      */
     private $articleId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cities")
+     */
+    private $city;
 
     public function getId(): ?int
     {
@@ -302,18 +301,6 @@ class Post
         return $this;
     }
 
-    public function getCity(): ?Cities
-    {
-        return $this->city;
-    }
-
-    public function setCity(?Cities $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
     public function getArticleId(): ?Article
     {
         return $this->articleId;
@@ -322,6 +309,18 @@ class Post
     public function setArticleId(?Article $articleId): self
     {
         $this->articleId = $articleId;
+
+        return $this;
+    }
+
+    public function getCity(): ?Cities
+    {
+        return $this->city;
+    }
+
+    public function setCity(?Cities $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

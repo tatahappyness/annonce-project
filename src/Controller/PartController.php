@@ -912,11 +912,11 @@ class PartController extends AbstractController
         }
 
         $devisAccepts = $this->listDevisAccept($security, $devis, $devisAcceptRep);
-        $devisAccepts = count($devisAccepts) > 0 ? $devisAccepts : null;
+        $devisAccepts = count($devisAccepts) > 0 ? $devisAccepts : [];
         $devisValids = $this->listDevisVailid($security, $devisAccepts, $devisValidRep);
-        $devisValids = count($devisValids) > 0 ?  $devisValids : null;
+        $devisValids = count($devisValids) > 0 ?  $devisValids : [];
         $devisFinish = $this->listDevisFinish($security, $devisAccepts, $devisValidRep, $devisFinishRep);
-        $devisFinish = count($devisFinish) > 0 ?  $devisFinish : null;
+        $devisFinish = count($devisFinish) > 0 ?  $devisFinish : [];
 
         $categories = $categoryRep->findAllArray();
         $categories = count( $categories) > 0 ? $categories : null;
@@ -1790,6 +1790,7 @@ class PartController extends AbstractController
         }
 
         $devisvalids = $devisValidRep->findByDevisAcceptIdList(array(1=> $devisAcceptArray));
+        $devisArray = array();
         foreach ($devisvalids as $key => $value) {
             $devisArray[] = $value;
         }

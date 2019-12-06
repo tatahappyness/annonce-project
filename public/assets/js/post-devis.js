@@ -35,7 +35,7 @@ var curStep = $(this).closest(".setup-content"),
         var curStep = $(this).closest(".setup-content"),
         curStepBtn = curStep.attr("id"),
         nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-        curInputs = curStep.find("input[type='text'],input[type='email'], select, input[type='tel'], textarea[required='required']"),
+        curInputs = curStep.find("input[type='text'], input[type='radio'], input[type='email'], select, input[type='tel'], textarea[required='required']"),
         isValid = true;
 
         $(".form-group").removeClass("has-error");
@@ -64,7 +64,7 @@ var curStep = $(this).closest(".setup-content"),
    
     //Verify each input ask devis here
     jQuery('#btn-post-ask-devis').click(function() {
-        curInputs =  jQuery('#form-post-ask-devis').find("input[type='text'],input[type='email'], select, input[type='tel'], textarea[required='required']");
+        curInputs =  jQuery('#form-post-ask-devis').find("input[type='text'], input[type='radio'], input[type='email'], select, input[type='tel'], textarea[required='required']");
         $(".form-group").removeClass("has-error");
         for(var i=0; i<curInputs.length; i++){
             if (!curInputs[i].validity.valid || curInputs[i].value == ""){

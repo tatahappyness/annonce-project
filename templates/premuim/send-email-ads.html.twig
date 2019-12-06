@@ -45,9 +45,8 @@
                             <td>
                                 <p>Date de dépôt:</p>
                                 <p>Ville ou département:</p>
-                                <p>Type:</p>
-                                <p>Categorie:</p>
-                                <p>Nature:</p>
+                                <p>Type Travaux:</p>
+                                <p>Categorie de travaux:</p>
                                 <p>Email:</p>
                                 <p>Téléphone:</p>
                             </td>
@@ -56,7 +55,6 @@
                                 <p>{{ post.getCity().getVilleNomReel() }}</p>
                                 <p>{{ post.getTypeId().getTitle() }}</p>
                                 <p>{{ post.getCategoryId().getCategTitle() }}</p>
-                                <p>{{ post.getArticleId().getArticleTitle() }}</p>
                                 <p>
                                 {% if isAbonned == true %}
                                     {{ post.getEmail() }}

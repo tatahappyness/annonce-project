@@ -21,25 +21,47 @@
                 </div>
                 <div class="col-12 border border-warning">
                     <p class="h4 text-warning text-center font-weight-bold text-captalize">
-                        {{ devis.getNatureProject().getArticleCategId().getCategTitle() }}
+                        {{ devis.getCategoryId().getCategTitle() }}
                     </p>
                 </div>
                 <div class="col-12 d-flex flex-row justify-content-around align-items-center border border-warning">
                     <div class="text-right small p-2 font-weight-bold">
                         <p>Date de dépôt:</p>
+                        <p class="d-sm-none d-block">{{ devis.getDateCrea() | date('d/m/y') }}</p>
                         <p>Ville ou département:</p>
-                        <p>Type:</p>
-                        <p>Categorie:</p>
-                        <p>Nature:</p>
+                        <p class="d-sm-none d-block">{{ devis.getCity().getVilleNomReel() }}</p>
+                        <p>Type de tavaux:</p>
+                        <p class="d-sm-none d-block">{{ devis.getTypeProject().getTitle() }}</p>
+                        <p>Categorie de travaux:</p>
+                        <p class="d-sm-none d-block">{{ devis.getCategoryId().getCategTitle() }}</p>
+                        <p>Type de prestation:</p>
+                        <p class="d-sm-none d-block">{{ devis.getPrestType() }}</p>
+                        <p>Type d'appartement:</p>
+                        <p class="d-sm-none d-block">{{ devis.getAppartementType() }}</p>
                         <p>Email:</p>
+                        <p class="d-sm-none d-block">
+                        {% if isAbonned == true %}
+                            {{ devis.getEmail() }}
+                        {% else %}
+                            XXXX
+                        {% endif %}
+                        </p>
                         <p>Téléphone:</p>
+                        <p class="d-sm-none d-block">
+                        {% if isAbonned == true %}
+                            {{ devis.getPhoneNumber() }}
+                        {% else %}
+                            XXXX
+                        {% endif %}
+                        </p>
                     </div> 
-                    <div class="text-left small p-2 text-secondary">
+                    <div class="text-left small p-2 text-secondary d-none d-sm-block">
                         <p>{{ devis.getDateCrea() | date('d/m/y') }}</p>
                         <p>{{ devis.getCity().getVilleNomReel() }}</p>
                         <p>{{ devis.getTypeProject().getTitle() }}</p>
-                        <p>{{ devis.getNatureProject().getArticleCategId().getCategTitle() }}</p>
-                        <p>{{ devis.getNatureProject().getArticleTitle() }}</p>
+                        <p>{{ devis.getCategoryId().getCategTitle() }}</p>
+                        <p>{{ devis.getPrestType() }}</p>
+                        <p>{{ devis.getAppartementType() }}</p>
                         <p>
                         {% if isAbonned == true %}
                             {{ devis.getEmail() }}

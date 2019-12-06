@@ -74,6 +74,37 @@ class AdminController extends AbstractController
 
     }
 
+    /**
+    * @Route("/update-admin-password", name="admin_update_password")
+    */
+    public function updatePassword(Request $request, Security $security, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        if($_POST) {
+            //dump($request->request->get('passwd_new'));die;
+            if (!is_null($request->request->get('passwd_new')) && $request->request->get('passwd_new') !== '' && !is_null($request->request->get('passwd_comfirm')) ) {
+               
+                $user = $security->getUser();
+                $user
+                    ->setPassword($passwordEncoder->encodePassword(
+                        $user,
+                        $request->request->get('passwd_new')
+                    ));
+                $entityManager = $this->getDoctrine()->getManager();
+                try {
+        
+                    $entityManager->merge($user);
+                    $entityManager->flush();
+                    return new JsonResponse(['code'=> 200, "info" => 'Vous avez changé votre mot de passe!'], 200);
+                } 
+                catch (\Exception $e) {
+                    return new JsonResponse(['code'=> 500, 'info' => $e->getMessage()], 500);
+                }
+            }
+            return new JsonResponse(['code'=> 400, "info" => 'Vous avez fait une movaise requête!'], 400);
+
+        }
+    }
+
 
     /**
     * @Route("/test", name="test")

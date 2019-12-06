@@ -11,6 +11,7 @@
         <link rel="icon" type="image/png" href="{{ absolute_url('/uploads/icons/travaux-icon.png') }}" />
         <title>{% block title %}Orage Travaux!{% endblock %}</title>
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
         
         {% block stylesheets %}
 
@@ -45,10 +46,48 @@
         {% block body %}
 
         {% endblock %}
+
+    <!-- Modal form to edit password admin here -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modification de mot de passe</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            
+            <form id="form-password-admin-update">
+               <div class="form-group mb-3">
+                    <label class="">Nouvau mot de passe</label>
+                    <input type="password" class="form-control passwd_new" name="passwd_new"  placeholder="Votre nouvau mot de passe ">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="">Confirmation mot de passe</label>
+                    <div id="message_comfirm" class="text-danger"></div>
+                    <input type="password" class="form-control passwd_comfirm" name="passwd_comfirm"  placeholder="Confirmer votre nouvau mot de passe">
+                </div>
+                <a class="btn btn-warning btn-password-admin-update">Modifier</a>
+                <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Annuler</button>
+            </form>
+
+
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+        </div>
+    </div>
+    </div>
+
     
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1NMlHcCPpSQ2hv2OUWmh_t72vd6bYy5Y&callback=initMap"
     type="text/javascript"></script>
     <script src="https://www.google.com/recaptcha/api.js?render=6Leez8MUAAAAAPSJV-XSed3I8osrCw4yCpSbA4F7"></script> 
+    <script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
     {% block javascripts %}
 
     {% endblock %}
@@ -59,6 +98,60 @@
                 //jQuery(".se-pre-con").fadeOut('slow');
    
             }; #}
+        //script ajax to edit passwd admin
+        jQuery('.passwd_comfirm').keyup(function() {
+            if(jQuery(this).val() !== jQuery('.passwd_new').val()) {
+                jQuery('#message_comfirm').html('Votre mot de passe n\'est pas indentique!');
+            }
+            else { jQuery('#message_comfirm').html(''); }
+        })
+        jQuery('.btn-password-admin-update').click(function() {
+            alert('ok');
+            var form_record = jQuery('#form-password-admin-update');
+            //AJAX TO REGISTER USERS HERE
+            jQuery.ajax({
+                type: 'POST',
+                url: '/admin/update-admin-password',
+                contentType: false,
+                processData: false,
+                cache:false,
+                dataType:'json',
+                data: new FormData(form_record[0])
+				
+            }).done(function(response){
+				
+                Swal.fire({
+                    title: 'Reponse',
+                    text: response.info,
+                    type: 'success',
+                    // background: 'rgb(119, 119, 119)',
+                    backdrop: `rgba(0,0,123,0.4)`,
+                    confirmButtonColor: 'rgb(255, 144, 0)'
+                    });
+
+                    form_record[0].reset();
+
+                    //Refresh page
+                    //location.reload(true);
+				
+                }).fail(function(){
+                // Here you should treat the http errors (e.g., 403, 40
+                    Swal.fire({
+                        title: 'Reponse',
+                        text: 'Erreur dans le serveur interne!!',
+                        type: 'error',
+                        // background: 'rgb(119, 119, 119)',
+                        backdrop: `rgba(0,0,123,0.4)`,
+                        confirmButtonColor: 'rgb(255, 144, 0)'
+                        });
+            
+					
+                    }).always(function(){
+                        console.log("AJAX request finished!");
+                    });
+
+
+        })
            
         </script>
        

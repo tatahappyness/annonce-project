@@ -775,8 +775,8 @@ class PageController extends AbstractController
                    
                     try {
 
-                        // if($this->sendMail($devis, $article->getArticleCategId(), $configsiteRep, $serviceRep, $customRep, $abonnementRep)) 
-                        // {
+                        if($this->sendMail($devis, $category, $configsiteRep, $serviceRep, $customRep, $abonnementRep)) 
+                        {
                             $em->persist($devis);
                             $em->flush();
                             $em->commit();
@@ -785,7 +785,7 @@ class PageController extends AbstractController
                                                 "infos" => 'Votre demmande a été engregistré!,
                                                     Nos professionels le traiterons!!'
                                                 ], 200);
-                        // }
+                        }
 
                     } 
                     catch (\Exception $e) {

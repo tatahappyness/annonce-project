@@ -23,8 +23,7 @@
                                 </span>
                             </div>
 							{% endif %}
-                        <p class="">Prénom: {{ post.getPostUserId().getName() }}</p>
-                        <p class="">Nom:{{ post.getPostUserId().getFirstName() }}</p>
+                        <p class="">Nom et Prénom:{{ post.getPostUserId().getFirstName() }}</p>
                         <p class="">
                             Téléphone: <span class="text-warning"> {% if isAbonned == true %} {{ post.getPhone() }} {% else %} XXXXXX {% endif %} </span>
                         </p>
@@ -49,10 +48,9 @@
                         <p class="">Type d’habitation: Récent</p>
                         <p class="">Début du projet: Immédiat</p>
                     </div>
-                    {# <div class="col-12 col-md-10 text-center bg-white pb-2">
-                        <p class="font-weight-bold text-dark">Description de projet :</p>
-                       <p class="small"> {{ post.getPostAdsTravauxDescription() }} </p>
-                    </div> #}
+                    <div class="col-12 text-center w-100">
+                        <div id="map"></div>
+                    </div>
                     <div class="col-12 col-md-10 text-center bg-white">
                         {% if isAbonned == true %}
                         <a class="btn btn-outline-warning btn-show-message-container text-warning w-50">Répondre au chantier</a>

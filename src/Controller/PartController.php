@@ -70,6 +70,7 @@ class PartController extends AbstractController
         $nbMyProject = 0;
         $nbDevis = 0;
         $nbPost = 0;
+        $devisArray = array();
         if (count($devis) > 0) {
             foreach ( $devis as $key => $value) {
                 $devisArray[] = $value;
@@ -429,6 +430,7 @@ class PartController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->beginTransaction();
                 $category = $categoryRep->findById((int) $request->request->get('post_category'));
+                $city = $cityRep->findById((int) $request->request->get('city'));
                 $post
                     ->setPostUserId($security->getUser())
                     ->setCategoryId($category)
@@ -438,7 +440,8 @@ class PartController extends AbstractController
                     ->setPostZipcode($request->request->get('post_zipcode'))
                     ->setEmail($request->request->get('post_email'))
                     ->setPhone($request->request->get('post_phone'))
-                    ->setCity($cityRep->findById((int) $request->request->get('city')))
+                    ->setCity($city)
+                    ->setNumDepartement($city->getVilleDepartement())
                     ->setPostAdsStartDate($request->request->get('post_begin_project'))
                     ->setPostAdsDateCrea(new \DateTime('now'));
 
@@ -1745,7 +1748,8 @@ class PartController extends AbstractController
     }
 
     public function countDevisVailid($security = null, $devisAccepts = null, $devisValidRep = null) : ?int
-    {
+    {   
+        $devisAcceptArray = array();
         foreach ($devisAccepts as $key => $value) {
             $devisAcceptArray[] = $value;
         }
@@ -1776,7 +1780,8 @@ class PartController extends AbstractController
     }
 
     public function listDevisVailid($security = null, $devisAccepts = null, $devisValidRep = null) : ?array
-    {
+    {   
+        $devisAcceptArray = array();
         foreach ($devisAccepts as $key => $value) {
             $devisAcceptArray[] = $value;
         }
@@ -1784,7 +1789,8 @@ class PartController extends AbstractController
     }
 
     public function listDevisFinish($security = null, $devisAccepts = null, $devisValidRep = null, $devisFinishRep = null) : ?array
-    {
+    {   
+        $devisAcceptArray = array();
         foreach ($devisAccepts as $key => $value) {
             $devisAcceptArray[] = $value;
         }

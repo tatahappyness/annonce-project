@@ -40,7 +40,7 @@ class PostRepository extends ServiceEntityRepository
         }
 
         return $this->createQueryBuilder('p')
-            ->where('p.CategoryId IN (?1) OR p.CategoryId IN (?2) AND p.postZipcode = ?3')
+            ->where('p.CategoryId IN (?1) AND p.postZipcode LIKE ?2')
             ->setParameters($data)
             ->orderBy('p.id', 'DESC')
             ->setFirstResult( $offset )

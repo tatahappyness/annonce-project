@@ -753,7 +753,8 @@ class PageController extends AbstractController
                    $devis->setDevUserIdDest($userPros);
                 }
                 $category = $categRep->findById((int) $request->request->get('ask_devis_category'));
-               // $article = $artRep->findById((int) $request->request->get('post_metier_ask_devis'));
+                // $article = $artRep->findById((int) $request->request->get('post_metier_ask_devis'));
+                $city = $cityRep->findById((int) $request->request->get('city'));
                 $devis
                    ->setTypeProject($typeRep->findById((int) $request->request->get('ask_devis_type')))
                    //->setNatureProject($article)
@@ -765,7 +766,8 @@ class PageController extends AbstractController
                     ->setPhoneNumber($request->request->get('post_phone_ask_devis'))
                     ->setEmail($request->request->get('post_email_ask_devis'))
                     ->setZipCode($request->request->get('post_zipcode_ask_devis'))
-                    ->setCity($cityRep->findById((int) $request->request->get('city')))
+                    ->setCity($city)
+                    ->setNumDepartement($city->getVilleDepartement())
                     ->setPrestType($request->request->get('ask_devis_prest_type'))
                     ->setAppartementType($request->request->get('appartement_type'))
                     ->setIsAcceptedCondition(true)
@@ -775,8 +777,8 @@ class PageController extends AbstractController
                    
                     try {
 
-                        if($this->sendMail($devis, $category, $configsiteRep, $serviceRep, $customRep, $abonnementRep)) 
-                        {
+                        // if($this->sendMail($devis, $category, $configsiteRep, $serviceRep, $customRep, $abonnementRep)) 
+                        // {
                             $em->persist($devis);
                             $em->flush();
                             $em->commit();
@@ -785,7 +787,7 @@ class PageController extends AbstractController
                                                 "infos" => 'Votre demmande a été engregistré!,
                                                     Nos professionels le traiterons!!'
                                                 ], 200);
-                        }
+                        // }
 
                     } 
                     catch (\Exception $e) {
@@ -938,23 +940,15 @@ class PageController extends AbstractController
             //BEGIN REQUEST POST FORM SEARCH
             if(!is_null($request->request->get('CategoryId'))) {
 
-                // dump($request->request->get('CategoryId') . ' ' . $request->request->get('postCity'));die;
+                // dump($request->request->get('CategoryId') . ' ' . $request->request->get('numDepartement'));die;
                 $arrayData = array(1=>  $request->request->get('CategoryId'), 
-                                    2=> null, null,
-                                    4=> null , 5=> null
-                                    );   
-                  //When using search city                  
-                // if (!is_null($request->request->get('postCity'))) {
-                //     $arrayData = array(1=>  $request->request->get('CategoryId'), 
-                //                         2=> $request->request->get('CategoryId'), $request->request->get('postCity'),
-                //                         4=> null , 5=> null
-                //                         );   
-                // }
-
+                                    2=> !is_null($request->request->get('numDepartement')) ? $request->request->get('numDepartement') : null,
+                                   );   
+                                    
                 $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData, 0);
                 $postsAds = count( $postsAdsArray ) > 0 ? $postsAdsArray : null;
                 //dump($postsAds);die;
-
+               
                 $categories = $categRep->findAllArray();
                 $categories = count( $categories) > 0 ? $categories : null;
                 
@@ -1009,19 +1003,19 @@ class PageController extends AbstractController
         if(!is_null($request->query->get('category_id')) && !is_null($request->query->get('offset'))) {
             //dump($request->query->get('category_id') . ' ' . $request->query->get('offset'));die;
             $offset = $request->query->get('offset');
-            $arrayData = array(1=>  $request->query->get('category_id'), 
-            2=> null, null,
-            4=> null , 5=> null
-            ); 
+            $arrayData = array(1=>  $request->query->get('category_id'),
+                                2=> !is_null($request->query->get('numDepartement')) ? $request->query->get('numDepartement') : null,
+                                );
+                                
             $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData, $offset);
             $postsAds = count( $postsAdsArray ) > 0 ? $postsAdsArray : null;
             //dump($postsAds);die;
             $templetePostAds = '';
             if($postsAds !== null) {
-            
+                $distances = array();
                 foreach ($postsAds as $key => $post) {
-                   
-                    $templetePostAds .= '<div class="col-12 col-sm-6 col-lg-4 my-2">
+
+                   $templetePostAds .= '<div class="col-12 col-sm-6 col-lg-4 my-2">
                     <div class="card card-pub-artisant text-leftt" style="width: auto;">
                         <div class="card-header">
                             <div class="d-flex flex-column align-items-center justify-content-center w-100 pt-4">
@@ -1279,7 +1273,8 @@ class PageController extends AbstractController
                     $categoryId = $categRep->findById((int) $request->request->get('CategoryId'));
                     $arrayData = array(
                         1=> true, 
-                        2=> $categoryId, 3=> null, 4=> null, 5=> null
+                        2=> $categoryId, 
+                        3=> !is_null($request->request->get('numDepartement')) ? $request->request->get('numDepartement') . '%' : null,
                     );
                     $pros = $userRep->findAllProfessionals($arrayData);
                     $pros = count($pros) > 0 ?  $pros : null;
@@ -1289,6 +1284,7 @@ class PageController extends AbstractController
                         'pros'=> $pros,
                         'categoryId'=> $request->request->get('categoryId'),
                         'categLabel'=> $request->request->get('categLabel'),
+                        'numDepartement'=> $request->request->get('numDepartement'),
                         'configsite'=> $configsite,
                         'themesImage'=> $themes,
                         'themesColor'=> $themesColor,
@@ -1304,7 +1300,8 @@ class PageController extends AbstractController
                 $categoryId = $categRep->findById((int) $request->query->get('categoryId'));
                 $arrayData = array(
                     1=> true, 
-                    2=> $categoryId, 3=> null, 4=> null, 5=> null
+                    2=> $categoryId, 
+                    3=> !is_null($request->query->get('numDepartement')) ? $request->query->get('numDepartement') . '%' : null,
                 );
                 $pros = $userRep->findAllProfessionals($arrayData, (int) $offset);
                 $pros = count($pros) > 0 ?  $pros : null;
@@ -2281,6 +2278,125 @@ class PageController extends AbstractController
         ]);
         
     }
+
+    /**
+    * @Route("/reset-password-customer", name="reset_password_customer_page")
+    */
+    public function resetPassword(Request $request, UserRepository $userRep, CategoryRepository $categoryRep, ConfigsiteRepository $configsiteRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep)
+    {
+
+       if ($_POST) {
+
+            if (!is_null($request->request->get('reset_password'))) {
+                
+                $user = $userRep->findOneByEmail($request->request->get('reset_password'));
+
+                if ( $user !== null) {
+                    
+                    $password = bin2hex(random_bytes(4)); // generate unique password
+                    $user
+                        ->setPassword((string) $passwordEncoder->encodePassword(
+                            $user,
+                            $password
+                        ));
+                 
+                    try {
+                        
+                        $entityManager = $this->getDoctrine()->getManager();
+                        $entityManager->beginTransaction();
+                        $entityManager->merge($user);
+                        $entityManager->flush();
+                        $entityManager->commit();
+                    } 
+                    catch (\Exception $e) {
+                        return new JsonResponse(['code'=> 500, 'info' => $e->getMessage()], 500);
+                    }
+
+                    $transport = new \Swift_SmtpTransport();
+                        $transport
+                        ->setHost('smtp.gmail.com')
+                        ->setEncryption('ssl')
+                        ->setPort(465)  
+                        ->setAuthMode('login')
+                        ->setUsername($configsite->getEmail())
+                        ->setPassword('bnzkglnpuhzlxlgp');
+            
+                    // Create the Mailer using your created Transport
+                    $mailer = new \Swift_Mailer($transport);
+                    $mailer->SMTPOptions = array(
+                        'ssl' => array(
+                            'verify_peer' => false,
+                            'verify_peer_name' => false,
+                            'allow_self_signed' => true
+                        )
+                    );
+
+                    $message = (new \Swift_Message('VOTRE MOT DE PASSE REINITIALISEE BY ORANGE-TRAVAUX'))
+                    ->setFrom($configsite->getEmail())
+                    ->setTo($myservice->getUserId()->getEmail())
+                    ->setBody('<p>Votre Login: ' . $request->request->get('reset_password') . '</p><p> Votre mot de passe: ' . $password . '</p><p><h6>NB: Des que vous êtes s\'authentifiés, veuillez modifier ce mot de passe provisoir!.</h6></p>', 'text/html', 'utf-8');
+
+                    $result =  $mailer->send($message);
+
+                    if( $result == 1) {
+                        return new JsonResponse(['code'=> 'true' ,'info' => 'Nous vous avons envoyés un mot de passe dans votre boîte email, afin que vous pourriez accéder dans votre espace membre'], 200);
+                    }
+
+                    return new JsonResponse(['code'=> 'false' ,'info' => 'Votre addresse email est rencontré un problème pendant que nous avons envoyés un email'], 200);
+
+                }
+                return new JsonResponse(['code'=> 'true' ,'info' => 'Vote nom d\'utlisateur ou adresse email est invalide'], 200);
+
+            }            
+       }  
+       
+       $categories = $categoryRep->findAllArray();
+       $categories = count( $categories) > 0 ? $categories : null;
+       
+        //Get config site
+        $configsite = $configsiteRep->findOneByIsActive();
+        //THEMES PAGES
+        $thems =  $themeRep->findAllArray();
+        $themeImages = $themeImageRep->findAllArray();
+        $themeColors = $themeColorRep->findAllArray();
+        $thems = count($thems) > 0 ? $thems : [];
+        $themeImages = count($themeImages) > 0 ? $themeImages : [];
+        $themeColors = count($themeColors) > 0 ? $themeColors : [];
+        $them = array();
+        $themes = array();
+        $themesColor = array();
+
+        if(count($thems) > 0) {
+            foreach($thems as $key => $value) {
+                $them[$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($them);die;
+
+        if(count($themeImages) > 0) {
+            foreach($themeImages as $key => $value) {
+                $themes[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themes);die;
+
+        if(count($themeColors) > 0) {
+            foreach($themeColors as $key => $value) {
+                $themesColor[$value->getThemeId()->getKeyWord()][$value->getKeyWord()] = $value;
+            }
+        }
+        //dump($themesColor);die;
+
+        return $this->render('page/page_initial_password.html.twig', [
+            'categories'=> $categories,
+            'configsite'=> $configsite,
+            'themesImage'=> $themes,
+            'themesColor'=> $themesColor,
+            'themes'=> $them,
+        ]);
+
+    }
+
 
     //Function to send mail to each professional
     public function sendMail($devis = null, $category  =null, $configsiteRep, ServicesRepository $serviceRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep)

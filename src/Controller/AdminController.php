@@ -167,7 +167,7 @@ class AdminController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
         $count_sousCat = $sousCatRep->findAll(); 
- 		$count_pro = $pro_user_rep->findAll();
+ 		$count_pro = $pro_user_rep->findAllProfessionalsIstrue();
         $count_part = $customerRep->findAll();
         $visitor_exist = $visitorRep->findAllArray();
 		

@@ -85,8 +85,16 @@
                 </div>
                 <div class="col-12 text-center w-100">
                    {% if isAbonned != true %}
-                <a href="{{ path('pro_post_payements', {id: service.id}) }}" class="btn btn-danger text-decoration-none text-uppercase">Je veux profiter</a>
+                    <a href="{{ path('pro_post_payements', {id: service.id}) }}" class="btn btn-danger text-decoration-none text-uppercase">Je veux profiter</a>
+                    {% else %}
+                        {% if devisAccept == null %}
+                            <small class="text-center animated fadeIn infinite delay-2s d-block">Veuiller accepter cette demande si vous voulez le traiter !</small>
+                            <a data-id="{{ devis.id }}" class="btn btn-success text-white d-block btn-accept-devis text-decoration-none">J'accept</a>
+                        {% endif %}
                    {% endif %}
+                </div>
+                <div class="col-12 text-center py-4 w-100">
+                    <div id="map"></div>
                 </div>
                 <div class="col-12 font-weight-bold text-left w-100">
                 > Veuiller envoyer votre proposition de tarif à l'adresse électronique suivante: 
@@ -105,7 +113,6 @@
                     {% if isAbonned == true %}
                     <a href="{{path('pro_devis_receved_detail', {id: devis.getId(), download: 'download'})}}" class=" btn btn-warning float-right">Imprimer</a>
                     {% endif %}
-                    
                 </div>                                                                                                                                                                             
             </div>
 

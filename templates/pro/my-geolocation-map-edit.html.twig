@@ -20,11 +20,45 @@
     <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
 
     <style>
-    /* Set the size of the div element that contains the map */
-    #map1, #map2, #map3 {
-        height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-    }
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 400px;  /* The height is 400 pixels */
+            width: 100%;  /* The width is the width of the web page */
+        }
+
+        .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 14px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+        }
+
+        .slider:hover {
+        opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #4CAF50;
+        cursor: pointer;
+        border-radius: 50%;
+        }
+
+        .slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: #4CAF50;
+        cursor: pointer;
+        border-radius: 50%;
+        }
+
         /** CSS THEMES
             warning dark : rgb(255, 144, 0)
             warning claire : #ffc107
@@ -132,25 +166,25 @@
                                 <!--BEGIN MY CORDONNE-->
                                 <div class="card text-center">
                                     <div class="card-header p-2 font-weight-bold bg-darkgray">
-                                        <h5 class="text-uppercase">Modifiez votre géografique</h5>
+                                        <h5 class="text-uppercase">Modifiez votre zone de prescription</h5>
                                     </div>
                                     <div class="card-body">
 										
                                         <!-- Modal body -->
                                         <div class="pt-2">
-                                            <form id="form-update-password-pro">
+                                            <form id="form-zone-kilometer-update-pro">
                                                
                                                 <div class="form-group mb-3">
-                                                    <label class="">Latitude</label>
-                                                    <input type="text" id="latitude" class="form-control" name="latitude" value="{{ user.getLat() }}"  placeholder="Lat ">
+                                                    <label class="">Dimenssion de prescription souhaitée (en Km)</label>
+                                                    <input  id="myRange" type="range" min="1" max="100" value="{{ user.getKilometer() }}" class="slider">
                                                 </div>
                                                 <div class="form-group mb-3">
-                                                    <label class="">Longitude</label>
-                                                    <input type="text" id="longitude" class="form-control" name="longitude" value="{{ user.getLog() }}" placeholder="Long ">
+                                                   <div id="append-kilometer"><label>Distance à :</label><span  class="font-weight-bold"> {{ user.getKilometer() }} </span> Km</div>
+                                                    <input id="zone_kilometer" type="hidden" value="{{ user.getKilometer() }}" name="zone_kilometer">
                                                 </div>
                                                
-                                                <a class="btn btn-warning btn-update-password-pro w-100">Modifier</a>
-                                                <!--<button type="button" class="btn btn-annule btn-danger float-right" data-dismiss="modal">Annuler</button> -->
+                                                <a class="btn btn-warning btn-zone-kilometer-update-pro w-100"> Modifier </a>
+                                                <!-- <button type="button" class="btn btn-annule btn-danger float-right" data-dismiss="modal">Annuler</button> -->
                                             </form>
                                         </div>
                                         <!-- Modal footer -->
@@ -164,7 +198,7 @@
 
                                 <!--BEGIN MY MAP EDIT-->
                                 <div class="card">
-                                    <div class="card-header bg-darkgray p-1 text-white text-uppercase"> <h6 class="card-title"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span></span> &nbsp; Ma zone géographique</h6></div>
+                                    <div class="card-header bg-darkgray p-1 text-white text-uppercase"> <h6 class="card-title"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span></span> &nbsp; Ma zone de prescription</h6></div>
                                     <div class="card-body p-0">
                                         <div class="row">
                                             <div class="col-12 h-100">
@@ -262,6 +296,7 @@
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/map.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
 <script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
 

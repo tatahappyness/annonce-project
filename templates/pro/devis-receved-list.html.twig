@@ -156,22 +156,11 @@
                                                                     {{ dev.getFirstName() }} - habite à {{ dev.getCity() != null ? dev.getCity().getVilleNomReel() : '' }} <br>
                                                                     <span class="text-secondary">{{ dev.getDetailProject() }}</span>
                                                                 </p> 
+                                                              
                                                                 <p class="text-center">
                                                                     {% if isAbonned == true %}
-                                                                        {% if devisAccept != null %}
-                                                                            {% for devAccept in devisAccept %}
-                                                                                {% if devAccept.getDevisId().getId() != dev.id %}
-                                                                                    <a data-id="{{ dev.id }}" class="btn btn-warning btn-accept-devis text-decoration-none">J'accept</a>
-                                                                                {% endif %}
-                                                                            {% endfor %}
-                                                                        {% else %}
-                                                                        <a data-id="{{ dev.id }}" class="btn btn-warning btn-accept-devis text-decoration-none">J'accept</a>
-                                                                        {% endif %}
-                                                                    {% else %}
-                                                                    <a href="{{ path('pro_devis_receved_detail', {id: dev.id}) }}" class="btn btn-warning text-decoration-none">Voir</a>
+                                                                        <a href="{{ path('pro_devis_receved_detail', {id: dev.id}) }}" class="btn btn-warning text-decoration-none">Voir</a>
                                                                     {% endif %}
-                                                                    
-                                                                    
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -194,7 +183,7 @@
                             </div>
 
                             <div class="card">
-                                <div class="card-header bg-darkgray p-1 text-white text-uppercase"> <h6 class="card-title"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span></span> &nbsp; Ma zone géographique</h6></div>
+                                <div class="card-header bg-darkgray p-1 text-white text-uppercase"> <h6 class="card-title"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span></span> &nbsp; Ma zone de prescription</h6></div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12 h-100">
@@ -291,6 +280,7 @@
 <script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/map.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
 <script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
 

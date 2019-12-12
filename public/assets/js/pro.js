@@ -426,7 +426,7 @@ jQuery(document).ready(function () {
     })
 
 
-    //AJAX POST PARTICULAR PASSWORD  UPDATE
+    //AJAX POST PROFESSIONEL PASSWORD  UPDATE
     jQuery('.btn-update-password-pro').click(function() {
 		
         var form_record = jQuery('#form-update-password-pro');
@@ -469,7 +469,7 @@ jQuery(document).ready(function () {
 
     })
 
-        //AJAX POST Particular COMMENTS
+        //AJAX POST PROFESSIONEL COMMENTS
         jQuery('#btn-add-comment').click(function() {
             
             var form_record = jQuery('#form-add-comment');
@@ -568,45 +568,59 @@ jQuery(document).ready(function () {
         $(".upload-button").on('click', function() {
             $(".file-upload").click();
         });
+
+
+        //AJAX UPDATE ZONE KILOMETER PROS
+        jQuery('#myRange').change( function () {
+            jQuery('#zone_kilometer').val(jQuery(this).val());
+            jQuery('#append-kilometer').html('<label>Distance à :</label><span class="font-weight-bold">' + jQuery(this).val() + '</span> Km');
+        })
+
+        jQuery('.btn-zone-kilometer-update-pro').click(function () {
+            
+            var form_record = jQuery('#form-zone-kilometer-update-pro');
+            jQuery.ajax({
+                type: 'POST',
+                url: '/pro/geolocation-map-edit',
+                contentType: false,
+                processData: false,
+                cache:false,
+                dataType:'json',
+                data: new FormData(form_record[0])
+                    
+            }).done(function(response){
+                
+                // form_record[0].reset();
+                Swal.fire({
+                    title: 'Reponse',
+                    html:'<span class="text-success font-weight-bol">' + response.info + '</span>',
+                    type: 'success',
+                    // background: 'rgb(119, 119, 119)',
+                    backdrop: `rgba(0,0,123,0.4)`,
+                    confirmButtonColor: 'rgb(255, 144, 0)'
+                    })
+                    
+                    location.reload(true);
+                    
+                }).fail(function(){
+                // Here you should treat the http errors (e.g., 403, 40
+                    Swal.fire({
+                        title: 'Reponse',
+                        text: 'Erreur dans le serveur interne!!',
+                        type: 'error',
+                        // background: 'rgb(119, 119, 119)',
+                        backdrop: `rgba(0,0,123,0.4)`,
+                        confirmButtonColor: 'rgb(255, 144, 0)'
+                        })
+                        
+                    }).always(function(){
+                        console.log("AJAX request finished!");
+                    })
+
+        })
+
         
 
 }) //END DOCUMENT READY
 
-    
-
-// Initialize and add the map
-function initMap() {
-
-    //AJAX GET GEOLOCATION IN SERVEUR
-    jQuery.ajax({
-        type : 'GET',
-        url : '/pro/get-lat-log-ajax',
-        contentType : false,
-        processData : false
-                        
-        }).done(function(response) {
-        
-            // The map, centered at Uluru
-            var uluru = new google.maps.LatLng(parseFloat(response.lat), parseFloat(response.log));
-            //The options
-            var mapOptions = {
-                zoom: 8,
-                center: uluru,
-                mapTypeId: google.maps.MapTypeId.HYBRID
-                };
-
-                var map = new google.maps.Map(
-                    document.getElementById('map'), mapOptions);
-                // The marker, positioned at Uluru
-                var marker = new google.maps.Marker({position: uluru, map: map});
-            
-        }).fail(function(){
-            // Here you should treat the http errors (e.g., 403, 40
-            alert('serveur internal error!!')					
-            }).always(function(){
-                console.log("AJAX request finished!");
-            });
-
-}
-initMap();
      

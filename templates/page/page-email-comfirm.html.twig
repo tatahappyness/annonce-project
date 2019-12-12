@@ -1,0 +1,286 @@
+{% extends  'base.html.twig' %}
+
+        {% block stylesheets %}
+
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />-->
+        <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+        <!-- CSS Files -->
+        <link href="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/css/now-ui-kit.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/animate/animate.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/loadbar/css/loading-bar.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/assets/swiper/dist/css/swiper.min.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/loading.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/loading-btn.css') }}" rel="stylesheet" />
+        <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
+        
+        <style>
+            /** CSS THEMES
+                warning dark : rgb(255, 144, 0)
+                warning claire : #ffc107
+                gray dark: rgb(119, 119, 119) ou #777
+                gray claire : rgb(240, 240, 240) ou #bfbfbf
+                white claire : rgb(248, 248, 248) ou #ffffff
+                black claire: rgba(0, 0, 0, 95%)
+                black dark : #000000
+
+            **/
+            .navbar, .bg-grey {
+                background: {{ themesColor['HEADER']['HEADER_FONT_COUL_1'].Color != null ? themesColor['HEADER']['HEADER_FONT_COUL_1'].Color : 'rgb(240, 240, 240)' }} !important;
+                color: {{ themesColor['HEADER']['HEADER_TEXT_COUL_1'].Color != null ? themesColor['HEADER']['HEADER_TEXT_COUL_1'].Color : 'rgb(248, 248, 248)' }} !important;
+            }
+            .navbar-mega, .sidepanel, .bg-darkgray {
+                background: {{ themesColor['HEADER']['HEADER_FONT_COUL_2'].Color != null ? themesColor['HEADER']['HEADER_FONT_COUL_2'].Color : '#777'}} !important;
+                color: {{ themesColor['HEADER']['HEADER_TEXT_COUL_2'].Color != null ? themesColor['HEADER']['HEADER_TEXT_COUL_1'].Color : 'rgb(248, 248, 248)' }} !important;
+            }
+
+            button, .bg-warning, .icon-sondage, .triangle {
+                background: {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgb(255, 144, 0)' }} !important;
+                color: {{ themes['BUTTON_TEXT_COLOR'].colorFond != null ? themes['BUTTON_TEXT_COLOR'].colorFond : ' rgb(248, 248, 248)' }} !important;
+            }
+            .triangle::after {
+                border-color: transparent transparent {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgb(255, 144, 0)' }} {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgb(255, 144, 0)' }} !important;
+            }
+
+            .man-young-container .text-title {
+                color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color : ' #ffc107' }} !important;
+            }
+            .man-young-container .text-desc {
+                color: {{ themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_1'].Color != null ? themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_1'].Color : ' rgb(248, 248, 248)' }} !important;
+            }
+            .text-dark {
+                color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_2'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_2'].Color : ' #ffc107' }} !important;
+            }
+            p, .text-secondary {
+                color: {{ themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_2'].Color != null ? themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_2'].Color : ' rgb(248, 248, 248)' }} !important;
+            }
+            .text-warning {
+                color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_3'].Color : ' #ffc107' }} !important;
+            }
+            .text-white {
+                color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_1'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_1'].Color : ' #ffffff' }} !important;
+            }
+            .page-header-image {
+                background-blend-mode: overlay !important;
+                background-color: {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgba(255, 144, 0, 50%)' }} !important;
+            }
+            .section-footer {
+                background-image: url(/uploads/themes/{{ themes['FOOTER'].imageFond != null ? themes['FOOTER'].imageFond : 'footer_bg.jpg'}}) !important;
+                background-color: {{ themes['FOOTER'].colorFond != null ? themes['FOOTER'].colorFond : 'rgba(19, 19, 19, 95%)'}}) !important;
+                background-blend-mode: overlay !important;
+            }
+        </style>
+    
+    {% endblock %}
+
+        {% block body %}
+
+    <nav class="navbar navbar-expand bg-gray py-0 navbar-head">
+    <div class="container border-0">
+                        
+        <div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+            <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
+                <a class="text-decoration-none" href="{{ path('home_page') }}">
+                <img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
+                </a>
+							
+                <ul class="navbar-nav mt-2 mt-lg-0 d-flex flex-column flex-sm-row">
+                    <li class="nav-item active m-1">
+                    <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
+                    </li>
+                    <li class="nav-item active m-1">
+                    <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">{{ configsite.getEmail() }}</span></span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    </nav>
+    <!-- Navbar menu end here -->
+	
+    {# <div class="page-header">
+        <div class="page-header-image animated pulse" data-parallax="true" style="background-image: url('/uploads/themes/{{ themes['NOS_TARIF'].imageFond != null ? themes['NOS_TARIF'].imageFond : 'slide-inscription.jpg' }}'); background-position: 0 50px !important;">
+        </div>
+        <div class="row">
+            <div class="col-12 p-0">
+                <div class="contenair-header-menu">
+					
+                    <nav class="navbar navbar-expand bg-gray d-none d-lg-block py-0 navbar-head">
+                    <div class="container border-0">
+                        
+                        <div class="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center justify-content-sm-around">
+                            <div class="d-flex flex-sm-row w-100 flex-column justify-content-sm-around align-items-center justify-content-center">
+                                <a class="text-decoration-none" href="{{ path('home_page') }}">
+                                <img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
+                                </a>
+							
+                                <ul class="navbar-nav mt-2 mt-lg-0 d-flex flex-column flex-sm-row">
+                                    <li class="nav-item active m-1">
+                                    <a class="nav-link" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
+                                    </li>
+                                    <li class="nav-item active m-1">
+                                    <a class="nav-link" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">{{ configsite.getEmail() }}</span></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    </nav>
+                    <!-- Navbar menu end here -->
+					  
+                    <!-- ############################# NAVBAR HERE LARGE -->
+						
+                    <div class=" navbar bg-darkgray navbar-expand-lg fix-top py-0 navbar-menu">
+                    <div class="container">
+
+                        <a class="text-decoration-none logo-content float-left d-block d-lg-none" href="{{ path('home_page') }}">
+                        <img class="logo" src="{{ absolute_url('/uploads/logo/' ~ configsite.getImage()) }}"></img>
+                        </a>
+                        <a class="nav-link d-none d-md-block d-lg-none" href="javascript:void();"><span class="d-flex align-content-baseline"><span class="lnr lnr-phone-handset text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap" style="font-size: 15px;">{{ configsite.getNumphone() }}</span></span></a>
+                        <a class="nav-link d-none d-md-block d-lg-none" href="javascript:void()"><span class="d-flex align-content-baseline"><span class="lnr lnr-envelope text-wite bg-warning p-1"></span> <span class="bg-darkgray p-1 text-nowrap text-lowercase" style="font-size: 15px;">{{ configsite.getEmail() }}</span></span></a>
+                        <a href="javascript:void(0);" class="float-right text-decoration-none btn-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="lnr lnr-menu-circle text-warning d-block d-lg-none" style="font-size: 64px !important;"></span>
+                        </a>
+                    
+                    </div>
+                    </div>
+                    <!-- ############################# END NAVBAR HERE LARGE -->
+
+                    <!-- Progress barr slid scroll -->
+                        <div class="progress-container fixed-top">
+                            <div class="progress-bar" id="myBar"></div>
+                        </div> 
+					  
+                </div>
+            </div>
+        </div>
+        <!-- End Row for Menu header -->
+		
+        <!-- Begin for row content header parallax -->
+        <div class="row d-flex justify-content-center font-weight-light">
+            <!-- ############# Begin slide beside -->
+            <div class="col-12" style="padding-top: 1em;">
+                <div class="container border-0">
+                    <div class="w-100 d-flex flex-column pb-4">
+                        <div class="h1 text-center text-uppercase">
+                            EFFACER LE MOT DE PASSE
+                        </div>
+                        <div class="w-100 mt-4">
+                            <span class="badge badge-secondary float-right">
+                            <h2 clas=="text-white" style="font-size: 3vw;"> 👍 ⭐⭐⭐⭐ ✩ 4.2/5 </h2>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ############# End slide beside -->
+        </div>
+    </div> #}
+    <!--END HEADER-->
+	
+
+    <div class="jumbotron bg-transparent">
+        <main class="section-1 section-main" style="background-attachment: fixed;">
+            <!--Begin section  of the list ads by artisan-->
+            <section class="bg-gray">
+                <div class="container">
+                    <div class="row py-5">
+                        <div class="col-12 h-100 my-2">
+                            <div class="w-100 py-5 alert alert-secondary">
+                                <h3 class="text-info">Votre compte n'est pas encore comfirmé!!</h3>
+                                <p>
+                                  Veuillez trouvez un lien de comfirmation dans votre boîte email, nous avons envoyés un lien dans votre boîte email, afin que vous pouriez activer votre compte.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--End section  of the list ads by artisan-->
+			
+            <!--Begin section the Presse Talk US -->
+            <section id="" class="bg-transparent">
+            <div class="container  bg-white">
+                <div class="row d-flex justify-content-center py-5">
+                    <div class="col-12 text-center">
+                        <h5 class="text-uppercase">Restez connecté</h5>
+                        <div class="text-secondary"><p class=" subtitle ">
+                            Pour être certain de ne rater aucun chantier, téléchargez l’application mobile pour suivre les projets lorsque vous êtes en déplacement.
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 lg-8 text-center">
+                        <img class="" src="{{ absolute_url('/assets/img/photos/app-mobile.png') }}"></img>
+                    </div>
+                    <div class="col-12 col-sm-6 lg-4 d-flex flex-column justify-content-center text-secondary">
+                        <a class="btn btn-outline-secondary d-flex flex-row text-center align-items-center">
+                            <span class="pro-icon mb-3">
+                                <span class="icon-message-pro">
+                                    <object type="image/svg+xml" data="{{ absolute_url('/assets/icon/apple_icon-icons.com_62745.svg') }}" class="icon-message-pro icon-bike">
+                                        apple
+                                    </object>
+                                </span>
+                            </span>
+                            <span class="">
+                                <span class="text-center ">Disponible sur </span><br>
+                                <span class="font-weight-capitalize">App Store</span>
+                            </span>
+                        </a>
+                        <a class="btn btn-outline-secondary d-flex flex-row align-items-center">
+                            <span class="pro-icon mb-3">
+                                <span class="icon-message-pro">
+                                    <object type="image/svg+xml" data="{{ absolute_url('/assets/icon/Google_Play_icon-icons.com_66988.svg') }}" class="icon-message-pro icon-bike">
+                                        play
+                                    </object>
+                                </span>
+                            </span>
+                            <span class="text-center ">
+                                <span class="">Disponible sur </span><br>
+                                <span class="font-weight-capitalize">Google Play</span>				
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            </section>
+            <!--End section the Presse Talk US  -->
+				
+        </main>
+			
+        <!-- Begin footer page -->
+        {% include "./page/footer/footer.html.twig" %}
+        <!-- END footer page -->
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>-->
+<!-- MESSAGE NTIFICATION -->
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<!--Local-->
+<script src="{{ absolute_url('/assets/loadbar/js/loading-bar.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/jquery.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/now-ui-kit.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/core/popper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/bootstrap-switch.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/plugins/nouislider.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/swiper/dist/js/swiper.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ absolute_url('/assets/select2-develop/dist/js/select2.min.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
+<script src="{{ absolute_url('/assets/js/app.js') }}"></script>
+
+{% endblock %}

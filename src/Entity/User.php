@@ -182,6 +182,26 @@ class User implements UserInterface
      * @ORM\Column(type="string", nullable=true)
      */
     private $companyDateCrea;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    private $numDepartement;    
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isVerified;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $kilometer;
     
 
     public function __construct()
@@ -595,6 +615,54 @@ class User implements UserInterface
     public function setCompanyDateCrea(?string $companyDateCrea): self
     {
         $this->companyDateCrea = $companyDateCrea;
+
+        return $this;
+    }
+
+    public function getNumDepartement(): ?string
+    {
+        return $this->numDepartement;
+    }
+
+    public function setNumDepartement(?string $numDepartement): self
+    {
+        $this->numDepartement = $numDepartement;
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(?bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function getKilometer(): ?int
+    {
+        return $this->kilometer;
+    }
+
+    public function setKilometer(?int $kilometer): self
+    {
+        $this->kilometer = $kilometer;
 
         return $this;
     }

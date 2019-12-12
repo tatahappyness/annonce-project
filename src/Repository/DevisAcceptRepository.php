@@ -35,6 +35,17 @@ class DevisAcceptRepository extends ServiceEntityRepository
         ;
     }
 
+    //find by user id and devis id
+    public function findByUserIdAndDevisId($value) : ?DevisAccept
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.userId = ?1 AND d.devisId = ?2')
+            ->setParameters($value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     public function findByDevisIdList($value)
     {
         return $this->createQueryBuilder('d')

@@ -222,7 +222,7 @@
                                     <tr>
                                         <td>{{ lst.id }}</td>
                                         <td>{{ lst.getCustomerId().getName() }} </br> {{ lst.getCustomerId().getEmail() }}</br></td>
-                                        <td>{{ lst.getCustomerId().getName() }} </br> {{ lst.getCustomerId().getEmail() }}</br></td>
+                                        <td>{{ lst.getServiceId().getCategoryId().getCategTitle() }}</br></td>
                                         <td>{{ lst.datePayement ? lst.datePayement|date('Y-m-d H:i:s') : '' }}</td>
                                         <td>{{ lst.dateExpire ? lst.dateExpire|date('Y-m-d H:i:s') : '' }}</td>
                                         <td>

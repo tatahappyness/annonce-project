@@ -21,11 +21,35 @@
     <link href="{{ absolute_url('/css/style.css') }}" rel="stylesheet" />
 
     <style>
-    /* Set the size of the div element that contains the map */
-    #map1, #map2 {
-        height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-    }
+        /* Set the size of the div element that contains the map */
+        #map1, #map2 {
+            height: 400px;  /* The height is 400 pixels */
+            width: 100%;  /* The width is the width of the web page */
+        }
+
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            background: white !important;
+            border: 1px solid #ffbb00 !important;
+            line-height: 45px !important;
+            padding-left: 20px;
+        }
+        .select2-container--default .select2-selection--single {
+            border-radius: 32px !important;
+        }
+        .select2-container .select2-selection--single .select2-selection__rendered, span.selection {
+            border-radius: 32px !important;
+            font-size: 1em !important;
+        }
+        .select2-search--dropdown .select2-search__field {
+            height: 35px !important;
+        }
+        .select2-results__group {
+            color: orange;
+            padding-bottom: 6px;
+            padding-top: 6px;
+            text-transform: uppercase;
+        }
+
         /** CSS THEMES
             warning dark : rgb(255, 144, 0)
             warning claire : #ffc107
@@ -146,11 +170,15 @@
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label class="">Ville *</label>
-                                                    <input id="show-city-search" type="text" class="form-control" value="{{ user.getUserCity().getVilleNomReel() }}"  placeholder="Sélectionnez une ville">
+                                                    <select id="show-city-search" class="form-control show-city-search city" name="city">
+                                                        <option></option>
+                                                        <option selected value="{{ user.getUserCity().getId() }}">{{ user.getUserCity().getVilleNomReel() }}</option>
+                                                    </select>
+                                                    {# <input id="show-city-search" type="text" class="form-control" value=""  placeholder="Sélectionnez une ville"> #}
                                                 </div>
-                                                <div id="form-city-special-hidden">
+                                                {# <div id="form-city-special-hidden">
                                                    <input type="hidden" name="city" value="{{ user.getUserCity().getId() }}">
-                                                </div>
+                                                </div> #}
                                                 <div class="form-group mb-3">
                                                     <label class="">Raison Sociale</label>
                                                     <input type="text" class="form-control" name="company_name" value="{{ user.getCompanyName() }}" placeholder="Nom de votre société">
@@ -224,6 +252,21 @@
                                     <!-- </div> -->
                                 </div>
                                 <!-- END MY LOGO EDIT -->
+
+                                <div class="card">
+                                    <div class="card-header bg-darkgray p-1 text-white text-uppercase"> <h6 class="card-title"><span class="lnr lnr-map-marker" style="font-size: 32px;"></span></span> &nbsp; Ma zone de prescription</h6></div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 h-100">
+                                                <div id="map">
+                                                </div>
+                                                <div class="d-block text-uppercase text-center pt-2">
+                                                    <a href="{{ path('pro_geolocation_map_edit') }}" class="btn btn-warning text-decoration-none">Modifier ma zone géographique</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
@@ -312,6 +355,7 @@
 <script src="https://www.google.com/recaptcha/api.js?render=6Lcr-qsUAAAAAPrCqD5Yk1iDIw9xBtzP6KSackqm"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/list-city-ajax.js') }}"></script>
+<script src="{{ absolute_url('/assets/js/map.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/pro.js') }}"></script>
 <script src="{{ absolute_url('/assets/form-multistep/form-step.js') }}"></script>
 <script src="{{ absolute_url('/assets/file-upload/myfile.js') }}"></script>

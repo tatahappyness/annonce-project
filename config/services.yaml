@@ -11,6 +11,7 @@ parameters:
     profil_directory: '%kernel.project_dir%/public/uploads/profil'
     videos_directory: '%kernel.project_dir%/public/uploads/videos'
     documents_directory: '%kernel.project_dir%/public/uploads/documents'
+    maps_directory: '%kernel.project_dir%/public/uploads/maps'
 
 services:
     # default configuration for services in *this* file

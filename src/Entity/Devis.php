@@ -118,6 +118,11 @@ class Devis
      */
     private $city;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numDepartement;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -347,6 +352,18 @@ class Devis
     public function setCity(?Cities $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getNumDepartement(): ?int
+    {
+        return $this->numDepartement;
+    }
+
+    public function setNumDepartement(?int $numDepartement): self
+    {
+        $this->numDepartement = $numDepartement;
 
         return $this;
     }

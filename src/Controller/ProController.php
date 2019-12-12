@@ -71,6 +71,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpClient\HttpClient;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -79,6 +80,7 @@ use Dompdf\Options;
 */
 class ProController extends AbstractController
 {
+   
     /**
     * @Route("/dashbord", name="pro_dashbord")
     * @param $user to find pro owner infos
@@ -87,6 +89,12 @@ class ProController extends AbstractController
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
 
         $services = $serviceRep->findByUser($security->getUser());
         //dump($services);die;
@@ -97,9 +105,7 @@ class ProController extends AbstractController
 
         $categoryId =  $array;
         $arrayData1 = array( 1=>  ($categoryId), 
-                            2=> $security->getUser()->getZipCode(), 
-                            3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId)
+                            2=> $security->getUser()->getNumDepartement() . '%',
                             );
 
         $devis = $devisRep->findByZipCodeAndCity($arrayData1);
@@ -107,7 +113,7 @@ class ProController extends AbstractController
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
+                            2=> $security->getUser()->getNumDepartement() . '%',
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         //dump($postsAdsArray);die;
@@ -120,10 +126,12 @@ class ProController extends AbstractController
 
                 $cityArray1['lat'] = $post->getCity()->getVilleLatitudeDeg();
                 $cityArray1['lng'] = $post->getCity()->getVilleLongitudeDeg();
-                $cityArray2['lat'] =  ($security->getUser()->getLat() !== null) ? $security->getUser()->getLat() : $security->getUser()->getUserCity()->getVilleLatitudeDeg();
-                $cityArray2['lng'] = ($security->getUser()->getLog() !== null) ? $security->getUser()->getLog() : $security->getUser()->getUserCity()->getVilleLongitudeDeg();
-
-                $distances[$post->getId()] =  $this->getDistance($cityArray1, $cityArray2, 'Km');
+                $cityArray2['lat'] = $security->getUser()->getUserCity()->getVilleLatitudeDeg();
+                $cityArray2['lng'] = $security->getUser()->getUserCity()->getVilleLongitudeDeg();
+                $distance = $this->getDistance($cityArray1, $cityArray2);
+                if ( $distance <= $security->getUser()->getKilometer()) {
+                    $distances[$post->getId()] = $distance ;
+                }
 
             }
 
@@ -186,7 +194,12 @@ class ProController extends AbstractController
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
-        //  Initial the data critical in database to find
+        
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
         
         //HERE GET PROJECT DISPO ESPECTED DIRECTLY BY PRO SPECIALITY or Zipcage or Departement
     
@@ -197,7 +210,7 @@ class ProController extends AbstractController
         }
         $categoryId =  $array;
         $arrayData = array(1=>  ($categoryId), 
-                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
+                            2=> $security->getUser()->getNumDepartement() . '%',
                             );          
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData);
         $postsAds = count( $postsAdsArray ) > 0 ? $postsAdsArray : null;
@@ -239,10 +252,12 @@ class ProController extends AbstractController
 
             $cityArray1['lat'] = $post->getCity()->getVilleLatitudeDeg();
             $cityArray1['lng'] = $post->getCity()->getVilleLongitudeDeg();
-            $cityArray2['lat'] =  ($security->getUser()->getLat() !== null) ? $security->getUser()->getLat() : $security->getUser()->getUserCity()->getVilleLatitudeDeg();
-            $cityArray2['lng'] = ($security->getUser()->getLog() !== null) ? $security->getUser()->getLog() : $security->getUser()->getUserCity()->getVilleLongitudeDeg();
-
-            $distances[$post->getId()] =  $this->getDistance($cityArray1, $cityArray2, 'Km');
+            $cityArray2['lat'] = $security->getUser()->getUserCity()->getVilleLatitudeDeg();
+            $cityArray2['lng'] = $security->getUser()->getUserCity()->getVilleLongitudeDeg();
+            $distance = $this->getDistance($cityArray1, $cityArray2);
+            if ( $distance <= $security->getUser()->getKilometer()) {
+                $distances[$post->getId()] = $distance ;
+            }
 
         }
         
@@ -300,7 +315,12 @@ class ProController extends AbstractController
     */
     public function geolocation(Security $security)
     {
-        $LocationArray = ['lat'=> $security->getUser()->getLat(), 'log'=> $security->getUser()->getLog()];
+        $LocationArray = ['lat'=> $security->getUser()->getUserCity()->getVilleLatitudeDeg(), 
+                        'log'=> $security->getUser()->getUserCity()->getVilleLongitudeDeg(), 
+                        'km'=> $security->getUser()->getKilometer(), 'phone'=> $security->getUser()->getMobile(), 
+                        'email'=> $security->getUser()->getEmail(),     
+                        'zipcode'=> $security->getUser()->getZipCode(), 'city'=> $security->getUser()->getUserCity()->getVilleNomReel()
+                        ];  
 
         return new JsonResponse($LocationArray, 200);
 
@@ -315,6 +335,13 @@ class ProController extends AbstractController
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
         //here we need testing user abonnement and add post status ads in post viewed
+
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
+
         $customer = $customRep->findByUser($security->getUser());
         $post = $postRep->findById((int) $id);
         //Get config site
@@ -396,6 +423,12 @@ class ProController extends AbstractController
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
+
         if(!is_null($request->request->get('post_id') && !is_null($request->request->get('particular_id')) && !is_null($request->request->get('response_message'))))
         {
             try {
@@ -429,6 +462,12 @@ class ProController extends AbstractController
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
 
         //check user if is Free yet to receve 5 devis free
         $datetime1 = $security->getUser()->getFreeDateExpire();
@@ -481,17 +520,35 @@ class ProController extends AbstractController
 
         $categoryId =  $array;
         $arrayData = array( 1=>  ($categoryId), 
-                            2=> $security->getUser()->getZipCode(), 
-                            3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId)
-                            );
+                            2=> $security->getUser()->getNumDepartement() . '%',
+                           );
        
         if ((int) $interval->format('%R%a') <= 0) 
         {
-            $devis = $devisRep->findByZipCodeAndCity($arrayData, 5);
+            $devs = $devisRep->findByZipCodeAndCity($arrayData, 5);
+            $devis = array();
+            $distances = array();
+            if ( count($devs) > 0 ) {
+                
+                foreach ($devs as $key => $dev) {
+
+                    $cityArray1['lat'] = $dev->getCity()->getVilleLatitudeDeg();
+                    $cityArray1['lng'] = $dev->getCity()->getVilleLongitudeDeg();
+                    $cityArray2['lat'] = $security->getUser()->getUserCity()->getVilleLatitudeDeg();
+                    $cityArray2['lng'] = $security->getUser()->getUserCity()->getVilleLongitudeDeg();
+                    $distance = $this->getDistance($cityArray1, $cityArray2);
+                    if ( $distance <= $security->getUser()->getKilometer()) {
+                        $devis[$key] = $dev ;
+                        $distances[$post->getId()] = $distance ;
+                    }
+
+                }
+
+            }
 
             return $this->render('pro/devis-receved-list.html.twig', [
                 'devis' => $devis, 'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
+                'distances'=> $distances,
                 'isAbonned'=> true, 'devisAccept'=>  $devisAccept,
                 'user'=> $security->getUser(),
                 'configsite'=> $configsite,
@@ -502,11 +559,31 @@ class ProController extends AbstractController
 
         }
         
-        $devis = $devisRep->findByZipCodeAndCity($arrayData);
+        $devs = $devisRep->findByZipCodeAndCity($arrayData);
+        $devis = array();
+        $distances = array();
+        if ( count($devs) > 0 ) {
+                
+            foreach ($devs as $key => $dev) {
+
+                $cityArray1['lat'] = $dev->getCity()->getVilleLatitudeDeg();
+                $cityArray1['lng'] = $dev->getCity()->getVilleLongitudeDeg();
+                $cityArray2['lat'] = $security->getUser()->getUserCity()->getVilleLatitudeDeg();
+                $cityArray2['lng'] = $security->getUser()->getUserCity()->getVilleLongitudeDeg();
+                $distance = $this->getDistance($cityArray1, $cityArray2);
+                if ( $distance <= $security->getUser()->getKilometer()) {
+                    $devis[$key] = $dev ;
+                    $distances[$dev->getId()] = $distance ;
+                }
+
+            }
+
+        }
 
         return $this->render('pro/devis-receved-list.html.twig', [
             'devis' => $devis, 'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
-            'isAbonned'=> false, 'devisAccept'=>  $devisAccept,
+            'distances'=> $distances,
+            'isAbonned'=> true, 'devisAccept'=>  $devisAccept,
             'user'=> $security->getUser(),
             'configsite'=> $configsite,
             'themesImage'=> $themes,
@@ -519,11 +596,18 @@ class ProController extends AbstractController
     /**
     * @Route("/devis-receved-detail/{id}/{download}", name="pro_devis_receved_detail")
     */
-    public function devisRecevedDetail($id = null, $download = null, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, ServicesRepository $serviceRep, DevisRepository $devisRep)
+    public function devisRecevedDetail($id = null, $download = null, Security $security, DevisAcceptRepository $devisAcceptrep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CustomerRepository $customRep, AbonnementRepository $abonnementRep, ServicesRepository $serviceRep, DevisRepository $devisRep)
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
         //dump($id);die;
+
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
+
         //check user if is Free yet
         $datetime1 = $security->getUser()->getFreeDateExpire();
         $datetime2 = new \DateTime('now');
@@ -566,8 +650,12 @@ class ProController extends AbstractController
         if ($id !== null && $download == null && (int) $interval->format('%R%a') <= 0) 
         {
             $devis = $devisRep->findById((int) $id);
+            //devis Accept if existes
+            $devisAccept = $devisAcceptrep->findByUserIdAndDevisId(array(1=> $security->getUser(), 2=> $devis));
+            $devisAccept = ($devisAccept != null) ? true : false;
+
             return $this->render('premuim/devis-receved-detail.html.twig', [
-                'devis' => $devis, 'isAbonned'=> true, 
+                'devis' => $devis, 'isAbonned'=> true, 'devisAccept'=> $devisAccept,
                 'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
                 'user'=> $security->getUser(),
                 'configsite'=> $configsite,
@@ -581,6 +669,9 @@ class ProController extends AbstractController
         // We need here to verify user if it is our customer when we can set devis user destinations
         $customer = $customRep->findByUser($security->getUser());
         $devis = $devisRep->findById((int) $id);
+        //Find Devis Accept
+        $devisAccept = $devisAcceptrep->findByUserIdAndDevisId(array(1=> $security->getUser(), 2=> $devis));
+        $devisAccept = ($devisAccept != null) ? true : false;
         
         if ($id !== null && $download == null && !is_null($devis) && !is_null($customer)) {
 
@@ -592,7 +683,7 @@ class ProController extends AbstractController
                 $devis = $devisRep->findById((int) $id);
                 //dump($devis);die;
                 return $this->render('premuim/devis-receved-detail.html.twig', [
-                    'devis' => $devis, 'isAbonned'=> true, 
+                    'devis' => $devis, 'isAbonned'=> true, 'devisAccept'=> $devisAccept,
                     'numberDevis' => $this->countDevis($security, $serviceRep, $devisRep),
                     'user'=> $security->getUser(),
                     'configsite'=> $configsite,
@@ -607,6 +698,15 @@ class ProController extends AbstractController
         if($id !== null && $download !== null) {
             //die($id);
             $devis = $devisRep->findById((int) $id);
+
+            //get google map here
+            // $client = HttpClient::create();
+            // $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/staticmap?center=' . $devis->getCity()->getVilleLatitudeDeg() . ',' . $devis->getCity()->getVilleLongitudeDeg() . '&markers=color:red%7Clabel:C%7C' . $devis->getCity()->getVilleLatitudeDeg() . ',' . $devis->getCity()->getVilleLongitudeDeg() . '&zoom=12&size=600x400');
+            // dump($response);die;
+            // $imagePath = $this->getParameter('maps_directory');
+            // $imageName = $security->getUser()->getId() . '.PNG';
+            // $imagePath = $imagePath.$imageName;
+            //file_put_contents($imagePath,file_get_contents($src));
 
             // Configure Dompdf according to your needs
             $pdfOptions = new Options();
@@ -653,6 +753,7 @@ class ProController extends AbstractController
             'themesImage'=> $themes,
             'themesColor'=> $themesColor,
             'themes'=> $them,
+            'imgName'=> $imageName,
         ]);
     }
 
@@ -774,6 +875,12 @@ class ProController extends AbstractController
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
         
         $devisAcceptArray = $devisAcceptRep->findByUserId($security->getUser());
         $devisValidArray = $devisValidRep->findByUserId($security->getUser());
@@ -838,6 +945,12 @@ class ProController extends AbstractController
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
 
         $devisAcceptArray = $devisAcceptRep->findByUserId($security->getUser());
         $devisValidArray = $devisValidRep->findByUserId($security->getUser());
@@ -906,6 +1019,12 @@ class ProController extends AbstractController
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+        
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
 
         $services = $serviceRep->findByUser($security->getUser());
 
@@ -916,16 +1035,14 @@ class ProController extends AbstractController
 
         $categoryId =  $array;
         $arrayData1 = array( 1=>  ($categoryId), 
-                            2=> $security->getUser()->getZipCode(), 
-                            3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId)
+                            2=> $security->getUser()->getNumDepartement() . '%',
                             );
 
         $devis = $devisRep->findByZipCodeAndCity($arrayData1);
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
+                            2=> $security->getUser()->getNumDepartement() . '%',
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
@@ -1042,6 +1159,12 @@ class ProController extends AbstractController
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
        
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
+
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
@@ -1175,6 +1298,12 @@ class ProController extends AbstractController
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
         
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
+
         if($_POST) {
            
             if (!is_null($request->request->get('city')) && !is_null($request->request->get('zipcode')) && !is_null($request->request->get('company_name')) && !is_null($request->request->get('_username')) && !is_null($request->request->get('firstname')) && !is_null($request->request->get('phone')) && !is_null($request->request->get('_email'))) {
@@ -1219,16 +1348,14 @@ class ProController extends AbstractController
 
         $categoryId =  $array;
         $arrayData1 = array( 1=>  ($categoryId), 
-                            2=> $security->getUser()->getZipCode(), 
-                            3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId)
+                            2=> $security->getUser()->getNumDepartement() . '%', 
                             );
 
         $devis = $devisRep->findByZipCodeAndCity($arrayData1);
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
+                            2=> $security->getUser()->getNumDepartement() . '%'
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
@@ -1289,15 +1416,19 @@ class ProController extends AbstractController
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
+
         if($_POST){
 
-            $lat = $request->request->get('latitude');
-            $long = $request->request->get('longitude');
-            //dump( $url . ' ' . $articleId); 
-            if($lat !== null &&   $long!== null) {	
-                //dump($request->getMethod());die;
-                //dump( $articleId . ' ' . $url);die;
-
+            $kilometer = $request->request->get('zone_kilometer');
+            
+            if($kilometer !== null) {	
+                //dump($kilometer);die;
+              
                 try {
 
                     $entityManager = $this->getDoctrine()->getManager();
@@ -1305,18 +1436,16 @@ class ProController extends AbstractController
 
                     $user = $security->getUser();
                     $user
-                        ->setLat($lat)
-                        ->setLog($long);
-
+                        ->setKilometer($kilometer);
+                        
                     $entityManager->persist($user);
                     $entityManager->flush();
                     $entityManager->commit();
                 
-                    // return new JsonResponse(array('code'=> 200, 'infos'=> 'Enrégistrement effectué!'), 200);
-                    return $this->redirectToRoute('pro_dashbord');
-
+                    return new JsonResponse(array('code'=> 200, 'info'=> 'Modification effectué!'), 200);
+                    
                     } catch (\Throwable $th) {
-                        return new JsonResponse(['code'=> 500 ,'infos' => $th->getMessage()], 500);
+                        return new JsonResponse(['code'=> 500 ,'info' => $th->getMessage()], 500);
                     }
             }            
 
@@ -1331,16 +1460,14 @@ class ProController extends AbstractController
 
         $categoryId =  $array;
         $arrayData1 = array( 1=>  ($categoryId), 
-                            2=> $security->getUser()->getZipCode(), 
-                            3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId)
+                            2=> $security->getUser()->getNumDepartement() . '%',
                             );
 
         $devis = $devisRep->findByZipCodeAndCity($arrayData1);
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
+                            2=> $security->getUser()->getNumDepartement() . '%',
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
@@ -1397,6 +1524,12 @@ class ProController extends AbstractController
     {
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
 
         if($_POST) {
 
@@ -1543,9 +1676,7 @@ class ProController extends AbstractController
 
         $categoryId =  $array;
         $arrayData1 = array( 1=>  ($categoryId), 
-                            2=> $security->getUser()->getZipCode(), 
-                            3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId)
+                            2=> $security->getUser()->getNumDepartement() . '%',
                             );
 
         //get list articles by lists category array
@@ -1556,7 +1687,7 @@ class ProController extends AbstractController
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                           2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
+                            2=> $security->getUser()->getNumDepartement() . '%',
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
@@ -1616,6 +1747,12 @@ class ProController extends AbstractController
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
+
         //var_dump($request->request->all()); //if you need to know if the file is being uploaded.
        
         if($_POST) {
@@ -1662,16 +1799,14 @@ class ProController extends AbstractController
 
         $categoryId =  $array;
         $arrayData1 = array( 1=>  ($categoryId), 
-                            2=> $security->getUser()->getZipCode(), 
-                            3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId)
+                            2=> $security->getUser()->getNumDepartement() . '%',
                             );
 
         $devis = $devisRep->findByZipCodeAndCity($arrayData1);
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
+                            2=> $security->getUser()->getNumDepartement() . '%',
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
@@ -1734,6 +1869,12 @@ class ProController extends AbstractController
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
 
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
+
         if (!is_null($request->files->get('fileDocumentCompany')) && !is_null($request->request->get('document_title'))  ) {
            // dump($request->files->get('fileDocumentCompany'));die;
             $file = $request->files->get('fileDocumentCompany');
@@ -1785,16 +1926,14 @@ class ProController extends AbstractController
 
         $categoryId =  $array;
         $arrayData1 = array( 1=>  ($categoryId), 
-                            2=> $security->getUser()->getZipCode(), 
-                            3=> $security->getUser()->getUserCity(),
-                            4=>  ($categoryId)
+                            2=> $security->getUser()->getNumDepartement() . '%',
                             );
 
         $devis = $devisRep->findByZipCodeAndCity($arrayData1);
         $nbdevis = count($devis);
 
         $arrayData2 = array(1=>  ($categoryId), 
-                            2=>  ($categoryId), 3=> $security->getUser()->getZipCode()
+                            2=> $security->getUser()->getNumDepartement() . '%',
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
         $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
@@ -2049,6 +2188,12 @@ class ProController extends AbstractController
         // The second parameter is used to specify on what object the role is tested.
         $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
         
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
+
         $devisAcceptArray = $devisAcceptRep->findByUserId($security->getUser());
         $devisValidArray = $devisValidRep->findByUserId($security->getUser());
         $devisFinishArray = $devisFinishRep->findByUserId($security->getUser());
@@ -2175,6 +2320,15 @@ class ProController extends AbstractController
     public function talkUs(Request $request, Security $security, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, ServicesRepository $serviceRep, DevisRepository $devisRep, DevisAcceptRepository $devisAcceptRep, DevisValidRepository $devisValidRep, DevisFinishRepository $devisFinishRep)
     {
 
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
+
         if ($_POST) {
            
             if(!is_null($request->request->get('comment_description'))) {
@@ -2260,7 +2414,17 @@ class ProController extends AbstractController
     /**
     * @Route("/download-file/{id}", name="pro_download_file")
     */
-    public function downloadAction($id = null) {
+    public function downloadAction($id = null) 
+    {
+
+        // The second parameter is used to specify on what object the role is tested.
+        $this->denyAccessUnlessGranted('ROLE_USER_PROFESSIONAL', null, 'Vous n\'as pas de droit d\'accèder à cette page!');
+        
+        if( $security->getUser()->getIsVerified() !== true) {
+
+            return  $this->redirectToRoute('email_comfirm');
+
+        }
 
         try {
             $displayName = $id;
@@ -2289,9 +2453,7 @@ class ProController extends AbstractController
         }
         $categoryId =  $array;
         $arrayData1 = array( 1=>  ($categoryId), 
-            2=> $security->getUser()->getZipCode(), 
-            3=> $security->getUser()->getUserCity(),
-            4=>  ($categoryId)
+            2=> $security->getUser()->getNumDepartement() . '%',
             );
 
         $devis = $devisRep->findByZipCodeAndCity($arrayData1);
@@ -2301,7 +2463,7 @@ class ProController extends AbstractController
 
     //GET DISTANCE BETWEEN TWO ZIP CODE OR LAT AND LONG
     // This function returns Longitude & Latitude from zip code.
-    function getDistance($first_lat, $next_lat, $unit)
+    function getDistance($first_lat, $next_lat)
     {
         $lat1 = $first_lat['lat'];
         $lon1 = $first_lat['lng'];
@@ -2314,16 +2476,17 @@ class ProController extends AbstractController
         $dist = acos($dist);
         $dist = rad2deg($dist);
         $miles = $dist * 60 * 1.1515;
+        $unit = 'km';
         $unit = strtoupper($unit);
 
         if ($unit == "K"){
-            return ($miles * 1.609344)." ".$unit;
+            return ($miles * 1.609344) ." ". $unit;
         }
         else if ($unit =="N"){
-            return ($miles * 0.8684)." ".$unit;
+            return ($miles * 0.8684) ." ". $unit; 
         }
         else{
-            return round($miles)." ".$unit;
+            return round($miles);
         }
 
     } //End function get distance 

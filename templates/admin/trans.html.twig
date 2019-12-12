@@ -196,9 +196,9 @@
                             <thead class="bg-warning text-dark">
                             <tr>
                                 <th>#</th>
-                                <th>Nom et prénom particulier</th>
+                                <th>Nom et prénom professionnels</th>
                                 <th>Description</th>
-                                <th>Amount</th>
+                                <th>Amount (€)</th>
                                 <th>Date de création</th>
                                 <th>Action</th>
                             </tr>
@@ -206,9 +206,9 @@
                             <tfoot>
                             <tr>   
 								                <th>#</th>
-                                <th>Nom et prénom particulier</th>
+                                <th>Nom et prénom professionnels</th>
                                 <th>Description</th>
-                                <th>Amount</th>
+                                <th>Amount (€)</th>
                                 <th>Date de création</th>
                                 <th>Action</th>
                             </tr>
@@ -222,7 +222,7 @@
                                 <td>{{ lst.getId() }}</td>
                                 <td>{{ lst.getCustomerId().getName() }}</td>
                                 <td>{{ lst.getDescription() }}</td>								
-                                <td>{{ lst.getAmount() }}</td>								
+                                <td>{{ lst.getAmount() ~ ' €'}}</td>								
                                 <td>{{ lst.getDateCrea() | date('d/m/y H:m:s')  }}</td>
                                 <td>
 									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal_sup_transaction_{{ lst.getId() }}" type="button" title="Supprimer"><i class="fa fa-times"></i>

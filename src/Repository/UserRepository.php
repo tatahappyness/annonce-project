@@ -120,7 +120,7 @@ class UserRepository extends ServiceEntityRepository
         }
 
         return $this->createQueryBuilder('u')
-            ->where('u.isProfessional = ?1 AND u.userCategoryActivity = ?2 OR u.userCategoryActivity = ?3 AND u.isProfessional = ?4 AND  u.userCity = ?5')
+            ->where('u.isProfessional = ?1 AND u.userCategoryActivity = ?2 AND u.zipCode LIKE ?3')
             ->setParameters($data)
             ->orderBy('u.id', 'DESC')
             ->setFirstResult( $offset )

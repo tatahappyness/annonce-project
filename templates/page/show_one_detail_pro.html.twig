@@ -582,29 +582,29 @@
 <script src="{{ absolute_url('/assets/js/list-ajax-home.js') }}"></script>
 <script src="{{ absolute_url('/assets/js/app.js') }}"></script>
 
-<script>
+	<script>
 
-	// Initialize and add the map
-	function initMap() {
-	//alert({{ user.lat }});
-		var uluru = new google.maps.LatLng(parseFloat({{ user.lat }}), parseFloat({{ user.log }}));
-		//The options
-		var mapOptions = {
-			zoom: 8,
-			center: uluru,
-			mapTypeId: google.maps.MapTypeId.HYBRID
-			};
-			
-		var map = new google.maps.Map(
-			document.getElementById('map'), mapOptions);
-		// The marker, positioned at Uluru
-		var marker = new google.maps.Marker({position: uluru, map: map});
+		// Initialize and add the map
+		function initMap() {
+		//alert({{ user.lat }});
+			var uluru = new google.maps.LatLng(parseFloat({{ user.getUserCity().getVilleLatitudeDeg() }}), parseFloat({{ user.getUserCity().getVilleLongitudeDeg() }}));
+			//The options
+			var mapOptions = {
+				zoom: 8,
+				center: uluru,
+				mapTypeId: google.maps.MapTypeId.HYBRID
+				};
+					
+			var map = new google.maps.Map(
+				document.getElementById('map'), mapOptions);
+			// The marker, positioned at Uluru
+			var marker = new google.maps.Marker({position: uluru, map: map});
 
-	}
+		}
 
-	initMap();
+		initMap();
 
-</script>
+	</script>
 
 
 {% endblock %}

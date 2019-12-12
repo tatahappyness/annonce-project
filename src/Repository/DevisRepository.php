@@ -27,7 +27,7 @@ class DevisRepository extends ServiceEntityRepository
     {
        
         return $this->createQueryBuilder('d')
-                ->where('d.CategoryId IN (?1) AND d.zipCode = ?2 OR d.city = ?3 AND d.CategoryId IN (?4)')
+                ->where('d.CategoryId IN (?1) AND d.zipCode LIKE ?2')
                 ->setParameters($data)
                 ->orderBy('d.id', 'DESC')
                 ->setFirstResult( $offset )

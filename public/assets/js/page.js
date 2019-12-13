@@ -19,11 +19,12 @@ jQuery('.btn-more-all-ajax').click(function() {
     jQuery(this).addClass('running');
     var that = this;
     var category_id = jQuery(this).data('categoryid');
+    var departement = jQuery(this).data('departement');
     var offset = 0;
     offset += 1;
     jQuery.ajax({
         type : 'GET',
-        url : '/space-find-chantier/?category_id=' + category_id + '&&offset=' + offset,
+        url : '/space-find-chantier/?category_id=' + category_id + '&&offset=' + offset + '&&numDepartement=' + departement,
         contentType : false,
         processData : false
                     
@@ -54,11 +55,12 @@ jQuery('.btn-more-all-pros').click(function() {
     jQuery(this).addClass('running');
     var that = this;
     var category_id = jQuery(this).data('categoryid');
+    var departement = jQuery(this).data('departement');
     var offset = 0;
     offset += 1;
     jQuery.ajax({
         type : 'GET',
-        url : '/space-find-pro/?category_id=' + category_id + '&&offset=' + offset,
+        url : '/space-find-pro/?category_id=' + category_id + '&&offset=' + offset + '&&numDepartement=' + departement,
         contentType : false,
         processData : false
                     

@@ -940,9 +940,10 @@ class PageController extends AbstractController
             //BEGIN REQUEST POST FORM SEARCH
             if(!is_null($request->request->get('CategoryId'))) {
 
+                //dump($request->request->get('numDepartement'));die;
                 // dump($request->request->get('CategoryId') . ' ' . $request->request->get('numDepartement'));die;
                 $arrayData = array(1=>  $request->request->get('CategoryId'), 
-                                    2=> !is_null($request->request->get('numDepartement')) ? $request->request->get('numDepartement') : null,
+                                    2=> !is_null($request->request->get('numDepartement')) ? $request->request->get('numDepartement') . '%' : null,
                                    );   
                                     
                 $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData, 0);
@@ -974,21 +975,23 @@ class PageController extends AbstractController
                     //dump($popularDevis);die;
                     //END GET POPULA DEVIS
 
-                //get all city
-                // $cities =  $cityRep->findAllArray();
-                // $cities = count($cities) > 0 ? $cities : null;
-                //dump($categories);die;
+                //get all Apartement
+                $cities =  $cityRep->findAllAppartement();
+                $cities = count($cities) > 0 ? $cities : [];
+                //dump($cities );die;
+
                 return $this->render('page/chantier_find_space.html.twig',[
                     'postsAds' => $postsAds,
                     'popularDevis'=> $popularDevis,
                     'categories'=> $categories,
-                    // 'cities'=> $cities,
+                    'cities'=> $cities,
                     'categLabel'=> $request->request->get('categLabel'),
                     'CategoryId'=> $request->request->get('CategoryId'),
                     'configsite'=> $configsite,
                     'themesImage'=> $themes,
                     'themesColor'=> $themesColor,
                     'themes'=> $them,
+                    'departement'=> $request->request->get('numDepartement'),
 
                 ]);
 
@@ -1004,7 +1007,7 @@ class PageController extends AbstractController
             //dump($request->query->get('category_id') . ' ' . $request->query->get('offset'));die;
             $offset = $request->query->get('offset');
             $arrayData = array(1=>  $request->query->get('category_id'),
-                                2=> !is_null($request->query->get('numDepartement')) ? $request->query->get('numDepartement') : null,
+                                2=> !is_null($request->query->get('numDepartement')) ? $request->query->get('numDepartement') . '%' : null,
                                 );
                                 
             $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData, $offset);
@@ -1079,16 +1082,17 @@ class PageController extends AbstractController
             //dump($popularDevis);die;
             //END GET POPULA DEVIS
         
-        //get all city
-        // $cities =  $cityRep->findAllArray();
-        // $cities = count($cities) > 0 ? $cities : null;
+        //get all Apartement
+        $cities =  $cityRep->findAllAppartement();
+        $cities = count($cities) > 0 ? $cities : [];
+        //dump($cities );die;
 
         $postsAds = $postRep->findAllPost(50, 0);
         return $this->render('page/chantier_find_space.html.twig',[
             'postsAds' => $postsAds,
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
-            // 'cities'=> $cities,
+            'cities'=> $cities,
             'configsite'=> $configsite,
             'themesImage'=> $themes,
             'themesColor'=> $themesColor,
@@ -1182,15 +1186,16 @@ class PageController extends AbstractController
         $comments = count( $comments) > 0 ? $comments : null;
         //dump( $comments);die;
 
-        //get all city
-        // $cities =  $cityRep->findAllArray();
-        // $cities = count($cities) > 0 ? $cities : null;
+        //get all Apartement
+        $cities =  $cityRep->findAllAppartement();
+        $cities = count($cities) > 0 ? $cities : [];
+        //dump($cities );die;
 
         return $this->render('page/pro_space.html.twig',[
             'postsAds' => $arrayPostAds,
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
-            // 'cities'=> $cities,
+            'cities'=> $cities,
             'configsite'=> $configsite,
             'comments'=> $comments,
             'guidesPrice'=> 1,
@@ -1204,7 +1209,7 @@ class PageController extends AbstractController
     /**
     * @Route("/space-find-pro", name="space_find_pro_page")
     */
-    public function findPro(Request $request, UserRepository $userRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CategoryRepository $categRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   TypeRepository $typeRep)
+    public function findPro(Request $request, UserRepository $userRep, CitiesRepository $cityRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep, ConfigsiteRepository $configsiteRep, CategoryRepository $categRep, ArticleRepository $artRep, CommentsRepository $commentRep, DevisRepository $devisRep,   TypeRepository $typeRep)
     {
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();
@@ -1270,6 +1275,7 @@ class PageController extends AbstractController
                 
                 if (!is_null($request->request->get('CategoryId')) && !is_null($request->request->get('categLabel'))) {
            
+                    //dump($request->request->get('numDepartement'));die;
                     $categoryId = $categRep->findById((int) $request->request->get('CategoryId'));
                     $arrayData = array(
                         1=> true, 
@@ -1278,13 +1284,19 @@ class PageController extends AbstractController
                     );
                     $pros = $userRep->findAllProfessionals($arrayData);
                     $pros = count($pros) > 0 ?  $pros : null;
+                    //get all Apartement
+                    $cities =  $cityRep->findAllAppartement();
+                    $cities = count($cities) > 0 ? $cities : [];
+                    //dump($cities );die;
+
                     return $this->render('page/pro_find_space.html.twig', [
                         'popularDevis'=> $popularDevis,
                         'categories'=> $categories,
+                        'cities'=> $cities,
                         'pros'=> $pros,
                         'categoryId'=> $request->request->get('categoryId'),
                         'categLabel'=> $request->request->get('categLabel'),
-                        'numDepartement'=> $request->request->get('numDepartement'),
+                        'departement'=> $request->request->get('numDepartement'),
                         'configsite'=> $configsite,
                         'themesImage'=> $themes,
                         'themesColor'=> $themesColor,
@@ -1352,10 +1364,16 @@ class PageController extends AbstractController
 
             } //END LIST AJAX PAGINATION
 
+        //get all Apartement
+        $cities =  $cityRep->findAllAppartement();
+        $cities = count($cities) > 0 ? $cities : [];
+        //dump($cities );die;
+
         $pros = $userRep->findAllProfessionals();
         return $this->render('page/pro_find_space.html.twig', [
             'popularDevis'=> $popularDevis,
             'categories'=> $categories,
+            'cities'=> $cities,
             'pros'=> $pros,
             'configsite'=> $configsite,
             'themesImage'=> $themes,

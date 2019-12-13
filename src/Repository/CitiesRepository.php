@@ -34,6 +34,23 @@ class CitiesRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findAllAppartement(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+                SELECT c.ville_departement AS ville_departement
+                FROM cities c
+                GROUP BY c.ville_departement
+                ORDER BY ville_departement ASC ;
+            ';
+            
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(); // return data array ,not array ogbject
+
+    }
     
      public function findAllCities(): ?Array
     {

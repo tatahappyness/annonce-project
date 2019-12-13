@@ -216,16 +216,16 @@
 							
 							<div class="d-flex flex-column flex-sm-row w-100 align-items-center justify-content-center">
 								
-								<input id="show-input-list-search" type="text" name="categLabel" value="{{ (categLabel is defined) ? categLabel :'' }}" class="form-control text-center show-input-list-search m-2" placeholder="Quel métier ?" style="height: 45px;">
+								<input id="show-input-list-search" type="text" name="categLabel" value="{{ (categLabel is defined) ? categLabel :'' }}" class="form-control text-center show-input-list-search m-2" placeholder="Quel métier ?" style="height: 45px; border-radius: 0 !important;">
 								<input type="hidden" id="CategoryIdSearch" name="CategoryId" value="">
-								{# <select id="select-beast" class="border animated fadeIn delay-8s border-warning demo-default" name="postCity"  placeholder="Dans quelle ville ?">
-								<option></option>
-								{% if cities != null %}
+								<select id="numDepartement" style="text-align-last: center; border-radius: 0 !important;" class="border form-control text-italic font-weight-bold border-warning m-2 text-center" name="numDepartement">
+								<option value="-1">Departement ? (Ex: 76)</option>
+								{% if cities|length > 0 %}
 									{% for city in cities %}
-									<option {{ (postCityId is defined and city.getId() == postCityId) ? 'selected': '' }} value="{{ city.getId() }}">{{ city.getVilleNomReel() }}</option>
+									<option {{ departement == city['ville_departement']  ? 'selected' : '' }} value="{{ city['ville_departement'] }}">{{ city['ville_departement'] }}</option>
 									{% endfor %}
 								{% endif %}
-								</select> #}
+								</select>
 								<div id="group-form-spcial-input-hidden"></div>
 								
 								<div class="input-group-append input-group-append-find-artisant bg-warning text-center">
@@ -290,11 +290,13 @@
 								</div>
 							</div>
 							{% endfor %}
+							{% else %}
+							 <h2 class="font-weight-bold text-center">	AUCUN CHANTIER TROUVER DANS CE DEPARTEMENT ! </h2>
 						{% endif %}
 					</div>
 					<div class="">
 						<div class="col-12 d-flex justify-content-center pt-4">
-							<a data-categoryid="{{ (CategoryId is defined) ? CategoryId :'' }}" class="btn btn-warning btn-more-all-ajax ld ld-ext-right"> <i class="ld ld-ring ld-spin"></i> Voir plus</a>
+							<a data-departement="{{ (departement is defined) ? departement : '' }}" data-categoryid="{{ (CategoryId is defined) ? CategoryId :'' }}" class="btn btn-warning btn-more-all-ajax ld ld-ext-right"> <i class="ld ld-ring ld-spin"></i> Voir plus</a>
 						</div>	
 					</div>
 				</div>

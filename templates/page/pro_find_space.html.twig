@@ -225,23 +225,23 @@
 			
 			<!-- ############# Begin form search -->
 			<div class="col-10" style="padding-top: 1em;">
-				<div class="container bg-dark pl-0 h-auto" style="box-shadow: 5px 5px 5px black;">
+				<div class="container bg-dark p-0  h-auto" style="box-shadow: 5px 5px 5px black;">
 					
 					<form id="form_search_category" action="{{ path('space_find_pro_page') }}" method="POST">
 						<div class="form-group">
 							
-							<div class="d-flex flex-column flex-sm-row w-100 align-items-center justify-content-center">
+							<div class="d-flex flex-column flex-lg-row w-100 align-items-center justify-content-center">
 								
-								<input id="show-input-list-search" type="text" name="categLabel" value="{{ (categLabel is defined) ? categLabel :'' }}" class="form-control text-center show-input-list-search m-2" style="height: 45px;">
+								<input id="show-input-list-search" type="text" name="categLabel" value="{{ (categLabel is defined) ? categLabel :'' }}" class="form-control text-center show-input-list-search m-2" style="height: 45px; border-radius: 0 !important;">
 								<input type="hidden" id="CategoryIdSearch" name="CategoryId" value="">
-								{# <select id="select-beast" class="border animated fadeIn delay-8s border-warning demo-default" name="postCity"  placeholder="Dans quelle ville ?">
-								<option></option>
-								{% if cities != null %}
+								<select id="numDepartement" style="text-align-last: center; border-radius: 0 !important;" class="border form-control text-italic font-weight-bold border-warning m-2 text-center" name="numDepartement">
+								<option value="-1">Departement ? (Ex: 76)</option>
+								{% if cities|length > 0 %}
 									{% for city in cities %}
-									<option {{ (postCityId is defined and city.getId() == postCityId) ? 'selected': '' }} value="{{ city.getId() }}">{{ city.getVilleNomReel() }}</option>
+									<option {{ departement is defined and departement == city['ville_departement']  ? 'selected' : '' }} value="{{ city['ville_departement'] }}">{{ city['ville_departement'] }}</option>
 									{% endfor %}
 								{% endif %}
-								</select> #}
+								</select>
 								<div class="input-group-append input-group-append-find-artisant bg-warning text-center">
 								  <button type="submit" class="btn btn-warning border-0 text-center text-nowrap w-100">Trouver des professionnels</button>
 								</div>
@@ -312,7 +312,7 @@
 					</div>
 					<div class="">
 						<div class="col-12 d-flex justify-content-center pt-4">
-							<a data-categoryid="{{ (CategoryId is defined) ? CategoryId : null }}" class="btn btn-warning btn-more-all-pros ld ld-ext-right"> <i class="ld ld-ring ld-spin"></i> Voir plus</a>
+							<a data-departement="{{ (departement is defined) ? departement : null }}" data-categoryid="{{ (CategoryId is defined) ? CategoryId : null }}" class="btn btn-warning btn-more-all-pros ld ld-ext-right"> <i class="ld ld-ring ld-spin"></i> Voir plus</a>
 						</div>
 					</div>
 				</div>

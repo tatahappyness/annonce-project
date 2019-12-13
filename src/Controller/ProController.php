@@ -1470,7 +1470,7 @@ class ProController extends AbstractController
                             2=> $security->getUser()->getNumDepartement() . '%',
                             );
         $postsAdsArray = $postRep->filterByCategoryOrCityOrZipcodeOrDepartement($arrayData2);
-        $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : null;
+        $postsAds = count( $postsAdsArray ) !== 0 ? $postsAdsArray : [];
 
         //Get config site
         $configsite = $configsiteRep->findOneByIsActive();

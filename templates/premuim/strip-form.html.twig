@@ -60,7 +60,7 @@
                                         <input required type="checkbox" class="custom-control-input" id="customCheck1">
                                             <label id="text" class="custom-control-label" for="customCheck1">
                                                J'accepte les 
-                                               <a href="#" class="text-warning" style="text-decoration: underline;">
+                                               <a href="#" class="text-warning" data-toggle="modal" data-target="#exampleModal" style="text-decoration: underline;">
                                                 Conditions Générales de vente 
                                                </a> et renonce expressément à l'exercice de mon droit de rêtractation.
                                             </label>
@@ -73,6 +73,26 @@
                     </div>
                 </section>
                 <!--End section  of the form Login-->
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Condition de vente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Description de condition de vente ici!...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
 				
                
         </main>

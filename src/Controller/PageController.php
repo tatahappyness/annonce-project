@@ -2300,17 +2300,22 @@ class PageController extends AbstractController
     /**
     * @Route("/reset-password-customer", name="reset_password_customer_page")
     */
-    public function resetPassword(Request $request, UserRepository $userRep, CategoryRepository $categoryRep, ConfigsiteRepository $configsiteRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep)
+    public function resetPassword(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRep, CategoryRepository $categoryRep, ConfigsiteRepository $configsiteRep, ThemeRepository $themeRep, ThemeColorRepository $themeColorRep, ThemeImageRepository $themeImageRep)
     {
 
-       if ($_POST) {
+            //Get config site
+            $configsite = $configsiteRep->findOneByIsActive();
 
-            if (!is_null($request->request->get('reset_password'))) {
+            if (!is_null($request->query->get('resets_password'))) {
                 
-                $user = $userRep->findOneByEmail($request->request->get('reset_password'));
-
+                //dump($request->query->get('resets_password'));die;
+                $user = $userRep->findOneByEmail($request->query->get('resets_password'));
+               
                 if ( $user !== null) {
                     
+                    //get email
+                    $email_user = $user->getEmail();
+
                     $password = bin2hex(random_bytes(4)); // generate unique password
                     $user
                         ->setPassword((string) $passwordEncoder->encodePassword(
@@ -2351,8 +2356,8 @@ class PageController extends AbstractController
 
                     $message = (new \Swift_Message('VOTRE MOT DE PASSE REINITIALISEE BY ORANGE-TRAVAUX'))
                     ->setFrom($configsite->getEmail())
-                    ->setTo($myservice->getUserId()->getEmail())
-                    ->setBody('<p>Votre Login: ' . $request->request->get('reset_password') . '</p><p> Votre mot de passe: ' . $password . '</p><p><h6>NB: Des que vous êtes s\'authentifiés, veuillez modifier ce mot de passe provisoir!.</h6></p>', 'text/html', 'utf-8');
+                    ->setTo($email_user)
+                    ->setBody('<p>Votre Login: ' . $request->query->get('resets_password') . '</p><p> Votre mot de passe: ' . $password . '</p><p><h6>NB: Des que vous êtes s\'authentifiés, veuillez modifier ce mot de passe provisoir!.</h6></p>', 'text/html', 'utf-8');
 
                     $result =  $mailer->send($message);
 
@@ -2366,13 +2371,11 @@ class PageController extends AbstractController
                 return new JsonResponse(['code'=> 'true' ,'info' => 'Vote nom d\'utlisateur ou adresse email est invalide'], 200);
 
             }            
-       }  
+    //      
        
        $categories = $categoryRep->findAllArray();
        $categories = count( $categories) > 0 ? $categories : null;
        
-        //Get config site
-        $configsite = $configsiteRep->findOneByIsActive();
         //THEMES PAGES
         $thems =  $themeRep->findAllArray();
         $themeImages = $themeImageRep->findAllArray();

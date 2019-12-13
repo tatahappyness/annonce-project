@@ -37,7 +37,7 @@ class RegistrationController extends AbstractController
      * @param  UserPasswordEncoderInterface $passwordEncoder
      * @return Response
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, CategoryRepository $categoryRep, CitiesRepository $cityRep) : Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder,  ConfigsiteRepository $configsiteRep, CategoryRepository $categoryRep, CitiesRepository $cityRep) : Response
     { 
        
         $user = new User();
@@ -60,6 +60,7 @@ class RegistrationController extends AbstractController
                 ->setZipCode($request->request->get('zipcode'))
                 ->setUserCity($city)
                 ->setNumDepartement($city->getVilleDepartement())
+                ->setKilometer(50)
                 ->setToken($token)
                 ->setCompanyName($request->request->get('company_name'))
                 ->setDateCrea(new \DateTime('now'))
@@ -85,7 +86,8 @@ class RegistrationController extends AbstractController
 
                     $entityManager->persist($service);
                     $entityManager->flush();
-
+                    //Get config site
+                    $configsite = $configsiteRep->findOneByIsActive();
                     $entityManager->commit();
 
 
@@ -110,13 +112,13 @@ class RegistrationController extends AbstractController
 
                     $message = (new \Swift_Message('CONFIRMER VOTRE COMPTE BY ORANGE-TRAVAUX'))
                     ->setFrom($configsite->getEmail())
-                    ->setTo($myservice->getUserId()->getEmail())
-                    ->setBody('<p>BONJOUR, <p>Veuillez trouvez un lien de comfirmation ci-dessous: </p> </p><p><a style="color: blue;" href="' . $_SERVER['HTTP_HOST'] . '/customer-email-comfirm/client/' .  $token . '">COMFIRMER, Cliquez ici</a></p>', 'text/html', 'utf-8');
+                    ->setTo($request->request->get('_email'))
+                    ->setBody('<html><head><title>Comfirm email</title></head><body><p>BONJOUR, </p><p>Veuillez trouvez un lien de comfirmation ci-dessous: </p><p><a href="https://' . $_SERVER['HTTP_HOST'] . '/customer-email-comfirm/client/' .  $token . '"> http://' . $_SERVER['HTTP_HOST'] . '/customer-email-comfirm/client/' .  $token . ' COMFIRMER, Cliquez ici</a></p></body></html>', 'text/html', 'utf-8');
 
                     $result =  $mailer->send($message);
 
                     if( $result == 1) {
-                        return new JsonResponse(['code'=> 200, "infos" => 'Vous êtes inscrit!, Nous avons evoyés un lien de comfirmation dans votre boite email, Veuillez '], 200);
+                        return new JsonResponse(['code'=> 200, "infos" => 'Vous êtes inscrit!, Nous avons evoyés un lien de comfirmation dans votre boite email pour activer votre compte! '], 200);
                     }
                     
                 } 
@@ -234,18 +236,41 @@ class RegistrationController extends AbstractController
     /**
     * @Route("/customer-email-comfirm/client/{token}", name="pro_customer_email_comfirm")
     */
-    public function confirmEmail($token = null, Security $security)
+    public function confirmEmail($token = null, UserRepository $userRep, Security $security)
     {
-        if ($token === $security->getUser()->getToken()) {
+        if($security->getUser() !== null) {  
+            if ($token === $security->getUser()->getToken()) {
 
-            $user = $security->getUser();
+                $user = $security->getUser();
+                $user
+                    ->setIsVerified(true);
+                $entityManager = $this->getDoctrine()->getManager();
+                try {
+            
+                    $entityManager->merge($user);
+                    $entityManager->flush();
+                    return $this->redirectToRoute('pro_dashbord');
+                } 
+                catch (\Exception $e) {
+                    return new JsonResponse(['code'=> 500, 'info' => $e->getMessage()], 500);
+                }
+
+            }
+        }
+
+        // Find user by token
+        $user = $userRep->findOneByToken($token);
+        if($user !== null) {
+            
             $user
                 ->setIsVerified(true);
             $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->beginTransaction();
             try {
-        
+            
                 $entityManager->merge($user);
                 $entityManager->flush();
+                $entityManager->commit();
                 return $this->redirectToRoute('pro_dashbord');
             } 
             catch (\Exception $e) {
@@ -253,6 +278,7 @@ class RegistrationController extends AbstractController
             }
 
         }
+
         return $this->redirectToRoute('logout');
     }
 

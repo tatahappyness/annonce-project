@@ -773,7 +773,9 @@ class PageController extends AbstractController
                     ->setIsAcceptedCondition(true)
                     ->setDateCrea(new \DateTime('now'))
                     ->setCivility($request->request->get('post_civility_ask_devis'))
-                    ->setIsAskDemande(true);
+                    ->setIsAskDemande(true)
+                    ->setFonctionCategory($request->request->get('fonction_category'))
+                    ->setTimerAppontement($request->request->get('hours_sevis'));
                    
                     try {
 

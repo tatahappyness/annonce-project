@@ -9,14 +9,14 @@ $(document).ready(function () {
 			
 		// });
 		//Form liste fonction userAgent
-		$('.show-list-fonction-user-in-ask-form').select2({
-		//	theme: 'bootstrap',
-			width: '65%',
-			language: 'fr',
-			placeholder: 'Quel est votre fonction ?'
-			//allowClear: true
+		// $('.show-list-fonction-user-in-ask-form').select2({
+		// //	theme: 'bootstrap',
+		// 	width: '65%',
+		// 	language: 'fr',
+		// 	placeholder: 'Quel est votre fonction ?'
+		// 	//allowClear: true
 			
-		});
+		// });
     
 })
 

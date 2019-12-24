@@ -70,10 +70,8 @@
 			.man-young-container .text-desc {
 				color: {{ themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_1'].Color != null ? themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_1'].Color : ' rgb(248, 248, 248)' }} !important;
 			}
-			.text-dark {
-				color: {{ themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_2'].Color != null ? themesColor['TEXT_TITLE']['TEXT_TITLE_COLOR_2'].Color : ' #ffc107' }} !important;
-			}
-			p, .text-secondary {
+			
+			.text-secondary {
 				color: {{ themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_2'].Color != null ? themesColor['TEXT_DESCRIPTION']['TEXT_DESCRIPTION_COLOR_2'].Color : ' rgb(248, 248, 248)' }} !important;
 			}
 			.text-warning {
@@ -323,7 +321,7 @@
 												</div>
 											</div>
 											<div class="d-none col-md-7 d-md-flex align-items-md-center border-top border-bottom border-secondary">
-												<p class="small text-warning" style="font-size: 0.8em !important;">
+												<p class="small" style="font-size: 0.8em !important; color: black !important">
 													{{ category.getDescription() }}
 												</p>
 											</div>
@@ -413,7 +411,7 @@
 														<input type="hidden" name="UserProsId" value="{{ UserProsId }}">
 													</div>
 
-													<button class="btn btn-warning nextbtn btn-lg pull-right text-uppercase" type="button">En cour ...</button>
+													<button class="btn btn-warning nextbtn btn-lg pull-right text-uppercase" type="button"> SUIVANT </button>
 											</div>
 										</div>
 										<!--End row first form slide content -->
@@ -439,8 +437,9 @@
 													</div>
 												</div>
 												<div class="form-group mb-3">
+													<label class="text-secondary d-block">Vous êtes *</label>
 													<select class="form-control show-list-fonction-user-in-ask-form" name="fonction_ask_devis">
-														<option></option>
+														<option value="-1">sélectionnez une catégorie... </option>
 														{% if fonctions != null %}
 
 															{% for fonction in fonctions %}
@@ -452,14 +451,28 @@
 														{% endif %}
 
 													</select>
+													<select class="form-control my-3" name="fonction_category">
+														<option value="-1">sélectionnez une catégorie... </option>
+														<option value="Locataire">Locataire</option>
+														<option value="Proprietaire occpant">Proprietaire occpant</option>
+														<option value="Proprietaire bailler">Proprietaire bailler</option>
+														<option value="Futur proprietaire">Futur proprietaire</option>
+														<option value="Futur locataire">Futur locataire</option>
+														<option value="Administrateur">Administrateur</option>
+														<option value="Autre">Autre</option>
+													</select>
 												</div>
 												<div class="form-group mb-3">
-													<input type="tel" required="required" class="form-control  form-input m-1 d-lg-inline d-block" name="post_phone_ask_devis" style="height: 50px;" placeholder="votre numéro de téléphone*">
+													<input type="tel" required="required" class="form-control form-input m-1 d-lg-inline d-block" name="post_phone_ask_devis" style="height: 50px;" placeholder="votre numéro de téléphone*">
 													<input type="email" required="required" class="form-control  form-input m-1 d-lg-inline d-block" name="post_email_ask_devis" style="height: 50px;" placeholder="votre email*">
 													<select id="show-city-search" class="form-control show-city-search city" name="city">
 														<option></option>
 													</select>
 													{# <input type="text" required="required" id="show-city-search" class="form-control city  form-input m-1 d-lg-inline d-block" name="post_city_ask_devis" style="height: 50px;" placeholder="votre ville ou Département*"> #}
+												</div>
+												<div class="forn-group mb-3">
+													<label class="text-secondary d-block">Horaires pour vous joindre</label>
+													<input  type="time" class="form-control " name="hours_sevis" value="0">
 												</div>
 												<div class="forn-group">
 													<input  type="hidden" name="route_page" value="post_ask_devis_page">
@@ -668,7 +681,7 @@
 			<!--end section  of the list ads by artisan-->
 
 			<!--begin section the presse talk us -->
-			<section id="" class="bg-transparent">
+			{# <section id="" class="bg-transparent">
 			<div class="container  bg-white">
 				<div class="row d-flex justify-content-center py-4">
 					<div class="col-12 text-center">
@@ -710,8 +723,9 @@
 					</div>
 				</div>
 			</div>
-			</section>
-			<!--end section the presse talk us  -->
+			</section> #}
+			<!--
+			end section the presse talk us  -->
 
 		</main>
 

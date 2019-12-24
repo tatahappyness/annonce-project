@@ -49,6 +49,8 @@
                                 <p>Categorie de travaux:</p>
                                 <p>Type de prestation:</p>
                                 <p>Type d'appartement:</p>
+                                <p>Fonction:</p>
+                                <p>Horaires pour vous joindre:</p>
                                 <p>Email:</p>
                                 <p>Téléphone:</p>
                             </td>
@@ -59,6 +61,8 @@
                                 <p>{{ devis.getCategoryId().getCategTitle() }}</p>
                                 <p>{{ devis.getPrestType() }}</p>
                                 <p>{{ devis.getAppartementType() }}</p>
+                                <p>{{ devis.getFonctionId().getFonctionName() }} , {{ devis.getFonctionCategory()}}</p>
+                                <p>{{ devis.getTimerAppontement() }}</p>
 
                                 <p>
                                 {% if isAbonned == true %}

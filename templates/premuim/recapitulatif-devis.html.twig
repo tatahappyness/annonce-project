@@ -38,6 +38,10 @@
                         <p class="d-sm-none d-block">{{ devis.getPrestType() }}</p>
                         <p>Type d'appartement:</p>
                         <p class="d-sm-none d-block">{{ devis.getAppartementType() }}</p>
+                        <p>Fonction:</p>
+                        <p class="d-sm-none d-block">{{ devis.getFonctionId().getFonctionName() }} , {{ devis.getFonctionCategory()}}</p>
+                        <p>Horaires pour vous joindre:</p>
+                        <p class="d-sm-none d-block">{{ devis.getTimerAppontement() }}</p>
                         <p>Email:</p>
                         <p class="d-sm-none d-block">
                         {% if isAbonned == true %}
@@ -62,6 +66,8 @@
                         <p>{{ devis.getCategoryId().getCategTitle() }}</p>
                         <p>{{ devis.getPrestType() }}</p>
                         <p>{{ devis.getAppartementType() }}</p>
+                        <p>{{ devis.getFonctionId().getFonctionName() }} , {{ devis.getFonctionCategory()}}</p>
+                        <p>{{ devis.getTimerAppontement() }}</p>
                         <p>
                         {% if isAbonned == true %}
                             {{ devis.getEmail() }}

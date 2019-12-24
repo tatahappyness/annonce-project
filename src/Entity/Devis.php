@@ -123,6 +123,16 @@ class Devis
      */
     private $numDepartement;
 
+    /**
+     * @ORM\Column(type="string", length=200,  nullable=true)
+     */
+    private $fonctionCategory;
+
+    /**
+     * @ORM\Column(type="string", length=100,  nullable=true)
+     */
+    private $timerAppontement;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -364,6 +374,30 @@ class Devis
     public function setNumDepartement(?int $numDepartement): self
     {
         $this->numDepartement = $numDepartement;
+
+        return $this;
+    }
+
+    public function getFonctionCategory(): ?string
+    {
+        return $this->fonctionCategory;
+    }
+
+    public function setFonctionCategory(string $fonctionCategory): self
+    {
+        $this->fonctionCategory = $fonctionCategory;
+
+        return $this;
+    }
+
+    public function getTimerAppontement(): ?string
+    {
+        return $this->timerAppontement;
+    }
+
+    public function setTimerAppontement(string $timerAppontement): self
+    {
+        $this->timerAppontement = $timerAppontement;
 
         return $this;
     }

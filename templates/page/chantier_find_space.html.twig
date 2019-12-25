@@ -209,7 +209,7 @@
 			
 			<!-- ############# Begin form search -->
 			<div class="col-10" style="padding-top: 1em;">
-				<div class="container bg-dark pl-0 h-auto" style="box-shadow: 5px 5px 5px black;">
+				<div class="container bg-dark h-auto" style="box-shadow: 5px 5px 5px black;">
 					
 					<form id="form_search_category" action="{{ path('find_chantier_page') }}" method="POST">
 						<div class="form-group">
@@ -218,7 +218,7 @@
 								
 								<input id="show-input-list-search" type="text" name="categLabel" value="{{ (categLabel is defined) ? categLabel :'' }}" class="form-control text-center show-input-list-search m-2" placeholder="Quel métier ?" style="height: 45px; border-radius: 0 !important;">
 								<input type="hidden" id="CategoryIdSearch" name="CategoryId" value="">
-								<select id="numDepartement" style="text-align-last: center; border-radius: 0 !important;" class="border form-control text-italic font-weight-bold border-warning m-2 text-center" name="numDepartement">
+								<select id="numDepartement" style="text-align-last: center; border-radius: 0 !important;" class="border form-control text-italic font-weight-normal border-warning m-2 text-center" name="numDepartement">
 								<option value="-1">Departement ? (Ex: 76)</option>
 								{% if cities|length > 0 %}
 									{% for city in cities %}

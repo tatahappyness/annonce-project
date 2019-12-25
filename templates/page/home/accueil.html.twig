@@ -88,7 +88,7 @@
         }
         .page-header-image {
             background-blend-mode: overlay !important;
-            background-color: {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgba(255, 144, 0, 50%)' }} !important;
+            background-color: {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'transparent' }} !important;
         }
         .section-footer {
             background-image: url(/uploads/images/{{ themes['FOOTER'].imageFond != null ? themes['FOOTER'].imageFond : 'footer_bg.jpg'}}) !important;
@@ -121,17 +121,17 @@
                                 <div class="w-100">
                                     <div class="sondage-content w-100">
                                         <div class="row text-center">
-                                            <div class="col-md-3 col-6 p-2">
-                                                <div class="d-flex flex-column align-items-center justify-content-center animate"><span class="icon-sondage"><span class="" style="line-height: 100px; font-size: 64px; !important">👌</span></span><span class="title-sondage pt-2">Sans engagement</span></div>
+                                            <div class="col-md-3 col-12 p-2">
+                                                <div class="d-flex flex-column align-items-center justify-content-center animate"><span class="icon-sondage"><span class="" style="line-height: 100px; font-size: 64px; !important">👌</span></span><span class="pt-2"><h2 class="title-sondage font-weight-bold">Sans</h2> <h2 class="font-weight-light">engagement</h2></span></div>
                                             </div>
-                                            <div class="col-md-3 col-6  p-2">
-                                                <div class="d-flex flex-column align-items-center justify-content-center animate"><span class="icon-sondage"><span class="" style="line-height: 100px; font-size: 64px; !important">💡</span></span><span class="title-sondage pt-2">50 000 Notes & Avis de particuliers</span></div>
+                                            <div class="col-md-3 col-12  p-2">
+                                                <div class="d-flex flex-column align-items-center justify-content-center animate"><span class="icon-sondage"><span class="" style="line-height: 100px; font-size: 64px; !important">💡</span></span><span class="pt-2"><h2 class="title-sondage font-weight-bold">50 000</h2> <h2 class="font-weight-light">Notes & Avis de particuliers</h2></span></div>
                                             </div>
-                                            <div class="col-md-3 col-6 p-2">
-                                                <div class="d-flex flex-column align-items-center justify-content-center animate"><span class="icon-sondage"><span class="" style="line-height: 100px; font-size: 64px; !important">🏆</span></span><span class="title-sondage pt-2">2 Millions d'utilisateurs</span></div>
+                                            <div class="col-md-3 col-12 p-2">
+                                                <div class="d-flex flex-column align-items-center justify-content-center animate"><span class="icon-sondage"><span class="" style="line-height: 100px; font-size: 64px; !important">🏆</span></span><span class="pt-2"><h2 class="title-sondage font-weight-bold">2 Millions</h2> <h2 class="font-weight-light">d'utilisateurs</h2></span></div>
                                             </div>
-                                            <div class="col-md-3 col-6 p-2">
-                                                <div class="d-flex align-items-center d-flex flex-column align-items-center justify-content-center animate"><span class="icon-sondage text-center"> <span class="lnr lnr-graduation-hat text-warning" style="line-height: 100px; font-size: 64px; !important"></span> </span><span class="title-sondage pt-2">25 000 Artisans</span></div>
+                                            <div class="col-md-3 col-12 p-2">
+                                                <div class="d-flex align-items-center d-flex flex-column align-items-center justify-content-center animate"><span class="icon-sondage text-center"> <span class="lnr lnr-graduation-hat text-warning" style="line-height: 100px; font-size: 64px; !important"></span> </span><span class="pt-2"><h2 class="title-sondage font-weight-bold">25 000</h2><h2 class="font-weight-light"> Artisans</h2></span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -178,7 +178,7 @@
                 <!--Begin section more popular devis asks -->
                 <section id="" class=" bg-white">
                 <div class="container">
-                    <div class="row py-5">
+                    <div class="row pb-5">
                         <div class="col-12 " >
                             <h5 class="text-center text-title text-dark">DEVIS TRAVAUX LES PLUS DEMANDÉS</h5>
                             <div class="text-center text-desc  text-muted">Choisissez les travaux que vous souhaitez réaliser : nous vous accompagnons dans le choix du prestataire et nous vous donnons de nombreux conseils pour les réussir.</div>
@@ -188,8 +188,8 @@
                                <div class="col-12 col-sm-6 col-lg-4 py-4">
                                 <div data-id="{{ devPopular.getId() }}" class="img-container-popular popular-container-img-1 d-flex flex-column align-items-center" style="background-image: url(/uploads/images/{{ devPopular.getImg() }});">
                                     <div class="bg-transparent w-100" style="">
-                                        <a href="{{ path('view_art_cat_galery_page', {id: devPopular.getId()}) }}" class="btn btn-warning text-decoration-none rounded-circle float-right m-1 p-0" alt="voir détail...">
-                                            <span class="lnr lnr-eye icon-popular-ask-eyes"></span>
+                                        <a href="{{ path('view_art_cat_galery_page', {id: devPopular.getId()}) }}" class="btn text-decoration-none rounded-circle float-right m-1 p-0" alt="voir détail...">
+                                            <span class="lnr lnr-eye text-warning icon-popular-ask-eyes"></span>
                                         </a>
                                     </div>
                                     <div class="img-title popular-title-img-1 h4 d-flex align-items-center h-100 text-center">{{ devPopular.getCategTitle() }}</div>

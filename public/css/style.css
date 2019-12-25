@@ -1,5 +1,5 @@
 html, body {
-	font-family: "Open Sans", sans-serif;
+	/* font-family: "Open Sans", sans-serif; */
 	text-size-adjust: 100%;
 	overflow-x: hidden;
 	}
@@ -7,6 +7,12 @@ body {
 	background-attachment: fixed;
     /* background: whitesmoke; */
 }
+
+h1 {
+	font-family: "Times New Roman", Times, serif !important;
+	font-size: 2rem !important;
+}
+
 .column-list .img-thumbnail {
 	height: 125px !important;
 	width: 283% !important;
@@ -149,9 +155,6 @@ p.small {
 	color: white !important;
 }
 
-.form-control {
-    border: 1px solid orange !important;
-}
 
 /* .btn-ask-devis {
 	 line-height: 72px; 
@@ -279,15 +282,15 @@ p.small {
 .icon-sondage {
 	
     border-radius: 50%;
-    background: darkcyan;
+    background: beige;
     /* box-shadow: 0px 0px 8px 0px black; darkgray */
     width: 100px;
     height: 100px;
 	text-align: center !important;
 }
 .title-sondage {
-	font-family: cursive;
-    font-size: 1.5em;
+	font-family: 'Open Sans Condensed',sans-serif;
+    /* font-size: 1.5em; */
 }
 
 .img-new-pro-content {
@@ -405,7 +408,7 @@ p.small {
 
 .page-header-image {
 	background-blend-mode: overlay;
-    background-color: chocolate;
+    background-color: transparent;
 	z-index: -18 !important;
 }
 
@@ -741,10 +744,7 @@ hr {
 
 @media all and (max-width: 480px) { 
    
-	.free-img {
-		width: 50% !important;
-		padding-top: 15px !important;
-	}
+	
 }
 /* // Extra small devices (portrait phones, less than 576px) */
 @media all and (max-width: 575.98px) { 
@@ -792,17 +792,20 @@ hr {
 		margin-top: 20px;
 	}
 	.form-control, .input-group .form-control {
-		font-size: 3vw !important;
-	}
-
-	.h4, h4,  p.text-italic {
-		font-size: 5vw !important;
+		font-size: 1rem !important;
 	}
 
  }
 
 /* // Small devices (landscape phones, less than 768px) */
 @media all and (max-width: 767.98px) { 
+	.free-img {
+		width: 45% !important;
+		padding-top: 15px !important;
+	}
+	.home-btn-devis {
+		width: 100% !important;
+	}
 	.form-control {
 		height: calc(1.5em + .75rem + 25px) !important;
 	}
@@ -849,7 +852,7 @@ hr {
 
  @media screen and (width: 768px) {
 	.content-parallax-forms {
-		padding-top: 18rem !important;
+		padding-top: 5rem !important;
  	}
  }
 
@@ -893,7 +896,7 @@ hr {
 		text-align-last: center !important;
 	}
 	.free-img {
-		width: 25% !important;
+		width: 35%;
 		padding-top: 15px;
 	}
 	.show-form-pro-mouseclick-11 {
@@ -1140,7 +1143,7 @@ hr {
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field {
-  border: 1px solid orange !important;
+  border: 1px solid lightgrey !important;
 }
 
 .autocomplete > div:hover:not(.group) {

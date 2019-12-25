@@ -173,21 +173,21 @@
         <div class="row row-slide-first-header d-flex content-parallax-forms justify-content-center font-weight-light">
             <div class="col-12 d-flex justify-content-center pb-4">
                 <div class="row">
-                    <div class="col-12 col-lg-9 d-flex flex-column align-self-center align-items-center align-items-lg-end text-center w-100" style="font-size: 18px;">
-                        <h4 class="text-warning title-front-h1 font-weight-bold">SELECTIONNEZ LE MEILLEUR ARTISAN LOCAL POUR VOS TRAVAUX</h4>
+                    <div class="col-12 col-lg-9 d-flex flex-column align-self-center align-items-center align-items-lg-end w-100" style="font-size: 18px;">
+                        <h1 class="text-white title-front-h1 text-center font-weight-light">SELECTIONNEZ LE MEILLEUR ARTISAN LOCAL POUR VOS TRAVAUX</h1>
                         <p class="text-white text-italic">Recevez jusqu’à 5 devis en 48h, gratuitement et sans engagement !</p>
                     </div>
-                    <div class=" col-12 col-lg-3 content-img-garantie text-left">
+                    <div class=" col-12 col-lg-3 d-none d-lg-block content-img-garantie text-left">
                         <img class="free-img" src="{{ absolute_url('/assets/img/garantie.png') }}" style="width: 50%;"></img>
                     </div>
                 </div>
             </div>
             <!-- ############# Begin form search -->
-            <div class="col-12 col-md-10 d-flex flex-column justify-content-center align-items-end">
+            <div class="col-12 col-lg-10 d-flex flex-column justify-content-center align-items-end">
 				
-                <div class="w-100 form-container-devis bg-dark" style="box-shadow: -14px 5px 5px black; z-index: 1;">
+                <div class="w-100 form-container-devis bg-dark" style="z-index: 1;">
                     <form id="form-ask-devis-home" action="{{ path('post_ask_devis_page') }}" method="POST">
-                        <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center">
+                        <div class="d-flex flex-column flex-md-row align-items-center justify-content-center" style="outline: 8px solid black;">
                             <div class="form-group p-0 m-0 w-100">
 
                                 <input type="text" id="show-input-list-search" style="border-radius: 0 !important;" class="form-control input-ask-devis-home text-center" placeholder="Quel travaux souhaitez vous realiser ?">
@@ -197,7 +197,7 @@
                             <div class="form-group">                                                                                                                                                           
                             <input  type="hidden" name="route_page" value="home_page">
                             </div>
-                            <div class="bg-warning  btn-ask-devis w-auto">
+                            <div class="bg-warning home-btn-devis  btn-ask-devis w-auto">
                             <button type="submit" class="btn btn-warning border-0 text-nowrap">Demander un devis</button>
                             </div>
                         </div>  

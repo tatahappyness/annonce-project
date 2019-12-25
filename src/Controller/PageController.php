@@ -1099,7 +1099,9 @@ class PageController extends AbstractController
             'themesImage'=> $themes,
             'themesColor'=> $themesColor,
             'themes'=> $them,
-        ]);
+            'departement'=> $request->request->get('numDepartement'),
+
+            ]);
         
     }
 

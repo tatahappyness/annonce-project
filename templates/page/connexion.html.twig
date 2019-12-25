@@ -77,7 +77,7 @@
 			}
 			.page-header-image {
 				background-blend-mode: overlay !important;
-				background-color: {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'rgba(255, 144, 0, 50%)' }} !important;
+				background-color: {{ themes['BUTTON_FOND_COLOR'].colorFond != null ? themes['BUTTON_FOND_COLOR'].colorFond : 'transparent' }} !important;
 			}
 			.section-footer {
 				background-image: url(/uploads/themes/{{ themes['FOOTER'].imageFond != null ? themes['FOOTER'].imageFond : 'footer_bg.jpg'}}) !important;
@@ -285,14 +285,14 @@
 				<div class="col-12 col-md-10 d-flex flex-column justify-content-center align-items-end">
 					<div class="w-100 form-container-devis bg-dark" style="box-shadow: -14px 5px 5px black;">
 						<form id="form-ask-devis-home" action="{{ path('post_ask_devis_page') }}" method="POST">
-							<div class="d-flex flex-column flex-sm-row align-items-center justify-content-center">
-								<div class="form-group p-0 m-0 w-100">
+							<div class="d-flex flex-column flex-sm-row align-items-center justify-content-center" style="outline: 5px solid black;">
+								<div class="form-group p-0 mb-3 w-100">
 
-									<input type="text" id="show-input-list-search" class="form-control input-ask-devis-home text-center" placeholder="Quel travaux souhaitez vous realiser ?">
+									<input type="text" id="show-input-list-search" style="border-radius: 0px !important;" class="form-control input-ask-devis-home text-center" placeholder="Quel travaux souhaitez vous realiser ?">
 									<input type="hidden" id="metier_ask_devis" name="metier_ask_devis" value="">
 
 								</div>
-								<div class="bg-warning  btn-ask-devis w-auto">
+								<div class="bg-warning home-btn-devis btn-ask-devis w-auto">
 								  <button type="submit" class="btn btn-warning border-0 text-nowrap">Demander un devis</button>
 								</div>
 							</div>  
@@ -319,7 +319,7 @@
 								<h6 class="text-white text-uppercase">Comment ça marche?</h6>
 							</div>
 							<div class="col-12 col-lg-3 d-flex flex-column text-center align-items-center justify-content-center py-4">
-								<span class="bg-warning mb-3 rounded-circle" style="width: 64px; height: 64px"><span class="h2 text-dark font-weight-bold" style="line-height: 64px;">1</span></span>
+								<span class="bg-white mb-3 rounded-circle" style="width: 64px; height: 64px"><span class="h2 text-dark font-weight-bold" style="line-height: 64px;">1</span></span>
 								<span class="pro-icon mb-3">
 								<span class="icon-how-to-step">
 									<img src="{{ absolute_url('/assets/img/student-businesswoman-816.jpg') }}" class="icon-how-to-step"></img>
@@ -333,7 +333,7 @@
 								<span class="lnr lnr-chevron-down text-white animated infinite fadeIn delay-2s d-lg-none d-block"></span>
 							</div>
 							<div class="col-12 col-lg-3 d-flex flex-column text-center align-items-center justify-content-center py-4">
-								<span class="bg-warning mb-3 rounded-circle" style="width: 64px; height: 64px"><span class="h2 text-dark font-weight-bold" style="line-height: 64px;">2</span></span>
+								<span class="bg-white mb-3 rounded-circle" style="width: 64px; height: 64px"><span class="h2 text-dark font-weight-bold" style="line-height: 64px;">2</span></span>
 								<span class="pro-icon mb-3">
 								<span class="icon-how-to-step">
 									<img src="{{ absolute_url('/assets/img/site-engineer-construction-42834.jpg') }}" class="icon-how-to-step"></img>
@@ -347,7 +347,7 @@
 								<span class="lnr lnr-chevron-down text-white animated infinite fadeIn delay-2s d-lg-none d-block"></span>
 							</div>
 							<div class="col-12 col-lg-3 d-flex flex-column text-center align-items-center justify-content-center py-4">
-								<span class="bg-warning mb-3 rounded-circle" style="width: 64px; height: 64px"><span class="h2 text-dark font-weight-bold" style="line-height: 64px;">3</span></span>
+								<span class="bg-white mb-3 rounded-circle" style="width: 64px; height: 64px"><span class="h2 text-dark font-weight-bold" style="line-height: 64px;">3</span></span>
 								<span class="pro-icon mb-3">
 								<span class="icon-how-to-step">
 									<img src="{{ absolute_url('/assets/img/happy-customer-approving-16184.jpg') }}" class="icon-how-to-step"></img>

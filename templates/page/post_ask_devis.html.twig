@@ -29,7 +29,6 @@
 				color: orange;
 			}
 			.select2-container--default .select2-selection--single {
-				border: 1px solid #ffbb00 !important;
 				border-radius: 32px !important;
 			}
 			.select2-container .select2-selection--single .select2-selection__rendered, span.selection {
@@ -478,8 +477,9 @@
 													<input  type="hidden" name="route_page" value="post_ask_devis_page">
 												</div>
 												<div class="d-flex flex-column flex-sm-row align-items-center justify-content-between w-100">
-													<button class="btn bg-darkgray prevbtn btn-lg m-1 text-uppercase" type="button">précedant</button>
+													<button class="btn bg-darkgray prevbtn d-none d-sm-block btn-lg m-1 text-uppercase" type="button">précedant</button>
 													<button id="btn-post-ask-devis" class="btn btn-warning text-uppercase btn-post-ask-devis nextbtn btn-lg m-1" type="button">Valider</button>
+													<button class="btn bg-darkgray prevbtn d-block d-sm-none btn-lg m-1 text-uppercase" type="button">précedant</button>
 												</div>
 											</div>
 	                                	</div>
